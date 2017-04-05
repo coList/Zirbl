@@ -1,4 +1,4 @@
 # Zirbl
 
 
-Interaktiver Wandertag für Schüler
+Interaktiver Wandertag fuer Schueler
