@@ -6,13 +6,31 @@
     android:layout_height="match_parent"
     tools:context="hsaugsburg.zirbl.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:context="com.truiton.bottomnavigation.ItemOneFragment"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <ImageView
+            android:id="@+id/truiton_image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/truiton"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/truiton_image"
+            android:layout_centerHorizontal="true"
+            android:text="Fragment 1"
+            android:textSize="30sp"/>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
