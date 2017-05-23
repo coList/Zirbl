@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Search" />
+        <activity android:name=".Qr" />
+        <activity android:name=".Favorite" />
+        <activity android:name=".Profile" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
