@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -17,12 +19,15 @@ public class BaseActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
 
-    //Animation bei Activitywechsel verhindern
-    @Override
-    public void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
+    public void changeToInfo(View view) {
+        Intent tourInfo = new Intent(getApplicationContext(), InfoActivity.class);
+        startActivity(tourInfo);
     }
+
+    /*public void scanCode(View view) {
+        Intent scan = new Intent(getApplicationContext(), Scanner.class);
+        startActivity(scan);
+    }*/
 
 
     @Override
@@ -30,11 +35,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        getSupportActionBar().setTitle("Kategorie");
+
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         adapterViewPager = new BaseActivity.MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
-        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.bnve);
+        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.bnve2);
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
                 = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,15 +74,12 @@ public class BaseActivity extends AppCompatActivity {
                 }
         };
 
-
         bnve.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         bnve.enableAnimation(false);
         bnve.enableShiftingMode(false);
         bnve.enableItemShiftingMode(false);
         bnve.setTextVisibility(false);
-
-
     }
 
 

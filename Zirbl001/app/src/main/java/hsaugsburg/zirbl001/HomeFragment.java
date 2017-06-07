@@ -1,10 +1,13 @@
 package hsaugsburg.zirbl001;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class HomeFragment extends Fragment {
 
@@ -12,12 +15,12 @@ public class HomeFragment extends Fragment {
     private int page;
 
     public static HomeFragment newInstance(int page, String title) {
-        HomeFragment homeFavorite = new HomeFragment();
+        HomeFragment homeFragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
-        homeFavorite.setArguments(args);
-        return homeFavorite;
+        homeFragment.setArguments(args);
+        return homeFragment;
     }
 
     @Override

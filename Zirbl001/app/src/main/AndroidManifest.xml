@@ -11,11 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".BaseActivity"
-            android:label="@string/title_activity_base"
-             />
+            android:label="@string/title_activity_base" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">
@@ -25,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".TourstartActivity"></activity>
     </application>
 
 </manifest>

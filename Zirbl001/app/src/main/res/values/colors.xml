@@ -3,5 +3,9 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="colorTour">#7F000000</color>
+    <color name="colorPressed">#7F353B3C</color>
+    <color name="colorTourIcons">#00E6C7</color>
+    <color name="colorSearch">#9B9B9B</color>
 </resources>
 
