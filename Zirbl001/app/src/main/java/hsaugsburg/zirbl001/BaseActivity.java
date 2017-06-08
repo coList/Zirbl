@@ -43,7 +43,7 @@ public class BaseActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                         case R.id.navigation_home:
-                            getSupportActionBar().setTitle("Kategorie");
+                            getSupportActionBar().setTitle("Touren");
                             vpPager.setCurrentItem(0);
                             return true;
                         case R.id.navigation_search:
