@@ -7,6 +7,57 @@
     android:layout_height="match_parent"
     tools:context="hsaugsburg.zirbl001.QrFragment">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Scanne den QR-Code von deiner Leherin oder deines Lehrers ab."
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="100dp"
+        app:srcCompat="@drawable/zirblfigursmall" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/speech_bubble_open" />
+
+    <ImageButton
+        android:id="@+id/scan_barcode"
+        android:layout_width="166dp"
+        android:layout_height="50dp"
+        android:layout_alignBaseline="@+id/imageView3"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/scann_button" />
+
+    <TextView
+        android:id="@+id/barcode_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_red_dark" />
+
     <Button
         android:id="@+id/scan_barcode"
         android:layout_width="match_parent"
