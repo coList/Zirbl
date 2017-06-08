@@ -15,7 +15,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="24dp"
-        android:text="Scanne den QR-Code von deiner Leherin oder deines Lehrers ab."
+        android:text="Scanne den QR-Code von deiner Lehrerin oder deines Lehrers ab."
         android:textSize="18sp" />
 
     <ImageView
