@@ -37,7 +37,7 @@ public class BaseActivity extends AppCompatActivity {
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         vpPager.setAdapter(adapterViewPager);
         getSupportActionBar().setTitle("Information");
-        vpPager.setCurrentItem(5);
+        vpPager.setCurrentItem(5,false);
     }
 
     @Override
@@ -61,23 +61,23 @@ public class BaseActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                         case R.id.navigation_home:
                             getSupportActionBar().setTitle("Touren");
-                            vpPager.setCurrentItem(0);
+                            vpPager.setCurrentItem(0, false);
                             return true;
                         case R.id.navigation_search:
                             getSupportActionBar().setTitle("Suche");
-                            vpPager.setCurrentItem(1);
+                            vpPager.setCurrentItem(1, false);
                             return true;
                         case R.id.navigation_qr:
                             getSupportActionBar().setTitle("QR-Code");
-                            vpPager.setCurrentItem(2);
+                            vpPager.setCurrentItem(2, false);
                             return true;
                         case R.id.navigation_fav:
                             getSupportActionBar().setTitle("Favoriten");
-                            vpPager.setCurrentItem(3);
+                            vpPager.setCurrentItem(3, false);
                             return true;
                         case R.id.navigation_profile:
                             getSupportActionBar().setTitle("Profil");
-                            vpPager.setCurrentItem(4);
+                            vpPager.setCurrentItem(4, false);
                             return true;
                     }
                     return true;
