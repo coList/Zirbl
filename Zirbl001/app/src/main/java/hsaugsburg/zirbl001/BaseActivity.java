@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -122,7 +121,7 @@ public class BaseActivity extends AppCompatActivity {
                 case 4:
                     return ProfileFragment.newInstance(4, "QRCode");
                 case 5:
-                    return InfoFragment.newInstance(5, "Information");
+                    return TourDetailFragment.newInstance(5, "Information");
                 default:
                     return null;
             }
