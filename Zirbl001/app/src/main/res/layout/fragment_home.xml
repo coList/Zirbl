@@ -52,7 +52,7 @@
                     android:layout_alignStart="@+id/transparent"
                     android:layout_marginBottom="55dp"
                     android:layout_marginLeft="24dp"
-                    android:text="Zoo"
+                    android:text="Test"
                     android:textAllCaps="true"
                     android:textColor="@android:color/background_light"
                     android:textSize="32sp" />

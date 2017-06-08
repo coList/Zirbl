@@ -29,6 +29,10 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(start);
     }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
 
     public void changeToInfo(View view) {
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
