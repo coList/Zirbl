@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class QrFragment extends Fragment {
         RelativeLayout rr = (RelativeLayout )inflater.inflate(R.layout.fragment_qr, container, false);
         barcodeResult = (TextView) rr.findViewById(R.id.barcode_result);
 
-        Button button = (Button) rr.findViewById(R.id.scan_barcode);
+        ImageButton button = (ImageButton) rr.findViewById(R.id.scan_barcode);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override

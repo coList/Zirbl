@@ -8,7 +8,7 @@
     tools:context="hsaugsburg.zirbl001.QrFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/scanText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
         android:textSize="18sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/zirblfigur"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/zirblfigursmall" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/speechbubble"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
@@ -39,11 +39,12 @@
         android:id="@+id/scan_barcode"
         android:layout_width="166dp"
         android:layout_height="50dp"
-        android:layout_alignBaseline="@+id/imageView3"
+        android:layout_alignBaseline="@+id/speechbubble"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:background="@android:color/transparent"
+        android:onClick="scanBarcode"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/scann_button" />
 
@@ -53,24 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="TextView"
         android:textAlignment="viewStart"
         android:textAllCaps="true"
         android:textColor="@android:color/holo_red_dark" />
-
-    <Button
-        android:id="@+id/scan_barcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="Scanner"
-        android:onClick="scanBarcode"/>
-
-    <TextView
-        android:id="@+id/barcode_result"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>
 
