@@ -17,6 +17,7 @@
         <activity
             android:name=".BaseActivity"
             android:label="Touren" />
+
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">
@@ -26,7 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ScanBarcodeActivity"></activity>
+
     </application>
 
 </manifest>

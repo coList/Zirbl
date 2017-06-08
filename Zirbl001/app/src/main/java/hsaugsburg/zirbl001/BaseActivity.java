@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,32 +10,45 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
 
 public class BaseActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
 
-    //Animation bei Activitywechsel verhindern
-    @Override
-    public void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
+    /*public void scanCode(View view) {
+        Intent scan = new Intent(getApplicationContext(), Scanner.class);
+        startActivity(scan);
+    }*/
+
+    public void startTour(View view) {
+        Intent start = new Intent(getApplicationContext(), TourstartActivity.class);
+        startActivity(start);
     }
 
+
+    public void changeToInfo(View view) {
+        final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+        vpPager.setAdapter(adapterViewPager);
+        getSupportActionBar().setTitle("Information");
+        vpPager.setCurrentItem(5);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        getSupportActionBar().setTitle("Kategorie");
+
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         adapterViewPager = new BaseActivity.MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
 
-        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.bnve);
+        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.bnve2);
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
                 = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,20 +81,17 @@ public class BaseActivity extends AppCompatActivity {
                 }
         };
 
-
         bnve.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         bnve.enableAnimation(false);
         bnve.enableShiftingMode(false);
         bnve.enableItemShiftingMode(false);
         bnve.setTextVisibility(false);
-
-
     }
 
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static int NUM_ITEMS = 5;
+        private static int NUM_ITEMS = 6;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -106,6 +117,8 @@ public class BaseActivity extends AppCompatActivity {
                     return FavoriteFragment.newInstance(3, "Profile");
                 case 4:
                     return ProfileFragment.newInstance(4, "QRCode");
+                case 5:
+                    return InfoFragment.newInstance(5, "Information");
                 default:
                     return null;
             }

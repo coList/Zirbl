@@ -1,4 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -13,12 +15,11 @@
         android:text="Scanner"
         android:onClick="scanBarcode"/>
 
-
     <TextView
         android:id="@+id/barcode_result"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+</FrameLayout>
 
-</RelativeLayout>

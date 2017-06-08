@@ -2,31 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabbarMenu">
 
-
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home"
-        android:title="home" />
+        android:title="home"/>
 
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/search"
-        android:title="search" />
+        android:title="search"/>
 
     <item
         android:id="@+id/navigation_qr"
         android:icon="@drawable/qr_code"
-        android:title="qr" />
+        android:title="qr"/>
 
     <item
         android:id="@+id/navigation_fav"
         android:icon="@drawable/star"
-        android:title="fav" />
+        android:title="fav"/>
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/profile"
-        android:title="profile" />
+        android:title="profile"/>
 
 
 </menu>
