@@ -1,26 +1,26 @@
 package hsaugsburg.zirbl001;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class HomeFragment extends Fragment {
+public class InfoFragment extends Fragment {
 
     private String title;
     private int page;
 
-    public static HomeFragment newInstance(int page, String title) {
-        HomeFragment homeFragment = new HomeFragment();
+    public static InfoFragment newInstance(int page, String title) {
+        InfoFragment infoFragment = new InfoFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
-        homeFragment.setArguments(args);
-        return homeFragment;
+        infoFragment.setArguments(args);
+        return infoFragment;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_info, container, false);
     }
 }
