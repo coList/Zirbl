@@ -8,48 +8,17 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="5dp"
+        android:text="Scannen"
+        android:textAllCaps="false" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
-            android:text="Scanne den QR-Code deiner Lehrerin oder deines Lehrers ab."
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:srcCompat="@drawable/speech_bubble_open" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
-            android:layout_marginTop="120dp"
-            app:srcCompat="@drawable/zirblfigur" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="5dp"
-            android:text="Scannen"
-            android:textAllCaps="false" />
-
-    </RelativeLayout>
 </FrameLayout>

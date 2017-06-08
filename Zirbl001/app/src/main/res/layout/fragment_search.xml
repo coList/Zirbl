@@ -27,10 +27,11 @@
                 android:layout_marginTop="24dp"
                 android:background="@drawable/search_style"
                 android:ems="10"
+                android:hint="Suche"
                 android:inputType="textPersonName"
-                android:text="Suche"
                 android:textAlignment="center"
-                android:textColor="@color/colorSearch" />
+                android:textColor="@color/colorSearch"
+                android:textColorHint="@color/colorSearch" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

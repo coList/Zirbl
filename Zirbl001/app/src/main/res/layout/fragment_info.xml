@@ -1,18 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    tools:context="hsaugsburg.zirbl001.InfoActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="hsaugsburg.zirbl001.InfoFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,29 +21,30 @@
 
                 <ImageView
                     android:id="@+id/position"
+                    app:srcCompat="@drawable/pressed_route"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/pressed_route" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/image"
+                    app:srcCompat="@drawable/zoo"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/zoo" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/iconBar"
+                    app:srcCompat="@drawable/pressed_route"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    app:srcCompat="@drawable/pressed_route" />
+                    android:layout_alignParentStart="true" />
 
                 <ImageButton
                     android:id="@+id/play"
+                    app:srcCompat="@drawable/play_button"
                     android:layout_width="63dp"
                     android:layout_height="63dp"
                     android:layout_alignBottom="@+id/position"
@@ -57,8 +53,7 @@
                     android:layout_marginRight="16dp"
                     android:background="@android:color/transparent"
                     android:onClick="startTour"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/play_button" />
+                    android:scaleType="fitXY" />
 
                 <LinearLayout
                     android:id="@+id/iconArea"
@@ -71,29 +66,30 @@
 
                     <ImageView
                         android:id="@+id/watch"
+                        app:srcCompat="@drawable/time"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
                         android:layout_marginRight="7dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/time" />
+                        android:adjustViewBounds="true" />
 
                     <TextView
-                        android:id="@+id/watchTexttest"
+                        android:id="@+id/watchText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginRight="24dp"
+                        android:text="120 min"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTourIcons"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/street"
+                        app:srcCompat="@drawable/route"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
                         android:layout_marginRight="7dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/route" />
+                        android:adjustViewBounds="true" />
 
                     <TextView
                         android:id="@+id/streetText"
@@ -101,18 +97,18 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_marginRight="24dp"
-                        android:text="20 km"
+                        android:text="200 m"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTourIcons"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/weight"
+                        app:srcCompat="@drawable/level"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
                         android:layout_marginRight="7dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/level" />
+                        android:adjustViewBounds="true" />
 
                     <TextView
                         android:id="@+id/weightText"
@@ -147,14 +143,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:id="@+id/bnve2"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="@drawable/tabbar_hover"
-        app:itemTextColor="@drawable/tabbar_hover"
-        app:menu="@menu/navigation" />
-
-</LinearLayout>
+</FrameLayout>
