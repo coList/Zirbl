@@ -48,19 +48,20 @@ public class HomeFragment extends Fragment implements Callback{
         for (int i = 0; i < result.size(); i++) {
             if (((TourSelectionModel) result.get(i)).getTourName().equals("Fugger")) {
                 TextView tourName = (TextView) fl.findViewById(R.id.title);
-                tourName.setText(((TourSelectionModel) result.get(0)).getTourName());
+                tourName.setText(((TourSelectionModel) result.get(i)).getTourName());
 
                 TextView duration = (TextView) fl.findViewById(R.id.durationText);
 
 
-                duration.setText(Integer.toString(((TourSelectionModel) result.get(0)).getDuration()));
+                duration.setText(Integer.toString(((TourSelectionModel) result.get(i)).getDuration())  + " min");
 
 
                 TextView distance = (TextView) fl.findViewById(R.id.distanceText);
-                distance.setText(Integer.toString(((TourSelectionModel) result.get(0)).getDistance()));
+                double dist = ((TourSelectionModel)result.get(i)).getDistance() / 1000.0;
+                distance.setText(Double.toString(dist) + " km");
 
                 TextView difficultyName = (TextView) fl.findViewById(R.id.difficultyText);
-                difficultyName.setText(((TourSelectionModel) result.get(0)).getDifficultyName());
+                difficultyName.setText(((TourSelectionModel) result.get(i)).getDifficultyName());
             }
         }
 

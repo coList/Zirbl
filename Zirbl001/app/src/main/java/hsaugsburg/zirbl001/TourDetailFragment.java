@@ -51,10 +51,11 @@ public class TourDetailFragment extends Fragment implements Callback{
             if (((TourDetailModel)result.get(i)).getTourName().equals("Fugger")) {
                 ((BaseActivity) getActivity()).setActionBarTitle(((TourDetailModel) result.get(i)).getTourName());
                 TextView duration = (TextView) fl.findViewById(R.id.durationText);
-                duration.setText(Integer.toString(((TourDetailModel)result.get(i)).getDuration()));
+                duration.setText(Integer.toString(((TourDetailModel)result.get(i)).getDuration()) + " min");
 
                 TextView distance = (TextView) fl.findViewById(R.id.distanceText);
-                distance.setText(Integer.toString(((TourDetailModel)result.get(i)).getDistance()));
+                double dist = ((TourDetailModel)result.get(i)).getDistance() / 1000.0;
+                distance.setText(Double.toString(dist) + " km");
 
                 TextView difficultyName = (TextView) fl.findViewById(R.id.difficultyText);
                 difficultyName.setText(((TourDetailModel)result.get(i)).getDifficultyName());
