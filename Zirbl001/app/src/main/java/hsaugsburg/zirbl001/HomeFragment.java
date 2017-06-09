@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public class HomeFragment extends Fragment implements Callback{
     private FrameLayout fl;
     private String title;
     private int page;
+    private ListView mListView;
 
     public static HomeFragment newInstance(int page, String title) {
         HomeFragment homeFragment = new HomeFragment();
@@ -40,30 +43,16 @@ public class HomeFragment extends Fragment implements Callback{
         // Inflate the layout for this fragment
         new JSONTourSelection(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
         fl = (FrameLayout) inflater.inflate(R.layout.fragment_home, container, false);
+        mListView = (ListView)fl.findViewById(R.id.home_list_view);
 
         return fl;
     }
 
     public void processData(List<JSONModel> result) {
-        for (int i = 0; i < result.size(); i++) {
-            if (((TourSelectionModel) result.get(i)).getTourName().equals("Fugger")) {
-                TextView tourName = (TextView) fl.findViewById(R.id.title);
-                tourName.setText(((TourSelectionModel) result.get(i)).getTourName());
 
-                TextView duration = (TextView) fl.findViewById(R.id.durationText);
+        TourSelectionAdapter adapter = new TourSelectionAdapter(getActivity(), result);
+        mListView.setAdapter(adapter);
 
-
-                duration.setText(Integer.toString(((TourSelectionModel) result.get(i)).getDuration())  + " min");
-
-
-                TextView distance = (TextView) fl.findViewById(R.id.distanceText);
-                double dist = ((TourSelectionModel)result.get(i)).getDistance() / 1000.0;
-                distance.setText(Double.toString(dist) + " km");
-
-                TextView difficultyName = (TextView) fl.findViewById(R.id.difficultyText);
-                difficultyName.setText(((TourSelectionModel) result.get(i)).getDifficultyName());
-            }
-        }
 
     }
 }
