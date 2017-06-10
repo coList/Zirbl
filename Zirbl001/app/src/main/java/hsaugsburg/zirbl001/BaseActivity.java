@@ -17,11 +17,12 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 public class BaseActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
-
+    private int selectedTourID;
     /*public void scanCode(View view) {
         Intent scan = new Intent(getApplicationContext(), Scanner.class);
         startActivity(scan);
     }*/
+
 
     public void startTour(View view) {
         Intent start = new Intent(getApplicationContext(), TourstartActivity.class);
@@ -32,8 +33,15 @@ public class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
+    public int getSelectedTourID() {
+        return selectedTourID;
+    }
 
-    public void changeToInfo(View view) {
+
+    public void changeToInfo(int tourSelectionTourID) {
+        selectedTourID = tourSelectionTourID;
+
+
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         vpPager.setAdapter(adapterViewPager);
         getSupportActionBar().setTitle("Information");
@@ -90,6 +98,7 @@ public class BaseActivity extends AppCompatActivity {
         bnve.enableShiftingMode(false);
         bnve.enableItemShiftingMode(false);
         bnve.setTextVisibility(false);
+
     }
 
 
