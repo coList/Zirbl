@@ -13,7 +13,7 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/zoo_image1" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
-        android:onClick="changeToInfo"
         app:srcCompat="@drawable/pressed_route" />
 
     <TextView
