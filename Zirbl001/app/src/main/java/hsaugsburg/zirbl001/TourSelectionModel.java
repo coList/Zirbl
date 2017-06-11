@@ -1,6 +1,8 @@
 package hsaugsburg.zirbl001;
 
 
+import android.graphics.Bitmap;
+
 public class TourSelectionModel implements JSONModel {
     private int categoryID;
     private String categoryName;

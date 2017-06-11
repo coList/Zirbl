@@ -10,6 +10,7 @@ public class TourDetailModel implements JSONModel {
     private String difficultyName;
     private int duration;
     private int distance;
+    private String mainPicture;
     private String description;
     private String mapPicture;
     private List<String> picturesPath;
@@ -64,6 +65,10 @@ public class TourDetailModel implements JSONModel {
     public void setDistance(int distance) {
         this.distance = distance;
     }
+
+    public String getMainPicture() {return mainPicture; }
+
+    public void setMainPicture(String mainPicture) {this.mainPicture = mainPicture;}
 
     public String getDescription() {
         return description;

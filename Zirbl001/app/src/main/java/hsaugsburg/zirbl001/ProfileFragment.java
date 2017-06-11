@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class ProfileFragment extends Fragment {
         args.putInt("someInt", page);
         args.putString("someTitle", title);
         profileFavorite.setArguments(args);
+        Log.d("Test", "ProfileFragmentnewInstance");
         return profileFavorite;
     }
 
@@ -31,6 +33,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d("Test", "Profil");
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 }
