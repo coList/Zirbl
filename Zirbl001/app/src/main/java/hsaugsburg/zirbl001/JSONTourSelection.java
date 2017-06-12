@@ -55,6 +55,7 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
 
                 List<JSONModel> tourSelectionModelList = new ArrayList<>();
 
+
                 for (int i = 0; i < mJsonArrayTourSelections.length(); i++) {
                     JSONObject mJsonLObjectTourSelection = mJsonArrayTourSelections.getJSONObject(i);
 
@@ -68,12 +69,10 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
                     tourSelectionModel.setDuration(mJsonLObjectTourSelection.getInt("duration"));
                     tourSelectionModel.setDistance(mJsonLObjectTourSelection.getInt("distance"));
                     tourSelectionModel.setMainpicture(mJsonLObjectTourSelection.getString("mainpicture"));
-
                     // adding the final object in the list
                     tourSelectionModelList.add(tourSelectionModel);
                 }
 
-                Log.d("TestSelection", ((TourSelectionModel)tourSelectionModelList.get(0)).getDifficultyName());
                 return tourSelectionModelList;
             } catch (JSONException e) {
                 e.printStackTrace();

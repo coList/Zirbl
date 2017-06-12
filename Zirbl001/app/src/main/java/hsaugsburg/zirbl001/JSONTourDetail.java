@@ -67,6 +67,7 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
                     tourDetailModel.setDifficultyName(mJsonLObjectTourDetails.getString("difficultyname"));
                     tourDetailModel.setDistance(mJsonLObjectTourDetails.getInt("distance"));
                     tourDetailModel.setDuration(mJsonLObjectTourDetails.getInt("duration"));
+                    tourDetailModel.setMainPicture(mJsonLObjectTourDetails.getString("mainpicture"));
                     tourDetailModel.setDescription(mJsonLObjectTourDetails.getString("description"));
                     tourDetailModel.setMapPicture(mJsonLObjectTourDetails.getString("mappicture"));
                     tourDetailModel.setVideoPath(mJsonLObjectTourDetails.getString("videopath"));

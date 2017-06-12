@@ -4,6 +4,7 @@ package hsaugsburg.zirbl001;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class HomeFragment extends Fragment implements Callback{
     private int page;
     private ListView mListView;
     private Activity context;
+    private boolean first = true;
 
     public static HomeFragment newInstance(int page, String title) {
         HomeFragment homeFragment = new HomeFragment();
@@ -45,7 +47,11 @@ public class HomeFragment extends Fragment implements Callback{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        new JSONTourSelection(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
+
+        ((BaseActivity)getActivity()).clearTourSelectionModels();
+        Log.d("Test", "cleared");
+            new JSONTourSelection(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
+
         fl = (FrameLayout) inflater.inflate(R.layout.fragment_home, container, false);
         mListView = (ListView)fl.findViewById(R.id.home_list_view);
 

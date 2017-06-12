@@ -1,6 +1,8 @@
 package hsaugsburg.zirbl001;
 
 
+import android.graphics.Bitmap;
+
 public class TourSelectionModel implements JSONModel {
     private int categoryID;
     private String categoryName;
@@ -10,6 +12,7 @@ public class TourSelectionModel implements JSONModel {
     private int duration;
     private int distance;
     private String mainpicture;
+    private Bitmap mainPictureBitmap;
 
     public int getCategoryID() {
         return categoryID;
@@ -73,5 +76,13 @@ public class TourSelectionModel implements JSONModel {
 
     public void setMainpicture(String mainpicture) {
         this.mainpicture = mainpicture;
+    }
+
+    public Bitmap getMainPictureBitmap() {
+        return mainPictureBitmap;
+    }
+
+    public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
+        this.mainPictureBitmap = mainPictureBitmap;
     }
 }
