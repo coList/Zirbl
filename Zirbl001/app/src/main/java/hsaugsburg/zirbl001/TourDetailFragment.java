@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,7 +24,6 @@ public class TourDetailFragment extends Fragment implements Callback {
         args.putInt("someInt", page);
         args.putString("someTitle", title);
         tourDetailFragment.setArguments(args);
-        Log.d("Test", "TourDetailnewInstance");
         return tourDetailFragment;
     }
 
@@ -32,8 +32,6 @@ public class TourDetailFragment extends Fragment implements Callback {
         super.onCreate(savedInstanceState);
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
-        Log.d("Test", "onCreateTourDetail");
-
 
     }
 
@@ -45,7 +43,7 @@ public class TourDetailFragment extends Fragment implements Callback {
         }
         fl = (FrameLayout) inflater.inflate(R.layout.fragment_tourdetail, container, false);
 
-        Log.d("TestTourDetailFragment", "ausgeführt");
+
         return fl;
 
     }
@@ -72,8 +70,13 @@ public class TourDetailFragment extends Fragment implements Callback {
         description.setText(((TourDetailModel) result.get(tourID)).getDescription());
 
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
-        //Log.d("TestMainPicture", mainPictureURL);
+        Log.d("TestMainPicture", mainPictureURL);
         new DownloadImageTask((ImageView) fl.findViewById(R.id.image)).execute(mainPictureURL);
+        //int sizeTourSelectionModels = ((BaseActivity)getActivity()).getTourSelectionModels().size();
+        //Log.d("TestSizeTourSelection", Integer.toString(sizeTourSelectionModels));
+        //TourSelectionModel tourSelectionModel = ((BaseActivity) getActivity()).getTourSelectionModels().get(tourID);
+        //Bitmap mainPic = tourSelectionModel.getMainPictureBitmap();
+        //((ImageView) fl.findViewById(R.id.image)).setImageBitmap(mainPic);
 
 
     }

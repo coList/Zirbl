@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,16 +16,31 @@ import android.view.View;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     private int selectedTourID;
     private int currentItem;
+    private List<TourSelectionModel> tourSelectionModels = new ArrayList<TourSelectionModel>();
     /*public void scanCode(View view) {
         Intent scan = new Intent(getApplicationContext(), Scanner.class);
         startActivity(scan);
     }*/
 
+    public List<TourSelectionModel> getTourSelectionModels() {
+        return tourSelectionModels;
+    }
+
+    public void setTourSelectionModels(List<TourSelectionModel> tourSelectionModels) {
+        this.tourSelectionModels = tourSelectionModels;
+    }
+
+    public void clearTourSelectionModels() {
+        tourSelectionModels.clear();
+    }
 
     public void startTour(View view) {
         Intent start = new Intent(getApplicationContext(), TourstartActivity.class);
