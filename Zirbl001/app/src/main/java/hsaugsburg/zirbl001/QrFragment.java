@@ -51,6 +51,7 @@ public class QrFragment extends Fragment {
         RelativeLayout rr = (RelativeLayout )inflater.inflate(R.layout.fragment_qr, container, false);
         barcodeResult = (TextView) rr.findViewById(R.id.barcode_result);
 
+        //OnClick Listener fuer Scann Button
         ImageButton button = (ImageButton) rr.findViewById(R.id.scan_barcode);
         button.setOnClickListener(new View.OnClickListener()
         {
@@ -59,6 +60,8 @@ public class QrFragment extends Fragment {
             {
                 Intent intent = new Intent(getActivity(), ScanBarcodeActivity.class);
                 startActivityForResult(intent, 0);
+                //verhindert animation beim Activity wechel
+                getActivity().overridePendingTransition(0, 0);
             }
         });
         return rr;
