@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,10 +26,8 @@ public class BaseActivity extends AppCompatActivity {
     private int selectedTourID;
     private int currentItem;
     private List<TourSelectionModel> tourSelectionModels = new ArrayList<TourSelectionModel>();
-    /*public void scanCode(View view) {
-        Intent scan = new Intent(getApplicationContext(), Scanner.class);
-        startActivity(scan);
-    }*/
+    protected OnBackPressedListener onBackPressedListener;
+
 
     public List<TourSelectionModel> getTourSelectionModels() {
         return tourSelectionModels;
@@ -42,10 +41,6 @@ public class BaseActivity extends AppCompatActivity {
         tourSelectionModels.clear();
     }
 
-    public void startTour(View view) {
-        Intent start = new Intent(getApplicationContext(), TourstartActivity.class);
-        startActivity(start);
-    }
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
@@ -61,9 +56,24 @@ public class BaseActivity extends AppCompatActivity {
 
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         vpPager.setAdapter(adapterViewPager);
-        getSupportActionBar().setTitle("Information");
+        getSupportActionBar().setTitle("");
         vpPager.setCurrentItem(5,false);
         currentItem = vpPager.getCurrentItem();
+    }
+
+    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (onBackPressedListener != null){
+            onBackPressedListener.doBack();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
 
@@ -73,7 +83,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        getSupportActionBar().setTitle("Kategorie");
+        getSupportActionBar().setTitle("Touren");
 
         final ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
         adapterViewPager = new BaseActivity.MyPagerAdapter(getSupportFragmentManager());
@@ -148,9 +158,11 @@ public class BaseActivity extends AppCompatActivity {
             return NUM_ITEMS;
         }
 
+
         // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
+
             switch (position) {
                 case 0:
                     return HomeFragment.newInstance(0, "Search");
@@ -167,12 +179,17 @@ public class BaseActivity extends AppCompatActivity {
                 default:
                     return null;
             }
+
         }
 
+
         // Returns the page title for the top indicator
+
         @Override
         public CharSequence getPageTitle(int position) {
             return "Page " + position;
         }
+
     }
+
 }
