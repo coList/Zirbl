@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Middle section (body) -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relLayout1"
+            android:layout_above="@+id/relLayoutBottomNav">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/position"
+                            app:srcCompat="@drawable/pressed_route"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:id="@+id/image"
+                            app:srcCompat="@drawable/zoo"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:scaleType="centerCrop" />
+
+                        <ImageView
+                            android:id="@+id/iconBar"
+                            app:srcCompat="@drawable/pressed_route"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <ImageButton
+                            android:id="@+id/play"
+                            app:srcCompat="@drawable/play_button"
+                            android:layout_width="63dp"
+                            android:layout_height="63dp"
+                            android:layout_alignBottom="@+id/position"
+                            android:layout_alignRight="@+id/position"
+                            android:layout_marginBottom="25dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@android:color/transparent"
+                            android:onClick="startTour"
+                            android:scaleType="fitXY" />
+
+                        <LinearLayout
+                            android:id="@+id/iconArea"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/position"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="24dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/duration"
+                                app:srcCompat="@drawable/time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="7dp"
+                                android:adjustViewBounds="true" />
+
+                            <TextView
+                                android:id="@+id/durationText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginRight="24dp"
+                                android:text="120 min"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorTourIcons"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:id="@+id/distance"
+                                app:srcCompat="@drawable/route"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="7dp"
+                                android:adjustViewBounds="true" />
+
+                            <TextView
+                                android:id="@+id/distanceText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginRight="24dp"
+                                android:text="200 m"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorTourIcons"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:id="@+id/difficulty"
+                                app:srcCompat="@drawable/level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="7dp"
+                                android:adjustViewBounds="true" />
+
+                            <TextView
+                                android:id="@+id/difficultyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="schwer"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorTourIcons"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="28dp"
+                            android:layout_marginRight="28dp"
+                            android:layout_marginTop="19dp"
+                            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <!-- bottom navigation -->
+        <include layout="@layout/layout_bottom_navigation_view" />
+
+
+    </RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
