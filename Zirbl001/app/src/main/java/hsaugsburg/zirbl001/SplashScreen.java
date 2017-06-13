@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     // Splash screen timer
@@ -19,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, BaseActivity.class);
+                Intent i = new Intent(SplashScreen.this, HomeActivity.class);
                 startActivity(i);
 
                 // close this activity

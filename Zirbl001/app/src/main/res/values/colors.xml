@@ -7,5 +7,9 @@
     <color name="colorPressed">#7F353B3C</color>
     <color name="colorTourIcons">#00E6C7</color>
     <color name="colorSearch">#9b9b9b</color>
+
+    <color name="colorFlowingText">#4A4A4A</color>
+    <color name="colorTitleInText">#2CDFC5</color>
+    <color name="colorRegistrationText">#D0D0D0</color>
 </resources>
 
