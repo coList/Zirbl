@@ -16,10 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".BaseActivity"
-            android:label="Touren"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
@@ -41,11 +37,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".NavigationActivities.QrActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NavigationActivities.FavoriteActivity" />
+        <activity android:name=".NavigationActivities.FavoriteActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".NavigationActivities.ProfileActivity"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
