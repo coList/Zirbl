@@ -34,7 +34,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".NavigationActivities.SearchActivity"
             android:screenOrientation="portrait"
@@ -51,17 +52,9 @@
             android:theme="@style/ProfileTitleBar" />
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity android:name=".NavigationActivities.ImpressumActivity" />
-        <activity
-            android:name=".NavigationActivities.FavoriteActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NavigationActivities.ProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".TourActivities.ClassRegistrationActivity"></activity>
     </application>
 

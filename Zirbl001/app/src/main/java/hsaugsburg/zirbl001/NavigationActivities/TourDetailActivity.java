@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.List;
 
@@ -33,6 +40,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
     private static final int ACTIVITY_NUM = 0;
 
     private Context mContext = TourDetailActivity.this;
+    private ImageLoader imageLoader;
 
     @Override
     protected void onPause() {
@@ -61,6 +69,27 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
                 startActivityForResult(intent, 0);
             }
         });
+
+
+
+        final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(false)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
+                .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration
+                .Builder(getApplicationContext())
+                .threadPoolSize(5)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .defaultDisplayImageOptions(defaultOptions)
+                .diskCacheExtraOptions(480, 320, null)
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 
     public void classRegistration(View view) {
@@ -102,6 +131,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         description.setText(((TourDetailModel) result.get(tourID)).getDescription());
 
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
-        new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(mainPictureURL);
+        //new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(mainPictureURL);
+
+        ImageView mainPicture = (ImageView)findViewById(R.id.image);
+        ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
     }
 }
