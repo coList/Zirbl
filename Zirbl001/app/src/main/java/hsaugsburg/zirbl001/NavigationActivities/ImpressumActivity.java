@@ -12,12 +12,12 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ImpressumActivity extends AppCompatActivity {
 
-    private static final String TAG = "ProfileActivity";
+    private static final String TAG = "ImpressumActivity";
     private static final int ACTIVITY_NUM = 4;
 
-    private Context mContext = ProfileActivity.this;
+    private Context mContext = ImpressumActivity.this;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -29,13 +29,12 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_impressum);
         Log.d(TAG, "onCreate: starting");
-        getSupportActionBar().setTitle("Profil");
+        getSupportActionBar().setTitle("Impressum");
 
         setupBottomNavigationView();
     }
-
 
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");

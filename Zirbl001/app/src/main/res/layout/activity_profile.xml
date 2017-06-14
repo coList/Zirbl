@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.NavigationActivities.ProfileActivity"
-    android:theme="@android:style/Theme.NoTitleBar">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Top Toolbar -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relLayout1">
-
-            <include layout="@layout/layout_top_impressum_bar" />
-
-        </RelativeLayout>
 
         <!-- Middle section (body) -->
         <RelativeLayout
@@ -27,7 +17,21 @@
             android:layout_height="match_parent"
             android:id="@+id/relLayout2">
 
-            <include layout="@layout/layout_center_tourlist" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:background="@color/colorAccent"
+                android:elevation="1dp"
+                app:tabIndicatorColor="@color/colorPrimary"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/colorAccent"
+                android:layout_below="@id/tab_layout"/>
+
 
         </RelativeLayout>
 
