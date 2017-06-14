@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -20,11 +22,13 @@ public class TourSelectionAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<JSONModel> mDataSource;
+    private ImageLoader imageLoader;
 
-    public TourSelectionAdapter(Context context, List<JSONModel> items) {
+    public TourSelectionAdapter(Context context, List<JSONModel> items, ImageLoader imageLoader) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.imageLoader = imageLoader;
     }
 
     //1
@@ -64,8 +68,9 @@ public class TourSelectionAdapter extends BaseAdapter {
         distance.setText(Double.toString(dist) + " km");
         difficultyName.setText(tourSelection.getDifficultyName());
 
-        new DownloadImageTask((ImageView) rowView.findViewById(R.id.imageView)).execute(tourSelection.getMainpicture());
-
+        //new DownloadImageTask((ImageView) rowView.findViewById(R.id.imageView)).execute(tourSelection.getMainpicture());
+        ImageView mainPicture = (ImageView)rowView.findViewById(R.id.imageView);
+        ImageLoader.getInstance().displayImage(tourSelection.getMainpicture(), mainPicture);
         return rowView;
 
     }

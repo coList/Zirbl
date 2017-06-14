@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.List;
 
@@ -31,6 +38,8 @@ public class HomeActivity extends AppCompatActivity implements Callback {
     private Context mContext = HomeActivity.this;
     private ListView mListView;
 
+    private ImageLoader imageLoader;
+
     //Animation beim Activity wechsel verhindern
     @Override
     protected void onPause() {
@@ -49,6 +58,24 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         new JSONTourSelection(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
+
+
+        final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(false)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
+                .build();
+
+        final ImageLoaderConfiguration config = new ImageLoaderConfiguration
+                .Builder(getApplicationContext())
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 
 
@@ -67,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
     public void processData(List<JSONModel> result) {
 
 
-        TourSelectionAdapter adapter = new TourSelectionAdapter(this, result);
+        TourSelectionAdapter adapter = new TourSelectionAdapter(this, result, imageLoader);
         mListView.setAdapter(adapter);
         final List<JSONModel> tourSelectionItems = result;
 
