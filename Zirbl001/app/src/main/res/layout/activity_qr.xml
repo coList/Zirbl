@@ -19,7 +19,7 @@
             android:id="@+id/relLayout1"
             android:layout_above="@+id/relLayoutBottomNav">
 
-            <TextView
+            <hsaugsburg.zirbl001.Fonts.FlowingText
                 android:id="@+id/scanText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/scann_button" />
 
-            <TextView
+            <hsaugsburg.zirbl001.Fonts.TitleInText
                 android:id="@+id/barcode_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

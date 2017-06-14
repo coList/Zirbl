@@ -50,7 +50,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
         new JSONTourDetail(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 
-        ImageButton button = (ImageButton)findViewById(R.id.play);
+        ImageButton button = (ImageButton)findViewById(R.id.go);
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -92,7 +92,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         TextView difficultyName = (TextView)findViewById(R.id.difficultyText);
         difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
 
-        TextView description = (TextView)findViewById(R.id.textView);
+        TextView description = (TextView)findViewById(R.id.description);
         description.setText(((TourDetailModel) result.get(tourID)).getDescription());
 
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();

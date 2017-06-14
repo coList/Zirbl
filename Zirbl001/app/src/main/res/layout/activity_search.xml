@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <EditText
+                    <hsaugsburg.zirbl001.Fonts.RegistrationText
                         android:id="@+id/suche"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
