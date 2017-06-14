@@ -23,7 +23,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
 
     protected Bitmap doInBackground(String... urls) {
-        final int IMAGE_MAX_SIZE = 1200000;
+        final int IMAGE_MAX_SIZE = 1400000;
 
         String urldisplay = urls[0];
         Bitmap bitmap = null;
