@@ -8,7 +8,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application
+    <application android:hardwareAccelerated="false"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -52,6 +52,12 @@
             android:name=".NavigationActivities.TourDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".NavigationActivities.ImpressumActivity"></activity>
+        <activity android:name=".NavigationActivities.FavoriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NavigationActivities.ProfileActivity"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".NavigationActivities.TourDetailActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>
