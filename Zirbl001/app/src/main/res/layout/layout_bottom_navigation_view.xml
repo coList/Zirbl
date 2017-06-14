@@ -13,8 +13,8 @@
             android:id="@+id/bottomNavViewBar"
             android:background="#000000"
             app:menu="@menu/bottom_navigation_menu"
-            app:itemIconTint="@drawable/tabbar_hover"
-            app:itemTextColor="@drawable/tabbar_hover">
+            app:itemIconTint="@drawable/code_tabbar_hover"
+            app:itemTextColor="@drawable/code_tabbar_hover">
 
 
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>

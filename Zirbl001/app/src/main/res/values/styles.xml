@@ -12,16 +12,16 @@
 
     <!-- Eigene Titelbar mit Verlauf -->
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/title_gradient</item>
+        <item name="android:background">@drawable/code_title_gradient</item>
         <!-- Support library compatibility -->
-        <item name="background">@drawable/title_gradient</item>
+        <item name="background">@drawable/code_title_gradient</item>
     </style>
 
     <!-- Eigene Titelbar mit Verlauf -->
     <style name="MyActionBarProfile" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/title_gradient</item>
+        <item name="android:background">@drawable/code_title_gradient</item>
         <!-- Support library compatibility -->
-        <item name="background">@drawable/title_gradient</item>
+        <item name="background">@drawable/code_title_gradient</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -34,7 +34,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowBackground">@drawable/code_background_splash</item>
     </style>
 
     <style name="ProfileTitleBar" parent="Theme.AppCompat.Light.DarkActionBar">
