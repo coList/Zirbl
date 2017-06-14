@@ -23,7 +23,7 @@
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/pressed_route" />
 
-    <TextView
+    <hsaugsburg.zirbl001.Fonts.TourTitle
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/time" />
 
-        <TextView
+        <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/durationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/route" />
 
-        <TextView
+        <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/distanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/level" />
 
-        <TextView
+        <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/difficultyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
