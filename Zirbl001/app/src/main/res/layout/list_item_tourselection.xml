@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/zoo_image1" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/transparent"
@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/pressed_route" />
+        app:srcCompat="@drawable/code_pressed_route" />
 
     <hsaugsburg.zirbl001.Fonts.TourTitle
         android:id="@+id/title"
@@ -35,7 +35,7 @@
         android:text="Test"
         android:textAllCaps="true"
         android:textColor="@android:color/background_light"
-        android:textSize="32sp" />
+        android:textSize="26sp" />
 
     <LinearLayout
         android:id="@+id/iconArea"
@@ -53,7 +53,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/time" />
+            app:srcCompat="@drawable/icon_time" />
 
         <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/durationText"
@@ -73,7 +73,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/route" />
+            app:srcCompat="@drawable/icon_route" />
 
         <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/distanceText"
@@ -93,7 +93,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/level" />
+            app:srcCompat="@drawable/icon_level" />
 
         <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
             android:id="@+id/difficultyText"

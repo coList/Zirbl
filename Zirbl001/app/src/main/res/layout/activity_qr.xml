@@ -37,7 +37,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="100dp"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/zirblfigursmall" />
+                app:srcCompat="@drawable/zirbl_small_qrcode" />
 
             <ImageView
                 android:id="@+id/speechbubble"
@@ -45,7 +45,7 @@
                 android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="60dp"
-                app:srcCompat="@drawable/speech_bubble_open" />
+                app:srcCompat="@drawable/img_speech_bubble_open" />
 
             <ImageButton
                 android:id="@+id/scan_barcode"
@@ -58,7 +58,7 @@
                 android:background="@android:color/transparent"
                 android:onClick="scanBarcode"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/scann_button" />
+                app:srcCompat="@drawable/button_scan" />
 
             <hsaugsburg.zirbl001.Fonts.TitleInText
                 android:id="@+id/barcode_result"

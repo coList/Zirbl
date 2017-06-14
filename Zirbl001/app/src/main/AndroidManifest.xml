@@ -8,8 +8,9 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <application android:hardwareAccelerated="false"
+    <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -37,7 +38,7 @@
         <activity
             android:name=".NavigationActivities.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NavigationActivities.QrActivity"
             android:screenOrientation="portrait" />
@@ -51,13 +52,17 @@
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NavigationActivities.ImpressumActivity"></activity>
-        <activity android:name=".NavigationActivities.FavoriteActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".NavigationActivities.ProfileActivity"
-            android:screenOrientation="portrait" ></activity>
-        <activity android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".NavigationActivities.ImpressumActivity" />
+        <activity
+            android:name=".NavigationActivities.FavoriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NavigationActivities.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NavigationActivities.TourDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".TourActivities.ClassRegistrationActivity"></activity>
     </application>
 
 </manifest>

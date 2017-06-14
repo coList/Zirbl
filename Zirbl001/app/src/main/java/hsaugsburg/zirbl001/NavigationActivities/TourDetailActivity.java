@@ -22,6 +22,7 @@ import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Models.TourDetailModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
@@ -60,6 +61,11 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
                 startActivityForResult(intent, 0);
             }
         });
+    }
+
+    public void classRegistration(View view) {
+        Intent intent = new Intent(mContext, ClassRegistrationActivity.class);
+        startActivity(intent);
     }
 
 
