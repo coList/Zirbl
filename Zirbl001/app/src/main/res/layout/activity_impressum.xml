@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.NavigationActivities.FavoriteActivity">
+    tools:context="hsaugsburg.zirbl001.NavigationActivities.ImpressumActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

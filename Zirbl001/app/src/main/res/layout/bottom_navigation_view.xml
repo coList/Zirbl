@@ -12,6 +12,6 @@
         android:background="@color/colorPrimary"
         app:itemIconTint="@drawable/tabbar_hover"
         app:itemTextColor="@drawable/tabbar_hover"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>
