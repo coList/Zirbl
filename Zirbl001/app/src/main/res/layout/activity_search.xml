@@ -37,7 +37,7 @@
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="24dp"
-                        android:background="@drawable/search_style"
+                        android:background="@drawable/code_search_style"
                         android:ems="10"
                         android:hint="Suche"
                         android:inputType="textPersonName"

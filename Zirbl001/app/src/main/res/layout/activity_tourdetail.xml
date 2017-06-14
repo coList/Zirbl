@@ -35,26 +35,26 @@
 
                         <ImageView
                             android:id="@+id/position"
-                            app:srcCompat="@drawable/pressed_route"
                             android:layout_width="match_parent"
                             android:layout_height="270dp"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/code_pressed_route" />
 
                         <ImageView
                             android:id="@+id/image"
-                            app:srcCompat="@drawable/zoo"
                             android:layout_width="match_parent"
                             android:layout_height="270dp"
+                            android:background="@color/colorPrimaryDark"
                             android:scaleType="centerCrop" />
 
                         <ImageView
                             android:id="@+id/iconBar"
-                            app:srcCompat="@drawable/pressed_route"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
+                            android:layout_alignParentStart="true"
+                            app:srcCompat="@drawable/code_pressed_route" />
 
                         <ImageButton
                             android:id="@+id/go"
@@ -67,7 +67,7 @@
                             android:background="@android:color/transparent"
                             android:onClick="startTour"
                             android:scaleType="fitXY"
-                            app:srcCompat="@drawable/go_button" />
+                            app:srcCompat="@drawable/button_go" />
 
                         <LinearLayout
                             android:id="@+id/iconArea"
@@ -80,11 +80,11 @@
 
                             <ImageView
                                 android:id="@+id/duration"
-                                app:srcCompat="@drawable/time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginRight="7dp"
-                                android:adjustViewBounds="true" />
+                                android:adjustViewBounds="true"
+                                app:srcCompat="@drawable/icon_time" />
 
                             <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
                                 android:id="@+id/durationText"
@@ -99,11 +99,11 @@
 
                             <ImageView
                                 android:id="@+id/distance"
-                                app:srcCompat="@drawable/route"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginRight="7dp"
-                                android:adjustViewBounds="true" />
+                                android:adjustViewBounds="true"
+                                app:srcCompat="@drawable/icon_route" />
 
                             <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
                                 android:id="@+id/distanceText"
@@ -118,11 +118,11 @@
 
                             <ImageView
                                 android:id="@+id/difficulty"
-                                app:srcCompat="@drawable/level"
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginRight="7dp"
-                                android:adjustViewBounds="true" />
+                                android:adjustViewBounds="true"
+                                app:srcCompat="@drawable/icon_level" />
 
                             <hsaugsburg.zirbl001.Fonts.InfoBesideIconsText
                                 android:id="@+id/difficultyText"
@@ -159,7 +159,8 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:layout_marginTop="16dp"
-                            android:text="TextView" />
+                            android:text="TextView"
+                            android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.FlowingText
                             android:id="@+id/details"
@@ -172,23 +173,24 @@
                             android:textSize="18sp" />
 
                         <ImageButton
-                            android:id="@+id/continueButton"
+                            android:id="@+id/classButton"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:background="@android:color/transparent"
+                            android:onClick="classRegistration"
                             android:paddingBottom="24dp"
                             android:paddingTop="24dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/continue_button" />
+                            app:srcCompat="@drawable/button_class" />
 
                         <ImageView
                             android:id="@+id/card"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/card" />
+                            app:srcCompat="@drawable/img_card" />
 
                     </LinearLayout>
 

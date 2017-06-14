@@ -9,7 +9,7 @@
     <item>
         <bitmap
             android:gravity="fill"
-            android:src="@drawable/start_screen"
+            android:src="@drawable/img_start_screen"
             />
     </item>
 

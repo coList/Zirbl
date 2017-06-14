@@ -10,8 +10,8 @@
         android:layout_height="62dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        app:itemIconTint="@drawable/tabbar_hover"
-        app:itemTextColor="@drawable/tabbar_hover"
+        app:itemIconTint="@drawable/code_tabbar_hover"
+        app:itemTextColor="@drawable/code_tabbar_hover"
         app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>
