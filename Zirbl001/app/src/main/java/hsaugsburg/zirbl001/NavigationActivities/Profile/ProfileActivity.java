@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Persönlicher Bereich");
+        getSupportActionBar().setTitle("Mein Bereich");
 
         setupBottomNavigationView();
 

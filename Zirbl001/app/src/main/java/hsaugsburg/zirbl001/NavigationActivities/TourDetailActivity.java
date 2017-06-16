@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -33,6 +34,7 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
 public class TourDetailActivity extends AppCompatActivity implements Callback {
@@ -56,9 +58,12 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Touren Infos");
+        getSupportActionBar().setTitle(getIntent().getStringExtra("tourName"));
 
         setupBottomNavigationView();
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
         new JSONTourDetail(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 

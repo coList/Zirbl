@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -30,6 +31,7 @@ import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HomeActivity extends AppCompatActivity implements Callback {
 
@@ -111,6 +113,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
                 Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                 intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
+                intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
                 startActivity(intent1);
             }
         });

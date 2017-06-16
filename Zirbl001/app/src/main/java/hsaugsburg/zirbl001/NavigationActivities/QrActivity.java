@@ -17,6 +17,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class QrActivity extends AppCompatActivity {
 
