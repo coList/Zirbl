@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Log.d(TAG, "onCreate: starting");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Persönlicher Bereich");
 
         setupBottomNavigationView();

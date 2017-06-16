@@ -5,52 +5,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.NavigationActivities.SearchActivity">
+    tools:context="hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!-- top actionbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayoutActionBar">
+
+            <include layout="@layout/layout_top_standard_actionbar" />
+
+        </RelativeLayout>
+
 
         <!-- Middle section (body) -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
-            android:id="@+id/relLayout1"
-            android:layout_above="@+id/relLayoutBottomNav">
+            android:id="@+id/relLayoutBody"
+            android:layout_below="@+id/relLayoutActionBar">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/tourListe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <hsaugsburg.zirbl001.Fonts.RegistrationText
-                        android:id="@+id/suche"
-                        android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="24dp"
-                        android:background="@drawable/code_search_style"
-                        android:ems="10"
-                        android:hint="Suche"
-                        android:inputType="textPersonName"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorSearch"
-                        android:textColorHint="@color/colorSearch" />
-                </LinearLayout>
-            </ScrollView>
 
         </RelativeLayout>
 
         <!-- bottom navigation -->
         <include layout="@layout/layout_bottom_navigation_view" />
+
 
 
     </RelativeLayout>
