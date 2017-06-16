@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,8 @@ public class QrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
         Log.d(TAG, "onCreate: starting");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("QR-Code Scanner");
 
         setupBottomNavigationView();
@@ -49,7 +52,6 @@ public class QrActivity extends AppCompatActivity {
     public void scanBarcode (View v){
         Intent intent1 = new Intent(QrActivity.this, ScanBarcodeActivity.class);
         startActivityForResult(intent1, 0);
-
     }
 
 

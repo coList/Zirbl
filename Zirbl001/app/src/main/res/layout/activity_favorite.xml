@@ -11,12 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- top actionbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayoutActionBar">
+
+            <include layout="@layout/layout_top_standard_actionbar" />
+
+        </RelativeLayout>
+
+
         <!-- Middle section (body) -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
-            android:id="@+id/relLayout1">
+            android:id="@+id/relLayoutBody"
+            android:layout_below="@+id/relLayoutActionBar">
 
 
 
@@ -24,6 +36,7 @@
 
         <!-- bottom navigation -->
         <include layout="@layout/layout_bottom_navigation_view" />
+
 
 
     </RelativeLayout>
