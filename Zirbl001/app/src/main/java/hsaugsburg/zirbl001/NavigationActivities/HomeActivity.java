@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -29,6 +31,7 @@ import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HomeActivity extends AppCompatActivity implements Callback {
 
@@ -52,6 +55,8 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: starting");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Touren");
 
         setupBottomNavigationView();
@@ -107,6 +112,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
                 Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                 intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
+                intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
                 startActivity(intent1);
             }
         });

@@ -14,7 +14,7 @@ import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileActivity;
 import hsaugsburg.zirbl001.NavigationActivities.QrActivity;
 import hsaugsburg.zirbl001.R;
-import hsaugsburg.zirbl001.NavigationActivities.SearchActivity;
+import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
 public class BottomNavigationViewHelper {
 

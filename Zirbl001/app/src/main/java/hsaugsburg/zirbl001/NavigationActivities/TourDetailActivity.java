@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Text;
@@ -35,6 +37,7 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
 public class TourDetailActivity extends AppCompatActivity implements Callback {
@@ -65,9 +68,14 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourdetail);
         Log.d(TAG, "onCreate: starting");
-        getSupportActionBar().setTitle("Touren");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getIntent().getStringExtra("tourName"));
 
         setupBottomNavigationView();
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
         new JSONTourDetail(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 

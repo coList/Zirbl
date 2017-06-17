@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -9,10 +10,22 @@ import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity {
 
+
+    //Animation beim Activity wechsel verhindern
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Klasse Anmelden");
 
         Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
         ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(this,

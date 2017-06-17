@@ -3,7 +3,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:id="@+id/relLayoutBottomNav">
 
@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/bottomNavViewBar"
-            android:background="#000000"
+            android:background="@color/colorPrimary"
             app:menu="@menu/bottom_navigation_menu"
             app:itemIconTint="@drawable/code_tabbar_hover"
             app:itemTextColor="@drawable/code_tabbar_hover">

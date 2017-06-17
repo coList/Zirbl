@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.NavigationActivities;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ public class ImpressumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_impressum);
         Log.d(TAG, "onCreate: starting");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Impressum");
 
         setupBottomNavigationView();
