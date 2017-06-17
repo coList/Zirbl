@@ -32,7 +32,6 @@
         android:layout_alignStart="@+id/transparent"
         android:layout_marginBottom="55dp"
         android:layout_marginLeft="24dp"
-        android:text="Test"
         android:textAllCaps="true"
         android:textColor="@android:color/background_light"
         android:textSize="26sp" />
@@ -61,7 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:text="1,5 h"
             android:textAlignment="textEnd"
             android:textColor="@color/colorTourIcons"
             android:textSize="14sp" />
@@ -81,7 +79,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:text="5 km"
             android:textAlignment="textEnd"
             android:textColor="@color/colorTourIcons"
             android:textSize="14sp" />
@@ -100,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="leicht"
             android:textAlignment="textEnd"
             android:textColor="@color/colorTourIcons"
             android:textSize="14sp" />

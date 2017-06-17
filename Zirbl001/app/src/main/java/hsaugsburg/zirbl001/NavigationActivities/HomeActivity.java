@@ -61,15 +61,14 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
 
         final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(false)
+                .cacheInMemory(true)
                 .considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
                 .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(getApplicationContext())
-                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .threadPriority(Thread.MAX_PRIORITY)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)

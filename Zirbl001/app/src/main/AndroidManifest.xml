@@ -52,8 +52,7 @@
             android:theme="@style/ProfileTitleBar" />
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:screenOrientation="portrait"/>
         <activity android:name=".NavigationActivities.ImpressumActivity" />
         <activity android:name=".TourActivities.ClassRegistrationActivity"></activity>
     </application>
