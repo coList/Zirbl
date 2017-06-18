@@ -110,6 +110,7 @@
             android:paddingBottom="24dp"
             android:paddingTop="24dp"
             android:scaleType="fitCenter"
+            android:onClick="generateQrCode"
             app:srcCompat="@drawable/button_continue" />
 
     </LinearLayout>
