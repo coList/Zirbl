@@ -30,6 +30,13 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
 
     public static final String STR = "Luke ich bin dein Vater";
 
+    //Animation beim Activity wechsel verhindern
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
