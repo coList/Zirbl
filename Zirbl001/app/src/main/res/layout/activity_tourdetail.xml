@@ -104,7 +104,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginRight="24dp"
-                                android:text="120 min"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/colorTourIcons"
                                 android:textSize="14sp" />
@@ -123,7 +122,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginRight="24dp"
-                                android:text="200 m"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/colorTourIcons"
                                 android:textSize="14sp" />
@@ -141,7 +139,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
-                                android:text="schwer"
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/colorTourIcons"
                                 android:textSize="14sp" />
@@ -161,28 +158,48 @@
                             android:layout_marginLeft="28dp"
                             android:layout_marginRight="28dp"
                             android:layout_marginTop="19dp"
-                            android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusa."
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.TitleInText
-                            android:id="@+id/subtitle"
+                            android:id="@+id/warningsTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:layout_marginTop="16dp"
-                            android:text="TextView"
+                            android:text="Hinweise"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.FlowingText
-                            android:id="@+id/details"
+                            android:id="@+id/warnings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
+                            android:textSize="18sp" />
+
+                        <hsaugsburg.zirbl001.Fonts.TitleInText
+                            android:id="@+id/openingHoursTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
+                            android:text="Öffnungszeiten"
+                            android:textSize="18sp"
+                            android:visibility="gone" />
+
+                        <hsaugsburg.zirbl001.Fonts.FlowingText
+                            android:id="@+id/openingHours"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:layout_marginTop="16dp"
                             android:text="Öffnungszeiten:"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:visibility="gone" />
 
                         <ImageButton
                             android:id="@+id/classButton"

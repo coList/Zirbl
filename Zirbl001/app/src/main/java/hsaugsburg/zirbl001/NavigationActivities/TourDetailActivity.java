@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -22,7 +23,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
+import java.io.File;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadImageTask;
@@ -44,6 +47,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     private Context mContext = TourDetailActivity.this;
     private ImageLoader imageLoader;
+
+    private Bitmap mainPictureBitmap;
+
+
+    private boolean hasOpeningHours = false;
+
+    public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
+        this.mainPictureBitmap = mainPictureBitmap;
+    }
 
     @Override
     protected void onPause() {
@@ -81,21 +93,19 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
 
         final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(false)
+                .cacheInMemory(true)
                 .considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
                 .build();
 
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration
                 .Builder(getApplicationContext())
                 .threadPoolSize(5)
-                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .threadPriority(Thread.MAX_PRIORITY)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .defaultDisplayImageOptions(defaultOptions)
-                .diskCacheExtraOptions(480, 320, null)
                 .build();
         ImageLoader.getInstance().init(config);
     }
@@ -118,6 +128,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         menuItem.setChecked(true);
     }
 
+
     public void processData(List<JSONModel> result) {
         Intent intent = getIntent();
         int tourID = Integer.parseInt(intent.getStringExtra("tourID"));
@@ -138,10 +149,26 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         TextView description = (TextView)findViewById(R.id.description);
         description.setText(((TourDetailModel) result.get(tourID)).getDescription());
 
-        String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
-        //new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(mainPictureURL);
+        TextView warnings = (TextView)findViewById(R.id.warnings);
+        warnings.setText(((TourDetailModel)result.get(tourID)).getWarnings());
 
+        if (hasOpeningHours) {
+            TextView openingHours = (TextView) findViewById(R.id.openingHours);
+            TextView openingHoursTitle = (TextView)findViewById(R.id.openingHoursTitle);
+
+            openingHours.setVisibility(View.VISIBLE);
+            openingHours.setVisibility(View.VISIBLE);
+        }
+
+
+        //load picture from cache or from web
+        String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
         ImageView mainPicture = (ImageView)findViewById(R.id.image);
-        ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
+        if (MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+            mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+            Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
+        } else {
+            ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
+        }
     }
 }
