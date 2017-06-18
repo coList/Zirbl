@@ -34,8 +34,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.HomeActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.Search.SearchActivity"
             android:screenOrientation="portrait"
@@ -51,9 +51,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity android:name=".NavigationActivities.ImpressumActivity" />
-        <activity android:name=".TourActivities.ClassRegistrationActivity"></activity>
+        <activity android:name=".TourActivities.ClassRegistrationActivity" />
+        <activity android:name=".TourActivities.GenerateQrCodeActivity"></activity>
     </application>
 
 </manifest>
