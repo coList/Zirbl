@@ -19,7 +19,8 @@
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:largeHeap="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,34 +29,51 @@
         </activity>
         <activity
             android:name=".NavigationActivities.ScanBarcodeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".TourActivities.TourstartActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".NavigationActivities.HomeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".NavigationActivities.Search.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".NavigationActivities.QrActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".NavigationActivities.FavoriteActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".NavigationActivities.Profile.ProfileActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity android:name=".NavigationActivities.ImpressumActivity" />
-        <activity android:name=".TourActivities.ClassRegistrationActivity" />
-        <activity android:name=".TourActivities.GenerateQrCodeActivity"></activity>
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".NavigationActivities.ImpressumActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TourActivities.ClassRegistrationActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TourActivities.GenerateQrCodeActivity"
+            android:screenOrientation="portrait"
+             />
     </application>
 
 </manifest>
