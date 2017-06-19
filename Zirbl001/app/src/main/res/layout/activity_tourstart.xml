@@ -33,7 +33,14 @@
             android:layout_below="@+id/relLayoutActionBar">
 
 
-
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:onClick="goIntoTour"
+                android:text="Button" />
         </RelativeLayout>
 
 
