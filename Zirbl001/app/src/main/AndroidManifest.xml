@@ -67,7 +67,8 @@
         <activity android:name=".TourActivities.LettersActivity" />
         <activity android:name=".TourActivities.TrueFalseActivity" />
         <activity android:name=".TourActivities.SliderActivity" />
-        <activity android:name=".TourActivities.QuizActivity"></activity>
+        <activity android:name=".TourActivities.QuizActivity" />
+        <activity android:name=".TourActivities.DoUKnowActivity"></activity>
     </application>
 
 </manifest>
