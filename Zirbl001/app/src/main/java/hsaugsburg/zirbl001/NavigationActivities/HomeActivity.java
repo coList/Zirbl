@@ -31,6 +31,7 @@ import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HomeActivity extends AppCompatActivity implements Callback {
@@ -65,21 +66,13 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         mListView = (ListView) findViewById(R.id.home_list_view);
 
 
-        final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
-                .build();
+        initImageLoader();
+    }
 
-        final ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(getApplicationContext())
-                .threadPriority(Thread.MAX_PRIORITY)
-                .denyCacheImageMultipleSizesInMemory()
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .defaultDisplayImageOptions(defaultOptions)
-                .build();
-        ImageLoader.getInstance().init(config);
+    private void initImageLoader(){
+        Log.d(TAG, "initImageLoader: ");
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
 
@@ -116,8 +109,6 @@ public class HomeActivity extends AppCompatActivity implements Callback {
                 startActivity(intent1);
             }
         });
-
-
 
     }
 }
