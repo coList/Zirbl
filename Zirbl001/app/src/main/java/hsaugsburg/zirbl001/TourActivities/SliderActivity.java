@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import hsaugsburg.zirbl001.Datamanagement.JSONSlider;
+import hsaugsburg.zirbl001.Models.SliderModel;
 import hsaugsburg.zirbl001.R;
 
 public class SliderActivity extends AppCompatActivity {
@@ -16,18 +19,59 @@ public class SliderActivity extends AppCompatActivity {
 
     private static SeekBar slider;
     private static TextView sliderCount;
+    private static Double minValue;
     private static int sliderMax = 2000;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new JSONSlider(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
         setContentView(R.layout.activity_slider);
+        slider = (SeekBar) findViewById(R.id.slider);
     }
 
     public void continueToNextView(View view) {
         Intent intent = new Intent(mContext, NavigationActivity. class);
         startActivity(intent);
+    }
+
+
+    //can't set minValue directly -> add minValue to valueDisplayed and substract minValue from maxValue
+    public void processData(SliderModel result) {
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(result.getQuestion());
+        minValue = result.getMinRange();
+        slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
+        sliderCount = (TextView)findViewById(R.id.sliderCount);
+        sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+
+
+        slider.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener(){
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser)
+            {
+
+                sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+            }
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+                // TODO Auto-generated method stub
+            }
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+                // TODO Auto-generated method stub
+            }
+        });
+
+    }
+
+    //Convert double value to int by multiplying it (every value is 100 times its value!)
+    private int getConvertedIntValue (double value) {
+        return (int)Math.round(value * 100);
+    }
+
+    private double getConvertedDoubleValue (int value) {
+        return value / 100.0;
     }
 
     /*/Hat mal funktioniert...

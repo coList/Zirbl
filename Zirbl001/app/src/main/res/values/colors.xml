@@ -4,12 +4,17 @@
     <color name="colorPrimaryDark">#231F20</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorTour">#7F000000</color>
-    <color name="colorPressed">#7F353B3C</color>
+    <color name="colorPressed">#7f353b3c</color>
     <color name="colorTourIcons">#00e6c7</color>
     <color name="colorSearch">#9b9b9b</color>
 
-    <color name="colorFlowingText">#4A4A4A</color>
+    <color name="colorFlowingText">#4a4a4a</color>
     <color name="colorTitleInText">#2cdfc5</color>
     <color name="colorRegistrationText">#d0d0d0</color>
+
+    <color name="colorTruth">#00e6c7</color>
+    <color name="colorLie">#d6185d</color>
+
+
 </resources>
 

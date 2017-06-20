@@ -54,15 +54,15 @@
                         android:layout_margin="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
+                        android:visibility="visible"
                         android:text="of iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frd"
-                        android:textAlignment="viewStart"
-                        android:visibility="gone" />
+                        android:textAlignment="viewStart"/>
 
                     <ImageView
-                        android:id="@+id/questionImage"
+                        android:id="@+id/behindQuestionImage"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:srcCompat="@color/colorTourIcons" />
                 </LinearLayout>
 
