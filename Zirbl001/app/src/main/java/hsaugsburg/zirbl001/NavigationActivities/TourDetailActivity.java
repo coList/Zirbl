@@ -35,6 +35,7 @@ import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Models.TourDetailModel;
+import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
@@ -55,6 +56,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
     private ImageView mDetailPhoto;
     private ProgressBar mProgressBar;
 
+    private int tourID;
+    private String tourName;
+
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
     }
@@ -70,9 +74,13 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourdetail);
         Log.d(TAG, "onCreate: starting");
+
+        setIntentExtras();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getIntent().getStringExtra("tourName"));
+        getSupportActionBar().setTitle(tourName);
+
 
         setupBottomNavigationView();
 
@@ -89,6 +97,12 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     }
 
+    public void setIntentExtras(){
+        Intent intent = getIntent();
+        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        tourName = intent.getStringExtra("tourName");
+    }
+
     public void startTour(View view){
         Intent intent = new Intent(mContext, TourstartActivity.class);
         startActivity(intent);
@@ -96,6 +110,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     public void classRegistration(View view) {
         Intent intent = new Intent(mContext, ClassRegistrationActivity.class);
+        intent.putExtra("tourID", Integer.toString(tourID));
+        intent.putExtra("tourName", tourName);
         startActivity(intent);
     }
 
@@ -129,8 +145,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
 
     public void processData(List<JSONModel> result) {
-        Intent intent = getIntent();
-        int tourID = Integer.parseInt(intent.getStringExtra("tourID"));
 
         TextView duration = (TextView) findViewById(R.id.durationText);
         duration.setText(Integer.toString(((TourDetailModel) result.get(tourID)).getDuration()) + " min");

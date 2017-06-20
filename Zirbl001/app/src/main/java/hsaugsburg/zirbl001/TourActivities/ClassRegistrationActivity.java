@@ -19,6 +19,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     private static final String TAG = "ClassRegistrationActivity";
     private Context mContext = ClassRegistrationActivity.this;
 
+    private int tourID;
+    private String tourName;
+    private String klasse;
+    private String school;
+
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -32,6 +37,8 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
         Log.d(TAG, "onCreate: starting");
+
+        setIntentExtras();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
@@ -50,10 +57,37 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         spinnerClass.setAdapter(adapterClass);
     }
 
+    public void setIntentExtras(){
+        Intent intent = getIntent();
+        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        tourName = intent.getStringExtra("tourName");
+    }
+
     public void generateQrCode (View view){
 
+        /*
+        if(klasse != null && !klasse.isEmpty() && school !=null && !school.isEmpty()){
+            Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
+            intent.putExtra("tourName", tourName);
+            intent.putExtra("klasse", klasse);
+            intent.putExtra("school", school);
+            startActivity(intent);
+        } else {
+            //Fehlermeldung anzeigen: Bitte gib eine Klasse und eine Schule an
+        }
+        */
+        setInput();
+
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
+        intent.putExtra("tourName", tourName);
+        intent.putExtra("klasse", klasse);
+        intent.putExtra("school", school);
         startActivity(intent);
+
+    }
+
+    public void setInput(){
+
 
     }
 }
