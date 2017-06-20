@@ -56,13 +56,14 @@
                         android:layout_marginRight="20dp"
                         android:text="of iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frd"
                         android:textAlignment="viewStart"
-                        android:visibility="gone" />
+                        android:visibility="visible"
+                         />
 
                     <ImageView
                         android:id="@+id/questionImage"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:srcCompat="@color/colorTourIcons" />
                 </LinearLayout>
 
@@ -76,28 +77,28 @@
                     tools:layout_editor_absoluteY="8dp">
 
                     <Button
-                        android:id="@+id/answerA"
+                        android:id="@+id/answer1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="A" />
 
                     <Button
-                        android:id="@+id/answerB"
+                        android:id="@+id/answer2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="B" />
 
                     <Button
-                        android:id="@+id/answerC"
+                        android:id="@+id/answer3"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="C" />
 
                     <Button
-                        android:id="@+id/answerD"
+                        android:id="@+id/answer4"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
