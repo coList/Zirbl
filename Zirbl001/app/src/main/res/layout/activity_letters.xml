@@ -34,6 +34,7 @@
                 android:id="@+id/LinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="bottom"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp">
@@ -45,7 +46,7 @@
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
-                    <TextView
+                    <hsaugsburg.zirbl001.Fonts.FlowingText
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
                         android:layout_marginTop="24dp"
                         android:text="#"
                         android:textAlignment="viewStart"
+                        android:textSize="18sp"
                         android:visibility="visible" />
 
                     <RelativeLayout
@@ -91,8 +93,7 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorTourIcons"
-                    />
+                        app:srcCompat="@color/colorRegistrationText" />
 
                 </LinearLayout>
 
@@ -100,8 +101,7 @@
                     android:id="@+id/answerArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
+                    android:gravity="bottom"
                     android:orientation="horizontal"
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="8dp">
@@ -112,9 +112,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="24dp"
                         android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp">
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="24dp">
 
-                       
+
                     </TableRow>
 
                     <TableRow
@@ -122,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -130,9 +131,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -140,9 +142,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -150,9 +153,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter4"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -160,9 +164,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter5"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -170,9 +175,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter6"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -180,9 +186,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter7"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -190,7 +197,8 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
                     </TableRow>
 
                     <TableRow
@@ -198,7 +206,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter8"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -206,9 +214,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter9"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -216,9 +225,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter10"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -226,9 +236,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter11"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -236,9 +247,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter12"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -246,9 +258,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter13"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -256,9 +269,10 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <Button
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/letter14"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -266,7 +280,8 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText" />
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
                     </TableRow>
 
                 </TableLayout>
