@@ -79,6 +79,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
+
         mDetailPhoto = (ImageView) findViewById(R.id.image);
 
         new JSONTourDetail(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
@@ -92,6 +93,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
     public void startTour(View view){
         Intent intent = new Intent(mContext, TourstartActivity.class);
         startActivity(intent);
+
     }
 
     public void classRegistration(View view) {

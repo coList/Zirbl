@@ -49,6 +49,7 @@
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:layout_marginBottom="24dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
@@ -88,8 +89,15 @@
                     <ImageView
                         android:id="@+id/lineQ"
                         android:layout_width="match_parent"
+
+                        android:layout_height="200dp"
+                        
+                        app:srcCompat="@color/colorTourIcons" />
+
                         android:layout_height="1dp"
+                        android:visibility="gone"
                         app:srcCompat="@color/colorPressed" />
+
                 </LinearLayout>
 
                 <TableLayout
