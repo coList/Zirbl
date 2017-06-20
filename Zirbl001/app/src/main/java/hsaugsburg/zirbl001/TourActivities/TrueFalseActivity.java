@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new JSONTrueFalse(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
+        Log.d("TrueFalse", "onCreate");
         setContentView(R.layout.activity_true_false);
     }
 
@@ -30,6 +32,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     public void processData (TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
+        Log.d("TrueFalseActivity", result.getQuestion());
         question.setText(result.getQuestion());
     }
 }

@@ -92,6 +92,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     public void startTour(View view){
         Intent intent = new Intent(mContext, TourstartActivity.class);
+        intent.putExtra("tourid", getIntent().getStringExtra("tourid"));
         startActivity(intent);
 
     }
@@ -163,12 +164,12 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         ImageView mainPicture = (ImageView)findViewById(R.id.image);
         if (MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
             mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
-            Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
+            //Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
         } else {
             ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
         }
         //setDetailImage(mainPictureURL);
-        Log.d(TAG, "mainPictureURL: " + mainPictureURL);
+        //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
 
 
     }
