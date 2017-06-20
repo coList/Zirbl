@@ -7,7 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,6 +23,7 @@ import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Models.LettersModel;
+import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
 public class LettersActivity extends AppCompatActivity {
@@ -29,6 +37,8 @@ public class LettersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         new JSONLetters(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
         setContentView(R.layout.activity_letters);
+
+
     }
 
     public void continueToNextView(View view) {
@@ -40,16 +50,104 @@ public class LettersActivity extends AppCompatActivity {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(result.getQuestion());
 
+        TableRow tableRow = (TableRow)findViewById(R.id.inputArea);
+        final int solutionLength = result.getSolution().length();
+        final String solution = result.getSolution();
+        final String answerCorrect = result.getAnswerCorrect();
+        final String answerWrong = result.getAnswerWrong();
+
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
         shuffleLetters(stringBuilder);
-        String letters = stringBuilder.toString().toUpperCase();
+        final String letters = stringBuilder.toString().toUpperCase();
+
+        for (int i = 0; i < solutionLength; i++) {
+            final Button button = new Button(this);
+            button.setId(i);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
+            params.weight = 1;
+            Context context = button.getContext();
+            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
+            button.setBackgroundResource(drawableId);
+
+            int colorId = context.getResources().getIdentifier("colorFlowingText", "color", context.getPackageName());
+            button.setTextColor(colorId);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {  //delete set button and show the old letter
+
+                    boolean foundText = false;
+
+                    for (int i = 0; i < letters.length(); i++) {
+                        if (!foundText) {
+                            String name = "letter" + (i + 1);
+                            int id = getResources().getIdentifier(name, "id", getPackageName());
+                            TextView letter = (TextView) findViewById(id);
+                            if (letter.getText().toString().equals(button.getText()) && letter.getVisibility() == View.INVISIBLE) {
+                                letter.setVisibility(View.VISIBLE);
+                                button.setText("");
+                                foundText = true;
+                            }
+                        }
+                    }
+
+                }
+            });
+
+            button.setLayoutParams(params);
+            tableRow.addView(button);
+
+        }
+
+
 
         for (int i = 0; i < letters.length(); i++) {
             String name = "letter" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());
-            TextView letter = (TextView) findViewById(id);
+            final TextView letter = (TextView) findViewById(id);
             letter.setText(String.valueOf(letters.charAt(i)));
+
+            //Click on Letters: If empty space in solution, set invisible and set text of solutionLetter
+            letter.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    String letterText = letter.getText().toString();
+
+                    boolean foundButton = false;
+                    for (int i = 0; i < solutionLength; i++) {
+                        if (!foundButton) {
+                            Button button = (Button)findViewById(i);
+                            if (button.getText().equals("")) {
+                                button.setText(letterText);
+                                letter.setVisibility(View.INVISIBLE);
+                                foundButton = true;
+                            }
+                        }
+                    }
+                }
+            });
         }
+
+        //set continueButton
+        ImageButton continueButton = (ImageButton)findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                boolean isAnswerCorrect;
+                String userAnswer = "";
+                for (int i = 0; i < solutionLength; i++) {
+                    Button button = (Button)findViewById(i);
+                    userAnswer += button.getText();
+                }
+
+                Intent intent1 = new Intent(mContext, PointsActivity.class);
+                intent1.putExtra("userAnswer", userAnswer);
+                intent1.putExtra("solution", solution.toUpperCase());
+                intent1.putExtra("answerCorrect", answerCorrect);
+                intent1.putExtra("answerWrong", answerWrong);
+                startActivity(intent1);
+
+            }
+        });
     }
 
     private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
@@ -64,4 +162,7 @@ public class LettersActivity extends AppCompatActivity {
 
         return stringBuilder;
     }
+
+
+
 }
