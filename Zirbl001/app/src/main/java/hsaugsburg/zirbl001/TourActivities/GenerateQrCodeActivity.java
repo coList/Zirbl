@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,13 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     private static final String TAG = "GenerateQrCodeActivity";
     private Context mContext = GenerateQrCodeActivity.this;
 
-    public static final String STR = "Luke ich bin dein Vater";
+    //public static final String STR = "Luke ich bin dein Vater";
+    public String qrString;
+
+    private int tourID;
+    private String tourName;
+    private String klasse;
+    private String school;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -42,14 +49,29 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr_code);
         Log.d(TAG, "onCreate: starting");
+        setIntentExtras();
+        qrString = generateString();
+        Log.d(TAG, "onCreate: " + qrString);
 
         ImageView imageView = (ImageView) findViewById(R.id.qrCode);
         try {
-            Bitmap bitmap = encodeAsBitmap(STR);
+            Bitmap bitmap = encodeAsBitmap(qrString);
             imageView.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setIntentExtras(){
+        Intent intent = getIntent();
+        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        tourName = intent.getStringExtra("tourName");
+        school = intent.getStringExtra("school");
+        klasse = intent.getStringExtra("klasse");
+    }
+
+    public String generateString(){
+        return tourID + " " + klasse + " " + school;
     }
 
 
