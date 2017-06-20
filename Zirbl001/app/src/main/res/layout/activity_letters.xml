@@ -41,231 +41,303 @@
                 <LinearLayout
                     android:id="@+id/questionArea"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:text="of iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frd"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginTop="24dp"
+                        android:text="#"
                         android:textAlignment="viewStart"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
+
+                    <RelativeLayout
+                        android:id="@+id/qestionImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/behindQuestionImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible"
+                            app:srcCompat="@color/colorTourIcons" />
+
+                        <TextView
+                            android:id="@+id/besideImgQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/behindQuestionImage"
+                            android:background="@drawable/code_pressed_route"
+                            android:gravity="bottom"
+                            android:paddingBottom="24dp"
+                            android:paddingLeft="24dp"
+                            android:paddingRight="24dp"
+                            android:paddingTop="24dp"
+                            android:text="#"
+                            android:textColor="@color/colorAccent" />
+                    </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/questionImage"
+                        android:id="@+id/lineQ"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:visibility="visible"
-                        app:srcCompat="@color/colorTourIcons" />
+                        android:layout_height="1dp"
+                        app:srcCompat="@color/colorPressed" />
                 </LinearLayout>
 
                 <TableLayout
                     android:id="@+id/answerArea"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="4"
-                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="8dp">
 
                     <TableRow
-                        android:id="@+id/letterInput"
+                        android:id="@+id/inputArea"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_weight="1"
-                        android:elevation="16dp"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp">
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp">
 
-                        <EditText
-                            android:id="@+id/input1"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:ems="10"
-                            android:inputType="textPersonName" />
+                        <Button
+                            android:id="@+id/input6"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
-                        <EditText
-                            android:id="@+id/input2"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:ems="10"
-                            android:inputType="textPersonName" />
-
-                        <EditText
-                            android:id="@+id/input3"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:ems="10"
-                            android:inputType="textPersonName" />
-
-                        <EditText
-                            android:id="@+id/input4"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:ems="10"
-                            android:inputType="textPersonName" />
-
-                        <EditText
+                        <Button
                             android:id="@+id/input5"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
 
+                        <Button
+                            android:id="@+id/input4"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/rowTop"
+                        android:id="@+id/topLine"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_weight="1"
-                        android:elevation="0dp">
+                        android:layout_height="50dp">
 
                         <Button
                             android:id="@+id/letter1"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="A" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter2"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="V" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter3"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="S" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter4"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="E" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter5"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="R" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter6"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="R" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter7"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="R" />
-
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
                     </TableRow>
 
                     <TableRow
-                        android:id="@+id/rowBottom"
+                        android:id="@+id/bottomLine"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_weight="1"
-                        android:elevation="0dp">
+                        android:layout_height="50dp">
 
                         <Button
                             android:id="@+id/letter8"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="E" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter9"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="F" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter10"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="M" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter11"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="L" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter12"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="K" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter13"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="R" />
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
 
                         <Button
                             android:id="@+id/letter14"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_margin="1dp"
                             android:layout_weight="1"
-                            android:text="R" />
-
+                            android:background="@color/common_google_signin_btn_text_dark_disabled"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText" />
                     </TableRow>
+
                 </TableLayout>
 
                 <RelativeLayout
                     android:id="@+id/continueArea"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_vertical">
 
                     <ImageButton
                         android:id="@+id/continueButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="70dp"
-                        android:layout_marginRight="70dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="24dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"
