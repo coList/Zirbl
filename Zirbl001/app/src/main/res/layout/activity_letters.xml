@@ -71,7 +71,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="visible"
-                            app:srcCompat="@color/colorTourIcons" />
+                            app:srcCompat="@color/colorTurquoise" />
 
                         <TextView
                             android:id="@+id/besideImgQuestion"
@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorPrimaryDark" />
 
                 </LinearLayout>
 
@@ -131,7 +131,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -142,7 +142,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -153,7 +153,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -164,7 +164,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -175,7 +175,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -186,7 +186,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -197,7 +197,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
                     </TableRow>
 
@@ -214,7 +214,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -225,7 +225,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -236,7 +236,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -247,7 +247,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -258,7 +258,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -269,7 +269,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuizAnswerText
@@ -280,7 +280,7 @@
                             android:layout_weight="1"
                             android:background="@color/common_google_signin_btn_text_dark_disabled"
                             android:text="#"
-                            android:textColor="@color/colorFlowingText"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp" />
                     </TableRow>
 

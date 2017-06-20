@@ -11,7 +11,7 @@ public class TitleInText extends android.support.v7.widget.AppCompatTextView {
     public TitleInText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Bold.ttf"));
-        this.setTextColor(ContextCompat.getColor(context, R.color.colorTitleInText));
+        this.setTextColor(ContextCompat.getColor(context, R.color.colorTurquoise));
         this.setAllCaps(true);
     }
 }

@@ -40,7 +40,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     View.OnClickListener answerTruth = new View.OnClickListener() {
         public void onClick(View v) {
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.truthArea);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
             ImageView invertedImg = (ImageView)findViewById(R.id.iconTruth);
             invertedImg.setImageResource(R.drawable.icon_truth_active);
             Button btA = (Button) findViewById(R.id.truth);
@@ -50,7 +50,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.lieArea);
-            selected.setBackgroundResource(R.color.colorLie);
+            selected.setBackgroundResource(R.color.colorRed);
             ImageView invertedImg = (ImageView)findViewById(R.id.iconLie);
             invertedImg.setImageResource(R.drawable.icon_lie_active);
             Button btA = (Button) findViewById(R.id.lie);

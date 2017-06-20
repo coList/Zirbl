@@ -61,7 +61,7 @@
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorTourIcons"
+            android:textColor="@color/colorTurquoise"
             android:textSize="14sp" />
 
         <ImageView
@@ -80,7 +80,7 @@
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorTourIcons"
+            android:textColor="@color/colorTurquoise"
             android:textSize="14sp" />
 
         <ImageView
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:textAlignment="textEnd"
-            android:textColor="@color/colorTourIcons"
+            android:textColor="@color/colorTurquoise"
             android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

@@ -2,26 +2,10 @@
 <resources>
     <color name="colorPrimary">#231F20</color>
     <color name="colorPrimaryDark">#231F20</color>
-    <color name="colorAccent">#ffffff</color>
-    <color name="colorTour">#7F000000</color>
-    <color name="colorPressed">#7f353b3c</color>
-    <color name="colorTourIcons">#00e6c7</color>
-    <color name="colorSearch">#9b9b9b</color>
-    <color name="colorFlowingText">#4a4a4a</color>
-    <color name="colorTitleInText">#2cdfc5</color>
-    <color name="colorRegistrationText">#d0d0d0</color>
-    <color name="colorTruth">#00e6c7</color>
-    <color name="colorLie">#d6185d</color>
-
-    <!--In Styleguide definierte Farben-->
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorDarkGrey">#4a4a4a</color>
-    <color name="colorLightGrey">#ececec</color>
-    <color name="colorAqua">#28ccd6</color>
-    <color name="colorturquoise">#2cdfc5</color>
-    <color name="colorGreen">#03fea2</color>
-    <color name="colorRed">#d6185d</color>
+    <color name="colorAccent">#FFFFFF</color>
     <color name="colorTransparent">#7f353b3c</color>
-
+    <color name="colorTransparent">#7f353b3c</color>
+    <color name="colorTurquoise">#00e6c7</color>
+    <color name="colorRed">#d6185d</color>
 </resources>
 

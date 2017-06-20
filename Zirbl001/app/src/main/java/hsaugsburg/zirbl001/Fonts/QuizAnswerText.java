@@ -8,14 +8,10 @@ import android.widget.Button;
 
 import hsaugsburg.zirbl001.R;
 
-/**
- * Created by mel on 20.06.17.
- */
-
 public class QuizAnswerText extends Button {
     public QuizAnswerText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Bold.ttf"));
-        this.setTextColor(ContextCompat.getColor(context, R.color.colorFlowingText));
+        this.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
     }
 }
