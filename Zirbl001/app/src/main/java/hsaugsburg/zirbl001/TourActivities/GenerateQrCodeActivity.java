@@ -76,7 +76,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
                 pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
             }
         }
-        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.RGB_565);
         bitmap.setPixels(pixels, 0, width, 0, 0, w, h);
         return bitmap;
     }

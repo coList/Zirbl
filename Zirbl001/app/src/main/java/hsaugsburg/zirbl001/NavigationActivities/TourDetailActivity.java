@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import java.io.File;
@@ -37,6 +39,7 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
@@ -44,14 +47,13 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     private static final String TAG = "TourDetailActivity";
     private static final int ACTIVITY_NUM = 0;
-
     private Context mContext = TourDetailActivity.this;
-    private ImageLoader imageLoader;
 
     private Bitmap mainPictureBitmap;
-
-
     private boolean hasOpeningHours = false;
+
+    private ImageView mDetailPhoto;
+    private ProgressBar mProgressBar;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -77,37 +79,21 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
+
+        mDetailPhoto = (ImageView) findViewById(R.id.image);
+
         new JSONTourDetail(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 
-        ImageButton button = (ImageButton)findViewById(R.id.go);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(mContext, TourstartActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
+        initImageLoader();
+        //setDetailImage();
 
 
+    }
 
-        final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
-                .build();
+    public void startTour(View view){
+        Intent intent = new Intent(mContext, TourstartActivity.class);
+        startActivity(intent);
 
-        final ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(getApplicationContext())
-                .threadPoolSize(5)
-                .threadPriority(Thread.MAX_PRIORITY)
-                .denyCacheImageMultipleSizesInMemory()
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .defaultDisplayImageOptions(defaultOptions)
-                .build();
-        ImageLoader.getInstance().init(config);
     }
 
     public void classRegistration(View view) {
@@ -128,13 +114,25 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         menuItem.setChecked(true);
     }
 
+    private void initImageLoader(){
+        Log.d(TAG, "initImageLoader: zweiter");
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
+
+    private void setDetailImage(String mainPictureURL){
+        Log.d(TAG, "setDetailImage: dritter");
+
+
+
+        //UniversalImageLoader.setImage(imgURL, mDetailPhoto, mProgressBar);
+
+    }
+
 
     public void processData(List<JSONModel> result) {
         Intent intent = getIntent();
         int tourID = Integer.parseInt(intent.getStringExtra("tourID"));
-
-       // ((BaseActivity) getActivity()).setActionBarTitle(((TourDetailModel) result.get(tourID)).getTourName());
-
 
         TextView duration = (TextView) findViewById(R.id.durationText);
         duration.setText(Integer.toString(((TourDetailModel) result.get(tourID)).getDuration()) + " min");
@@ -160,9 +158,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
             openingHours.setVisibility(View.VISIBLE);
         }
 
-
-        //load picture from cache or from web
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
+        //load picture from cache or from web
         ImageView mainPicture = (ImageView)findViewById(R.id.image);
         if (MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
             mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
@@ -170,5 +167,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         } else {
             ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
         }
+        //setDetailImage(mainPictureURL);
+        Log.d(TAG, "mainPictureURL: " + mainPictureURL);
+
+
     }
 }
