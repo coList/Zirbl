@@ -48,7 +48,9 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
                 // larger than target
                 o = new BitmapFactory.Options();
                 o.inSampleSize = scale;
+                //o.inPreferredConfig = Bitmap.Config.RGB_565;
                 bitmap = BitmapFactory.decodeStream(in, null, o);
+
 
                 // resize to desired dimensions
                 int height = bitmap.getHeight();
