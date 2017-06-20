@@ -47,7 +47,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.FlowingText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/DoUKnow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

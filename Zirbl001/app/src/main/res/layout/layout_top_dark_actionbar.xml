@@ -17,9 +17,7 @@
                 android:background="@color/colorPrimaryDark"
                 app:titleTextAppearance="@style/NewActionBarTitle">
 
-
             </android.support.v7.widget.Toolbar>
-
 
         </android.support.design.widget.AppBarLayout>
 

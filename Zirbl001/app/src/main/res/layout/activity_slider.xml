@@ -47,16 +47,15 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <TextView
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:visibility="visible"
-                        android:text="of iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frdf zguh of iuhz gt frdf zguhof iuhz gt frd"
-                        android:textAlignment="viewStart"/>
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:text="#"
+                        android:textAlignment="viewStart"
+                        android:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/behindQuestionImage"
@@ -75,7 +74,7 @@
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="8dp">
 
-                    <TextView
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
                         android:id="@+id/sliderCount"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -88,31 +87,27 @@
 
                     <SeekBar
                         android:id="@+id/slider"
-                        style="@android:style/Widget.SeekBar"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
-                        android:layout_weight="3" />
+                        android:layout_weight="3"
+                        android:progressDrawable="@color/colorTurquoise" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/continueArea"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_vertical">
 
                     <ImageButton
                         android:id="@+id/continueButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="70dp"
-                        android:layout_marginRight="70dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="16dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"

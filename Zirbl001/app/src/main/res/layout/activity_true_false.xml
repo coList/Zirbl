@@ -46,7 +46,7 @@
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
-                    <TextView
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                         android:id="@+id/qestionImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/behindQuestionImage"
@@ -71,7 +71,7 @@
                             android:visibility="gone"
                             app:srcCompat="@color/colorTurquoise" />
 
-                        <TextView
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/besideImgQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -83,17 +83,17 @@
                             android:paddingRight="24dp"
                             android:paddingTop="24dp"
                             android:text="#"
-                            android:visibility="gone"
+                            android:textColor="@color/colorAccent"
                             android:textSize="18sp"
-                            android:textColor="@color/colorAccent" />
-                      
+                            android:visibility="gone" />
+
                     </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/lineQ"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,16 +110,15 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/truth"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
                             android:background="@android:color/transparent"
+                            android:gravity="center"
                             android:paddingTop="45dp"
                             android:text="wahr"
-                            android:textAllCaps="false"
-                            android:textSize="18sp" />
+                            android:textAllCaps="false" />
 
                         <ImageView
                             android:id="@+id/iconTruth"
@@ -138,7 +137,7 @@
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
                         android:id="@+id/lieArea"
@@ -146,16 +145,15 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/lie"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
                             android:background="@android:color/transparent"
+                            android:gravity="center"
                             android:paddingTop="45dp"
                             android:text="gelogen"
-                            android:textAllCaps="false"
-                            android:textSize="18sp" />
+                            android:textAllCaps="false" />
 
                         <ImageView
                             android:id="@+id/iconLie"
@@ -181,7 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <ImageButton
                         android:id="@+id/continueButton"

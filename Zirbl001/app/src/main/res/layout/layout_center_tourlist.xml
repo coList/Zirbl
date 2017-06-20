@@ -12,7 +12,6 @@
             android:dividerHeight="4.0sp">
         </ListView>
 
-
     </RelativeLayout>
 
 

@@ -16,10 +16,7 @@
                 android:id="@+id/standard_toolbar"
                 android:background="@drawable/code_title_gradient"
                 app:titleTextAppearance="@style/NewActionBarTitle">
-
-
             </android.support.v7.widget.Toolbar>
-
 
         </android.support.design.widget.AppBarLayout>
 

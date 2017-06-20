@@ -46,7 +46,7 @@
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.FlowingText
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                             android:visibility="visible"
                             app:srcCompat="@color/colorTurquoise" />
 
-                        <hsaugsburg.zirbl001.Fonts.FlowingText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/besideImgQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                 </LinearLayout>
 
@@ -113,19 +113,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorTransparent"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -149,7 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
                         android:id="@+id/areaB"
@@ -159,19 +158,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorTransparent"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -194,7 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
 
                     <RelativeLayout
@@ -204,19 +202,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorTransparent"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -239,7 +236,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
                         android:id="@+id/areaD"
@@ -248,19 +245,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorTransparent"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -283,7 +279,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPrimaryDark" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                 </LinearLayout>
 
