@@ -9,6 +9,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
@@ -65,29 +67,29 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
     public void generateQrCode (View view){
 
-        /*
+        setInput();
+
+        ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         if(klasse != null && !klasse.isEmpty() && school !=null && !school.isEmpty()){
             Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
+            intent.putExtra("tourID", Integer.toString(tourID));
             intent.putExtra("tourName", tourName);
             intent.putExtra("klasse", klasse);
             intent.putExtra("school", school);
             startActivity(intent);
+            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class);
         } else {
-            //Fehlermeldung anzeigen: Bitte gib eine Klasse und eine Schule an
+            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class_fail);
         }
-        */
-        setInput();
-
-        Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
-        intent.putExtra("tourName", tourName);
-        intent.putExtra("klasse", klasse);
-        intent.putExtra("school", school);
-        startActivity(intent);
-
     }
 
     public void setInput(){
+        Spinner spGrade = (Spinner) findViewById(R.id.spinnerGrade);
+        Spinner spKlasse = (Spinner) findViewById(R.id.spinnerClass);
+        EditText etSchool = (EditText) findViewById(R.id.school);
 
+        klasse = spGrade.getSelectedItem().toString() + spKlasse.getSelectedItem().toString();
+        school = etSchool.getText().toString();
 
     }
 }

@@ -29,7 +29,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     private static final String TAG = "GenerateQrCodeActivity";
     private Context mContext = GenerateQrCodeActivity.this;
 
-    public static final String STR = "Luke ich bin dein Vater";
+    //public static final String STR = "Luke ich bin dein Vater";
     public String qrString;
 
     private int tourID;
@@ -49,12 +49,13 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr_code);
         Log.d(TAG, "onCreate: starting");
-        //setIntentExtras();
-        //qrString = generateString();
+        setIntentExtras();
+        qrString = generateString();
+        Log.d(TAG, "onCreate: " + qrString);
 
         ImageView imageView = (ImageView) findViewById(R.id.qrCode);
         try {
-            Bitmap bitmap = encodeAsBitmap(STR);
+            Bitmap bitmap = encodeAsBitmap(qrString);
             imageView.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
@@ -65,13 +66,12 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tourID = Integer.parseInt(intent.getStringExtra("tourID"));
         tourName = intent.getStringExtra("tourName");
+        school = intent.getStringExtra("school");
+        klasse = intent.getStringExtra("klasse");
     }
 
     public String generateString(){
-        String qr = tourName;
-        
-
-        return qr;
+        return tourID + " " + klasse + " " + school;
     }
 
 

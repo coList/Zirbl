@@ -35,7 +35,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:scaleType="fitStart"
-            app:srcCompat="@drawable/zirbl_speech_bubble_class" />
+            android:src="@drawable/zirbl_speech_bubble_class" />
     </LinearLayout>
 
     <LinearLayout
