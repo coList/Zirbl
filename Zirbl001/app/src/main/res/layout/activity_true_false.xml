@@ -56,7 +56,7 @@
                         android:layout_marginTop="24dp"
                         android:text="#"
                         android:textAlignment="viewStart"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                     <RelativeLayout
                         android:id="@+id/qestionImage"
@@ -68,7 +68,7 @@
                             android:id="@+id/behindQuestionImage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:srcCompat="@color/colorTourIcons" />
 
                         <TextView
@@ -83,8 +83,10 @@
                             android:paddingRight="24dp"
                             android:paddingTop="24dp"
                             android:text="#"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="18sp" />
+                            android:visibility="gone"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorAccent" />
+                      
                     </RelativeLayout>
 
                     <ImageView
