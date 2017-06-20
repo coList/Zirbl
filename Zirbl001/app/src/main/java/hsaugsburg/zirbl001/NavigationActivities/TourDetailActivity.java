@@ -81,7 +81,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
         mDetailPhoto = (ImageView) findViewById(R.id.image);
 
-        new JSONTourDetail(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
+        new JSONTourDetail(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 
         initImageLoader();
         //setDetailImage();

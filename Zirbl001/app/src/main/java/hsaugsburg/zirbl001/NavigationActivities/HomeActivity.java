@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         setupBottomNavigationView();
 
-        new JSONTourSelection(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
+        new JSONTourSelection(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
 
