@@ -84,14 +84,16 @@
                             android:paddingTop="24dp"
                             android:text="#"
                             android:visibility="gone"
+                            android:textSize="18sp"
                             android:textColor="@color/colorAccent" />
+                      
                     </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/lineQ"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorPressed" />
+                        app:srcCompat="@color/colorRegistrationText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,27 +110,35 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <ImageButton
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/truth"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/code_pressed_truth"
-                            android:gravity="bottom|center_horizontal"
-                            android:paddingBottom="24dp"
+                            android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:paddingTop="45dp"
                             android:text="wahr"
-                            android:textAlignment="gravity"
                             android:textAllCaps="false"
-                            android:textColor="@color/common_google_signin_btn_text_light_default" />
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/iconTruth"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:paddingBottom="40dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/button_truth" />
 
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/lineBetween"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPressed" />
+                        app:srcCompat="@color/colorRegistrationText" />
 
                     <RelativeLayout
                         android:id="@+id/lieArea"
@@ -136,19 +146,26 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <ImageButton
+                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
                             android:id="@+id/lie"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/code_pressed_lie"
-                            android:gravity="bottom|center_horizontal"
-                            android:paddingBottom="24dp"
+                            android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:paddingTop="45dp"
                             android:text="gelogen"
-                            android:textAlignment="gravity"
                             android:textAllCaps="false"
-                            android:textColor="@color/common_google_signin_btn_text_light_default" />
+                            android:textSize="18sp" />
 
+                        <ImageView
+                            android:id="@+id/iconLie"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:paddingBottom="40dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/button_lie" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -164,7 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorPressed" />
+                        app:srcCompat="@color/colorRegistrationText" />
 
                     <ImageButton
                         android:id="@+id/continueButton"
