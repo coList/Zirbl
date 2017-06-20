@@ -41,7 +41,8 @@
                 <LinearLayout
                     android:id="@+id/questionArea"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
@@ -66,14 +67,14 @@
                         <ImageView
                             android:id="@+id/behindQuestionImage"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="match_parent"
                             android:visibility="visible"
                             app:srcCompat="@color/colorTourIcons" />
 
                         <TextView
                             android:id="@+id/besideImgQuestion"
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/behindQuestionImage"
                             android:background="@drawable/code_pressed_route"
                             android:gravity="bottom"

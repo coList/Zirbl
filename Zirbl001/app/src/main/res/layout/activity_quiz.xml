@@ -74,7 +74,7 @@
                         <TextView
                             android:id="@+id/besideImgQuestion"
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/behindQuestionImage"
                             android:background="@drawable/code_pressed_route"
                             android:gravity="bottom"
@@ -110,7 +110,7 @@
                         android:gravity="center_vertical">
 
                         <Button
-                            android:id="@+id/answerA"
+                            android:id="@+id/answer1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -122,6 +122,7 @@
                             android:background="@android:color/transparent"
                             android:text="#"
                             android:textAlignment="textStart"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorPressed"
                             android:visibility="visible" />
 
@@ -154,7 +155,7 @@
                         android:gravity="center_vertical">
 
                         <Button
-                            android:id="@+id/answerB"
+                            android:id="@+id/answer2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -166,6 +167,7 @@
                             android:background="@android:color/transparent"
                             android:text="#"
                             android:textAlignment="textStart"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorPressed"
                             android:visibility="visible" />
 
@@ -198,7 +200,7 @@
                         android:gravity="center_vertical">
 
                         <Button
-                            android:id="@+id/answerC"
+                            android:id="@+id/answer3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -210,6 +212,7 @@
                             android:background="@android:color/transparent"
                             android:text="#"
                             android:textAlignment="textStart"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorPressed"
                             android:visibility="visible" />
 
@@ -242,7 +245,7 @@
                         android:gravity="center_vertical">
 
                         <Button
-                            android:id="@+id/answerD"
+                            android:id="@+id/answer4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -254,6 +257,7 @@
                             android:background="@android:color/transparent"
                             android:text="#"
                             android:textAlignment="textStart"
+                            android:textAllCaps="false"
                             android:textColor="@color/colorPressed"
                             android:visibility="visible" />
 
