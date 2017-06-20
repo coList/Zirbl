@@ -77,7 +77,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
-        new JSONTourDetail(this).execute("http://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
+        new JSONTourDetail(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
 
         ImageButton button = (ImageButton)findViewById(R.id.go);
         button.setOnClickListener(new View.OnClickListener()

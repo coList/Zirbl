@@ -106,17 +106,68 @@
                         android:id="@+id/inputArea"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal">
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp">
 
-                        <TextView
-                            android:id="@+id/input"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:layout_marginTop="24dp"
-                            android:text="TextView"
-                            android:textAlignment="center"
-                            android:textAllCaps="true"
+                        <Button
+                            android:id="@+id/input6"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input4"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
+                            android:textSize="18sp" />
+
+                        <Button
+                            android:id="@+id/input1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_underline"
+                            android:text="#"
+                            android:textColor="@color/colorFlowingText"
                             android:textSize="18sp" />
                     </TableRow>
 

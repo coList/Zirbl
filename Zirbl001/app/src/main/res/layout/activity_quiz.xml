@@ -136,7 +136,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
-                            android:scaleType="fitStart"
+                            android:scaleType="fitCenter"
                             app:srcCompat="@drawable/button_plus" />
                     </RelativeLayout>
 
@@ -181,7 +181,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
-                            android:scaleType="fitStart"
+                            android:scaleType="fitCenter"
                             app:srcCompat="@drawable/button_plus" />
                     </RelativeLayout>
 
@@ -226,7 +226,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
-                            android:scaleType="fitStart"
+                            android:scaleType="fitCenter"
                             app:srcCompat="@drawable/button_plus" />
                     </RelativeLayout>
 
@@ -271,7 +271,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
-                            android:scaleType="fitStart"
+                            android:scaleType="fitCenter"
                             app:srcCompat="@drawable/button_plus" />
                     </RelativeLayout>
 

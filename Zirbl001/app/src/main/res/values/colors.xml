@@ -11,5 +11,10 @@
     <color name="colorFlowingText">#4a4a4a</color>
     <color name="colorTitleInText">#2cdfc5</color>
     <color name="colorRegistrationText">#d0d0d0</color>
+
+    <color name="colorTruth">#00e6c7</color>
+    <color name="colorLie">#d6185d</color>
+
+
 </resources>
 
