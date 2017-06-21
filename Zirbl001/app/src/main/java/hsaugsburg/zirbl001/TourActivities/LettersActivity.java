@@ -139,12 +139,13 @@ public class LettersActivity extends AppCompatActivity {
                     userAnswer += button.getText();
                 }
 
-                Intent intent1 = new Intent(mContext, PointsActivity.class);
-                intent1.putExtra("userAnswer", userAnswer);
-                intent1.putExtra("solution", solution.toUpperCase());
-                intent1.putExtra("answerCorrect", answerCorrect);
-                intent1.putExtra("answerWrong", answerWrong);
-                startActivity(intent1);
+                Intent intent = new Intent(mContext, PointsActivity.class);
+                intent.putExtra("isSlider", "false");
+                intent.putExtra("userAnswer", userAnswer);
+                intent.putExtra("solution", solution.toUpperCase());
+                intent.putExtra("answerCorrect", answerCorrect);
+                intent.putExtra("answerWrong", answerWrong);
+                startActivity(intent);
 
             }
         });
