@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import hsaugsburg.zirbl001.R;
 public class TrueFalseActivity extends AppCompatActivity {
 
     private Context mContext = TrueFalseActivity.this;
+
+    private boolean trueSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,22 @@ public class TrueFalseActivity extends AppCompatActivity {
     //Selection
     View.OnClickListener answerTruth = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.truthArea);
+            trueSelected = true;
+            RelativeLayout selected = (RelativeLayout) findViewById(R.id.truthArea);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.iconTruth);
+
+            RelativeLayout nonSelected = (RelativeLayout) findViewById(R.id.lieArea);
+            nonSelected.setBackgroundResource(0);
+
+            Button nonSelectedButton = (Button) findViewById(R.id.lie);
+            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+            nonSelectedButton.setTextColor(colorId);
+
+            ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconLie);
+            nonSelectedImageView.setImageResource(R.drawable.button_lie);
+
+            ImageView invertedImg = (ImageView) findViewById(R.id.iconTruth);
+
             invertedImg.setImageResource(R.drawable.icon_truth_active);
             Button btA = (Button) findViewById(R.id.truth);
             btA.setTextColor(Color.WHITE);
@@ -49,9 +65,22 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.lieArea);
+
+            trueSelected = false;
+            RelativeLayout selected = (RelativeLayout) findViewById(R.id.lieArea);
             selected.setBackgroundResource(R.color.colorRed);
-            ImageView invertedImg = (ImageView)findViewById(R.id.iconLie);
+
+            RelativeLayout nonSelected = (RelativeLayout) findViewById(R.id.truthArea);
+            nonSelected.setBackgroundResource(0);
+
+            Button nonSelectedButton = (Button) findViewById(R.id.truth);
+            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+            nonSelectedButton.setTextColor(colorId);
+            ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconTruth);
+            nonSelectedImageView.setImageResource(R.drawable.button_truth);
+
+            ImageView invertedImg = (ImageView) findViewById(R.id.iconLie);
+
             invertedImg.setImageResource(R.drawable.icon_lie_active);
             Button btA = (Button) findViewById(R.id.lie);
             btA.setTextColor(Color.WHITE);
@@ -64,9 +93,37 @@ public class TrueFalseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void processData (TrueFalseModel result) {
+    public void processData(TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         Log.d("TrueFalseActivity", result.getQuestion());
         question.setText(result.getQuestion());
+
+        final String rightAnswer = String.valueOf(result.isTrue());
+        final String answerCorrect = result.getAnswerCorrect();
+        final String answerWrong = result.getAnswerWrong();
+
+        ImageButton continueButton = (ImageButton) findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String userAnswer;
+                if (trueSelected == true) {
+                    userAnswer = "true";
+                } else {
+                    userAnswer = "false";
+                }
+
+                Intent intent = new Intent(mContext, PointsActivity.class);
+                intent.putExtra("isSlider", "false");
+                intent.putExtra("userAnswer", userAnswer);
+                intent.putExtra("solution", rightAnswer);
+                intent.putExtra("answerCorrect", answerCorrect);
+                intent.putExtra("answerWrong", answerWrong);
+                startActivity(intent);
+
+            }
+        });
+
     }
 }

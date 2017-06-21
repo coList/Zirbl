@@ -60,7 +60,7 @@
                         android:visibility="visible" />
 
                     <RelativeLayout
-                        android:id="@+id/qestionImage"
+                        android:id="@+id/questionImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="gone">
@@ -139,7 +139,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_a_normal" />
+                            app:srcCompat="@drawable/icon_1_normal" />
                     </RelativeLayout>
 
 
@@ -184,7 +184,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_b_normal" />
+                            app:srcCompat="@drawable/icon_2_normal" />
                     </RelativeLayout>
 
                     <ImageView
@@ -228,7 +228,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_c_normal" />
+                            app:srcCompat="@drawable/icon_3_normal" />
                     </RelativeLayout>
 
                     <ImageView
@@ -271,7 +271,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_d_normal" />
+                            app:srcCompat="@drawable/icon_4_normal" />
                     </RelativeLayout>
 
                     <ImageView

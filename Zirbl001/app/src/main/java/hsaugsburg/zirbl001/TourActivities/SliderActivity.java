@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,7 +34,7 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity. class);
+        Intent intent = new Intent(mContext, NavigationActivity.class);
         startActivity(intent);
     }
 
@@ -43,34 +45,54 @@ public class SliderActivity extends AppCompatActivity {
         question.setText(result.getQuestion());
         minValue = result.getMinRange();
         slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
-        sliderCount = (TextView)findViewById(R.id.sliderCount);
+        sliderCount = (TextView) findViewById(R.id.sliderCount);
         sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
 
 
-        slider.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener(){
-            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser)
-            {
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                 sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
             }
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-                // TODO Auto-generated method stub
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
             }
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
-                // TODO Auto-generated method stub
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+
+        final String rightAnswer = Double.toString(result.getRightNumber());
+        final String answerCorrect = result.getAnswerCorrect();
+        final String answerWrong = result.getAnswerWrong();
+
+        ImageButton continueButton = (ImageButton) findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
+
+                Intent intent = new Intent(mContext, PointsActivity.class);
+                intent.putExtra("isSlider", "true");
+                intent.putExtra("userAnswer", userAnswer);
+                intent.putExtra("solution", rightAnswer);
+                intent.putExtra("answerCorrect", answerCorrect);
+                intent.putExtra("answerWrong", answerWrong);
+                startActivity(intent);
+
             }
         });
 
     }
 
     //Convert double value to int by multiplying it (every value is 100 times its value!)
-    private int getConvertedIntValue (double value) {
-        return (int)Math.round(value * 100);
+    private int getConvertedIntValue(double value) {
+        return (int) Math.round(value * 100);
     }
 
-    private double getConvertedDoubleValue (int value) {
+    private double getConvertedDoubleValue(int value) {
         return value / 100.0;
     }
 
