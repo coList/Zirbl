@@ -73,8 +73,9 @@
                         android:backgroundTint="@color/colorTransparent"
                         android:cursorVisible="true"
                         android:ems="10"
+                        android:hint="Teamname"
                         android:inputType="textCapWords|textPersonName"
-                        android:textColorHint="@color/colorPrimaryDark" />
+                        android:textCursorDrawable="@null" />
 
                     <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
                         android:id="@+id/firstName"
@@ -85,8 +86,9 @@
                         android:backgroundTint="@color/colorTransparent"
                         android:cursorVisible="true"
                         android:ems="10"
+                        android:hint="Gruppenmitglied"
                         android:inputType="textCapWords|textPersonName"
-                        android:textColorHint="@color/colorPrimaryDark" />
+                        android:textCursorDrawable="@null" />
 
                 </LinearLayout>
 

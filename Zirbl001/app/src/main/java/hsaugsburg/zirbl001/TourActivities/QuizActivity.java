@@ -53,9 +53,9 @@ public class QuizActivity extends AppCompatActivity {
     //Selection
     View.OnClickListener answerA = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.areaA);
+            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area1);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetterA);
+            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter1);
             invertedImg.setImageResource(R.drawable.icon_a_active);
             Button btA = (Button) findViewById(R.id.answer1);
             btA.setTextColor(Color.WHITE);
@@ -64,9 +64,9 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerB = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.areaB);
+            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area2);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetterB);
+            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter2);
             invertedImg.setImageResource(R.drawable.icon_b_active);
             Button btA = (Button) findViewById(R.id.answer2);
             btA.setTextColor(Color.WHITE);
@@ -75,9 +75,9 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerC = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.areaC);
+            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area3);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetterC);
+            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter3);
             invertedImg.setImageResource(R.drawable.icon_c_active);
             Button btA = (Button) findViewById(R.id.answer3);
             btA.setTextColor(Color.WHITE);
@@ -86,9 +86,9 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerD = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.areaD);
+            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area4);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetterD);
+            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter4);
             invertedImg.setImageResource(R.drawable.icon_d_active);
             Button btA = (Button) findViewById(R.id.answer4);
             btA.setTextColor(Color.WHITE);

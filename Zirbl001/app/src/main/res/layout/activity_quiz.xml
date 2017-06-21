@@ -107,7 +107,7 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/areaA"
+                        android:id="@+id/area1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -129,7 +129,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/imgLetterA"
+                            android:id="@+id/imgLetter1"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -144,14 +144,14 @@
 
 
                     <ImageView
-                        android:id="@+id/lineA"
+                        android:id="@+id/line1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
                         app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
-                        android:id="@+id/areaB"
+                        android:id="@+id/area2"
 
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -174,7 +174,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/imgLetterB"
+                            android:id="@+id/imgLetter2"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -188,7 +188,7 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineB"
+                        android:id="@+id/line2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
@@ -196,7 +196,7 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/areaC"
+                        android:id="@+id/area3"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -218,7 +218,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/imgLetterC"
+                            android:id="@+id/imgLetter3"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -232,14 +232,14 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineC"
+                        android:id="@+id/line3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
                         app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
-                        android:id="@+id/areaD"
+                        android:id="@+id/area4"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -261,7 +261,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/imgLetterD"
+                            android:id="@+id/imgLetter4"
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -275,7 +275,7 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineD"
+                        android:id="@+id/line4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
