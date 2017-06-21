@@ -46,6 +46,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
 
+
         Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
         ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(mContext,
                 R.array.gradeInSchool, R.layout.spinner_item);

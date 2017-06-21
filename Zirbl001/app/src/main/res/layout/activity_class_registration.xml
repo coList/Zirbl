@@ -53,7 +53,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="32dp">
 
-            <hsaugsburg.zirbl001.Fonts.FlowingText
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -82,14 +82,14 @@
                 android:textColor="@color/colorPrimaryDark"/>
         </LinearLayout>
 
-        <hsaugsburg.zirbl001.Fonts.RegistrationText
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
             android:id="@+id/school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/colorRegistrationText"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:ems="10"
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
@@ -104,7 +104,7 @@
         android:orientation="vertical"
         android:background="@color/colorAccent">
 
-        <hsaugsburg.zirbl001.Fonts.FlowingText
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:id="@+id/qrCodeInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
