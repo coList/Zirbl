@@ -16,11 +16,8 @@
             app:itemIconTint="@drawable/code_tabbar_hover"
             app:itemTextColor="@drawable/code_tabbar_hover">
 
-
         </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
 
-
     </RelativeLayout>
-
 
 </merge>

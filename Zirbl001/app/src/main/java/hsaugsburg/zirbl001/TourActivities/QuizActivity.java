@@ -3,10 +3,8 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,11 +54,13 @@ public class QuizActivity extends AppCompatActivity {
     //Selection
     View.OnClickListener answerA = new View.OnClickListener() {
         public void onClick(View v) {
+
             selectedAnswer = 1;
             resetAnswers();
 
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.area1);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
+
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter1);
             invertedImg.setImageResource(R.drawable.icon_a_active);
             Button btA = (Button) findViewById(R.id.answer1);
@@ -69,11 +69,12 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerB = new View.OnClickListener() {
         public void onClick(View v) {
+
             selectedAnswer = 2;
             resetAnswers();
 
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.area2);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter2);
             invertedImg.setImageResource(R.drawable.icon_b_active);
             Button btA = (Button) findViewById(R.id.answer2);
@@ -83,11 +84,13 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerC = new View.OnClickListener() {
         public void onClick(View v) {
+
             selectedAnswer = 3;
             resetAnswers();
 
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.area3);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
+
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter3);
             invertedImg.setImageResource(R.drawable.icon_c_active);
             Button btA = (Button) findViewById(R.id.answer3);
@@ -96,11 +99,13 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerD = new View.OnClickListener() {
         public void onClick(View v) {
+
             selectedAnswer = 4;
             resetAnswers();
 
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.area4);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
+
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter4);
             invertedImg.setImageResource(R.drawable.icon_d_active);
             Button btA = (Button) findViewById(R.id.answer4);

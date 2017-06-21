@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
 
     <!-- top actionbar -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             android:layout_weight="1"
             android:scaleType="fitStart"
             android:src="@drawable/zirbl_speech_bubble_class" />
@@ -42,14 +44,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
 
-            <hsaugsburg.zirbl001.Fonts.FlowingText
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -66,7 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark" />
 
             <Spinner
                 android:id="@+id/spinnerClass"
@@ -78,33 +82,35 @@
                 android:textColor="@color/colorPrimaryDark"/>
         </LinearLayout>
 
-        <hsaugsburg.zirbl001.Fonts.RegistrationText
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
             android:id="@+id/school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="24dp"
-            android:backgroundTint="@color/colorRegistrationText"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:ems="10"
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="24dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
 
-        <hsaugsburg.zirbl001.Fonts.FlowingText
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:id="@+id/qrCodeInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
+            android:textSize="18sp"
             android:text="Beim Anmelden der Klasse wird ein QR Code erstellt, den die Schüler abscannen müssen, um an der Tour teilnehmen zu können." />
 
         <ImageButton

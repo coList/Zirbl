@@ -69,7 +69,7 @@ public class LettersActivity extends AppCompatActivity {
             int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
-            int colorId = context.getResources().getIdentifier("colorFlowingText", "color", context.getPackageName());
+            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 

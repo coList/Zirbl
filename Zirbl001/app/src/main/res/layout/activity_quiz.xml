@@ -46,7 +46,7 @@
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.FlowingText
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                         android:id="@+id/questionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,9 +70,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:visibility="visible"
-                            app:srcCompat="@color/colorTourIcons" />
+                            app:srcCompat="@color/colorTurquoise" />
 
-                        <hsaugsburg.zirbl001.Fonts.FlowingText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/besideImgQuestion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="1dp"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                 </LinearLayout>
 
@@ -113,19 +113,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorPressed"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -145,11 +144,11 @@
 
 
                     <ImageView
-                        android:id="@+id/lineA"
+                        android:id="@+id/line1"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
                         android:id="@+id/area2"
@@ -159,19 +158,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorPressed"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -190,11 +188,11 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineB"
+                        android:id="@+id/line2"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
 
                     <RelativeLayout
@@ -204,19 +202,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorPressed"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -235,11 +232,11 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineC"
+                        android:id="@+id/line3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                     <RelativeLayout
                         android:id="@+id/area4"
@@ -248,19 +245,18 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical">
 
-                        <hsaugsburg.zirbl001.Fonts.QuizAnswerText
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
-                            android:paddingLeft="110dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="90dp"
                             android:text="#"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
-                            android:textColor="@color/colorPressed"
-                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:visibility="visible" />
 
@@ -279,11 +275,11 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/lineD"
+                        android:id="@+id/line4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:visibility="visible"
-                        app:srcCompat="@color/colorRegistrationText" />
+                        app:srcCompat="@color/colorTransparentLight" />
 
                 </LinearLayout>
 

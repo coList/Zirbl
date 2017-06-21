@@ -44,7 +44,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         public void onClick(View v) {
             trueSelected = true;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.truthArea);
-            selected.setBackgroundResource(R.color.colorTruth);
+            selected.setBackgroundResource(R.color.colorTurquoise);
 
             RelativeLayout nonSelected = (RelativeLayout) findViewById(R.id.lieArea);
             nonSelected.setBackgroundResource(0);
@@ -57,6 +57,7 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelectedImageView.setImageResource(R.drawable.button_lie);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconTruth);
+
             invertedImg.setImageResource(R.drawable.icon_truth_active);
             Button btA = (Button) findViewById(R.id.truth);
             btA.setTextColor(Color.WHITE);
@@ -64,9 +65,10 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
+
             trueSelected = false;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.lieArea);
-            selected.setBackgroundResource(R.color.colorLie);
+            selected.setBackgroundResource(R.color.colorRed);
 
             RelativeLayout nonSelected = (RelativeLayout) findViewById(R.id.truthArea);
             nonSelected.setBackgroundResource(0);
@@ -78,6 +80,7 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelectedImageView.setImageResource(R.drawable.button_truth);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconLie);
+
             invertedImg.setImageResource(R.drawable.icon_lie_active);
             Button btA = (Button) findViewById(R.id.lie);
             btA.setTextColor(Color.WHITE);

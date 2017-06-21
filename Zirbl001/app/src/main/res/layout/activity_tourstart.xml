@@ -62,7 +62,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.RegistrationText
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
                         android:id="@+id/teamname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,19 +70,25 @@
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/colorTransparent"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="Teamname"
-                        android:inputType="textCapWords|textPersonName" />
+                        android:inputType="textCapWords|textPersonName"
+                        android:textCursorDrawable="@null" />
 
-                    <hsaugsburg.zirbl001.Fonts.RegistrationText
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
                         android:id="@+id/firstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
+                        android:backgroundTint="@color/colorTransparent"
+                        android:cursorVisible="true"
                         android:ems="10"
-                        android:hint="Mitglied"
-                        android:inputType="textCapWords|textPersonName" />
+                        android:hint="Gruppenmitglied"
+                        android:inputType="textCapWords|textPersonName"
+                        android:textCursorDrawable="@null" />
 
                 </LinearLayout>
 
