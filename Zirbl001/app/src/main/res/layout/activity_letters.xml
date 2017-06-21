@@ -119,9 +119,7 @@
                     <TableRow
                         android:id="@+id/topLine"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp">
+                        android:layout_height="wrap_content">
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/letter1"
@@ -205,9 +203,7 @@
                         android:id="@+id/bottomLine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp">
+                        android:layout_marginBottom="8dp">
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/letter8"
