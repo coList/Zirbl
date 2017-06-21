@@ -12,6 +12,6 @@ public class FlowingText extends android.support.v7.widget.AppCompatTextView {
     public FlowingText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Regular.ttf"));
-        this.setTextColor(ContextCompat.getColor(context, R.color.colorFlowingText));
+        this.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
     }
 }

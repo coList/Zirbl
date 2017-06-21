@@ -13,6 +13,6 @@ public class RegistrationText extends android.support.v7.widget.AppCompatEditTex
     public RegistrationText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Regular.ttf"));
-        this.setTextColor(ContextCompat.getColor(context, R.color.colorRegistrationText));
+        this.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
     }
 }

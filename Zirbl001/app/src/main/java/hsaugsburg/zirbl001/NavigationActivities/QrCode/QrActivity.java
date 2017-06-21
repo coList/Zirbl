@@ -1,7 +1,8 @@
-package hsaugsburg.zirbl001.NavigationActivities;
+package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +18,6 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class QrActivity extends AppCompatActivity {
 
@@ -27,6 +27,15 @@ public class QrActivity extends AppCompatActivity {
     private Context mContext = QrActivity.this;
 
     TextView barcodeResult;
+
+    private int tourID;
+    private int klassenID;
+    private String klasse;
+    private String school;
+
+
+    FragmentManager fm = getSupportFragmentManager();
+    private String barcodeValue;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -68,6 +77,20 @@ public class QrActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
+    public void setBarcodeInfos(){
+
+        String[] splited = barcodeValue.split("\\s+");
+
+        tourID = Integer.parseInt(splited[0]);
+        //klassenID = 0;
+        klasse = splited[1];
+        //fuegt Schulnamen wieder zusammen
+        for (int i=2;i<splited.length;i++){
+            school = school + " " + splited[i];
+        }
+
+    }
+
 
     @Override
     public  void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -75,7 +98,18 @@ public class QrActivity extends AppCompatActivity {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    barcodeResult.setText("Barcode value : "+ barcode.displayValue);
+                    //barcodeResult.setText("Barcode value : "+ barcode.displayValue);
+
+
+                    barcodeValue = barcode.displayValue;
+                    Log.d(TAG, "onActivityResult: " +barcodeValue);
+
+                    //FragmentManager fm = getFragmentManager();
+                    /*
+                    ScanBarcodeDialogFragment dialogFragment = new ScanBarcodeDialogFragment ();
+                    dialogFragment.show(fm, "Sample Fragment");
+                    */
+
                 } else {
                     barcodeResult.setText("Ich nix finden");
                 }

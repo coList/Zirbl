@@ -70,8 +70,12 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         klasse = intent.getStringExtra("klasse");
     }
 
+    /*
+    * String muss wie folgt ausschauen: TourID, KlassenID, Klassenname, Schulname
+    *
+     */
     public String generateString(){
-        return tourID + " " + klasse + " " + school;
+        return tourID + " " + "0" + klasse + " " + school;
     }
 
 

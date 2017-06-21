@@ -1,14 +1,18 @@
-package hsaugsburg.zirbl001.NavigationActivities;
+package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Button;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
@@ -20,7 +24,9 @@ import java.io.IOException;
 
 import hsaugsburg.zirbl001.R;
 
-public class ScanBarcodeActivity extends AppCompatActivity {
+public class ScanBarcodeActivity extends FragmentActivity {
+
+    private static final String TAG = "ScanBarcodeActivity";
 
     SurfaceView cameraPreview;
 
@@ -90,9 +96,11 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if(barcodes.size()>0){
+
                     Intent intent=new Intent();
                     intent.putExtra("barcode", barcodes.valueAt(0));
                     setResult(CommonStatusCodes.SUCCESS,intent);
+
                     finish();
                 }
 
@@ -100,5 +108,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 }
