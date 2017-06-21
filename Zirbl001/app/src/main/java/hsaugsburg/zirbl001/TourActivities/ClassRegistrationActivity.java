@@ -45,6 +45,19 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
+
+        Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
+        ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(mContext,
+                R.array.gradeInSchool, R.layout.spinner_item);
+        adapterGrade.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerGrade.setAdapter(adapterGrade);
+
+        Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
+        ArrayAdapter<CharSequence> adapterClass = ArrayAdapter.createFromResource(mContext,
+                R.array.classInSchool, R.layout.spinner_item);
+        adapterClass.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerClass.setAdapter(adapterClass);
+
     }
 
     public void setIntentExtras(){
@@ -80,4 +93,5 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         school = etSchool.getText().toString();
 
     }
+
 }

@@ -12,7 +12,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import hsaugsburg.zirbl001.NavigationActivities.FavoriteActivity;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileActivity;
-import hsaugsburg.zirbl001.NavigationActivities.QrActivity;
+import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
