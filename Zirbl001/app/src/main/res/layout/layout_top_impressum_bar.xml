@@ -14,9 +14,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/impressum" >
 
-
             </android.support.v7.widget.Toolbar>
-
 
         </android.support.design.widget.AppBarLayout>
 
