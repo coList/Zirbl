@@ -9,6 +9,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
@@ -18,6 +20,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "ClassRegistrationActivity";
     private Context mContext = ClassRegistrationActivity.this;
+
+    private int tourID;
+    private String tourName;
+    private String klasse;
+    private String school;
 
 
     //Animation beim Activity Wechsel verhindern
@@ -33,15 +40,44 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_registration);
         Log.d(TAG, "onCreate: starting");
 
+        setIntentExtras();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
     }
 
+    public void setIntentExtras(){
+        Intent intent = getIntent();
+        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        tourName = intent.getStringExtra("tourName");
+    }
+
     public void generateQrCode (View view){
 
-        Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
-        startActivity(intent);
+        setInput();
+
+        ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
+        if(klasse != null && !klasse.isEmpty() && school !=null && !school.isEmpty()){
+            Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
+            intent.putExtra("tourID", Integer.toString(tourID));
+            intent.putExtra("tourName", tourName);
+            intent.putExtra("klasse", klasse);
+            intent.putExtra("school", school);
+            startActivity(intent);
+            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class);
+        } else {
+            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class_fail);
+        }
+    }
+
+    public void setInput(){
+        Spinner spGrade = (Spinner) findViewById(R.id.spinnerGrade);
+        Spinner spKlasse = (Spinner) findViewById(R.id.spinnerClass);
+        EditText etSchool = (EditText) findViewById(R.id.school);
+
+        klasse = spGrade.getSelectedItem().toString() + spKlasse.getSelectedItem().toString();
+        school = etSchool.getText().toString();
 
     }
 }
