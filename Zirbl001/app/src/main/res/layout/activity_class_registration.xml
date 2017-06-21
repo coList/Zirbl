@@ -89,11 +89,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorTransparent"
             android:ems="10"
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 

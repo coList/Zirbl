@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,25 @@
     tools:context="hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity"
     android:background="@color/colorAccent">
 
+    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+        android:id="@+id/scanPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/qrCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="Scanne den Code ab, um die Tour zu starten!" />
+
     <ImageView
         android:id="@+id/qrCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorTurquoise" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

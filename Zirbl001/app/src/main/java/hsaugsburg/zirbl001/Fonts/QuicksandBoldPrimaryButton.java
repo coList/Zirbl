@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import hsaugsburg.zirbl001.R;
 
-public class QuicksandBoldPrimaryButton extends Button {
+public class QuicksandBoldPrimaryButton extends android.support.v7.widget.AppCompatButton {
     public QuicksandBoldPrimaryButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Bold.ttf"));
