@@ -35,7 +35,7 @@
                 android:layout_height="?actionBarSize"
                 android:background="@color/colorAccent"
                 android:elevation="1dp"
-                app:tabIndicatorColor="@color/colorTourIcons"
+                app:tabIndicatorColor="@color/colorTurquoise"
                 app:tabIndicatorHeight="3dp"
                 style="@style/ProfileTab"/>
 

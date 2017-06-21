@@ -27,7 +27,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     private String school;
 
 
-    //Animation beim Activity wechsel verhindern
+    //Animation beim Activity Wechsel verhindern
     @Override
     protected void onPause() {
         super.onPause();
@@ -45,18 +45,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
-
-        Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
-        ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(this,
-                R.array.gradeInSchool, android.R.layout.simple_spinner_item);
-        adapterGrade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGrade.setAdapter(adapterGrade);
-
-        Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
-        ArrayAdapter<CharSequence> adapterClass = ArrayAdapter.createFromResource(this,
-                R.array.classInSchool, android.R.layout.simple_spinner_item);
-        adapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerClass.setAdapter(adapterClass);
     }
 
     public void setIntentExtras(){
