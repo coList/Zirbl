@@ -70,7 +70,7 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/button_scan" />
 
-            <hsaugsburg.zirbl001.Fonts.TitleInText
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
                 android:id="@+id/barcode_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
