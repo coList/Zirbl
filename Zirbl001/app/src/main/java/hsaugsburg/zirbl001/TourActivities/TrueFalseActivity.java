@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,8 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelected.setBackgroundResource(0);
 
             Button nonSelectedButton = (Button) findViewById(R.id.lie);
-            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             nonSelectedButton.setTextColor(colorId);
 
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconLie);
@@ -74,8 +76,9 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelected.setBackgroundResource(0);
 
             Button nonSelectedButton = (Button) findViewById(R.id.truth);
-            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             nonSelectedButton.setTextColor(colorId);
+
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconTruth);
             nonSelectedImageView.setImageResource(R.drawable.button_truth);
 

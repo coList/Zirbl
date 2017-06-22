@@ -49,4 +49,12 @@
         android:onClick="layoutQuiz"
         android:text="#Quiz#Layout"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/layoutDidUKnow"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:onClick="layoutDoUKnow"
+        android:text="#DidUKnow#Layout"
+        android:textAllCaps="false" />
 </LinearLayout>
