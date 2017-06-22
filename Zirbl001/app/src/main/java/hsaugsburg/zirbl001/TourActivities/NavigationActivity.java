@@ -43,4 +43,9 @@ public class NavigationActivity extends AppCompatActivity {
         Intent intent = new Intent(mContext, LettersActivity.class);
         startActivity(intent);
     }
+
+    public void layoutDoUKnow(View view) {
+        Intent intent = new Intent(mContext, DoUKnowActivity.class);
+        startActivity(intent);
+    }
 }
