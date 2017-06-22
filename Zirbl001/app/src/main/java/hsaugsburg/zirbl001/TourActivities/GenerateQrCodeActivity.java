@@ -75,7 +75,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     *
      */
     public String generateString(){
-        return tourID + " " + "0" + klasse + " " + school;
+        return tourID + " " + "0" + " " + klasse + " " + school;
     }
 
 

@@ -33,8 +33,6 @@ public class QrActivity extends AppCompatActivity {
     private String klasse;
     private String school;
 
-
-    FragmentManager fm = getSupportFragmentManager();
     private String barcodeValue;
 
     //Animation beim Activity wechsel verhindern
@@ -104,11 +102,6 @@ public class QrActivity extends AppCompatActivity {
                     barcodeValue = barcode.displayValue;
                     Log.d(TAG, "onActivityResult: " +barcodeValue);
 
-                    //FragmentManager fm = getFragmentManager();
-                    /*
-                    ScanBarcodeDialogFragment dialogFragment = new ScanBarcodeDialogFragment ();
-                    dialogFragment.show(fm, "Sample Fragment");
-                    */
 
                 } else {
                     barcodeResult.setText("Ich nix finden");

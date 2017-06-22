@@ -1,8 +1,10 @@
 package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -43,6 +48,13 @@ public class ScanBarcodeActivity extends FragmentActivity {
 
         cameraPreview = (SurfaceView) findViewById(R.id.camera_preview);
         createCameraSource();
+
+    }
+
+    private void showScanDialog(){
+        FragmentManager fm = getSupportFragmentManager();
+        ScanBarcodeDialogFragment dialogFragment = ScanBarcodeDialogFragment.newInstance("Some Title");
+        dialogFragment.show(fm, "fragment_scan_barcode_dialog");
     }
 
     private void createCameraSource() {
@@ -97,11 +109,17 @@ public class ScanBarcodeActivity extends FragmentActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if(barcodes.size()>0){
 
+
                     Intent intent=new Intent();
                     intent.putExtra("barcode", barcodes.valueAt(0));
+
+
+                    showScanDialog();
+
+
                     setResult(CommonStatusCodes.SUCCESS,intent);
 
-                    finish();
+                    //finish();
                 }
 
             }
