@@ -2,6 +2,8 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
@@ -49,6 +53,22 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
+
+        // ActionBar Font...zz nur auf dieser Seite
+        TextView yourTextView = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            yourTextView = (TextView) f.get(toolbar);
+            yourTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            yourTextView.setAllCaps(true);
+            yourTextView.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            yourTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
+        //
 
         NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
         NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
@@ -90,9 +110,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             intent.putExtra("klasse", klasse);
             intent.putExtra("school", school);
             startActivity(intent);
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class_fail);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
     }
 

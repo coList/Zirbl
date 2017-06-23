@@ -29,10 +29,28 @@
 
             <!-- Middle section (body) -->
             <RelativeLayout
+                android:id="@+id/tourProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relLayoutActionBar">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:layout_marginBottom="1dp"
+                    android:elevation="30dp"
+                    android:progress="20"
+                    android:progressDrawable="@drawable/code_progressbar_style" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/relLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/relLayoutActionBar"
+                android:layout_below="@+id/tourProgress"
                 android:background="@color/colorAccent">
 
 
@@ -56,7 +74,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:scaleType="fitStart"
-                            app:srcCompat="@drawable/zirbl_speech_bubble_team" />
+                            app:srcCompat="@drawable/img_zirbl_speech_bubble_team" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -112,7 +130,7 @@
                             android:layout_marginTop="16dp"
                             android:background="@android:color/transparent"
                             android:scaleType="fitEnd"
-                            app:srcCompat="@drawable/button_plus" />
+                            app:srcCompat="@drawable/btn_plus" />
 
                         <ImageButton
                             android:id="@+id/continueButton"
@@ -125,7 +143,7 @@
                             android:paddingBottom="24dp"
                             android:paddingTop="24dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/button_continue" />
+                            app:srcCompat="@drawable/btn_continue" />
 
                     </LinearLayout>
                 </LinearLayout>

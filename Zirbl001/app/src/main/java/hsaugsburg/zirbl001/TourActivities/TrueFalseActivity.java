@@ -56,11 +56,11 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelectedButton.setTextColor(colorId);
 
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconLie);
-            nonSelectedImageView.setImageResource(R.drawable.button_lie);
+            nonSelectedImageView.setImageResource(R.drawable.ic_lie_normal);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconTruth);
 
-            invertedImg.setImageResource(R.drawable.icon_truth_active);
+            invertedImg.setImageResource(R.drawable.ic_truth_active);
             Button btA = (Button) findViewById(R.id.truth);
             btA.setTextColor(Color.WHITE);
         }
@@ -80,11 +80,11 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelectedButton.setTextColor(colorId);
 
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconTruth);
-            nonSelectedImageView.setImageResource(R.drawable.button_truth);
+            nonSelectedImageView.setImageResource(R.drawable.ic_truth_normal);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconLie);
 
-            invertedImg.setImageResource(R.drawable.icon_lie_active);
+            invertedImg.setImageResource(R.drawable.ic_lie_active);
             Button btA = (Button) findViewById(R.id.lie);
             btA.setTextColor(Color.WHITE);
         }
