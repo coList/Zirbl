@@ -57,7 +57,6 @@ public class TourstartActivity extends AppCompatActivity {
 
                     params.leftMargin = (int) (24 * d);
                     params.rightMargin = (int) (24 * d);
-                    params.topMargin = (int) (8 * d);
 
                     //TODO: set textCursorDrawable
                     int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
