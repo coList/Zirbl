@@ -35,7 +35,7 @@
             android:layout_marginTop="24dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/zirbl_speech_bubble_class" />
+            android:src="@drawable/img_zirbl_speech_bubble_class" />
     </LinearLayout>
 
     <LinearLayout
@@ -128,7 +128,7 @@
             android:background="@android:color/transparent"
             android:onClick="generateQrCode"
             android:scaleType="fitCenter"
-            android:src="@drawable/button_continue" />
+            android:src="@drawable/btn_continue" />
     </RelativeLayout>
 
 </LinearLayout>

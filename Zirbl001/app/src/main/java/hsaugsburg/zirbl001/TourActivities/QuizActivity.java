@@ -63,7 +63,7 @@ public class QuizActivity extends AppCompatActivity {
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter1);
-            invertedImg.setImageResource(R.drawable.icon_a_active);
+            invertedImg.setImageResource(R.drawable.ic_1_active);
             Button btA = (Button) findViewById(R.id.answer1);
             btA.setTextColor(Color.WHITE);
         }
@@ -77,7 +77,7 @@ public class QuizActivity extends AppCompatActivity {
             RelativeLayout selected = (RelativeLayout)findViewById(R.id.area2);
             selected.setBackgroundResource(R.color.colorTurquoise);
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter2);
-            invertedImg.setImageResource(R.drawable.icon_b_active);
+            invertedImg.setImageResource(R.drawable.ic_2_active);
             Button btA = (Button) findViewById(R.id.answer2);
             btA.setTextColor(Color.WHITE);
 
@@ -93,7 +93,7 @@ public class QuizActivity extends AppCompatActivity {
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter3);
-            invertedImg.setImageResource(R.drawable.icon_c_active);
+            invertedImg.setImageResource(R.drawable.ic_3_active);
             Button btA = (Button) findViewById(R.id.answer3);
             btA.setTextColor(Color.WHITE);
         }
@@ -108,7 +108,7 @@ public class QuizActivity extends AppCompatActivity {
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter4);
-            invertedImg.setImageResource(R.drawable.icon_d_active);
+            invertedImg.setImageResource(R.drawable.ic_4_active);
             Button btA = (Button) findViewById(R.id.answer4);
             btA.setTextColor(Color.WHITE);
         }

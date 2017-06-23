@@ -90,9 +90,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             intent.putExtra("klasse", klasse);
             intent.putExtra("school", school);
             startActivity(intent);
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class_fail);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
     }
 

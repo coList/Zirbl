@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.PointsActivity">
+    tools:context="hsaugsburg.zirbl001.TourActivities.GoldenActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="170dp"
-                                android:text="100"
+                                android:text="1"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="50sp"
                                 android:textStyle="bold" />

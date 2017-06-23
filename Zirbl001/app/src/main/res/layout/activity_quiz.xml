@@ -139,7 +139,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_1_normal" />
+                            app:srcCompat="@drawable/ic_1_normal" />
                     </RelativeLayout>
 
 
@@ -184,7 +184,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_2_normal" />
+                            app:srcCompat="@drawable/ic_2_normal" />
                     </RelativeLayout>
 
                     <ImageView
@@ -228,7 +228,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_3_normal" />
+                            app:srcCompat="@drawable/ic_3_normal" />
                     </RelativeLayout>
 
                     <ImageView
@@ -271,7 +271,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="5dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/icon_4_normal" />
+                            app:srcCompat="@drawable/ic_4_normal" />
                     </RelativeLayout>
 
                     <ImageView
@@ -300,7 +300,7 @@
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/button_continue" />
+                        android:src="@drawable/btn_continue" />
                 </RelativeLayout>
 
             </LinearLayout>
