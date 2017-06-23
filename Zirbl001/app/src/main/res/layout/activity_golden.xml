@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:id="@+id/pointsImage"
+                                android:id="@+id/goldenImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="300dp"
                                 android:layout_alignParentLeft="true"
@@ -62,15 +62,15 @@
                                 android:paddingBottom="26dp"
                                 android:paddingTop="24dp"
                                 android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/img_zirbl_small_qrcode" />
+                                app:srcCompat="@drawable/img_golden" />
 
                             <TextView
-                                android:id="@+id/points"
+                                android:id="@+id/goldenCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="170dp"
-                                android:text="1"
+                                android:text="#"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="50sp"
                                 android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         </RelativeLayout>
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                            android:id="@+id/answerText"
+                            android:id="@+id/goldenText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"

@@ -39,7 +39,7 @@ public class PointsActivity extends AppCompatActivity {
                 answerImage.setImageResource(R.drawable.img_right);
             } else {
                 answerText.setText(answerWrong);
-                answerImage.setImageResource(R.drawable.img_golden);
+                answerImage.setImageResource(R.drawable.img_wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
@@ -47,7 +47,7 @@ public class PointsActivity extends AppCompatActivity {
                 answerImage.setImageResource(R.drawable.img_right);
             } else {
                 answerText.setText(answerWrong);
-                answerImage.setImageResource(R.drawable.img_golden);
+                answerImage.setImageResource(R.drawable.img_wrong);
             }
         }
 
