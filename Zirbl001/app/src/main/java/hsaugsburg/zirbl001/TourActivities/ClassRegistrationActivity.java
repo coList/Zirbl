@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
@@ -46,19 +50,26 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
 
+        NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
+        NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
+        TextView tvInfo = (TextView) findViewById(R.id.qrCodeInfo);
 
-        Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
-        ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(mContext,
-                R.array.gradeInSchool, R.layout.spinner_item);
-        adapterGrade.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerGrade.setAdapter(adapterGrade);
+        tvInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
-        Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
-        ArrayAdapter<CharSequence> adapterClass = ArrayAdapter.createFromResource(mContext,
-                R.array.classInSchool, R.layout.spinner_item);
-        adapterClass.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerClass.setAdapter(adapterClass);
+        final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+        final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
+        npClassnumber.setMinValue(0);
+        npGrade.setMinValue(0);
+
+        npClassnumber.setMaxValue(valuesClassnumber.length-1);
+        npGrade.setMaxValue(valuesGrade.length-1);
+
+        npClassnumber.setDisplayedValues(valuesClassnumber);
+        npGrade.setDisplayedValues(valuesGrade);
+
+        npClassnumber.setWrapSelectorWheel(true);
+        npGrade.setWrapSelectorWheel(true);
     }
 
     public void setIntentExtras(){
@@ -86,11 +97,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     }
 
     public void setInput(){
-        Spinner spGrade = (Spinner) findViewById(R.id.spinnerGrade);
-        Spinner spKlasse = (Spinner) findViewById(R.id.spinnerClass);
+        NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
+        NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        klasse = spGrade.getSelectedItem().toString() + spKlasse.getSelectedItem().toString();
+        klasse = " " + npGrade.getValue() + npClass.getValue();
         school = etSchool.getText().toString();
 
     }
