@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.PointsActivity">
+    tools:context="hsaugsburg.zirbl001.TourActivities.GoldenActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:id="@+id/pointsImage"
+                                android:id="@+id/goldenImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="300dp"
                                 android:layout_alignParentLeft="true"
@@ -62,10 +62,10 @@
                                 android:paddingBottom="26dp"
                                 android:paddingTop="24dp"
                                 android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/img_right" />
+                                app:srcCompat="@drawable/img_golden" />
 
                             <TextView
-                                android:id="@+id/points"
+                                android:id="@+id/goldenCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
@@ -78,7 +78,7 @@
                         </RelativeLayout>
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                            android:id="@+id/answerText"
+                            android:id="@+id/goldenText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"

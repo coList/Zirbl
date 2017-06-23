@@ -2,12 +2,17 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,6 +20,7 @@ import android.widget.LinearLayout;
 
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
+import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.R;
 
 public class TourstartActivity extends AppCompatActivity {
@@ -52,14 +58,20 @@ public class TourstartActivity extends AppCompatActivity {
                     params.leftMargin = (int) (24 * d);
                     params.rightMargin = (int) (24 * d);
 
-                    //TODO: set inputType, set backgroundTint instead of backgroundcolor, set textCursorDrawable
-                    int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorTransparent);
+                    //TODO: set textCursorDrawable
+                    int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
+                    participantField.setId(count);
                     participantField.setTextColor(colorId);
                     participantField.setHint("Gruppenmitglied");
+                    participantField.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorTransparent));
                     participantField.setCursorVisible(true);
-                    participantField.setBackgroundColor(0);
+                    ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(Color.GRAY));
                     participantField.setEms(10);
+                    participantField.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
                     participantField.setLayoutParams(params);
+                    participantField.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/Quicksand-Regular.ttf"));
+                    participantField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
                     linearLayout.addView(participantField);
                     count++;
                 }

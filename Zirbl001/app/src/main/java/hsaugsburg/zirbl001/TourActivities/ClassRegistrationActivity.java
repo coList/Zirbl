@@ -2,17 +2,25 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.lang.reflect.Field;
+
+import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
@@ -46,19 +54,42 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Klasse Anmelden");
 
+        // ActionBar Font...zz nur auf dieser Seite
+        TextView yourTextView = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            yourTextView = (TextView) f.get(toolbar);
+            yourTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            yourTextView.setAllCaps(true);
+            yourTextView.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            yourTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
+        //
 
-        Spinner spinnerGrade = (Spinner) findViewById(R.id.spinnerGrade);
-        ArrayAdapter<CharSequence> adapterGrade = ArrayAdapter.createFromResource(mContext,
-                R.array.gradeInSchool, R.layout.spinner_item);
-        adapterGrade.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerGrade.setAdapter(adapterGrade);
+        NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
+        NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
+        TextView tvInfo = (TextView) findViewById(R.id.qrCodeInfo);
 
-        Spinner spinnerClass = (Spinner) findViewById(R.id.spinnerClass);
-        ArrayAdapter<CharSequence> adapterClass = ArrayAdapter.createFromResource(mContext,
-                R.array.classInSchool, R.layout.spinner_item);
-        adapterClass.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerClass.setAdapter(adapterClass);
+        tvInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
+        final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+        final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
+
+        npClassnumber.setMinValue(0);
+        npGrade.setMinValue(0);
+
+        npClassnumber.setMaxValue(valuesClassnumber.length-1);
+        npGrade.setMaxValue(valuesGrade.length-1);
+
+        npClassnumber.setDisplayedValues(valuesClassnumber);
+        npGrade.setDisplayedValues(valuesGrade);
+
+        npClassnumber.setWrapSelectorWheel(true);
+        npGrade.setWrapSelectorWheel(true);
     }
 
     public void setIntentExtras(){
@@ -79,18 +110,18 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             intent.putExtra("klasse", klasse);
             intent.putExtra("school", school);
             startActivity(intent);
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
-            speechBubble.setImageResource(R.drawable.zirbl_speech_bubble_class_fail);
+            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
     }
 
     public void setInput(){
-        Spinner spGrade = (Spinner) findViewById(R.id.spinnerGrade);
-        Spinner spKlasse = (Spinner) findViewById(R.id.spinnerClass);
+        NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
+        NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        klasse = spGrade.getSelectedItem().toString() + spKlasse.getSelectedItem().toString();
+        klasse = " " + npGrade.getValue() + npClass.getValue();
         school = etSchool.getText().toString();
 
     }
