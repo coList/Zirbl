@@ -23,6 +23,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private Context mContext = QuizActivity.this;
 
+
+    private int amountOfAnswers = 4;
     private int selectedAnswer = -1;
 
 
@@ -125,6 +127,10 @@ public class QuizActivity extends AppCompatActivity {
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
             questionBesideImg.setText(result.getQuestion());
+            amountOfAnswers = 3;
+
+            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
+            area4.setVisibility(View.GONE);
 
             question.setVisibility(View.GONE);
         }
@@ -185,7 +191,7 @@ public class QuizActivity extends AppCompatActivity {
 
     //unselect all answers
     private void resetAnswers() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < amountOfAnswers; i++) {
             String nameRelativeLayout = "area" + (i + 1);
             int relativeLayoutID = getResources().getIdentifier(nameRelativeLayout, "id", getPackageName());
             RelativeLayout relativeLayout = (RelativeLayout)findViewById(relativeLayoutID);

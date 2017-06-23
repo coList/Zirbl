@@ -42,7 +42,7 @@ public class TourstartActivity extends AppCompatActivity {
         addParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count < maxAmountOfParticipants) {
+                if (count < maxAmountOfParticipants - 1) {
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
                     EditText participantField = new EditText(getApplicationContext());
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
