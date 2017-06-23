@@ -32,8 +32,7 @@
                 android:id="@+id/tourProgress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/relLayoutActionBar"
-                android:background="@color/colorTransparentLight">
+                android:layout_below="@+id/relLayoutActionBar">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -41,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="9dp"
                     android:layout_marginBottom="1dp"
+                    android:elevation="30dp"
                     android:progress="20"
                     android:progressDrawable="@drawable/code_progressbar_style" />
 
