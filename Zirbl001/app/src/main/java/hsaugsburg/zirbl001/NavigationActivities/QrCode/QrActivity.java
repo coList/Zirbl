@@ -28,10 +28,6 @@ public class QrActivity extends AppCompatActivity {
 
     TextView barcodeResult;
 
-    private int tourID;
-    private int klassenID;
-    private String klasse;
-    private String school;
 
     private String barcodeValue;
 
@@ -58,8 +54,8 @@ public class QrActivity extends AppCompatActivity {
     }
 
     public void scanBarcode (View v){
-        Intent intent1 = new Intent(QrActivity.this, ScanBarcodeActivity.class);
-        startActivityForResult(intent1, 0);
+        Intent intent = new Intent(QrActivity.this, ScanBarcodeActivity.class);
+        startActivityForResult(intent, 0);
     }
 
 
@@ -73,20 +69,6 @@ public class QrActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
-    }
-
-    public void setBarcodeInfos(){
-
-        String[] splited = barcodeValue.split("\\s+");
-
-        tourID = Integer.parseInt(splited[0]);
-        //klassenID = 0;
-        klasse = splited[1];
-        //fuegt Schulnamen wieder zusammen
-        for (int i=2;i<splited.length;i++){
-            school = school + " " + splited[i];
-        }
-
     }
 
 
@@ -104,7 +86,7 @@ public class QrActivity extends AppCompatActivity {
 
 
                 } else {
-                    barcodeResult.setText("Ich nix finden");
+                    //barcodeResult.setText("Ich nix finden");
                 }
             }
 

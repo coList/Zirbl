@@ -1,25 +1,21 @@
 package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 
-import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -29,11 +25,21 @@ import java.io.IOException;
 
 import hsaugsburg.zirbl001.R;
 
-public class ScanBarcodeActivity extends FragmentActivity {
+public class ScanBarcodeActivity extends AppCompatActivity{
 
     private static final String TAG = "ScanBarcodeActivity";
 
     SurfaceView cameraPreview;
+    private Context mContext = ScanBarcodeActivity.this;
+    private String errorMessage = "Das Scannen des QR-Codes hat leider nicht funktioniert.";
+    private String successMessage = "";
+
+    private int tourID;
+    private String tourName;
+    private int klassenID;
+    private String klasse;
+    private String school;
+    private String zirblIdent;
 
     @Override
     protected void onPause() {
@@ -51,11 +57,59 @@ public class ScanBarcodeActivity extends FragmentActivity {
 
     }
 
-    private void showScanDialog(){
-        FragmentManager fm = getSupportFragmentManager();
-        ScanBarcodeDialogFragment dialogFragment = ScanBarcodeDialogFragment.newInstance("Some Title");
-        dialogFragment.show(fm, "fragment_scan_barcode_dialog");
+    public void saveScanInfos(String scanValue){
+
+        //String muss wie folgt ausschauen: ZirblIdent, TourID, Tourname, KlassenID, Klassenname, Schulname
+
+        String[] splited = scanValue.split("\\s+");
+
+        if(splited.length >= 6){
+            zirblIdent = splited[0];
+            tourID = Integer.parseInt(splited[1]);
+            tourName = splited[2];
+            klassenID = 0;
+            klasse = splited[4];
+            //fuegt Schulnamen wieder zusammen
+            for (int i=5;i<(splited.length)-4;i++){
+                school += splited[i] + " ";
+            }
+        }else{
+            zirblIdent = "no";
+        }
+
     }
+
+    private void generateSuccessMessage(){
+
+        successMessage = "Willkommen bei der ";
+        successMessage += tourName;
+        successMessage += "-Tour:";
+        successMessage += klasse + ", ";
+        successMessage += school;
+
+    }
+
+    private void showScanDialogSuccess(){
+        generateSuccessMessage();
+
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                QrDialog alertSuccess = new QrDialog(mContext, true, "WEITER");
+                alertSuccess.showDialog((Activity) mContext, successMessage, "Viel Spaß bei der Tour!");
+            }
+        });
+    }
+
+    private void showScanDialogFail(){
+
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL");
+                alertFail.showDialog((Activity) mContext, errorMessage, "Versuche es erneut!");
+            }
+        });
+    }
+
 
     private void createCameraSource() {
 
@@ -110,18 +164,30 @@ public class ScanBarcodeActivity extends FragmentActivity {
                 if(barcodes.size()>0){
 
 
-                    Intent intent=new Intent();
-                    intent.putExtra("barcode", barcodes.valueAt(0));
+
+                    saveScanInfos(barcodes.valueAt(0).displayValue);
 
 
-                    showScanDialog();
+                    /**
+                     * Abfragen ob QR Code von uns ist. (evtl vor den code zirbl schreiben)
+                     */
+
+                    if(zirblIdent.equals("qrcodezirbl")){
+                        showScanDialogSuccess();
+                    } else {
+                        showScanDialogFail();
+                    }
 
 
-                    setResult(CommonStatusCodes.SUCCESS,intent);
-
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            cameraSource.stop();
+                        }
+                    });
                     //finish();
                 }
-
             }
         });
 
