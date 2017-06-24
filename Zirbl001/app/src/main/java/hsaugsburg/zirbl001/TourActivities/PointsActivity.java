@@ -36,18 +36,18 @@ public class PointsActivity extends AppCompatActivity {
             if (userInput >= rightAnswer - 0.02 * rightAnswer &&
                     userInput <= rightAnswer + 0.02 * rightAnswer) {
                 answerText.setText(answerCorrect);
-                answerImage.setImageResource(R.drawable.right);
+                answerImage.setImageResource(R.drawable.img_right);
             } else {
                 answerText.setText(answerWrong);
-                answerImage.setImageResource(R.drawable.wrong);
+                answerImage.setImageResource(R.drawable.img_wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(answerCorrect);
-                answerImage.setImageResource(R.drawable.right);
+                answerImage.setImageResource(R.drawable.img_right);
             } else {
                 answerText.setText(answerWrong);
-                answerImage.setImageResource(R.drawable.wrong);
+                answerImage.setImageResource(R.drawable.img_wrong);
             }
         }
 
