@@ -85,7 +85,8 @@ public class QrDialog {
                     Intent intent = new Intent (context, TourstartActivity.class);
                     context.startActivity(intent);
                 }else{
-                    dialog.dismiss();
+                    Intent intent = new Intent (context, ScanBarcodeActivity.class);
+                    context.startActivity(intent);
                 }
 
             }
