@@ -71,11 +71,11 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     }
 
     /*
-    * String muss wie folgt ausschauen: TourID, KlassenID, Klassenname, Schulname
+    * String muss wie folgt ausschauen: ZirblIdent, TourID, Tourname, KlassenID, Klassenname, Schulname
     *
      */
     public String generateString(){
-        return tourID + " " + "0" + klasse + " " + school;
+        return "qrcodezirbl" + " " +tourID + " " + tourName + " " + "0" + " " + klasse + " " + school;
     }
 
 
