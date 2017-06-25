@@ -1,10 +1,12 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,17 +26,37 @@ public class SliderActivity extends AppCompatActivity {
     private static Double minValue;
     private static int sliderMax = 2000;
 
+    private int chronologyNumber;
+
+    private String userAnswer;
+    private String rightAnswer;
+    private String answerCorrect;
+    private String answerWrong;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONSlider(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        Log.d("SliderActivity", Integer.toString(chronologyNumber));
         setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
+
+
+        new JSONSlider(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
+        Intent intent = new Intent(mContext, PointsActivity.class);
+        intent.putExtra("isSlider", "true");
+        intent.putExtra("userAnswer", userAnswer);
+        intent.putExtra("solution", rightAnswer);
+        intent.putExtra("answerCorrect", answerCorrect);
+        intent.putExtra("answerWrong", answerWrong);
+        intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+        Log.d("SliderActivity", Integer.toString(chronologyNumber));
         startActivity(intent);
     }
 
@@ -63,29 +85,12 @@ public class SliderActivity extends AppCompatActivity {
         });
 
 
-        final String rightAnswer = Double.toString(result.getRightNumber());
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
-
-        ImageButton continueButton = (ImageButton) findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
-
-                Intent intent = new Intent(mContext, PointsActivity.class);
-                intent.putExtra("isSlider", "true");
-                intent.putExtra("userAnswer", userAnswer);
-                intent.putExtra("solution", rightAnswer);
-                intent.putExtra("answerCorrect", answerCorrect);
-                intent.putExtra("answerWrong", answerWrong);
-                startActivity(intent);
-
-            }
-        });
-
+        rightAnswer = Double.toString(result.getRightNumber());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
     }
+
 
     //Convert double value to int by multiplying it (every value is 100 times its value!)
     private int getConvertedIntValue(double value) {
@@ -96,36 +101,23 @@ public class SliderActivity extends AppCompatActivity {
         return value / 100.0;
     }
 
-    /*/Hat mal funktioniert...
-
-    public void sliderSelection(){
-        slider = (SeekBar)findViewById(R.id.slider);
-        sliderCount = (TextView)findViewById(R.id.sliderCount);
-        sliderCount.setText(" " + slider.getProgress());
-        slider.setMax(sliderMax);
-
-        slider.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-
-                    int progress_value;
-
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progress_value = progress;
-                        sliderCount.setText(" " + progress);
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                        sliderCount.setText(" " + progress_value);
-                    }
-                }
-        );
-
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
     }
-    /*/
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

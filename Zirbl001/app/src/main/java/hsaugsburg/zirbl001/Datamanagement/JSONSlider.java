@@ -23,9 +23,11 @@ import hsaugsburg.zirbl001.TourActivities.SliderActivity;
 
 public class JSONSlider extends AsyncTask<String, String, SliderModel> {
     private SliderActivity activity;
+    private int taskID;
 
-    public JSONSlider (SliderActivity activity) {
+    public JSONSlider (SliderActivity activity, int taskID) {
         this.activity = activity;
+        this.taskID = taskID;
     }
 
     protected SliderModel doInBackground(String... params) {
@@ -54,30 +56,29 @@ public class JSONSlider extends AsyncTask<String, String, SliderModel> {
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
                 JSONArray mJsonArraySlider = parentObject.getJSONArray("guessthenumber");
-                List<SliderModel> sliderModelList = new ArrayList<>();
-
+                SliderModel sliderModel = new SliderModel();
                 for (int i = 0; i < mJsonArraySlider.length(); i++) {
                     JSONObject mJsonLObjectSlider = mJsonArraySlider.getJSONObject(i);
 
-                    SliderModel sliderModel = new SliderModel();
+                    if (mJsonLObjectSlider.getInt("taskid") == taskID) {
+                        sliderModel.setTaskID(mJsonLObjectSlider.getInt("taskid"));
+                        sliderModel.setStationID(mJsonLObjectSlider.getInt("stationid"));
+                        sliderModel.setTourID(mJsonLObjectSlider.getInt("tourid"));
+                        //sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
+                        sliderModel.setQuestion(mJsonLObjectSlider.getString("question"));
+                        sliderModel.setAnswerCorrect(mJsonLObjectSlider.getString("answercorrect"));
+                        sliderModel.setAnswerWrong(mJsonLObjectSlider.getString("answerwrong"));
+                        sliderModel.setPicturePath(mJsonLObjectSlider.getString("picturepath"));
+                        sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
+                        sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
+                        sliderModel.setMaxRange(mJsonLObjectSlider.getDouble("maxrange"));
+                    }
 
-                    sliderModel.setTaskID(mJsonLObjectSlider.getInt("taskid"));
-                    sliderModel.setStationID(mJsonLObjectSlider.getInt("stationid"));
-                    sliderModel.setTourID(mJsonLObjectSlider.getInt("tourid"));
-                    //sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
-                    sliderModel.setQuestion(mJsonLObjectSlider.getString("question"));
-                    sliderModel.setAnswerCorrect(mJsonLObjectSlider.getString("answercorrect"));
-                    sliderModel.setAnswerWrong(mJsonLObjectSlider.getString("answerwrong"));
-                    sliderModel.setPicturePath(mJsonLObjectSlider.getString("picturepath"));
-                    sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
-                    sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
-                    sliderModel.setMaxRange(mJsonLObjectSlider.getDouble("maxrange"));
-                    sliderModelList.add(sliderModel);
-                    //Log.d("JSONSlider", mJsonLObjectSlider.getString("answercorrect"));
+
                 }
 
 
-                return sliderModelList.get(3);
+                return sliderModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

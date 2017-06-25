@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -9,6 +10,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import org.w3c.dom.Text;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
+import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Models.LettersModel;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
@@ -31,12 +34,18 @@ public class LettersActivity extends AppCompatActivity {
     private int amountOfLetters = 14;
 
     private Context mContext = LettersActivity.this;
+    private int chronologyNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONLetters(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
         setContentView(R.layout.activity_letters);
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+
+        new JSONLetters(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
 
 
     }
@@ -145,6 +154,7 @@ public class LettersActivity extends AppCompatActivity {
                 intent.putExtra("solution", solution.toUpperCase());
                 intent.putExtra("answerCorrect", answerCorrect);
                 intent.putExtra("answerWrong", answerWrong);
+                intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
                 startActivity(intent);
 
             }
@@ -162,6 +172,24 @@ public class LettersActivity extends AppCompatActivity {
         }
 
         return stringBuilder;
+    }
+
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

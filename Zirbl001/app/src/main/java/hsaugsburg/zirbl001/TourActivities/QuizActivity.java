@@ -1,11 +1,13 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,13 +29,21 @@ public class QuizActivity extends AppCompatActivity {
     private int amountOfAnswers = 4;
     private int selectedAnswer = -1;
 
+    private int chronologyNumber;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONQuiz(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");
         setContentView(R.layout.activity_quiz);
+
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+
+        new JSONQuiz(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -170,6 +180,7 @@ public class QuizActivity extends AppCompatActivity {
                     intent.putExtra("solution", rightAnswer);
                     intent.putExtra("answerCorrect", answerCorrect);
                     intent.putExtra("answerWrong", answerWrong);
+                    intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
                     startActivity(intent);
                 }
             }
@@ -210,6 +221,24 @@ public class QuizActivity extends AppCompatActivity {
             int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
         }
+    }
+
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 

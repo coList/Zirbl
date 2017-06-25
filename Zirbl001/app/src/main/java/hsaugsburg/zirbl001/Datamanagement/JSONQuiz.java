@@ -21,9 +21,11 @@ import hsaugsburg.zirbl001.TourActivities.QuizActivity;
 
 public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
     private QuizActivity activity;
+    private int taskID;
 
-    public JSONQuiz (QuizActivity activity) {
+    public JSONQuiz (QuizActivity activity, int taskID) {
         this.activity = activity;
+        this.taskID = taskID;
     }
 
     protected QuizModel doInBackground(String... params) {
@@ -53,30 +55,31 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
 
                 JSONArray mJsonArrayQuiz = parentObject.getJSONArray("singlechoice");
 
-                List<QuizModel> quizModelList = new ArrayList<>();
+                QuizModel quizModel = new QuizModel();
 
                 for (int i = 0; i < mJsonArrayQuiz.length(); i++) {
                     JSONObject mJsonLObjectQuiz = mJsonArrayQuiz.getJSONObject(i);
 
-                    QuizModel quizModel = new QuizModel();
+                    if (mJsonLObjectQuiz.getInt("taskid") == taskID) {
+                        quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
+                        quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
+                        quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
+                        //lettersModel.setScore(mJsonLObjectQuiz.getInt("score"));
+                        quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
+                        quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
+                        quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
+                        quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
+                        quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
+                        quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
+                        quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
+                        quizModel.setOption4(mJsonLObjectQuiz.getString("option4"));
+                    }
 
-                    quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
-                    quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
-                    quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
-                    //lettersModel.setScore(mJsonLObjectQuiz.getInt("score"));
-                    quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
-                    quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
-                    quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
-                    quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
-                    quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
-                    quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
-                    quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
-                    quizModel.setOption4(mJsonLObjectQuiz.getString("option4"));
-                    quizModelList.add(quizModel);
+
                 }
 
 
-                return quizModelList.get(0);
+                return quizModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

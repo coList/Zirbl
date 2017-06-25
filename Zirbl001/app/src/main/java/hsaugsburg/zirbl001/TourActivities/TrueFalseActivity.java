@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,12 +27,16 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     private boolean trueSelected;
 
+    private int chronologyNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONTrueFalse(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
-        Log.d("TrueFalse", "onCreate");
         setContentView(R.layout.activity_true_false);
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        new JSONTrueFalse(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -123,10 +129,29 @@ public class TrueFalseActivity extends AppCompatActivity {
                 intent.putExtra("solution", rightAnswer);
                 intent.putExtra("answerCorrect", answerCorrect);
                 intent.putExtra("answerWrong", answerWrong);
+                intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
                 startActivity(intent);
 
             }
         });
 
+    }
+
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

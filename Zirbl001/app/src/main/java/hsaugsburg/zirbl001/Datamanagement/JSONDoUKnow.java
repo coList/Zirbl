@@ -24,9 +24,11 @@ import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 
 public class JSONDoUKnow extends AsyncTask<String, String, DoUKnowModel> {
     private DoUKnowActivity activity;
+    private int infoPopupID;
 
-    public JSONDoUKnow (DoUKnowActivity activity) {
+    public JSONDoUKnow (DoUKnowActivity activity, int infoPopupID) {
         this.activity = activity;
+        this.infoPopupID = infoPopupID;
     }
 
     protected DoUKnowModel doInBackground(String... params) {
@@ -56,24 +58,25 @@ public class JSONDoUKnow extends AsyncTask<String, String, DoUKnowModel> {
 
                 JSONArray mJsonArrayDoUKnow = parentObject.getJSONArray("infopopups");
 
-                List<DoUKnowModel> doUKnowModelList = new ArrayList<>();
-
+                DoUKnowModel doUKnowModel = new DoUKnowModel();
                 for (int i = 0; i < mJsonArrayDoUKnow.length(); i++) {
                     JSONObject mJsonLObjectDoUKnow = mJsonArrayDoUKnow.getJSONObject(i);
 
-                    DoUKnowModel doUKnowModel = new DoUKnowModel();
 
-                    doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
-                    doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
-                    doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
+                    if (mJsonLObjectDoUKnow.getInt("infopopupid") == infoPopupID) {
+                        doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
+                        doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
+                        doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
+                    }
+
                     //doUKnowModel.setLatitude(mJsonLObjectDoUKnow.getDouble("latitude"));
                     //doUKnowModel.setLongitude(mJsonLObjectDoUKnow.getDouble("longitude"));
                     //doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
-                    doUKnowModelList.add(doUKnowModel);
+                    //doUKnowModelList.add(doUKnowModel);
                 }
 
 
-                return doUKnowModelList.get(0);
+                return doUKnowModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
