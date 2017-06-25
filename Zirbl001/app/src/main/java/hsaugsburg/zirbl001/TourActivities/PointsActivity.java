@@ -41,9 +41,11 @@ public class PointsActivity extends AppCompatActivity {
         String userAnswer = getIntent().getStringExtra("userAnswer");
         String answerCorrect = getIntent().getStringExtra("answerCorrect");
         String answerWrong = getIntent().getStringExtra("answerWrong");
+        int score = Integer.parseInt(getIntent().getStringExtra("score"));
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
+        TextView scoreText = (TextView) findViewById(R.id.points);
 
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
@@ -53,6 +55,7 @@ public class PointsActivity extends AppCompatActivity {
                     userInput <= rightAnswer + 0.02 * rightAnswer) {
                 answerText.setText(answerCorrect);
                 answerImage.setImageResource(R.drawable.img_right);
+                scoreText.setText(Integer.toString(score));
             } else {
                 answerText.setText(answerWrong);
                 answerImage.setImageResource(R.drawable.img_wrong);
@@ -61,6 +64,8 @@ public class PointsActivity extends AppCompatActivity {
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(answerCorrect);
                 answerImage.setImageResource(R.drawable.img_right);
+                scoreText.setText(Integer.toString(score));
+
             } else {
                 answerText.setText(answerWrong);
                 answerImage.setImageResource(R.drawable.img_wrong);

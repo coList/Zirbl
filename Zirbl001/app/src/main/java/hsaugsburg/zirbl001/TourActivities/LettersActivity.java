@@ -13,6 +13,8 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -36,6 +38,11 @@ public class LettersActivity extends AppCompatActivity {
     private Context mContext = LettersActivity.this;
     private int chronologyNumber;
 
+    private String solution;
+    private String answerCorrect;
+    private String answerWrong;
+    private int score;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +58,33 @@ public class LettersActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
+        boolean answerSelected = true;
+        String userAnswer = "";
+        for (int i = 0; i < solution.length(); i++) {
+            Button button = (Button)findViewById(i);
+            userAnswer += button.getText();
+
+            if (button.getText().equals("")) {
+                answerSelected  = false;
+            }
+        }
+
+        if (answerSelected) {
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "false");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", solution.toUpperCase());
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(LettersActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
+
+
     }
 
     public void processData (LettersModel result) {
@@ -61,9 +93,10 @@ public class LettersActivity extends AppCompatActivity {
 
         TableRow tableRow = (TableRow)findViewById(R.id.inputArea);
         final int solutionLength = result.getSolution().length();
-        final String solution = result.getSolution();
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
+        solution = result.getSolution();
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
 
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
         shuffleLetters(stringBuilder);
@@ -81,6 +114,7 @@ public class LettersActivity extends AppCompatActivity {
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            button.setText("");
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {  //delete set button and show the old letter
@@ -135,31 +169,7 @@ public class LettersActivity extends AppCompatActivity {
                 }
             });
         }
-
-        //set continueButton
-        ImageButton continueButton = (ImageButton)findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-                boolean isAnswerCorrect;
-                String userAnswer = "";
-                for (int i = 0; i < solutionLength; i++) {
-                    Button button = (Button)findViewById(i);
-                    userAnswer += button.getText();
-                }
-
-                Intent intent = new Intent(mContext, PointsActivity.class);
-                intent.putExtra("isSlider", "false");
-                intent.putExtra("userAnswer", userAnswer);
-                intent.putExtra("solution", solution.toUpperCase());
-                intent.putExtra("answerCorrect", answerCorrect);
-                intent.putExtra("answerWrong", answerWrong);
-                intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-                startActivity(intent);
-
             }
-        });
-    }
 
     private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
         Random random = new Random();

@@ -64,7 +64,7 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                         quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
                         quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
                         quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
-                        //lettersModel.setScore(mJsonLObjectQuiz.getInt("score"));
+                        quizModel.setScore(mJsonLObjectQuiz.getInt("score"));
                         quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
                         quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
                         quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));

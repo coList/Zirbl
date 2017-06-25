@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,6 +33,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private int chronologyNumber;
 
+    private String rightAnswer;
+    private String answerCorrect;
+    private String answerWrong;
+    private int score;
 
 
     @Override
@@ -60,8 +66,25 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
+        if (selectedAnswer >= 1) {
+            String name = "answer" + selectedAnswer;
+            int id = getResources().getIdentifier(name, "id", getPackageName());
+            Button selectedButton = (Button) findViewById(id);
+            String userAnswer = selectedButton.getText().toString();
+
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "false");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", rightAnswer);
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
     }
 
     //Selection
@@ -159,32 +182,11 @@ public class QuizActivity extends AppCompatActivity {
             answer.setText(answers[i]);
         }
 
-        final String rightAnswer = result.getRightAnswer();
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
+        rightAnswer = result.getRightAnswer();
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
 
-        ImageButton continueButton = (ImageButton)findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (selectedAnswer >= 1) {
-                    String name = "answer" + selectedAnswer;
-                    int id = getResources().getIdentifier(name, "id", getPackageName());
-                    Button selectedButton = (Button) findViewById(id);
-                    String userAnswer = selectedButton.getText().toString();
-
-                    Intent intent = new Intent(mContext, PointsActivity.class);
-                    intent.putExtra("isSlider", "false");
-                    intent.putExtra("userAnswer", userAnswer);
-                    intent.putExtra("solution", rightAnswer);
-                    intent.putExtra("answerCorrect", answerCorrect);
-                    intent.putExtra("answerWrong", answerWrong);
-                    intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
     public String[] shuffleArray(String[] array) {
@@ -211,7 +213,7 @@ public class QuizActivity extends AppCompatActivity {
             String nameImageView = "imgLetter" + (i + 1);
             int imageViewID = getResources().getIdentifier(nameImageView, "id", getPackageName());
             ImageView imageView = (ImageView)findViewById(imageViewID);
-            String nameDrawable = "icon_" + (i + 1) + "_normal";
+            String nameDrawable = "ic_" + (i + 1) + "_normal";
             int imageDrawable = getResources().getIdentifier(nameDrawable, "drawable", getPackageName());
             imageView.setImageResource(imageDrawable);
 

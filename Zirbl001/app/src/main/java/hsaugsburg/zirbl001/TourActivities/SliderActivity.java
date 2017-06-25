@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -28,10 +30,13 @@ public class SliderActivity extends AppCompatActivity {
 
     private int chronologyNumber;
 
+    private boolean answerSelected;
+
     private String userAnswer;
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
+    private int score;
 
 
     @Override
@@ -49,15 +54,22 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, PointsActivity.class);
-        intent.putExtra("isSlider", "true");
-        intent.putExtra("userAnswer", userAnswer);
-        intent.putExtra("solution", rightAnswer);
-        intent.putExtra("answerCorrect", answerCorrect);
-        intent.putExtra("answerWrong", answerWrong);
-        intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-        Log.d("SliderActivity", Integer.toString(chronologyNumber));
-        startActivity(intent);
+        if (answerSelected)  {
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "true");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", rightAnswer);
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            Log.d("SliderActivity", Integer.toString(chronologyNumber));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(SliderActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
+
     }
 
 
@@ -73,7 +85,7 @@ public class SliderActivity extends AppCompatActivity {
 
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                answerSelected = true;
                 sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
             }
 
@@ -89,6 +101,7 @@ public class SliderActivity extends AppCompatActivity {
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
+        score = result.getScore();
     }
 
 

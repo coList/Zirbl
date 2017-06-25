@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,7 +27,12 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     private Context mContext = TrueFalseActivity.this;
 
+    private boolean answerSelected = false;
     private boolean trueSelected;
+    private String rightAnswer;
+    private String answerCorrect;
+    private String answerWrong;
+    private int score;
 
     private int chronologyNumber;
 
@@ -46,9 +53,35 @@ public class TrueFalseActivity extends AppCompatActivity {
         //
     }
 
+    public void continueToNextView(View view) {
+        if (answerSelected) {
+            String userAnswer;
+            if (trueSelected == true) {
+                userAnswer = "true";
+            } else {
+                userAnswer = "false";
+            }
+
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "false");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", rightAnswer);
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
+
+    }
+
     //Selection
     View.OnClickListener answerTruth = new View.OnClickListener() {
         public void onClick(View v) {
+            answerSelected = true;
             trueSelected = true;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.truthArea);
             selected.setBackgroundResource(R.color.colorTurquoise);
@@ -73,7 +106,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
-
+            answerSelected = true;
             trueSelected = false;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.lieArea);
             selected.setBackgroundResource(R.color.colorRed);
@@ -97,43 +130,14 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     //
 
-    public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
-    }
-
     public void processData(TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        Log.d("TrueFalseActivity", result.getQuestion());
         question.setText(result.getQuestion());
 
-        final String rightAnswer = String.valueOf(result.isTrue());
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
-
-        ImageButton continueButton = (ImageButton) findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String userAnswer;
-                if (trueSelected == true) {
-                    userAnswer = "true";
-                } else {
-                    userAnswer = "false";
-                }
-
-                Intent intent = new Intent(mContext, PointsActivity.class);
-                intent.putExtra("isSlider", "false");
-                intent.putExtra("userAnswer", userAnswer);
-                intent.putExtra("solution", rightAnswer);
-                intent.putExtra("answerCorrect", answerCorrect);
-                intent.putExtra("answerWrong", answerWrong);
-                intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-                startActivity(intent);
-
-            }
-        });
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
 
     }
 

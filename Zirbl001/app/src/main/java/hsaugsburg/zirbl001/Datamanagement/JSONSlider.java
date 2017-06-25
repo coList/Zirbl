@@ -64,7 +64,7 @@ public class JSONSlider extends AsyncTask<String, String, SliderModel> {
                         sliderModel.setTaskID(mJsonLObjectSlider.getInt("taskid"));
                         sliderModel.setStationID(mJsonLObjectSlider.getInt("stationid"));
                         sliderModel.setTourID(mJsonLObjectSlider.getInt("tourid"));
-                        //sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
+                        sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
                         sliderModel.setQuestion(mJsonLObjectSlider.getString("question"));
                         sliderModel.setAnswerCorrect(mJsonLObjectSlider.getString("answercorrect"));
                         sliderModel.setAnswerWrong(mJsonLObjectSlider.getString("answerwrong"));
