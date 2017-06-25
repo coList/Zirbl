@@ -53,7 +53,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
-                        android:text="#"
                         android:textAlignment="viewStart"
                         android:visibility="visible" />
 
@@ -82,8 +81,7 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
-                        android:gravity="bottom|center_horizontal"
-                        android:text="#" />
+                        android:gravity="bottom|center_horizontal"/>
 
                     <SeekBar
                         android:id="@+id/slider"

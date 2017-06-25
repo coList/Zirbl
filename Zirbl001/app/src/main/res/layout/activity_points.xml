@@ -70,7 +70,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="170dp"
-                                android:text="#"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="50sp"
                                 android:textStyle="bold" />
@@ -84,8 +83,7 @@
                             android:layout_marginBottom="10dp"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
-                            android:paddingTop="16dp"
-                            android:text="#" />
+                            android:paddingTop="16dp" />
 
                     </LinearLayout>
 
