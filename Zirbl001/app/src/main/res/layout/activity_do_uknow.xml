@@ -54,8 +54,7 @@
                             android:layout_marginBottom="10dp"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
-                            android:paddingTop="16dp"
-                            android:text="Wusstest du schon, dass..." />
+                            android:paddingTop="16dp"/>
 
                         <ImageView
                             android:id="@+id/speechOpen"

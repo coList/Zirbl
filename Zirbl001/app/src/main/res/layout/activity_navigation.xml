@@ -7,6 +7,7 @@
     tools:context="hsaugsburg.zirbl001.TourActivities.NavigationActivity"
     android:orientation="vertical">
 
+
     <Button
         android:id="@+id/testbuttonCard"
         android:layout_width="match_parent"
@@ -16,45 +17,13 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:text="#Kartensimulation# ...in der Tour weiter --> Hier klicken!" />
+        android:text="#Kartensimulation# " />
 
     <Button
-        android:id="@+id/layoutLetters"
+        android:id="@+id/nextTourItem"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:onClick="layoutLetters"
-        android:text="#Buchstaben#Layout"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/layoutSlider"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="layoutSlider"
-        android:text="#Schätzen#Layout"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/layoutTrueFalse"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="layoutTrueFalse"
-        android:text="#Wahr/Gelogen#Layout"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/layoutQuiz"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="layoutQuiz"
-        android:text="#Quiz#Layout"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/layoutDidUKnow"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="layoutDoUKnow"
-        android:text="#DidUKnow#Layout"
+        android:onClick="continueToNextView"
+        android:text="Next"
         android:textAllCaps="false" />
 </LinearLayout>

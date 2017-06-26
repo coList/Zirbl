@@ -55,14 +55,14 @@
                                 android:id="@+id/pointsImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="300dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_below="@+id/Answer"
                                 android:adjustViewBounds="true"
                                 android:paddingBottom="26dp"
                                 android:paddingTop="24dp"
                                 android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/right" />
+                                app:srcCompat="@drawable/img_right"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
 
                             <TextView
                                 android:id="@+id/points"
@@ -70,7 +70,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="170dp"
-                                android:text="100"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="50sp"
                                 android:textStyle="bold" />
@@ -107,7 +106,7 @@
                                 android:id="@+id/performanceTime"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:srcCompat="@drawable/button_go" />
+                                app:srcCompat="@drawable/btn_go" />
 
                             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                                 android:id="@+id/performanceTeamname"
@@ -130,7 +129,7 @@
                                 android:id="@+id/ranking"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:srcCompat="@drawable/button_go" />
+                                app:srcCompat="@drawable/btn_go" />
 
                             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                                 android:id="@+id/rankingText"
@@ -161,9 +160,9 @@
                             android:layout_marginTop="5dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
-                            android:onClick="backToNavigationActivity"
+                            android:onClick="endTour"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/button_continue" />
+                            android:src="@drawable/btn_continue" />
                     </RelativeLayout>
 
                 </LinearLayout>

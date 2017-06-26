@@ -1,12 +1,16 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,15 +27,32 @@ public class QuizActivity extends AppCompatActivity {
 
     private Context mContext = QuizActivity.this;
 
+
+    private int amountOfAnswers;
     private int selectedAnswer = -1;
 
+    private int chronologyNumber;
+
+    private String rightAnswer;
+    private String answerCorrect;
+    private String answerWrong;
+    private int score;
+
+    private int currentScore;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONQuiz(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");
         setContentView(R.layout.activity_quiz);
+
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+
+        new JSONQuiz(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -48,8 +69,26 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
+        if (selectedAnswer >= 1) {
+            String name = "answer" + selectedAnswer;
+            int id = getResources().getIdentifier(name, "id", getPackageName());
+            Button selectedButton = (Button) findViewById(id);
+            String userAnswer = selectedButton.getText().toString();
+
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "false");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", rightAnswer);
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
     }
 
     //Selection
@@ -116,15 +155,21 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void processData (QuizModel result) {
-
         TextView question = (TextView) findViewById(R.id.questionText);
+        String[] answers = { result.getOption4(), result.getRightAnswer(), result.getOption2(), result.getOption3()};
+
         if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
             question.setText(result.getQuestion());
+            amountOfAnswers = answers.length;
         } else {  //if it has an image:
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
             questionBesideImg.setText(result.getQuestion());
+            amountOfAnswers = answers.length - 1;
+
+            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
+            area4.setVisibility(View.GONE);
 
             question.setVisibility(View.GONE);
         }
@@ -132,10 +177,11 @@ public class QuizActivity extends AppCompatActivity {
 
         //put answer options into layout
 
-        String[] answers = {result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()};
+
         answers = shuffleArray(answers);
 
-        for (int i = 0; i < answers.length; i++) {
+
+        for (int i = 0; i < amountOfAnswers; i++) {
 
             String name = "answer" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());
@@ -143,31 +189,11 @@ public class QuizActivity extends AppCompatActivity {
             answer.setText(answers[i]);
         }
 
-        final String rightAnswer = result.getRightAnswer();
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
+        rightAnswer = result.getRightAnswer();
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
 
-        ImageButton continueButton = (ImageButton)findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (selectedAnswer >= 1) {
-                    String name = "answer" + selectedAnswer;
-                    int id = getResources().getIdentifier(name, "id", getPackageName());
-                    Button selectedButton = (Button) findViewById(id);
-                    String userAnswer = selectedButton.getText().toString();
-
-                    Intent intent = new Intent(mContext, PointsActivity.class);
-                    intent.putExtra("isSlider", "false");
-                    intent.putExtra("userAnswer", userAnswer);
-                    intent.putExtra("solution", rightAnswer);
-                    intent.putExtra("answerCorrect", answerCorrect);
-                    intent.putExtra("answerWrong", answerWrong);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
     public String[] shuffleArray(String[] array) {
@@ -185,7 +211,7 @@ public class QuizActivity extends AppCompatActivity {
 
     //unselect all answers
     private void resetAnswers() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < amountOfAnswers; i++) {
             String nameRelativeLayout = "area" + (i + 1);
             int relativeLayoutID = getResources().getIdentifier(nameRelativeLayout, "id", getPackageName());
             RelativeLayout relativeLayout = (RelativeLayout)findViewById(relativeLayoutID);
@@ -194,7 +220,7 @@ public class QuizActivity extends AppCompatActivity {
             String nameImageView = "imgLetter" + (i + 1);
             int imageViewID = getResources().getIdentifier(nameImageView, "id", getPackageName());
             ImageView imageView = (ImageView)findViewById(imageViewID);
-            String nameDrawable = "icon_" + (i + 1) + "_normal";
+            String nameDrawable = "ic_" + (i + 1) + "_normal";
             int imageDrawable = getResources().getIdentifier(nameDrawable, "drawable", getPackageName());
             imageView.setImageResource(imageDrawable);
 
@@ -204,6 +230,24 @@ public class QuizActivity extends AppCompatActivity {
             int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
         }
+    }
+
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 
