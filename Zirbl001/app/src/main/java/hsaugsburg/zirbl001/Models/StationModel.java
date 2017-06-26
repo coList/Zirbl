@@ -12,13 +12,6 @@ public class StationModel {
     private Double longitude;
 
 
-    public StationModel(int tourID, int chronologyNumber, String stationName, Double latitude, Double longitude) {
-        this.tourID = tourID;
-        this.chronologyNumber = chronologyNumber;
-        this.stationName = stationName;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
     public int getTourID() {
         return tourID;
