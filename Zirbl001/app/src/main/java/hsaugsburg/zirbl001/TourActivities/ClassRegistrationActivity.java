@@ -8,23 +8,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
-import biz.kasual.materialnumberpicker.MaterialNumberPicker;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity {
@@ -34,7 +29,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
     private int tourID;
     private String tourName;
-    private String klasse;
+    private String className;
     private String school;
 
     public final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
@@ -106,11 +101,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         setInput();
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
-        if(klasse != null && !klasse.isEmpty() && school !=null && !school.isEmpty()){
+        if(className != null && !className.isEmpty() && school !=null && !school.isEmpty()){
             Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
             intent.putExtra("tourID", Integer.toString(tourID));
             intent.putExtra("tourName", tourName);
-            intent.putExtra("klasse", klasse);
+            intent.putExtra("className", className);
             intent.putExtra("school", school);
             startActivity(intent);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
@@ -129,9 +124,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         Log.d(TAG, "Classletter: " + valuesClassnumber[npClass.getValue()-1]);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        klasse = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1];
+        className = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1];
         school = etSchool.getText().toString();
-        Log.d(TAG, "setInput: " + klasse);
+        Log.d(TAG, "setInput: " + className);
 
     }
 
