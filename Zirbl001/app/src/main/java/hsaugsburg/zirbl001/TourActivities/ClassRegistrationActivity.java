@@ -34,6 +34,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     private String klasse;
     private String school;
 
+    public final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+    public final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
+
 
     //Animation beim Activity Wechsel verhindern
     @Override
@@ -76,14 +79,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         tvInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
-        final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
-        final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
+        npClassnumber.setMinValue(1);
+        npGrade.setMinValue(1);
 
-        npClassnumber.setMinValue(0);
-        npGrade.setMinValue(0);
-
-        npClassnumber.setMaxValue(valuesClassnumber.length-1);
-        npGrade.setMaxValue(valuesGrade.length-1);
+        npClassnumber.setMaxValue(valuesClassnumber.length);
+        npGrade.setMaxValue(valuesGrade.length);
 
         npClassnumber.setDisplayedValues(valuesClassnumber);
         npGrade.setDisplayedValues(valuesGrade);
@@ -119,10 +119,12 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     public void setInput(){
         NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
         NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
+        Log.d(TAG, "Classletter: " + valuesClassnumber[npClass.getValue()-1]);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        klasse = " " + npGrade.getValue() + npClass.getValue();
+        klasse = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1];
         school = etSchool.getText().toString();
+        Log.d(TAG, "setInput: " + klasse);
 
     }
 
