@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
+import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 
@@ -33,9 +34,17 @@ public class TourstartActivity extends AppCompatActivity {
     private static final String TAG = "TourstartActivity";
     private int maxAmountOfParticipants = 10;
 
+    private int selectedTour;
+    private int currentScore = 0;
+    ChronologyModel nextChronologyItem = new ChronologyModel();
+
     private Context mContext = TourstartActivity.this;
 
     private int count = 0;
+
+    public int getSelectedTour() {
+        return selectedTour;
+    }
 
     @Override
     protected void onPause() {
@@ -51,11 +60,16 @@ public class TourstartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Anmeldung");
 
+
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("tourid"));
+
+        new JSONTourstart(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectChronologyView.php");
+
         ImageButton addParticipant = (ImageButton) findViewById(R.id.plusButton);
         addParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count < maxAmountOfParticipants) {
+                if (count < maxAmountOfParticipants - 1) {
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
                     EditText participantField = new EditText(getApplicationContext());
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -86,9 +100,23 @@ public class TourstartActivity extends AppCompatActivity {
         });
     }
 
+    public void processData (ChronologyModel result) {
+        nextChronologyItem = result;
+    }
+
     public void goIntoTour(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
+        Log.d("Tourstart", Integer.toString(nextChronologyItem.getInfoPopupID()));
+
+        if (nextChronologyItem.getInfoPopupID() != null) {
+            Intent intent = new Intent(mContext, DoUKnowActivity.class);
+            intent.putExtra("chronologyNumber", Integer.toString(0));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
+            intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
+            startActivity(intent);
+        }
+
+        //Intent intent = new Intent(mContext, NavigationActivity.class);
+        //startActivity(intent);
     }
 
     private void showEndTourDialog(){

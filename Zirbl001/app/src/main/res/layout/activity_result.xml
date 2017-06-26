@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.PointsActivity">
+    tools:context="hsaugsburg.zirbl001.TourActivities.ResultActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,14 +55,14 @@
                                 android:id="@+id/pointsImage"
                                 android:layout_width="match_parent"
                                 android:layout_height="300dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_below="@+id/Answer"
                                 android:adjustViewBounds="true"
                                 android:paddingBottom="26dp"
                                 android:paddingTop="24dp"
                                 android:scaleType="fitCenter"
-                                app:srcCompat="@drawable/img_right" />
+                                app:srcCompat="@drawable/img_right"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
 
                             <TextView
                                 android:id="@+id/points"
@@ -77,13 +77,67 @@
                         </RelativeLayout>
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                            android:id="@+id/answerText"
+                            android:id="@+id/resultTeam"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:paddingLeft="24dp"
-                            android:paddingRight="24dp"
-                            android:paddingTop="16dp" />
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
+                            android:text="TextView" />
+
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                            android:id="@+id/resultMembers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
+                            android:text="TextView" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/performanceTime"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/btn_go" />
+
+                            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                                android:id="@+id/performanceTeamname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:text="TextView" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/ranking"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/btn_go" />
+
+                            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                                android:id="@+id/rankingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:text="TextView" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -96,7 +150,7 @@
 
                         <ImageButton
                             android:id="@+id/continueButton"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
@@ -106,7 +160,7 @@
                             android:layout_marginTop="5dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
-                            android:onClick="continueToNextView"
+                            android:onClick="endTour"
                             android:scaleType="fitCenter"
                             android:src="@drawable/btn_continue" />
                     </RelativeLayout>

@@ -13,6 +13,7 @@ public class SliderModel {
     private double rightNumber;
     private double minRange;
     private double maxRange;
+    private boolean isInteger;
 
     public int getTaskID() {
         return taskID;
@@ -100,5 +101,13 @@ public class SliderModel {
 
     public void setMaxRange(double maxRange) {
         this.maxRange = maxRange;
+    }
+
+    public boolean getIsInteger() {
+        return isInteger;
+    }
+
+    public void setIsInteger(boolean integer) {
+        isInteger = integer;
     }
 }

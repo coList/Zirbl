@@ -24,8 +24,11 @@ import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 public class JSONLetters extends AsyncTask<String, String, LettersModel> {
     private LettersActivity activity;
 
-    public JSONLetters (LettersActivity activity) {
+    private int taskID;
+
+    public JSONLetters (LettersActivity activity, int taskID) {
         this.activity = activity;
+        this.taskID = taskID;
     }
 
     protected LettersModel doInBackground(String... params) {
@@ -55,28 +58,27 @@ public class JSONLetters extends AsyncTask<String, String, LettersModel> {
 
                 JSONArray mJsonArrayLetters = parentObject.getJSONArray("letters");
 
-                List<LettersModel> lettersModelList = new ArrayList<>();
+                LettersModel lettersModel = new LettersModel();
 
                 for (int i = 0; i < mJsonArrayLetters.length(); i++) {
                     JSONObject mJsonLObjectLetters = mJsonArrayLetters.getJSONObject(i);
 
-                    LettersModel lettersModel = new LettersModel();
-
-                    lettersModel.setTaskID(mJsonLObjectLetters.getInt("taskid"));
-                    lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
-                    lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
-                    //lettersModel.setScore(mJsonLObjectLetters.getInt("score"));
-                    lettersModel.setQuestion(mJsonLObjectLetters.getString("question"));
-                    lettersModel.setSolution(mJsonLObjectLetters.getString("solution"));
-                    lettersModel.setAnswerCorrect(mJsonLObjectLetters.getString("answercorrect"));
-                    lettersModel.setAnswerWrong(mJsonLObjectLetters.getString("answerwrong"));
-                    lettersModel.setPicturePath(mJsonLObjectLetters.getString("picturepath"));
-                    lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
-                    lettersModelList.add(lettersModel);
+                    if (mJsonLObjectLetters.getInt("taskid") == taskID) {
+                        lettersModel.setTaskID(mJsonLObjectLetters.getInt("taskid"));
+                        lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
+                        lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
+                        lettersModel.setScore(mJsonLObjectLetters.getInt("score"));
+                        lettersModel.setQuestion(mJsonLObjectLetters.getString("question"));
+                        lettersModel.setSolution(mJsonLObjectLetters.getString("solution"));
+                        lettersModel.setAnswerCorrect(mJsonLObjectLetters.getString("answercorrect"));
+                        lettersModel.setAnswerWrong(mJsonLObjectLetters.getString("answerwrong"));
+                        lettersModel.setPicturePath(mJsonLObjectLetters.getString("picturepath"));
+                        lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
+                    }
                 }
 
 
-                return lettersModelList.get(0);
+                return lettersModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }

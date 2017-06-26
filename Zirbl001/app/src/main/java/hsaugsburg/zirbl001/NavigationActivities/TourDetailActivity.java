@@ -106,7 +106,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     public void startTour(View view){
         Intent intent = new Intent(mContext, TourstartActivity.class);
-        intent.putExtra("tourid", getIntent().getStringExtra("tourid"));
+        intent.putExtra("tourid", Integer.toString(tourID));
         startActivity(intent);
 
     }
@@ -162,8 +162,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         TextView description = (TextView)findViewById(R.id.description);
         description.setText(((TourDetailModel) result.get(tourID)).getDescription());
 
-        TextView warnings = (TextView)findViewById(R.id.warnings);
-        warnings.setText(((TourDetailModel)result.get(tourID)).getWarnings());
 
         if (hasOpeningHours) {
             TextView openingHours = (TextView) findViewById(R.id.openingHours);
@@ -171,6 +169,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
             openingHours.setVisibility(View.VISIBLE);
             openingHours.setVisibility(View.VISIBLE);
+        }
+
+        if (!(((TourDetailModel)result.get(tourID)).getWarnings().equals("null"))) {
+            TextView warnings = (TextView)findViewById(R.id.warnings);
+            TextView warningsTitle = (TextView)findViewById(R.id.warningsTitle);
+            warnings.setText(((TourDetailModel)result.get(tourID)).getWarnings());
+
+            warnings.setVisibility(View.VISIBLE);
+            warningsTitle.setVisibility(View.VISIBLE);
         }
 
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();

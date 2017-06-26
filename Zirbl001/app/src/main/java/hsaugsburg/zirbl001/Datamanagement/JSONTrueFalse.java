@@ -25,9 +25,11 @@ import hsaugsburg.zirbl001.TourActivities.TrueFalseActivity;
 
 public class JSONTrueFalse extends AsyncTask<String, String, TrueFalseModel> {
     private TrueFalseActivity activity;
+    private int taskID;
 
-    public JSONTrueFalse (TrueFalseActivity activity) {
+    public JSONTrueFalse (TrueFalseActivity activity, int taskID) {
         this.activity = activity;
+        this.taskID = taskID;
     }
 
     protected TrueFalseModel doInBackground(String... params) {
@@ -57,28 +59,29 @@ public class JSONTrueFalse extends AsyncTask<String, String, TrueFalseModel> {
 
                 JSONArray mJsonArrayTrueFalse = parentObject.getJSONArray("truefalse");
 
-                List<TrueFalseModel> trueFalseModelList = new ArrayList<>();
+                TrueFalseModel trueFalseModel = new TrueFalseModel();
 
                 for (int i = 0; i < mJsonArrayTrueFalse.length(); i++) {
                     JSONObject mJsonLObjectTrueFalse = mJsonArrayTrueFalse.getJSONObject(i);
 
-                    TrueFalseModel trueFalseModel = new TrueFalseModel();
+                    if (mJsonLObjectTrueFalse.getInt("taskid") == taskID) {
+                        trueFalseModel.setTaskID(mJsonLObjectTrueFalse.getInt("taskid"));
+                        trueFalseModel.setStationID(mJsonLObjectTrueFalse.getInt("stationid"));
+                        trueFalseModel.setTourID(mJsonLObjectTrueFalse.getInt("tourid"));
+                        trueFalseModel.setScore(mJsonLObjectTrueFalse.getInt("score"));
+                        trueFalseModel.setQuestion(mJsonLObjectTrueFalse.getString("question"));
 
-                    trueFalseModel.setTaskID(mJsonLObjectTrueFalse.getInt("taskid"));
-                    trueFalseModel.setStationID(mJsonLObjectTrueFalse.getInt("stationid"));
-                    trueFalseModel.setTourID(mJsonLObjectTrueFalse.getInt("tourid"));
-                    //trueFalseModel.setScore(mJsonLObjectTrueFalse.getInt("score"));
-                    trueFalseModel.setQuestion(mJsonLObjectTrueFalse.getString("question"));
+                        trueFalseModel.setAnswerCorrect(mJsonLObjectTrueFalse.getString("answercorrect"));
+                        trueFalseModel.setAnswerWrong(mJsonLObjectTrueFalse.getString("answerwrong"));
+                        trueFalseModel.setPicturePath(mJsonLObjectTrueFalse.getString("picturepath"));
+                        trueFalseModel.setIsTrue(mJsonLObjectTrueFalse.getBoolean("istrue"));
+                    }
 
-                    trueFalseModel.setAnswerCorrect(mJsonLObjectTrueFalse.getString("answercorrect"));
-                    trueFalseModel.setAnswerWrong(mJsonLObjectTrueFalse.getString("answerwrong"));
-                    trueFalseModel.setPicturePath(mJsonLObjectTrueFalse.getString("picturepath"));
-                    trueFalseModel.setIsTrue(mJsonLObjectTrueFalse.getBoolean("istrue"));
-                    trueFalseModelList.add(trueFalseModel);
+
                 }
 
 
-                return trueFalseModelList.get(0);
+                return trueFalseModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
