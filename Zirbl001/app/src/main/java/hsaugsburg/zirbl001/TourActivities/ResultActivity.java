@@ -15,6 +15,13 @@ import hsaugsburg.zirbl001.R;
 public class ResultActivity extends AppCompatActivity {
     private int currentScore;
     private Context context;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
