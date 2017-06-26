@@ -69,7 +69,8 @@
         <activity android:name=".TourActivities.SliderActivity" />
         <activity android:name=".TourActivities.QuizActivity" />
         <activity android:name=".TourActivities.DoUKnowActivity" />
-        <activity android:name=".TourActivities.PointsActivity"></activity>
+        <activity android:name=".TourActivities.PointsActivity" />
+        <activity android:name=".TourActivities.ResultActivity"></activity>
     </application>
 
 </manifest>
