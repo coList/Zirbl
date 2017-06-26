@@ -36,10 +36,14 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String answerCorrect;
     private String answerWrong;
     private int score;
-
     private int currentScore;
-
     private int chronologyNumber;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
