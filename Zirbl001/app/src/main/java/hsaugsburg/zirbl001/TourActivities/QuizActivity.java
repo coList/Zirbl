@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONQuiz;
@@ -156,24 +160,27 @@ public class QuizActivity extends AppCompatActivity {
 
     public void processData (QuizModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        String[] answers = { result.getOption4(), result.getRightAnswer(), result.getOption2(), result.getOption3()};
 
+        ArrayList<String> answers = new ArrayList<>();
         if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
-            question.setText(result.getQuestion());
-            amountOfAnswers = answers.length;
+            question.setText(fromHtml(result.getQuestion()));
+            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
         } else {  //if it has an image:
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
-            questionBesideImg.setText(result.getQuestion());
-            amountOfAnswers = answers.length - 1;
+            questionBesideImg.setText(fromHtml(result.getQuestion()));
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
             area4.setVisibility(View.GONE);
 
             question.setVisibility(View.GONE);
+
+
+            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
         }
 
+        amountOfAnswers = answers.size();
 
         //put answer options into layout
 
@@ -181,12 +188,12 @@ public class QuizActivity extends AppCompatActivity {
         answers = shuffleArray(answers);
 
 
-        for (int i = 0; i < amountOfAnswers; i++) {
+        for (int i = 0; i < answers.size(); i++) {
 
             String name = "answer" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());
             TextView answer = (TextView) findViewById(id);
-            answer.setText(answers[i]);
+            answer.setText(answers.get(i));
         }
 
         rightAnswer = result.getRightAnswer();
@@ -196,17 +203,17 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public String[] shuffleArray(String[] array) {
+    public ArrayList<String> shuffleArray(ArrayList<String> list) {
         Random random = new Random();
 
-        for (int i = array.length-1; i > 1; i--) {
+        for (int i = list.size()-1; i > 1; i--) {
             int numberToSwapWith = random.nextInt(i);
-            String tmp = array[numberToSwapWith];
-            array[numberToSwapWith] = array[i];
-            array[i] = tmp;
+            String tmp = list.get(numberToSwapWith);
+            list.set(numberToSwapWith, list.get(i));
+            list.set(i, tmp);
         }
 
-        return array;
+        return list;
     }
 
     //unselect all answers
@@ -248,6 +255,16 @@ public class QuizActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }
 

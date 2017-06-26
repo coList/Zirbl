@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,7 +35,7 @@ public class SliderActivity extends AppCompatActivity {
     private boolean answerSelected;
 
 
-    private boolean isInteger = false;
+    private boolean isInteger;
     private String userAnswer;
     private String rightAnswer;
     private String answerCorrect;
@@ -58,6 +60,14 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
+        if (!isInteger) {
+            userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
+        } else {
+            userAnswer = Integer.toString(slider.getProgress() + minValue.intValue());
+        }
+
+        Log.d("SliderActivity", Integer.toString(slider.getProgress() + minValue.intValue()));
+
         if (answerSelected)  {
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
@@ -80,16 +90,20 @@ public class SliderActivity extends AppCompatActivity {
     //can't set minValue directly -> add minValue to valueDisplayed and substract minValue from maxValue
     public void processData(SliderModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(result.getQuestion());
-        //isInteger = result.getIsInteger();
+        question.setText(fromHtml(result.getQuestion()));
+        isInteger = result.getIsInteger();
         minValue = result.getMinRange();
-        slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
+
+
         sliderCount = (TextView) findViewById(R.id.sliderCount);
 
         if (!isInteger) {
+            slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
             sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
         } else {
-            sliderCount.setText(Integer.toString(slider.getProgress() + (int) Math.round(minValue)));
+            Double value = result.getMaxRange() - minValue;
+            slider.setMax(value.intValue());
+            sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
         }
 
 
@@ -100,7 +114,7 @@ public class SliderActivity extends AppCompatActivity {
                 if (!isInteger) {
                     sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
                 } else {
-                    sliderCount.setText(Integer.toString(progress + (int) Math.round(minValue)));
+                    sliderCount.setText(Integer.toString(progress + minValue.intValue()));
                 }
 
             }
@@ -116,7 +130,6 @@ public class SliderActivity extends AppCompatActivity {
         rightAnswer = Double.toString(result.getRightNumber());
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
-        userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
         score = result.getScore();
     }
 
@@ -146,6 +159,16 @@ public class SliderActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 
 

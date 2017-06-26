@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,26 +51,28 @@ public class PointsActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
+            Log.d("PointsActivity", userAnswer);
+            Log.d("PointsActivity", solution);
 
             if (userInput >= rightAnswer - 0.02 * rightAnswer &&
                     userInput <= rightAnswer + 0.02 * rightAnswer) {
-                answerText.setText(answerCorrect);
+                answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
             } else {
-                answerText.setText(answerWrong);
+                answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
-                answerText.setText(answerCorrect);
+                answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
 
             } else {
-                answerText.setText(answerWrong);
+                answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
             }
         }
@@ -105,5 +109,15 @@ public class PointsActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }
