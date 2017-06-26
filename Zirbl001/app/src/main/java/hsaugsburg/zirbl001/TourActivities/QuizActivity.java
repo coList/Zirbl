@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -92,6 +93,9 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);
             findViewById(R.id.continueButton).startAnimation(shake);
+
+            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
         }
     }
 
