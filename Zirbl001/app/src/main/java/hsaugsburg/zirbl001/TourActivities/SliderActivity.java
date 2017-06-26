@@ -33,7 +33,7 @@ public class SliderActivity extends AppCompatActivity {
     private boolean answerSelected;
 
 
-    private boolean isInteger = false;
+    private boolean isInteger;
     private String userAnswer;
     private String rightAnswer;
     private String answerCorrect;
@@ -58,6 +58,14 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
+        if (!isInteger) {
+            userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
+        } else {
+            userAnswer = Integer.toString(slider.getProgress() + minValue.intValue());
+        }
+
+        Log.d("SliderActivity", Integer.toString(slider.getProgress() + minValue.intValue()));
+        
         if (answerSelected)  {
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
@@ -81,15 +89,19 @@ public class SliderActivity extends AppCompatActivity {
     public void processData(SliderModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(result.getQuestion());
-        //isInteger = result.getIsInteger();
+        isInteger = result.getIsInteger();
         minValue = result.getMinRange();
-        slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
+
+
         sliderCount = (TextView) findViewById(R.id.sliderCount);
 
         if (!isInteger) {
+            slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
             sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
         } else {
-            sliderCount.setText(Integer.toString(slider.getProgress() + (int) Math.round(minValue)));
+            Double value = result.getMaxRange() - minValue;
+            slider.setMax(value.intValue());
+            sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
         }
 
 
@@ -100,7 +112,7 @@ public class SliderActivity extends AppCompatActivity {
                 if (!isInteger) {
                     sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
                 } else {
-                    sliderCount.setText(Integer.toString(progress + (int) Math.round(minValue)));
+                    sliderCount.setText(Integer.toString(progress + minValue.intValue()));
                 }
 
             }
@@ -116,7 +128,6 @@ public class SliderActivity extends AppCompatActivity {
         rightAnswer = Double.toString(result.getRightNumber());
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
-        userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
         score = result.getScore();
     }
 

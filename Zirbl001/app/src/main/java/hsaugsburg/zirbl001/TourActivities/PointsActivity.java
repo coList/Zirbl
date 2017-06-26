@@ -49,6 +49,8 @@ public class PointsActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
+            Log.d("PointsActivity", userAnswer);
+            Log.d("PointsActivity", solution);
 
             if (userInput >= rightAnswer - 0.02 * rightAnswer &&
                     userInput <= rightAnswer + 0.02 * rightAnswer) {
