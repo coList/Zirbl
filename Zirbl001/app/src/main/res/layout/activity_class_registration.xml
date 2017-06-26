@@ -20,13 +20,11 @@
     </RelativeLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@color/colorAccent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/registrationWelcome"
@@ -35,9 +33,9 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:scaleType="fitStart"
-            android:src="@drawable/zirbl_speech_bubble_class" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_zirbl_speech_bubble_class" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,37 +47,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="32dp">
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
+                android:id="@+id/classEdit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
-                android:layout_weight="1"
-                android:text="Klasse"
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="Klasse" />
 
-            <Spinner
-                android:id="@+id/spinnerGrade"
-                android:layout_width="0dp"
+            <biz.kasual.materialnumberpicker.MaterialNumberPicker
+                android:id="@+id/grade"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark" />
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="16dp"
+                app:npBackgroundColor="@color/colorAccent"
+                app:npMaxValue="1"
+                app:npMinValue="2"
+                app:npSeparatorColor="@color/colorTurquoise"
+                app:npTextColor="@color/colorPrimaryDark"
+                app:npTextSize="20dp" />
 
-            <Spinner
-                android:id="@+id/spinnerClass"
-                android:layout_width="0dp"
+            <biz.kasual.materialnumberpicker.MaterialNumberPicker
+                android:id="@+id/classletter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="24dp"
-                android:layout_weight="1"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:layout_marginRight="30dp"
+                app:npBackgroundColor="@color/colorAccent"
+                app:npMaxValue="1"
+                app:npMinValue="2"
+                app:npSeparatorColor="@color/colorTurquoise"
+                app:npTextColor="@color/colorPrimaryDark"
+                app:npTextSize="20dp" />
+
         </LinearLayout>
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
@@ -88,22 +91,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
             android:backgroundTint="@color/colorTransparent"
             android:ems="10"
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
             android:textColor="@color/colorPrimaryDark"
-            android:textCursorDrawable="@null" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@color/colorAccent">
+            android:textCursorDrawable="@null"
+            android:visibility="visible" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:id="@+id/qrCodeInfo"
@@ -111,21 +105,30 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:textSize="18sp"
-            android:text="Beim Anmelden der Klasse wird ein QR Code erstellt, den die Schüler abscannen müssen, um an der Tour teilnehmen zu können." />
+            android:layout_marginTop="24dp"
+            android:text="Beim Anmelden der Klasse wird ein QR Code erstellt, den die Schüler abscannen müssen, um an der Tour teilnehmen zu können."
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/continueArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center_vertical">
 
         <ImageButton
             android:id="@+id/continueButton"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/transparent"
-            android:paddingBottom="24dp"
-            android:paddingTop="24dp"
-            android:scaleType="fitCenter"
             android:onClick="generateQrCode"
-            app:srcCompat="@drawable/button_continue" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_continue" />
+    </RelativeLayout>
 
-    </LinearLayout>
 </LinearLayout>

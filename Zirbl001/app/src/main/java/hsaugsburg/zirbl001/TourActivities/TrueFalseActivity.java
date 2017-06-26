@@ -1,12 +1,17 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,14 +27,26 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     private Context mContext = TrueFalseActivity.this;
 
+    private boolean answerSelected = false;
     private boolean trueSelected;
+    private String rightAnswer;
+    private String answerCorrect;
+    private String answerWrong;
+    private int score;
+
+    private int currentScore;
+
+    private int chronologyNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new JSONTrueFalse(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
-        Log.d("TrueFalse", "onCreate");
         setContentView(R.layout.activity_true_false);
+
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        new JSONTrueFalse(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -39,9 +56,36 @@ public class TrueFalseActivity extends AppCompatActivity {
         //
     }
 
+    public void continueToNextView(View view) {
+        if (answerSelected) {
+            String userAnswer;
+            if (trueSelected == true) {
+                userAnswer = "true";
+            } else {
+                userAnswer = "false";
+            }
+
+            Intent intent = new Intent(mContext, PointsActivity.class);
+            intent.putExtra("isSlider", "false");
+            intent.putExtra("userAnswer", userAnswer);
+            intent.putExtra("solution", rightAnswer);
+            intent.putExtra("answerCorrect", answerCorrect);
+            intent.putExtra("answerWrong", answerWrong);
+            intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
+            startActivity(intent);
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+        }
+
+    }
+
     //Selection
     View.OnClickListener answerTruth = new View.OnClickListener() {
         public void onClick(View v) {
+            answerSelected = true;
             trueSelected = true;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.truthArea);
             selected.setBackgroundResource(R.color.colorTurquoise);
@@ -50,22 +94,23 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelected.setBackgroundResource(0);
 
             Button nonSelectedButton = (Button) findViewById(R.id.lie);
-            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             nonSelectedButton.setTextColor(colorId);
 
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconLie);
-            nonSelectedImageView.setImageResource(R.drawable.button_lie);
+            nonSelectedImageView.setImageResource(R.drawable.ic_lie_normal);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconTruth);
 
-            invertedImg.setImageResource(R.drawable.icon_truth_active);
+            invertedImg.setImageResource(R.drawable.ic_truth_active);
             Button btA = (Button) findViewById(R.id.truth);
             btA.setTextColor(Color.WHITE);
         }
     };
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
-
+            answerSelected = true;
             trueSelected = false;
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.lieArea);
             selected.setBackgroundResource(R.color.colorRed);
@@ -74,56 +119,47 @@ public class TrueFalseActivity extends AppCompatActivity {
             nonSelected.setBackgroundResource(0);
 
             Button nonSelectedButton = (Button) findViewById(R.id.truth);
-            int colorId = nonSelectedButton.getContext().getResources().getIdentifier("colorFlowingText", "color", nonSelectedButton.getContext().getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             nonSelectedButton.setTextColor(colorId);
+
             ImageView nonSelectedImageView = (ImageView) findViewById(R.id.iconTruth);
-            nonSelectedImageView.setImageResource(R.drawable.button_truth);
+            nonSelectedImageView.setImageResource(R.drawable.ic_truth_normal);
 
             ImageView invertedImg = (ImageView) findViewById(R.id.iconLie);
 
-            invertedImg.setImageResource(R.drawable.icon_lie_active);
+            invertedImg.setImageResource(R.drawable.ic_lie_active);
             Button btA = (Button) findViewById(R.id.lie);
             btA.setTextColor(Color.WHITE);
         }
     };
     //
 
-    public void continueToNextView(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
-    }
-
     public void processData(TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        Log.d("TrueFalseActivity", result.getQuestion());
         question.setText(result.getQuestion());
 
-        final String rightAnswer = String.valueOf(result.isTrue());
-        final String answerCorrect = result.getAnswerCorrect();
-        final String answerWrong = result.getAnswerWrong();
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
 
-        ImageButton continueButton = (ImageButton) findViewById(R.id.continueButton);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
 
-                String userAnswer;
-                if (trueSelected == true) {
-                    userAnswer = "true";
-                } else {
-                    userAnswer = "false";
-                }
-
-                Intent intent = new Intent(mContext, PointsActivity.class);
-                intent.putExtra("isSlider", "false");
-                intent.putExtra("userAnswer", userAnswer);
-                intent.putExtra("solution", rightAnswer);
-                intent.putExtra("answerCorrect", answerCorrect);
-                intent.putExtra("answerWrong", answerWrong);
-                startActivity(intent);
-
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
             }
         });
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

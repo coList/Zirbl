@@ -51,7 +51,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/icon_time" />
+            app:srcCompat="@drawable/ic_time" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
             android:id="@+id/durationText"
@@ -70,7 +70,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/icon_route" />
+            app:srcCompat="@drawable/ic_route" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
             android:id="@+id/distanceText"
@@ -89,7 +89,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/icon_level" />
+            app:srcCompat="@drawable/ic_level" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
             android:id="@+id/difficultyText"

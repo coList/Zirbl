@@ -47,7 +47,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="100dp"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/zirbl_small_qrcode" />
+                app:srcCompat="@drawable/img_zirbl_small_qrcode" />
 
             <ImageView
                 android:id="@+id/speechbubble"
@@ -68,7 +68,7 @@
                 android:background="@android:color/transparent"
                 android:onClick="scanBarcode"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/button_scan" />
+                app:srcCompat="@drawable/btn_scan" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
                 android:id="@+id/barcode_result"

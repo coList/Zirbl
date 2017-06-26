@@ -8,129 +8,151 @@
     android:orientation="vertical">
 
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!-- top actionbar -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relLayoutActionBar">
-
-            <include layout="@layout/layout_top_dark_actionbar" />
-
-        </RelativeLayout>
-
-        <!-- Middle section (body) -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:id="@+id/relLayout1"
-            android:layout_below="@+id/relLayoutActionBar">
+            android:layout_height="wrap_content">
 
 
-            <LinearLayout
+            <!-- top actionbar -->
+            <RelativeLayout
+                android:id="@+id/relLayoutActionBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <include layout="@layout/layout_top_dark_actionbar" />
+
+            </RelativeLayout>
+
+            <!-- Middle section (body) -->
+            <RelativeLayout
+                android:id="@+id/tourProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relLayoutActionBar">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_height="9dp"
+                    android:layout_marginBottom="1dp"
+                    android:elevation="30dp"
+                    android:progress="20"
+                    android:progressDrawable="@drawable/code_progressbar_style" />
 
-                    <ImageView
-                        android:id="@+id/registrationWelcome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitStart"
-                        app:srcCompat="@drawable/zirbl_speech_bubble_team" />
-                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tourProgress"
+                android:background="@color/colorAccent">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
-                        android:id="@+id/teamname"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/registrationWelcome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitStart"
+                            app:srcCompat="@drawable/img_zirbl_speech_bubble_team" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/userInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/colorTransparent"
-                        android:cursorVisible="true"
-                        android:ems="10"
-                        android:hint="Teamname"
-                        android:inputType="textCapWords|textPersonName"
-                        android:textCursorDrawable="@null" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
-                        android:id="@+id/firstName"
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
+                            android:id="@+id/teamname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/colorTransparent"
+                            android:cursorVisible="true"
+                            android:ems="10"
+                            android:hint="Teamname"
+                            android:inputType="textCapWords|textPersonName"
+                            android:textCursorDrawable="@null" />
+
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
+                            android:id="@+id/firstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:backgroundTint="@color/colorTransparent"
+                            android:cursorVisible="true"
+                            android:ems="10"
+                            android:hint="Gruppenmitglied"
+                            android:inputType="textCapWords|textPersonName"
+                            android:textCursorDrawable="@null" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:backgroundTint="@color/colorTransparent"
-                        android:cursorVisible="true"
-                        android:ems="10"
-                        android:hint="Gruppenmitglied"
-                        android:inputType="textCapWords|textPersonName"
-                        android:textCursorDrawable="@null" />
+                        android:layout_height="160dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
+                        <ImageButton
+                            android:id="@+id/plusButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitEnd"
+                            app:srcCompat="@drawable/btn_plus" />
+
+                        <ImageButton
+                            android:id="@+id/continueButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:background="@android:color/transparent"
+                            android:onClick="goIntoTour"
+                            android:paddingBottom="24dp"
+                            android:paddingTop="24dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/btn_continue" />
+
+                    </LinearLayout>
                 </LinearLayout>
+            </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/plusButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitEnd"
-                        app:srcCompat="@drawable/button_plus" />
-
-                    <ImageButton
-                        android:id="@+id/continueButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:background="@android:color/transparent"
-                        android:onClick="goIntoTour"
-                        android:paddingBottom="24dp"
-                        android:paddingTop="24dp"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/button_continue" />
-
-                </LinearLayout>
-            </LinearLayout>
         </RelativeLayout>
 
-
-
-    </RelativeLayout>
-
+    </ScrollView>
 
 
 </LinearLayout>

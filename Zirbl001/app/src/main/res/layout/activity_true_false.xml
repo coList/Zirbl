@@ -46,33 +46,20 @@
                     android:gravity="bottom|center_vertical"
                     android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                        android:id="@+id/questionText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="24dp"
-                        android:text="#"
-                        android:textAlignment="viewStart"
-                        android:visibility="visible" />
 
                     <RelativeLayout
                         android:id="@+id/qestionImage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/behindQuestionImage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:visibility="gone"
                             app:srcCompat="@color/colorTurquoise" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                            android:id="@+id/besideImgQuestion"
+                            android:id="@+id/questionText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/behindQuestionImage"
@@ -82,10 +69,8 @@
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
                             android:paddingTop="24dp"
-                            android:text="#"
                             android:textColor="@color/colorAccent"
-                            android:textSize="18sp"
-                            android:visibility="gone" />
+                            android:textSize="18sp"/>
 
                     </RelativeLayout>
 
@@ -128,7 +113,7 @@
                             android:adjustViewBounds="true"
                             android:paddingBottom="40dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/button_truth" />
+                            app:srcCompat="@drawable/ic_truth_normal" />
 
                     </RelativeLayout>
 
@@ -163,7 +148,7 @@
                             android:adjustViewBounds="true"
                             android:paddingBottom="40dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/button_lie" />
+                            app:srcCompat="@drawable/ic_lie_normal" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -192,7 +177,7 @@
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/button_continue" />
+                        android:src="@drawable/btn_continue" />
                 </RelativeLayout>
 
             </LinearLayout>

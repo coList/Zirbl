@@ -47,18 +47,34 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/pointsImage"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="350dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/Answer"
-                            android:layout_marginTop="25dp"
-                            android:layout_weight="4"
-                            android:paddingBottom="10dp"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/zirbl_small_qrcode" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/pointsImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/Answer"
+                                android:adjustViewBounds="true"
+                                android:paddingBottom="26dp"
+                                android:paddingTop="24dp"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/img_right" />
+
+                            <TextView
+                                android:id="@+id/points"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="170dp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="50sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/answerText"
@@ -67,8 +83,7 @@
                             android:layout_marginBottom="10dp"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
-                            android:paddingTop="16dp"
-                            android:text="Wusstest du schon, dass..." />
+                            android:paddingTop="16dp" />
 
                     </LinearLayout>
 
@@ -91,9 +106,9 @@
                             android:layout_marginTop="5dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
-                            android:onClick="backToNavigationActivity"
+                            android:onClick="continueToNextView"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/button_continue" />
+                            android:src="@drawable/btn_continue" />
                     </RelativeLayout>
 
                 </LinearLayout>
