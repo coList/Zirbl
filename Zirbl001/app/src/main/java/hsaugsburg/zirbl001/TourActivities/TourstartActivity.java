@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import org.w3c.dom.Text;
+
 import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
@@ -59,7 +61,6 @@ public class TourstartActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Anmeldung");
-
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourid"));
 

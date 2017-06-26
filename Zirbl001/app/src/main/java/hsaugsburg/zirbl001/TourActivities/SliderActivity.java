@@ -65,7 +65,7 @@ public class SliderActivity extends AppCompatActivity {
         }
 
         Log.d("SliderActivity", Integer.toString(slider.getProgress() + minValue.intValue()));
-        
+
         if (answerSelected)  {
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
