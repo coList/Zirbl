@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 import android.view.KeyEvent;
@@ -57,7 +59,7 @@ public class DoUKnowActivity extends AppCompatActivity {
 
     public void processData(DoUKnowModel result) {
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
-        doUKnow.setText(result.getContentText());
+        doUKnow.setText(fromHtml(result.getContentText()));
     }
 
     private void showEndTourDialog(){
@@ -76,5 +78,15 @@ public class DoUKnowActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }

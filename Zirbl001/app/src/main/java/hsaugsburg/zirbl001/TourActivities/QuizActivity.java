@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -161,13 +163,13 @@ public class QuizActivity extends AppCompatActivity {
 
         ArrayList<String> answers = new ArrayList<>();
         if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
-            question.setText(result.getQuestion());
+            question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
         } else {  //if it has an image:
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
-            questionBesideImg.setText(result.getQuestion());
+            questionBesideImg.setText(fromHtml(result.getQuestion()));
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
             area4.setVisibility(View.GONE);
@@ -253,6 +255,16 @@ public class QuizActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }
 

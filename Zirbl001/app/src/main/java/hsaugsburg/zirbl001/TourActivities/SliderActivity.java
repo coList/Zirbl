@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -88,7 +90,7 @@ public class SliderActivity extends AppCompatActivity {
     //can't set minValue directly -> add minValue to valueDisplayed and substract minValue from maxValue
     public void processData(SliderModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(result.getQuestion());
+        question.setText(fromHtml(result.getQuestion()));
         isInteger = result.getIsInteger();
         minValue = result.getMinRange();
 
@@ -157,6 +159,16 @@ public class SliderActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 
 

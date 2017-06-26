@@ -162,9 +162,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
 
         TextView description = (TextView)findViewById(R.id.description);
-        description.setText(((TourDetailModel) result.get(tourID)).getDescription());
-
-        //description.setText(fromHtml("Das ist <b>bold</b>!"));
+        description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
 
         if (hasOpeningHours) {
             TextView openingHours = (TextView) findViewById(R.id.openingHours);
@@ -177,7 +175,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         if (!(((TourDetailModel)result.get(tourID)).getWarnings().equals("null"))) {
             TextView warnings = (TextView)findViewById(R.id.warnings);
             TextView warningsTitle = (TextView)findViewById(R.id.warningsTitle);
-            warnings.setText(((TourDetailModel)result.get(tourID)).getWarnings());
+            warnings.setText(fromHtml(((TourDetailModel)result.get(tourID)).getWarnings()));
 
             warnings.setVisibility(View.VISIBLE);
             warningsTitle.setVisibility(View.VISIBLE);

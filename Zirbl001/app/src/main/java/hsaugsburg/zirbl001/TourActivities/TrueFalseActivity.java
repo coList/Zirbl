@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -136,7 +138,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     public void processData(TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(result.getQuestion());
+        question.setText(fromHtml(result.getQuestion()));
 
         rightAnswer = String.valueOf(result.isTrue());
         answerCorrect = result.getAnswerCorrect();
@@ -161,5 +163,15 @@ public class TrueFalseActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }
