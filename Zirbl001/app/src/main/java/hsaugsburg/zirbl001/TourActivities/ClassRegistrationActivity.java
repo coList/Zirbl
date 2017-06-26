@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +36,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     private String tourName;
     private String klasse;
     private String school;
+
+    public final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+    public final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
 
     //Animation beim Activity Wechsel verhindern
@@ -76,14 +82,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         tvInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
-        final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
-        final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
+        npClassnumber.setMinValue(1);
+        npGrade.setMinValue(1);
 
-        npClassnumber.setMinValue(0);
-        npGrade.setMinValue(0);
-
-        npClassnumber.setMaxValue(valuesClassnumber.length-1);
-        npGrade.setMaxValue(valuesGrade.length-1);
+        npClassnumber.setMaxValue(valuesClassnumber.length);
+        npGrade.setMaxValue(valuesGrade.length);
 
         npClassnumber.setDisplayedValues(valuesClassnumber);
         npGrade.setDisplayedValues(valuesGrade);
@@ -112,6 +115,10 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             startActivity(intent);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
+            Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
     }
@@ -119,10 +126,12 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     public void setInput(){
         NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
         NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
+        Log.d(TAG, "Classletter: " + valuesClassnumber[npClass.getValue()-1]);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        klasse = " " + npGrade.getValue() + npClass.getValue();
+        klasse = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1];
         school = etSchool.getText().toString();
+        Log.d(TAG, "setInput: " + klasse);
 
     }
 

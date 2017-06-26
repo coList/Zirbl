@@ -61,7 +61,7 @@ public class TourstartActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Anmeldung");
 
 
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("tourid"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
 
         new JSONTourstart(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectChronologyView.php");
 

@@ -80,22 +80,15 @@ public class QrActivity extends AppCompatActivity {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     //barcodeResult.setText("Barcode value : "+ barcode.displayValue);
 
-
                     barcodeValue = barcode.displayValue;
-                    Log.d(TAG, "onActivityResult: " +barcodeValue);
-
 
                 } else {
                     //barcodeResult.setText("Ich nix finden");
                 }
             }
-
-
         } else {
-
             super.onActivityResult(requestCode, resultCode, data);
         }
-
-
     }
+
 }
