@@ -4,7 +4,7 @@ package hsaugsburg.zirbl001.Models;
 
 public class ChronologyModel {
     private int tourID;
-    private int chronologyNumber;
+    private Integer chronologyNumber;
     private Integer infoPopupID;
     private Integer stationID;
     private Integer taskID;
@@ -18,11 +18,11 @@ public class ChronologyModel {
         this.tourID = tourID;
     }
 
-    public int getChronologyNumber() {
+    public Integer getChronologyNumber() {
         return chronologyNumber;
     }
 
-    public void setChronologyNumber(int chronologyNumber) {
+    public void setChronologyNumber(Integer chronologyNumber) {
         this.chronologyNumber = chronologyNumber;
     }
 

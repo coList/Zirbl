@@ -28,7 +28,7 @@ public class QuizActivity extends AppCompatActivity {
     private Context mContext = QuizActivity.this;
 
 
-    private int amountOfAnswers = 4;
+    private int amountOfAnswers;
     private int selectedAnswer = -1;
 
     private int chronologyNumber;
@@ -38,6 +38,8 @@ public class QuizActivity extends AppCompatActivity {
     private String answerWrong;
     private int score;
 
+    private int currentScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
@@ -80,6 +83,7 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);
@@ -151,16 +155,18 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void processData (QuizModel result) {
-
         TextView question = (TextView) findViewById(R.id.questionText);
+        String[] answers = { result.getOption4(), result.getRightAnswer(), result.getOption2(), result.getOption3()};
+
         if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
             question.setText(result.getQuestion());
+            amountOfAnswers = answers.length;
         } else {  //if it has an image:
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
             questionBesideImg.setText(result.getQuestion());
-            amountOfAnswers = 3;
+            amountOfAnswers = answers.length - 1;
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
             area4.setVisibility(View.GONE);
@@ -171,10 +177,11 @@ public class QuizActivity extends AppCompatActivity {
 
         //put answer options into layout
 
-        String[] answers = {result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()};
+
         answers = shuffleArray(answers);
 
-        for (int i = 0; i < answers.length; i++) {
+
+        for (int i = 0; i < amountOfAnswers; i++) {
 
             String name = "answer" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());

@@ -19,6 +19,7 @@ public class NavigationActivity extends AppCompatActivity {
     private Context mContext = NavigationActivity.this;
 
     private int chronologyNumber;
+    private int currentScore;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -28,7 +29,8 @@ public class NavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber);
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
         tourChronologyTask.readChronologyFile();
     }
 

@@ -17,6 +17,7 @@ import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 import hsaugsburg.zirbl001.TourActivities.NavigationActivity;
 import hsaugsburg.zirbl001.TourActivities.QuizActivity;
+import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 import hsaugsburg.zirbl001.TourActivities.SliderActivity;
 import hsaugsburg.zirbl001.TourActivities.TrueFalseActivity;
 
@@ -26,11 +27,13 @@ public class TourChronologyTask {
     private Activity activity;
     private ChronologyModel nextChronologyItem;
     private int chronologyNumber;
+    private int currentScore;
 
-    public TourChronologyTask(Activity activity, ChronologyModel nextChronologyItem, int chronologyNumber) {
+    public TourChronologyTask(Activity activity, ChronologyModel nextChronologyItem, int chronologyNumber, int currentScore) {
         this.activity = activity;
         this.nextChronologyItem = nextChronologyItem;
         this.chronologyNumber = chronologyNumber;
+        this.currentScore = currentScore;
     }
 
     public ChronologyModel readChronologyFile() {
@@ -83,28 +86,36 @@ public class TourChronologyTask {
     public void continueToNextView() {
 
         Intent intent = new Intent();
-        if (nextChronologyItem.getInfoPopupID() != null) {
-            intent = new Intent(activity, DoUKnowActivity.class);
-            intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
 
-        } else if (nextChronologyItem.getStationID() != null) {
-            intent = new Intent(activity, NavigationActivity.class);
+        if (nextChronologyItem.getChronologyNumber() == null) {
+            intent = new Intent(activity, ResultActivity.class);
+        } else {
+            if (nextChronologyItem.getInfoPopupID() != null) {
+                intent = new Intent(activity, DoUKnowActivity.class);
+                intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
 
-        } else if (nextChronologyItem.getTaskID() != null) {
-            if (nextChronologyItem.getTaskClassName().equals("e_singlechoicetask")) {
-                intent = new Intent(activity, QuizActivity.class);
-            } else if (nextChronologyItem.getTaskClassName().equals("e_hangmantask")) {
-                intent = new Intent(activity, LettersActivity.class);
-            } else if (nextChronologyItem.getTaskClassName().equals("e_guessthenumbertask")) {
-                intent = new Intent(activity, SliderActivity.class);
-            } else if (nextChronologyItem.getTaskClassName().equals("e_truefalsetask")) {
-                intent = new Intent(activity, TrueFalseActivity.class);
+            } else if (nextChronologyItem.getStationID() != null) {
+                intent = new Intent(activity, NavigationActivity.class);
+
+            } else if (nextChronologyItem.getTaskID() != null) {
+                if (nextChronologyItem.getTaskClassName().equals("e_singlechoicetask")) {
+                    intent = new Intent(activity, QuizActivity.class);
+                } else if (nextChronologyItem.getTaskClassName().equals("e_hangmantask")) {
+                    intent = new Intent(activity, LettersActivity.class);
+                } else if (nextChronologyItem.getTaskClassName().equals("e_guessthenumbertask")) {
+                    intent = new Intent(activity, SliderActivity.class);
+                } else if (nextChronologyItem.getTaskClassName().equals("e_truefalsetask")) {
+                    intent = new Intent(activity, TrueFalseActivity.class);
+                }
+                intent.putExtra("taskid", Integer.toString(nextChronologyItem.getTaskID()));
+
             }
-            intent.putExtra("taskid", Integer.toString(nextChronologyItem.getTaskID()));
 
         }
         int nextchronologyNumber = chronologyNumber + 1;
+        intent.putExtra("currentscore", Integer.toString(currentScore));
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
         activity.startActivity(intent);
+
     }
 }

@@ -22,6 +22,7 @@ public class PointsActivity extends AppCompatActivity {
 
 
     private int chronologyNumber;
+    private int currentScore;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -33,9 +34,7 @@ public class PointsActivity extends AppCompatActivity {
 
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber);
-
-        tourChronologyTask.readChronologyFile();
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
         String solution = getIntent().getStringExtra("solution");
         String userAnswer = getIntent().getStringExtra("userAnswer");
@@ -55,6 +54,7 @@ public class PointsActivity extends AppCompatActivity {
                     userInput <= rightAnswer + 0.02 * rightAnswer) {
                 answerText.setText(answerCorrect);
                 answerImage.setImageResource(R.drawable.img_right);
+                currentScore += score;
                 scoreText.setText(Integer.toString(score));
             } else {
                 answerText.setText(answerWrong);
@@ -64,6 +64,7 @@ public class PointsActivity extends AppCompatActivity {
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(answerCorrect);
                 answerImage.setImageResource(R.drawable.img_right);
+                currentScore += score;
                 scoreText.setText(Integer.toString(score));
 
             } else {
@@ -71,6 +72,11 @@ public class PointsActivity extends AppCompatActivity {
                 answerImage.setImageResource(R.drawable.img_wrong);
             }
         }
+
+
+        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
+
+        tourChronologyTask.readChronologyFile();
 
     }
 

@@ -40,6 +40,8 @@ public class SliderActivity extends AppCompatActivity {
     private String answerWrong;
     private int score;
 
+    private int currentScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class SliderActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        Log.d("SliderActivity", Integer.toString(chronologyNumber));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
 
@@ -65,7 +67,7 @@ public class SliderActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-            Log.d("SliderActivity", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(SliderActivity.this, R.anim.shake);

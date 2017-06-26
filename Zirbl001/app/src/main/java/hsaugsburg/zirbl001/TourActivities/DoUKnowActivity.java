@@ -31,6 +31,7 @@ public class DoUKnowActivity extends AppCompatActivity {
     private Context mContext = DoUKnowActivity.this;
 
     private int chronologyNumber;
+    private int currentScore;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -40,9 +41,10 @@ public class DoUKnowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
         new JSONDoUKnow(this, infoPopupID).execute("https://zirbl.multimedia.hs-augsburg.de/selectInfoPopupView.php");
-        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber);
+        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
 
         tourChronologyTask.readChronologyFile();
 

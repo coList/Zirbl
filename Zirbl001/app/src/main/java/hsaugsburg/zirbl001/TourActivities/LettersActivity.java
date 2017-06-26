@@ -43,6 +43,8 @@ public class LettersActivity extends AppCompatActivity {
     private String answerWrong;
     private int score;
 
+    private int currentScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class LettersActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
         new JSONLetters(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
 
@@ -78,6 +81,7 @@ public class LettersActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(LettersActivity.this, R.anim.shake);

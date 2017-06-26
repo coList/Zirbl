@@ -34,6 +34,8 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String answerWrong;
     private int score;
 
+    private int currentScore;
+
     private int chronologyNumber;
 
     @Override
@@ -43,6 +45,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         new JSONTrueFalse(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
 
         //Selection
@@ -70,6 +73,7 @@ public class TrueFalseActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);

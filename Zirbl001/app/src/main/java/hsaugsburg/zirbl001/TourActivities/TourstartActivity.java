@@ -35,6 +35,7 @@ public class TourstartActivity extends AppCompatActivity {
     private int maxAmountOfParticipants = 10;
 
     private int selectedTour;
+    private int currentScore = 0;
     ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private Context mContext = TourstartActivity.this;
@@ -109,6 +110,7 @@ public class TourstartActivity extends AppCompatActivity {
         if (nextChronologyItem.getInfoPopupID() != null) {
             Intent intent = new Intent(mContext, DoUKnowActivity.class);
             intent.putExtra("chronologyNumber", Integer.toString(0));
+            intent.putExtra("currentscore", Integer.toString(currentScore));
             intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
             startActivity(intent);
         }
