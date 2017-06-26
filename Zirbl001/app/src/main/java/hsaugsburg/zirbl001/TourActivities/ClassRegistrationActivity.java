@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -112,6 +115,10 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             startActivity(intent);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
+            Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+            findViewById(R.id.continueButton).startAnimation(shake);
+            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
     }

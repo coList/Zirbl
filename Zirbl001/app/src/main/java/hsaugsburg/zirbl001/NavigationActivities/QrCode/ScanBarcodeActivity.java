@@ -72,7 +72,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
             klasse = splited[4];
             school = splited[5];
         }
-
     }
 
     private void generateSuccessMessage(){
@@ -166,7 +165,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
                     } else {
                         showScanDialogFail();
                     }
-
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {

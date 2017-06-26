@@ -3,8 +3,9 @@
     <color name="colorPrimary">#231F20</color>
     <color name="colorPrimaryDark">#231f20</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="colorTransparentDark">#82000000</color>
     <color name="colorTransparent">#7f353b3c</color>
-    <color name="colorTransparentLight">#7f85898a</color>
+    <color name="colorTransparentLight">#58000000</color>
     <color name="colorTurquoise">#00e6c7</color>
     <color name="colorRed">#d6185d</color>
 </resources>
