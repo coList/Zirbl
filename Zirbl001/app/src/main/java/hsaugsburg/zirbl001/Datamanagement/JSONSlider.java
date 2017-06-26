@@ -72,7 +72,7 @@ public class JSONSlider extends AsyncTask<String, String, SliderModel> {
                         sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
                         sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
                         sliderModel.setMaxRange(mJsonLObjectSlider.getDouble("maxrange"));
-                        //sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
+                        sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
                     }
 
 

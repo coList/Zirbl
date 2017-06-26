@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import org.w3c.dom.Text;
+
 import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
@@ -60,8 +62,7 @@ public class TourstartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Anmeldung");
 
-
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("tourid"));
 
         new JSONTourstart(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectChronologyView.php");
 

@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -160,8 +162,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
 
         TextView description = (TextView)findViewById(R.id.description);
-        description.setText(((TourDetailModel) result.get(tourID)).getDescription());
-
+        description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
 
         if (hasOpeningHours) {
             TextView openingHours = (TextView) findViewById(R.id.openingHours);
@@ -174,7 +175,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         if (!(((TourDetailModel)result.get(tourID)).getWarnings().equals("null"))) {
             TextView warnings = (TextView)findViewById(R.id.warnings);
             TextView warningsTitle = (TextView)findViewById(R.id.warningsTitle);
-            warnings.setText(((TourDetailModel)result.get(tourID)).getWarnings());
+            warnings.setText(fromHtml(((TourDetailModel)result.get(tourID)).getWarnings()));
 
             warnings.setVisibility(View.VISIBLE);
             warningsTitle.setVisibility(View.VISIBLE);
@@ -193,5 +194,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
 
 
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }
