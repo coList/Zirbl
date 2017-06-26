@@ -28,13 +28,7 @@ public class QrActivity extends AppCompatActivity {
 
     TextView barcodeResult;
 
-    private int tourID;
-    private int klassenID;
-    private String klasse;
-    private String school;
 
-
-    FragmentManager fm = getSupportFragmentManager();
     private String barcodeValue;
 
     //Animation beim Activity wechsel verhindern
@@ -60,8 +54,8 @@ public class QrActivity extends AppCompatActivity {
     }
 
     public void scanBarcode (View v){
-        Intent intent1 = new Intent(QrActivity.this, ScanBarcodeActivity.class);
-        startActivityForResult(intent1, 0);
+        Intent intent = new Intent(QrActivity.this, ScanBarcodeActivity.class);
+        startActivityForResult(intent, 0);
     }
 
 
@@ -77,20 +71,6 @@ public class QrActivity extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
-    public void setBarcodeInfos(){
-
-        String[] splited = barcodeValue.split("\\s+");
-
-        tourID = Integer.parseInt(splited[0]);
-        //klassenID = 0;
-        klasse = splited[1];
-        //fuegt Schulnamen wieder zusammen
-        for (int i=2;i<splited.length;i++){
-            school = school + " " + splited[i];
-        }
-
-    }
-
 
     @Override
     public  void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -104,14 +84,9 @@ public class QrActivity extends AppCompatActivity {
                     barcodeValue = barcode.displayValue;
                     Log.d(TAG, "onActivityResult: " +barcodeValue);
 
-                    //FragmentManager fm = getFragmentManager();
-                    /*
-                    ScanBarcodeDialogFragment dialogFragment = new ScanBarcodeDialogFragment ();
-                    dialogFragment.show(fm, "Sample Fragment");
-                    */
 
                 } else {
-                    barcodeResult.setText("Ich nix finden");
+                    //barcodeResult.setText("Ich nix finden");
                 }
             }
 

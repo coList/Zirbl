@@ -128,7 +128,7 @@
                             android:adjustViewBounds="true"
                             android:paddingBottom="40dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/button_truth" />
+                            app:srcCompat="@drawable/ic_truth_normal" />
 
                     </RelativeLayout>
 
@@ -163,7 +163,7 @@
                             android:adjustViewBounds="true"
                             android:paddingBottom="40dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/button_lie" />
+                            app:srcCompat="@drawable/ic_lie_normal" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -192,7 +192,7 @@
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/button_continue" />
+                        android:src="@drawable/btn_continue" />
                 </RelativeLayout>
 
             </LinearLayout>

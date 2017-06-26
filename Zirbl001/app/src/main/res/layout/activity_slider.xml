@@ -112,7 +112,7 @@
                         android:background="@android:color/transparent"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/button_continue" />
+                        android:src="@drawable/btn_continue" />
                 </RelativeLayout>
 
             </LinearLayout>

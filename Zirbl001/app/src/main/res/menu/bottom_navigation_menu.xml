@@ -4,27 +4,27 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/ic_bottom_home"
         android:title="home"/>
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/icon_search"
+        android:icon="@drawable/ic_bottom_search"
         android:title="search"/>
 
     <item
         android:id="@+id/navigation_qr"
-        android:icon="@drawable/icon_qrcode"
+        android:icon="@drawable/ic_bottom_qrcode"
         android:title="qr"/>
 
     <item
         android:id="@+id/navigation_fav"
-        android:icon="@drawable/icon_star"
+        android:icon="@drawable/ic_bottom_star"
         android:title="fav"/>
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/icon_profile"
+        android:icon="@drawable/ic_bottom_profile"
         android:title="profile"/>
 
 </menu>
