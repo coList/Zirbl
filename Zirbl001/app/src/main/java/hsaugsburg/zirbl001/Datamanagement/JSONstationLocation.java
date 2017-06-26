@@ -5,4 +5,7 @@ package hsaugsburg.zirbl001.Datamanagement;
  */
 
 public class JSONstationLocation {
+
+
+
 }
