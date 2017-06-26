@@ -65,7 +65,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="16dp"
                 app:npBackgroundColor="@color/colorAccent"
-                app:npSeparatorColor="@color/colorTurquoise"
+                app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
                 app:npTextSize="20dp" />
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 app:npBackgroundColor="@color/colorAccent"
-                app:npSeparatorColor="@color/colorTurquoise"
+                app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
                 app:npTextSize="20dp" />
 
@@ -103,7 +103,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
             android:text="Beim Anmelden der Klasse wird ein QR Code erstellt, den die Schüler abscannen müssen, um an der Tour teilnehmen zu können."
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
