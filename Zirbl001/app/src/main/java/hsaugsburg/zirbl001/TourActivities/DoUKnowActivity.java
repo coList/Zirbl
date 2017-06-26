@@ -39,6 +39,12 @@ public class DoUKnowActivity extends AppCompatActivity {
     private TourChronologyTask tourChronologyTask;
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
