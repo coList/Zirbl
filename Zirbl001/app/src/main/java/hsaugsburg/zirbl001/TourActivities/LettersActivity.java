@@ -61,11 +61,11 @@ public class LettersActivity extends AppCompatActivity {
         boolean answerSelected = true;
         String userAnswer = "";
         for (int i = 0; i < solution.length(); i++) {
-            Button button = (Button)findViewById(i);
+            Button button = (Button) findViewById(i);
             userAnswer += button.getText();
 
             if (button.getText().equals("")) {
-                answerSelected  = false;
+                answerSelected = false;
             }
         }
 
@@ -87,11 +87,11 @@ public class LettersActivity extends AppCompatActivity {
 
     }
 
-    public void processData (LettersModel result) {
+    public void processData(LettersModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(result.getQuestion());
 
-        TableRow tableRow = (TableRow)findViewById(R.id.inputArea);
+        TableRow tableRow = (TableRow) findViewById(R.id.inputArea);
         final int solutionLength = result.getSolution().length();
         solution = result.getSolution();
         answerCorrect = result.getAnswerCorrect();
@@ -102,6 +102,8 @@ public class LettersActivity extends AppCompatActivity {
         shuffleLetters(stringBuilder);
         final String letters = stringBuilder.toString().toUpperCase();
 
+
+        //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
             final Button button = new Button(this);
             button.setId(i);
@@ -116,8 +118,12 @@ public class LettersActivity extends AppCompatActivity {
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             button.setText("");
 
+
+            //user wants to remove the old letter
+            //empty the button text
+            //set used letter visible again
             button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {  //delete set button and show the old letter
+                public void onClick(View view) {
 
                     boolean foundText = false;
 
@@ -143,7 +149,7 @@ public class LettersActivity extends AppCompatActivity {
         }
 
 
-
+        //set letters
         for (int i = 0; i < letters.length(); i++) {
             String name = "letter" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());
@@ -158,7 +164,7 @@ public class LettersActivity extends AppCompatActivity {
                     boolean foundButton = false;
                     for (int i = 0; i < solutionLength; i++) {
                         if (!foundButton) {
-                            Button button = (Button)findViewById(i);
+                            Button button = (Button) findViewById(i);
                             if (button.getText().equals("")) {
                                 button.setText(letterText);
                                 letter.setVisibility(View.INVISIBLE);
@@ -169,7 +175,7 @@ public class LettersActivity extends AppCompatActivity {
                 }
             });
         }
-            }
+    }
 
     private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
         Random random = new Random();
@@ -184,7 +190,7 @@ public class LettersActivity extends AppCompatActivity {
         return stringBuilder;
     }
 
-    private void showEndTourDialog(){
+    private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 EndTourDialog alertEnd = new EndTourDialog(mContext);
@@ -194,14 +200,13 @@ public class LettersActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

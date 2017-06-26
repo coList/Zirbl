@@ -29,14 +29,8 @@ public class NavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber);
-        Log.d("NavigationActivity", Integer.toString(chronologyNumber));
         tourChronologyTask.readChronologyFile();
     }
-
-    /*public void testbuttonCard(View view) {
-        Intent intent = new Intent(mContext, "".class);
-        startActivity(intent);
-    }*/
 
     public void layoutQuiz(View view) {
         Intent intent = new Intent(mContext, QuizActivity.class);

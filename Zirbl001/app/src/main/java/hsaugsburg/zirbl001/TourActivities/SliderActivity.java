@@ -32,6 +32,8 @@ public class SliderActivity extends AppCompatActivity {
 
     private boolean answerSelected;
 
+
+    private boolean isInteger = false;
     private String userAnswer;
     private String rightAnswer;
     private String answerCorrect;
@@ -77,16 +79,28 @@ public class SliderActivity extends AppCompatActivity {
     public void processData(SliderModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(result.getQuestion());
+        //isInteger = result.getIsInteger();
         minValue = result.getMinRange();
         slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
         sliderCount = (TextView) findViewById(R.id.sliderCount);
-        sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+
+        if (!isInteger) {
+            sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+        } else {
+            sliderCount.setText(Integer.toString(slider.getProgress() + (int) Math.round(minValue)));
+        }
+
 
 
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
-                sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+                if (!isInteger) {
+                    sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+                } else {
+                    sliderCount.setText(Integer.toString(progress + (int) Math.round(minValue)));
+                }
+
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
