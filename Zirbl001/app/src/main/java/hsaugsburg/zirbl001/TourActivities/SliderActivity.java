@@ -40,7 +40,7 @@ public class SliderActivity extends AppCompatActivity {
 
     private boolean answerSelected;
 
-
+    private Double range;
     private boolean isInteger;
     private String userAnswer;
     private String rightAnswer;
@@ -90,6 +90,7 @@ public class SliderActivity extends AppCompatActivity {
         if (answerSelected)  {
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
+            intent.putExtra("range", Double.toString(range));
             intent.putExtra("userAnswer", userAnswer);
             intent.putExtra("solution", rightAnswer);
             intent.putExtra("answerCorrect", answerCorrect);
@@ -117,6 +118,7 @@ public class SliderActivity extends AppCompatActivity {
         question.setText(fromHtml(result.getQuestion()));
         isInteger = result.getIsInteger();
         minValue = result.getMinRange();
+        range = result.getMaxRange() - minValue;
 
 
         sliderCount = (TextView) findViewById(R.id.sliderCount);
