@@ -71,7 +71,7 @@
         android:layout_below="@id/text_container_bottom">
 
         <ImageView
-            android:id="@+id/lineQ"
+            android:id="@+id/lineTop"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             app:srcCompat="@color/colorLine" />
@@ -86,7 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_container_bottom"
         android:gravity="center">
-
 
 
         <Button
