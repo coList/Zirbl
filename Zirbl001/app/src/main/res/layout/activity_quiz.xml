@@ -89,7 +89,6 @@
                     <ImageView
                         android:id="@+id/lineQ"
                         android:layout_width="match_parent"
-
                         android:layout_height="1dp"
                         app:srcCompat="@color/colorTransparentLight" />
 

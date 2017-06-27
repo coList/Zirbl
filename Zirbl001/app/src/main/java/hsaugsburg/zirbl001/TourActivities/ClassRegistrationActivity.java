@@ -73,9 +73,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
         NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
-        TextView tvInfo = (TextView) findViewById(R.id.qrCodeInfo);
-
-        tvInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
         npClassnumber.setMinValue(1);
         npGrade.setMinValue(1);
