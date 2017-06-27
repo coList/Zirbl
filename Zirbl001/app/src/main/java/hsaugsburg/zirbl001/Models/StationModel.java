@@ -7,6 +7,7 @@ package hsaugsburg.zirbl001.Models;
 public class StationModel {
     private int tourID;
     private int chronologyNumber;
+    private int stationID;
     private String stationName;
     private Double latitude;
     private Double longitude;
@@ -51,5 +52,13 @@ public class StationModel {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getStationID() {
+        return stationID;
+    }
+
+    public void setStationID(int stationID) {
+        this.stationID = stationID;
     }
 }
