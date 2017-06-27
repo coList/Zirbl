@@ -74,8 +74,6 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                         quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
                         quizModel.setOption4(mJsonLObjectQuiz.getString("option4"));
                     }
-
-
                 }
 
 
