@@ -3,11 +3,23 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+=======
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+>>>>>>> master
 import android.os.Vibrator;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -30,6 +42,8 @@ public class LettersActivity extends AppCompatActivity {
 
     private Context mContext = LettersActivity.this;
     private int chronologyNumber;
+    private int selectedTour;
+    private String stationName;
 
     private String solution;
     private String answerCorrect;
@@ -53,6 +67,13 @@ public class LettersActivity extends AppCompatActivity {
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        stationName = getIntent().getStringExtra("stationName");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(stationName.toUpperCase());
+
 
         new JSONLetters(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
 
@@ -80,6 +101,8 @@ public class LettersActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("selectedTour", Integer.toString(selectedTour));
+            intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
