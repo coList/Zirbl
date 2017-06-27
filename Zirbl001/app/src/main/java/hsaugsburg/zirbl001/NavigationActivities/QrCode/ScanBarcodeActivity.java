@@ -60,30 +60,27 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         //String muss wie folgt ausschauen: ZirblIdent, TourID, Tourname, KlassenID, Klassenname, Schulname
 
-        String[] splited = scanValue.split("\\s+");
+        String[] splited = scanValue.split(";");
+        Log.d(TAG, "saveScanInfos: " + scanValue);
 
-        if(splited.length >= 6){
-            zirblIdent = splited[0];
+        zirblIdent = splited[0];
+
+        if(zirblIdent.equals("qrcodezirbl")){
             tourID = Integer.parseInt(splited[1]);
             tourName = splited[2];
-            klassenID = 0;
+            Log.d(TAG, "saveScanInfos: " + tourName);
+            klassenID = Integer.parseInt(splited[3]);
             klasse = splited[4];
-            //fuegt Schulnamen wieder zusammen
-            for (int i=5;i<(splited.length)-4;i++){
-                school += splited[i] + " ";
-            }
-        }else{
-            zirblIdent = "no";
+            school = splited[5];
         }
-
     }
 
     private void generateSuccessMessage(){
 
         successMessage = "Willkommen bei der ";
         successMessage += tourName;
-        successMessage += "-Tour:";
-        successMessage += klasse + ", ";
+        successMessage += "-Tour: \n";
+        successMessage += "Klasse " + klasse + ", ";
         successMessage += school;
 
     }
@@ -94,7 +91,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
         this.runOnUiThread(new Runnable() {
             public void run() {
                 QrDialog alertSuccess = new QrDialog(mContext, true, "WEITER");
-                alertSuccess.showDialog((Activity) mContext, successMessage, "Viel Spaß bei der Tour!");
+                alertSuccess.showDialog((Activity) mContext, successMessage, "Viel Spaß bei der Tour!", tourID);
             }
         });
     }
@@ -104,7 +101,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
         this.runOnUiThread(new Runnable() {
             public void run() {
                 QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL");
-                alertFail.showDialog((Activity) mContext, errorMessage, "Versuche es erneut!");
+                alertFail.showDialog((Activity) mContext, errorMessage, "Versuche es erneut!", tourID);
             }
         });
     }
@@ -162,21 +159,13 @@ public class ScanBarcodeActivity extends AppCompatActivity{
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if(barcodes.size()>0){
 
-
-
                     saveScanInfos(barcodes.valueAt(0).displayValue);
-
-
-                    /**
-                     * Abfragen ob QR Code von uns ist. (evtl vor den code zirbl schreiben)
-                     */
 
                     if(zirblIdent.equals("qrcodezirbl")){
                         showScanDialogSuccess();
                     } else {
                         showScanDialogFail();
                     }
-
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
@@ -185,13 +174,9 @@ public class ScanBarcodeActivity extends AppCompatActivity{
                             cameraSource.stop();
                         }
                     });
-                    //finish();
                 }
             }
         });
 
     }
-
-
-
 }

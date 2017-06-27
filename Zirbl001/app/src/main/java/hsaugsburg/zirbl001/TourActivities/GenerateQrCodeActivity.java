@@ -29,7 +29,6 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     private static final String TAG = "GenerateQrCodeActivity";
     private Context mContext = GenerateQrCodeActivity.this;
 
-    //public static final String STR = "Luke ich bin dein Vater";
     public String qrString;
 
     private int tourID;
@@ -75,7 +74,8 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     *
      */
     public String generateString(){
-        return "qrcodezirbl" + " " +tourID + " " + tourName + " " + "0" + " " + klasse + " " + school;
+        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ klasse + ";" + school);
+        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ klasse + ";" + school;
     }
 
 

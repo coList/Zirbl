@@ -24,6 +24,8 @@ public class QrDialog {
     private final boolean success;
     private final String textButtonMarked;
 
+    private int tourID;
+
 
     public QrDialog(Context context, boolean success, String textButtonMarked){
         this.context = context;
@@ -31,7 +33,7 @@ public class QrDialog {
         this.textButtonMarked = textButtonMarked;
     }
 
-    public void showDialog(Activity activity, String msg, String msg2){
+    public void showDialog(Activity activity, String msg, String msg2, final int tourID){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -83,10 +85,13 @@ public class QrDialog {
             public void onClick(View v) {
                 if(success){
                     Intent intent = new Intent (context, TourstartActivity.class);
+                    intent.putExtra("tourID", Integer.toString(tourID));
                     context.startActivity(intent);
+                    Log.d(TAG, "onClick: starte die Tour");
                 }else{
                     Intent intent = new Intent (context, ScanBarcodeActivity.class);
                     context.startActivity(intent);
+                    Log.d(TAG, "onClick: versuch es erneut");
                 }
 
             }
@@ -102,7 +107,6 @@ public class QrDialog {
                 public void onClick(View v) {
                     Intent intent = new Intent (context, QrActivity.class);
                     context.startActivity(intent);
-                    //dialog.dismiss();
                 }
             });
         }
