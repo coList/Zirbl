@@ -50,6 +50,7 @@
             android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
+            android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_time" />
@@ -68,6 +69,7 @@
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
+            android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_route" />
@@ -86,6 +88,7 @@
             android:id="@+id/difficulty"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
+            android:layout_marginBottom="3dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_level" />
