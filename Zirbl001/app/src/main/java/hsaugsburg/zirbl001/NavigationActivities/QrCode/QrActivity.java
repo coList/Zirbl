@@ -49,7 +49,7 @@ public class QrActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
         
-        barcodeResult = (TextView) findViewById(R.id.barcode_result);
+        //barcodeResult = (TextView) findViewById(R.id.barcode_result);
 
     }
 
