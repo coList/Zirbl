@@ -9,6 +9,11 @@
     <color name="colorTurquoise">#00e6c7</color>
     <color name="colorRed">#d6185d</color>
     <color name="colorBrown">#653c35</color>
+<<<<<<< HEAD
     <color name="colorLine">#D0D0D0</color>
+=======
+    <color name="colorLine">#d0d0d0</color>
+
+>>>>>>> master
 </resources>
 

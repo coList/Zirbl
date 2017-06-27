@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -27,6 +30,7 @@ import java.util.Random;
 import hsaugsburg.zirbl001.Datamanagement.JSONQuiz;
 import hsaugsburg.zirbl001.Models.QuizModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -75,7 +79,14 @@ public class QuizActivity extends AppCompatActivity {
         buttonD.setOnClickListener(answerD);
         //
 
+        initImageLoader();
 
+
+    }
+
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     public void continueToNextView(View view) {
@@ -170,6 +181,7 @@ public class QuizActivity extends AppCompatActivity {
     public void processData (QuizModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
 
+
         ArrayList<String> answers = new ArrayList<>();
         if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
@@ -180,9 +192,16 @@ public class QuizActivity extends AppCompatActivity {
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
             questionBesideImg.setText(fromHtml(result.getQuestion()));
 
-            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
-            area4.setVisibility(View.GONE);
 
+            String imageURL = result.getPicturePath();
+            ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+            ImageLoader.getInstance().displayImage(imageURL, questionPicture);
+
+            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
+            ImageView line4 = (ImageView) findViewById(R.id.line4);
+            area4.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
             question.setVisibility(View.GONE);
 
 
@@ -209,6 +228,8 @@ public class QuizActivity extends AppCompatActivity {
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
+
+
 
     }
 
