@@ -3,11 +3,13 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation2;
@@ -51,6 +53,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         tourChronologyTask.readChronologyFile();
 
         new JSONStationLocation2(this, selectedTour, stationID).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
+
+        TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
+        naviTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        TextView naviInfo = (TextView) findViewById(R.id.navigationInfo);
+        naviInfo.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
     }
 
     public void processData(StationModel result) {

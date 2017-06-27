@@ -1,29 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.NavigationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="hsaugsburg.zirbl001.TourActivities.NavigationActivity">
 
 
-    <Button
-        android:id="@+id/testbuttonCard"
+    <ImageView
+        android:id="@+id/navigationCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/img_card" />
+
+    <RelativeLayout
+        android:id="@+id/stationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:text="#Kartensimulation# " />
+        android:layout_above="@+id/stationInfo"
+        android:background="@color/colorTransparentDark">
 
-    <Button
-        android:id="@+id/nextTourItem"
+        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+            android:id="@+id/navigationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            android:text="#" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/stationInfo"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:onClick="continueToNextView"
-        android:text="Next"
-        android:textAllCaps="false" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorTransparentDark">
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+            android:id="@+id/navigationInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:text="#" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/continueArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|center_vertical">
+
+        <ImageButton
+            android:id="@+id/nextTourItem"
+            android:layout_width="175dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:onClick="continueToNextView"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_continue"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</RelativeLayout>
