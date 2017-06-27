@@ -83,27 +83,38 @@ public class TourstartActivity extends AppCompatActivity {
 
     public void addParticipant(View view) {
         if (count < maxAmountOfParticipants - 1) {
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
-            QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(mContext);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            EditText previousParticipantText = new EditText(this);
+            if (count > 0) {
+                previousParticipantText = (EditText) findViewById(count - 1);
+            } else {
+                previousParticipantText = (EditText) findViewById(R.id.firstName);
+            }
+            String previousParticipant = previousParticipantText.getText().toString();
 
-            float d = getResources().getDisplayMetrics().density;
+            if (previousParticipant != null && !previousParticipant.isEmpty()) {
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
+                QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(mContext);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            params.leftMargin = (int) (24 * d);
-            params.rightMargin = (int) (24 * d);
+                float d = getResources().getDisplayMetrics().density;
 
-            //TODO: set textCursorDrawable
-            participantField.setId(count);
-            participantField.setHint("Gruppenmitglied");
-            participantField.setHintTextColor(ContextCompat.getColor(mContext, R.color.colorTransparent));
-            participantField.setCursorVisible(true);
-            ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
-            participantField.setEms(10);
-            participantField.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-            participantField.setLayoutParams(params);
+                params.leftMargin = (int) (24 * d);
+                params.rightMargin = (int) (24 * d);
 
-            linearLayout.addView(participantField);
-            count++;
+                //TODO: set textCursorDrawable
+                participantField.setId(count);
+                participantField.setHint("Gruppenmitglied");
+                participantField.setHintTextColor(ContextCompat.getColor(mContext, R.color.colorTransparent));
+                participantField.setCursorVisible(true);
+                ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+                participantField.setEms(10);
+                participantField.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+                participantField.setLayoutParams(params);
+
+                linearLayout.addView(participantField);
+                count++;
+            }
+
         }
     }
 
