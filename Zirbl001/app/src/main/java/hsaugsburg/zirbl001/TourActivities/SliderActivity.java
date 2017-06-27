@@ -66,14 +66,14 @@ public class SliderActivity extends AppCompatActivity {
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
         stationName = getIntent().getStringExtra("stationName");
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(stationName.toUpperCase());
+        Log.d("Slider", stationName);
 
         setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(stationName.toUpperCase());
 
         new JSONSlider(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
     }
