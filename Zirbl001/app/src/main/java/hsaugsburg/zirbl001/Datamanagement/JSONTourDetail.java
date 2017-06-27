@@ -89,7 +89,6 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
                     tourDetailModelList.add(tourDetailModel);
                 }
 
-                Log.d("Test", ((TourDetailModel)tourDetailModelList.get(0)).getMapPicture());
                 return tourDetailModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
