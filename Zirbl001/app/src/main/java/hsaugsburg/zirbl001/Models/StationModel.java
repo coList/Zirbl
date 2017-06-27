@@ -9,6 +9,7 @@ public class StationModel {
     private int chronologyNumber;
     private int stationID;
     private String stationName;
+    private String mapInstruction;
     private Double latitude;
     private Double longitude;
 
@@ -36,6 +37,14 @@ public class StationModel {
 
     public void setStationName(String stationName) {
         this.stationName = stationName;
+    }
+
+    public String getMapInstruction() {
+        return mapInstruction;
+    }
+
+    public void setMapInstruction(String mapInstruction) {
+        this.mapInstruction = mapInstruction;
     }
 
     public Double getLatitude() {

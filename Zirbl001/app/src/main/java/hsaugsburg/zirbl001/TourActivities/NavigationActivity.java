@@ -62,6 +62,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     public void processData(StationModel result) {
         stationName = result.getStationName();
+        TextView stationName = (TextView) findViewById(R.id.navigationTitle);
+        stationName.setText(result.getStationName());
+        
+        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
+        mapInstruction.setText(result.getMapInstruction());
     }
 
     public void continueToNextView(View view) {

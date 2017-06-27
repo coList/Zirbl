@@ -85,6 +85,7 @@ public class JSONStationLocation2 extends AsyncTask<String, String, StationModel
                         stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
                         stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
                         stationModel.setStationName(mJSONObjectStation.getString("stationname"));
+                        stationModel.setMapInstruction(mJSONObjectStation.getString("mapinstruction"));
                     }
                 }
                 return stationModel;
