@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,6 +70,7 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                         quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
                         quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
                         quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
+                        Log.d("JSONQuiz", mJsonLObjectQuiz.getString("picturepath"));
                         quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
                         quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
                         quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));

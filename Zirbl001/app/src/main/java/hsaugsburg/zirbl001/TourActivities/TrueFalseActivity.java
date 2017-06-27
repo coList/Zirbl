@@ -21,10 +21,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
 import hsaugsburg.zirbl001.Models.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class TrueFalseActivity extends AppCompatActivity {
 
@@ -61,6 +64,13 @@ public class TrueFalseActivity extends AppCompatActivity {
         Button buttonLie = (Button) findViewById(R.id.lie);
         buttonLie.setOnClickListener(answerLie);
         //
+
+       // initImageLoader();
+    }
+
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     public void continueToNextView(View view) {
@@ -152,6 +162,11 @@ public class TrueFalseActivity extends AppCompatActivity {
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
+
+        String imageURL = result.getPicturePath();
+        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+        ImageLoader.getInstance().displayImage(imageURL, questionPicture);
 
     }
 
