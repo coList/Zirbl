@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="170dp"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorBrown"
                                 android:textSize="50sp"
                                 android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:layout_marginTop="16dp"
-                            android:text="TextView" />
+                            android:text="Team:" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/resultMembers"
@@ -92,7 +92,7 @@
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
                             android:layout_marginTop="16dp"
-                            android:text="TextView" />
+                            android:text="Teilnehmer:" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -106,14 +106,14 @@
                                 android:id="@+id/performanceTime"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:srcCompat="@drawable/btn_go" />
+                                app:srcCompat="@drawable/ic_time" />
 
                             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                                 android:id="@+id/performanceTeamname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
-                                android:text="TextView" />
+                                android:text="1h 40min" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -129,14 +129,14 @@
                                 android:id="@+id/ranking"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                app:srcCompat="@drawable/btn_go" />
+                                app:srcCompat="@drawable/ic_cup" />
 
                             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                                 android:id="@+id/rankingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
-                                android:text="TextView" />
+                                android:text="4.Platz von 32" />
                         </LinearLayout>
 
                     </LinearLayout>

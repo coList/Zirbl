@@ -113,6 +113,11 @@ public class TourstartActivity extends AppCompatActivity {
 
                 linearLayout.addView(participantField);
                 count++;
+            } else {
+                Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+                findViewById(R.id.plusButton).startAnimation(shake);
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(100);
             }
 
         }
