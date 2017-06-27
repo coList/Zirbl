@@ -36,46 +36,43 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:id="@+id/DoUKnowArea"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                             android:id="@+id/DoUKnow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginTop="16dp"
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
-                            android:paddingTop="16dp"/>
+                            android:paddingTop="16dp" />
 
                         <ImageView
                             android:id="@+id/speechOpen"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/DoUKnow"
+                            android:adjustViewBounds="true"
                             app:srcCompat="@drawable/img_speech_bubble_open" />
 
                         <ImageView
                             android:id="@+id/themeZirbl"
-                            android:layout_width="match_parent"
-                            android:layout_height="350dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/DoUKnow"
-                            android:layout_marginTop="25dp"
-                            android:layout_weight="4"
-                            android:paddingBottom="10dp"
-                            android:scaleType="fitCenter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/speechOpen"
+                            android:layout_centerHorizontal="true"
+                            android:adjustViewBounds="true"
                             app:srcCompat="@drawable/img_zirbl_small_qrcode" />
 
                     </RelativeLayout>
@@ -83,42 +80,37 @@
                     <RelativeLayout
                         android:id="@+id/continueArea"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical">
+                        android:gravity="bottom|center_vertical">
 
                         <ImageButton
-                            android:id="@+id/endTour"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:id="@+id/endButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginLeft="70dp"
-                            android:layout_marginRight="70dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginTop="16dp"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
+                            android:onClick="continueToNextView"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/btn_end"
+                            android:visibility="gone" />
+
+                        <ImageButton
+                            android:id="@+id/continueButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginTop="16dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:onClick="continueToNextView"
                             android:scaleType="fitCenter"
                             android:src="@drawable/btn_continue"
-                            android:visibility="gone" />
-
-                        <ImageButton
-                            android:id="@+id/continueButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginLeft="70dp"
-                            android:layout_marginRight="70dp"
-                            android:layout_marginTop="5dp"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:onClick="continueToNextView"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/btn_continue" />
+                            android:visibility="visible" />
                     </RelativeLayout>
 
                 </LinearLayout>
