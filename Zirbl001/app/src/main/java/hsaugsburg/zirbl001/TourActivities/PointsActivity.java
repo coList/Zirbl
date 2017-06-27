@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -54,6 +55,11 @@ public class PointsActivity extends AppCompatActivity {
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
         TextView scoreText = (TextView) findViewById(R.id.points);
 
+        String correct = "RICHTIG";
+        String wrong = "FALSCH";
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
@@ -66,9 +72,11 @@ public class PointsActivity extends AppCompatActivity {
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
+                getSupportActionBar().setTitle(correct);
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
+                getSupportActionBar().setTitle(wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
@@ -76,10 +84,12 @@ public class PointsActivity extends AppCompatActivity {
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
+                getSupportActionBar().setTitle(correct);
 
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
+                getSupportActionBar().setTitle(wrong);
             }
         }
 

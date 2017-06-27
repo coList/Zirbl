@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -55,6 +56,11 @@ public class DoUKnowActivity extends AppCompatActivity {
         tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
 
         tourChronologyTask.readChronologyFile();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        String knowledge = "WISSEN";
+        getSupportActionBar().setTitle(knowledge);
 
     }
 
