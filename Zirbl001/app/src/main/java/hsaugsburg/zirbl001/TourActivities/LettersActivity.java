@@ -3,20 +3,11 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-=======
-import android.graphics.Paint;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.style.UnderlineSpan;
-import android.util.Log;
->>>>>>> master
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;

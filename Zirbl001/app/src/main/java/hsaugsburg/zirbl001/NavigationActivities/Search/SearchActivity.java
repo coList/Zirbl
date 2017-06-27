@@ -18,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
-import hsaugsburg.zirbl001.Models.StationLocationModel;
 import hsaugsburg.zirbl001.Models.StationModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
@@ -48,32 +47,12 @@ public class SearchActivity extends AppCompatActivity{
 
         setupBottomNavigationView();
 
-
-        new JSONStationLocation(this, 0).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
+        new JSONStationLocation(this, 1, 15).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
     }
 
-    public void processData(StationLocationModel result) throws JSONException {
-        int id =  result.getTourID();
-        //JSONArray stations = result.getStationModel();
-        StationModel stationModel = new StationModel();
-
-        JSONArray stations = result.getStationModel();
-        for(int y=0; y<stations.length(); y++){
-            JSONObject mJSONObjectStation = stations.optJSONObject(y);
-
-            if(mJSONObjectStation.getInt("stationid") == 1){
-                stationModel.setTourID(mJSONObjectStation.getInt("tourid"));
-                stationModel.setChronologyNumber(mJSONObjectStation.getInt("chronologynumber"));
-                stationModel.setStationID(mJSONObjectStation.getInt("stationid"));
-                stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
-                stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
-                stationModel.setStationName(mJSONObjectStation.getString("stationname"));
-
-            }
-        }
-
-        Double lat = stationModel.getLatitude();
-        Double lng = stationModel.getLongitude();
+    public void processData(StationModel result) throws JSONException {
+        double lat =  result.getLatitude();
+        double lng = result.getLongitude();
 
         Log.d(TAG, "lat: " + String.valueOf(lat));
         Log.d(TAG, "long:" + String.valueOf(lng));

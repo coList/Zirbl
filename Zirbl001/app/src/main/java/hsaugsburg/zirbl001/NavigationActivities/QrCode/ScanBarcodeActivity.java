@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -79,9 +80,9 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         successMessage = "Willkommen bei der ";
         successMessage += tourName;
-        successMessage += "-Tour: \n";
-        successMessage += "Klasse " + klasse + ", ";
-        successMessage += school;
+        successMessage += "-Tour: <br />";
+        successMessage += "<b>Klasse " + klasse + ", ";
+        successMessage += school +"</b>";
 
     }
 
