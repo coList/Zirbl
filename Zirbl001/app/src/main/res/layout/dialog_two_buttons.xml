@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -65,38 +66,76 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_container_bottom">
+
+        <ImageView
+            android:id="@+id/lineTop"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:srcCompat="@color/colorLine" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/answerArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_container_bottom"
-        android:layout_marginLeft="10dp">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2" >
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text=""
-            android:id="@+id/btn_marked"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="?android:attr/selectableItemBackground"
-            android:textSize="18sp"/>
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text=""
+                android:id="@+id/btn_marked"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="?android:attr/selectableItemBackground"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                />
+            </LinearLayout>
 
 
-        <Button
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/lineMiddle"
+                android:layout_width="2dp"
+                android:weightSum="2"
+                android:layout_height="match_parent"
+                app:srcCompat="@color/colorLine" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_margin="10dp"
-            android:id="@+id/btn_end"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="?android:attr/selectableItemBackground"
-            android:textSize="18sp"/>
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_margin="10dp"
+                android:id="@+id/btn_end"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="?android:attr/selectableItemBackground"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
 
-
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,6 +54,8 @@ public class QrDialog {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
+        TextView titleText = (TextView) dialog.findViewById(R.id.title);
+        titleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
 
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);

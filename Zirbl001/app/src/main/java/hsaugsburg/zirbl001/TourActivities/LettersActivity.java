@@ -3,15 +3,23 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+=======
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+>>>>>>> master
 import android.os.Vibrator;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
