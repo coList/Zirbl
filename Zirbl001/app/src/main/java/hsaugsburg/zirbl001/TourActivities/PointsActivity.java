@@ -70,8 +70,15 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
 
-            if (userInput >= rightAnswer - 0.02 * rightAnswer &&
-                    userInput <= rightAnswer + 0.02 * rightAnswer) {
+            Double range = Double.parseDouble(getIntent().getStringExtra("range"));
+            Log.d("PointsActivityRange", Double.toString(range));
+            Log.d("PointsActivityUserInput", Double.toString(userInput));
+            Log.d("PointsActivityRight-", Double.toString(rightAnswer-0.05 * range));
+            Log.d("PointsActivityRight+", Double.toString(rightAnswer+0.05 * range));
+            //if (userInput >= rightAnswer - 0.02 * rightAnswer &&
+            //        userInput <= rightAnswer + 0.02 * rightAnswer) {
+            if (userInput >= rightAnswer - 0.05 * range &&
+                    userInput <= rightAnswer + 0.05 * range) {
                 answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
