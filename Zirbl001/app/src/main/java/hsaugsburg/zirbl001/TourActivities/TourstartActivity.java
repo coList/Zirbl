@@ -111,7 +111,9 @@ public class TourstartActivity extends AppCompatActivity {
         if (nextChronologyItem.getInfoPopupID() != null) {
             Intent intent = new Intent(mContext, DoUKnowActivity.class);
             intent.putExtra("chronologyNumber", Integer.toString(0));
+            intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("currentscore", Integer.toString(currentScore));
+            intent.putExtra("stationName", "Start");
             intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
             startActivity(intent);
         }

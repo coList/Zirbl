@@ -26,15 +26,18 @@ import java.io.InputStreamReader;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
+import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 
-public class DoUKnowActivity extends AppCompatActivity {
+public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = DoUKnowActivity.this;
 
     private int chronologyNumber;
+    private int selectedTour;
     private int currentScore;
+    private String stationName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -50,10 +53,12 @@ public class DoUKnowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        stationName = getIntent().getStringExtra("stationName");
         int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
         new JSONDoUKnow(this, infoPopupID).execute("https://zirbl.multimedia.hs-augsburg.de/selectInfoPopupView.php");
-        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
+        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
 
         tourChronologyTask.readChronologyFile();
 
@@ -100,5 +105,9 @@ public class DoUKnowActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public String getStationName() {
+        return stationName;
     }
 }

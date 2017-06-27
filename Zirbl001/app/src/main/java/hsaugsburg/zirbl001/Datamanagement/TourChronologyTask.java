@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
@@ -24,16 +25,20 @@ import hsaugsburg.zirbl001.TourActivities.TrueFalseActivity;
 public class TourChronologyTask {
 
     static final int READ_BLOCK_SIZE = 100;
+    private TourActivity tourActivity;
     private Activity activity;
     private ChronologyModel nextChronologyItem;
     private int chronologyNumber;
     private int currentScore;
+    private int selectedTour;
 
-    public TourChronologyTask(Activity activity, ChronologyModel nextChronologyItem, int chronologyNumber, int currentScore) {
+    public TourChronologyTask(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int chronologyNumber, int currentScore, int selectedTour) {
         this.activity = activity;
+        this.tourActivity = tourActivity;
         this.nextChronologyItem = nextChronologyItem;
         this.chronologyNumber = chronologyNumber;
         this.currentScore = currentScore;
+        this.selectedTour = selectedTour;
     }
 
     public ChronologyModel readChronologyFile() {
@@ -96,6 +101,7 @@ public class TourChronologyTask {
 
             } else if (nextChronologyItem.getStationID() != null) {
                 intent = new Intent(activity, NavigationActivity.class);
+                intent.putExtra("stationID", Integer.toString(nextChronologyItem.getStationID()));
 
             } else if (nextChronologyItem.getTaskID() != null) {
                 if (nextChronologyItem.getTaskClassName().equals("e_singlechoicetask")) {
@@ -114,7 +120,9 @@ public class TourChronologyTask {
         }
         int nextchronologyNumber = chronologyNumber + 1;
         intent.putExtra("currentscore", Integer.toString(currentScore));
+        intent.putExtra("selectedTour", Integer.toString(selectedTour));
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
+        intent.putExtra("stationName", tourActivity.getStationName());
         activity.startActivity(intent);
 
     }

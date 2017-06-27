@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class QuizActivity extends AppCompatActivity {
     private int selectedAnswer = -1;
 
     private int chronologyNumber;
+    private int selectedTour;
+    private String stationName;
 
     private String rightAnswer;
     private String answerCorrect;
@@ -63,6 +66,12 @@ public class QuizActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        stationName = getIntent().getStringExtra("stationName");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(stationName.toUpperCase());
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
@@ -104,6 +113,8 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("selectedTour", Integer.toString(selectedTour));
+            intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {

@@ -17,15 +17,19 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
+import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.R;
 
-public class PointsActivity extends AppCompatActivity {
+public class PointsActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = PointsActivity.this;
 
 
     private int chronologyNumber;
     private int currentScore;
+    private int selectedTour;
+    private String stationName;
+
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -44,6 +48,8 @@ public class PointsActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        stationName = getIntent().getStringExtra("stationName");
 
         String solution = getIntent().getStringExtra("solution");
         String userAnswer = getIntent().getStringExtra("userAnswer");
@@ -94,7 +100,7 @@ public class PointsActivity extends AppCompatActivity {
         }
 
 
-        tourChronologyTask = new TourChronologyTask(this, nextChronologyItem, chronologyNumber, currentScore);
+        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
 
         tourChronologyTask.readChronologyFile();
 
@@ -135,5 +141,9 @@ public class PointsActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public String getStationName() {
+        return stationName;
     }
 }
