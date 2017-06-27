@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import hsaugsburg.zirbl001.Datamanagement.JSONSlider;
 import hsaugsburg.zirbl001.Models.SliderModel;
 import hsaugsburg.zirbl001.R;
@@ -122,8 +124,12 @@ public class SliderActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
                 if (!isInteger) {
+                    //Double value = getConvertedDoubleValue(progress) + minValue;
+                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
                     sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
                 } else {
+                    //Integer value = progress + minValue.intValue();
+                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
                     sliderCount.setText(Integer.toString(progress + minValue.intValue()));
                 }
 
