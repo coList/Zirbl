@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -72,28 +73,8 @@ public class TourstartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (count < maxAmountOfParticipants - 1) {
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
-                    EditText participantField = new EditText(getApplicationContext());
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    float d = getResources().getDisplayMetrics().density;
-
-                    params.leftMargin = (int) (24 * d);
-                    params.rightMargin = (int) (24 * d);
-
-                    //TODO: set textCursorDrawable
-                    int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-                    participantField.setId(count);
-                    participantField.setTextColor(colorId);
+                    QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(getApplicationContext());
                     participantField.setHint("Gruppenmitglied");
-                    participantField.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorTransparent));
-                    participantField.setCursorVisible(true);
-                    ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(Color.GRAY));
-                    participantField.setEms(10);
-                    participantField.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-                    participantField.setLayoutParams(params);
-                    participantField.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/Quicksand-Regular.ttf"));
-                    participantField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
                     linearLayout.addView(participantField);
                     count++;
                 }

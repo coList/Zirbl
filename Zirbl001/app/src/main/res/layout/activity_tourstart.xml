@@ -16,22 +16,12 @@
         <include layout="@layout/layout_top_dark_actionbar" />
 
     </RelativeLayout>
-
     <RelativeLayout
-        android:id="@+id/tourProgress"
+        android:id="@+id/relLayoutProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayoutActionBar">
+        android:layout_height="wrap_content">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="9dp"
-            android:layout_marginBottom="1dp"
-            android:elevation="30dp"
-            android:progress="20"
-            android:progressDrawable="@drawable/code_progressbar_style" />
+        <include layout="@layout/layout_progressbar" />
 
     </RelativeLayout>
 
