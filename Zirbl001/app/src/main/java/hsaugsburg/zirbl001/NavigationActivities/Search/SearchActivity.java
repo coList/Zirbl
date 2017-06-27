@@ -1,9 +1,9 @@
 package hsaugsburg.zirbl001.NavigationActivities.Search;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,10 +13,17 @@ import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
+import hsaugsburg.zirbl001.Models.StationLocationModel;
+import hsaugsburg.zirbl001.Models.StationModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity{
 
     private static final String TAG = "SearchActivity";
     private static final int ACTIVITY_NUM = 1;
@@ -40,8 +47,38 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Suche");
 
         setupBottomNavigationView();
+
+
+        new JSONStationLocation(this, 0).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
     }
 
+    public void processData(StationLocationModel result) throws JSONException {
+        int id =  result.getTourID();
+        //JSONArray stations = result.getStationModel();
+        StationModel stationModel = new StationModel();
+
+        JSONArray stations = result.getStationModel();
+        for(int y=0; y<stations.length(); y++){
+            JSONObject mJSONObjectStation = stations.optJSONObject(y);
+
+            if(mJSONObjectStation.getInt("stationid") == 1){
+                stationModel.setTourID(mJSONObjectStation.getInt("tourid"));
+                stationModel.setChronologyNumber(mJSONObjectStation.getInt("chronologynumber"));
+                stationModel.setStationID(mJSONObjectStation.getInt("stationid"));
+                stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
+                stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
+                stationModel.setStationName(mJSONObjectStation.getString("stationname"));
+
+            }
+        }
+
+        Double lat = stationModel.getLatitude();
+        Double lng = stationModel.getLongitude();
+
+        Log.d(TAG, "lat: " + String.valueOf(lat));
+        Log.d(TAG, "long:" + String.valueOf(lng));
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
