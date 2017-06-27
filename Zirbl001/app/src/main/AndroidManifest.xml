@@ -68,15 +68,33 @@
         <activity
             android:name=".TourActivities.GenerateQrCodeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".TourActivities.NavigationActivity" />
-        <activity android:name=".TourActivities.LettersActivity" />
-        <activity android:name=".TourActivities.TrueFalseActivity" />
-        <activity android:name=".TourActivities.SliderActivity" />
-        <activity android:name=".TourActivities.QuizActivity" />
-        <activity android:name=".TourActivities.DoUKnowActivity" />
-        <activity android:name=".TourActivities.PointsActivity" />
-        <activity android:name=".TourActivities.ResultActivity" />
-        <activity android:name=".TourActivities.GoldenActivity" />
+        <activity
+            android:name=".TourActivities.NavigationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.LettersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.TrueFalseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.SliderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.QuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.DoUKnowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.PointsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TourActivities.GoldenActivity"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -91,6 +109,7 @@
 
         <activity
             android:name=".TourActivities.MapsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps"></activity>
     </application>
 
