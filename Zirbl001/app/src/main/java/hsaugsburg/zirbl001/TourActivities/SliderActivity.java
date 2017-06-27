@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -34,10 +35,12 @@ public class SliderActivity extends AppCompatActivity {
     private static int sliderMax = 2000;
 
     private int chronologyNumber;
+    private int selectedTour;
+    private String stationName;
 
     private boolean answerSelected;
 
-
+    private Double range;
     private boolean isInteger;
     private String userAnswer;
     private String rightAnswer;
@@ -61,9 +64,16 @@ public class SliderActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        stationName = getIntent().getStringExtra("stationName");
+        Log.d("Slider", stationName);
+
         setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(stationName.toUpperCase());
 
         new JSONSlider(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
     }
@@ -80,12 +90,15 @@ public class SliderActivity extends AppCompatActivity {
         if (answerSelected)  {
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
+            intent.putExtra("range", Double.toString(range));
             intent.putExtra("userAnswer", userAnswer);
             intent.putExtra("solution", rightAnswer);
             intent.putExtra("answerCorrect", answerCorrect);
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("selectedTour", Integer.toString(selectedTour));
+            intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
@@ -105,6 +118,7 @@ public class SliderActivity extends AppCompatActivity {
         question.setText(fromHtml(result.getQuestion()));
         isInteger = result.getIsInteger();
         minValue = result.getMinRange();
+        range = result.getMaxRange() - minValue;
 
 
         sliderCount = (TextView) findViewById(R.id.sliderCount);

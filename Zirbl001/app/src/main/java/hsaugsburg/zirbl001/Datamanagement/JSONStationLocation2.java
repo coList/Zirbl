@@ -18,13 +18,15 @@ import java.net.URL;
 import hsaugsburg.zirbl001.Models.StationLocationModel;
 import hsaugsburg.zirbl001.Models.StationModel;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
+import hsaugsburg.zirbl001.TourActivities.MapsActivity;
+import hsaugsburg.zirbl001.TourActivities.NavigationActivity;
 
-public class JSONStationLocation extends AsyncTask<String, String, StationModel> {
-    private SearchActivity activity;
+public class JSONStationLocation2 extends AsyncTask<String, String, StationModel> {
+    private NavigationActivity activity;
     private int tourID;
     private int stationID;
 
-    public JSONStationLocation (SearchActivity activity, int tourID, int stationID) {
+    public JSONStationLocation2 (NavigationActivity activity, int tourID, int stationID) {
         this.activity = activity;
         this.tourID = tourID;
         this.stationID = stationID;
@@ -109,13 +111,11 @@ public class JSONStationLocation extends AsyncTask<String, String, StationModel>
     }
     protected void onPostExecute(StationModel result){
         super.onPostExecute(result);
-        try {
-            activity.processData(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        activity.processData(result);
+
     }
 
 }
+
 
 

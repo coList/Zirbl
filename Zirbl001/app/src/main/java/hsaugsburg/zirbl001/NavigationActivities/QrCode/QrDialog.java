@@ -5,7 +5,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -51,12 +54,14 @@ public class QrDialog {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
+        TextView titleText = (TextView) dialog.findViewById(R.id.title);
+        titleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
 
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);
-        text.setText(msg);
+        text.setText(fromHtml(msg));
         TextView text2 = (TextView) dialog.findViewById(R.id.text_dialog_bottom);
-        text2.setText(msg2);
+        text2.setText(fromHtml(msg2));
 
         if(success){
             TextView title = (TextView) dialog.findViewById(R.id.title);
@@ -114,6 +119,16 @@ public class QrDialog {
         dialog.getWindow().setAttributes(lp);
 
 
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 
 }
