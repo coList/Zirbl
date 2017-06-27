@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class TrueFalseActivity extends AppCompatActivity {
     private int score;
     private int currentScore;
     private int chronologyNumber;
+    private int selectedTour;
+    private String stationName;
 
     @Override
     protected void onPause() {
@@ -56,6 +59,13 @@ public class TrueFalseActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
+        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        stationName = getIntent().getStringExtra("stationName");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(stationName.toUpperCase());
+
         new JSONTrueFalse(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectTrueFalseView.php");
 
         //Selection
@@ -90,6 +100,8 @@ public class TrueFalseActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
+            intent.putExtra("selectedTour", Integer.toString(selectedTour));
+            intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
