@@ -7,31 +7,34 @@
     android:layout_marginBottom="4dp">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:scaleType="centerCrop" />
-
-    <ImageView
         android:id="@+id/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/code_pressed_route" />
+        android:background="@color/colorAccent" />
 
     <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
         android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/descriptionShort"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+        android:id="@+id/descriptionShort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/iconArea"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:textAllCaps="true" />
+        android:text="#" />
 
     <LinearLayout
         android:id="@+id/iconArea"
@@ -57,7 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/distance"
@@ -73,7 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/difficulty"
@@ -89,6 +96,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bottomLine"
+        android:layout_width="match_parent"
+
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        app:srcCompat="@color/colorTransparentLight" />
 </RelativeLayout>

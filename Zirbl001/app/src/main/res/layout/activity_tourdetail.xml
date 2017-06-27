@@ -70,12 +70,12 @@
 
                         <ImageButton
                             android:id="@+id/go"
-                            android:layout_width="63dp"
-                            android:layout_height="63dp"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"
                             android:layout_alignBottom="@+id/position"
                             android:layout_alignRight="@+id/position"
                             android:layout_marginBottom="25dp"
-                            android:layout_marginRight="16dp"
+                            android:layout_marginRight="24dp"
                             android:background="@android:color/transparent"
                             android:onClick="startTour"
                             android:scaleType="fitXY"
@@ -148,6 +148,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -155,17 +156,17 @@
                             android:id="@+id/description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="24dp"
-                            android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp" />
+                            android:layout_marginRight="24dp" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
                             android:id="@+id/warningsTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp"
                             android:text="Hinweise"
                             android:visibility="gone"
                             app:textAllCaps="true" />
@@ -174,18 +175,18 @@
                             android:id="@+id/warnings"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
-                            android:visibility="gone"
-                            android:layout_marginTop="16dp" />
+                            android:visibility="gone" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
                             android:id="@+id/openingHoursTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp"
                             android:text="Öffnungszeiten"
                             android:textSize="24sp"
                             android:visibility="gone"
@@ -195,22 +196,22 @@
                             android:id="@+id/openingHours"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp"
                             android:text="Öffnungszeiten:"
                             android:visibility="gone" />
 
                         <ImageButton
                             android:id="@+id/classButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:layout_marginLeft="24dp"
-                            android:layout_marginRight="24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="24dp"
+                            android:layout_marginTop="24dp"
+                            android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:onClick="classRegistration"
-                            android:paddingBottom="24dp"
-                            android:paddingTop="24dp"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/btn_class" />
 
