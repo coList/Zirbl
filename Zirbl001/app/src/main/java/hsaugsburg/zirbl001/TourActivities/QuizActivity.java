@@ -86,9 +86,6 @@ public class QuizActivity extends AppCompatActivity {
         buttonC.setOnClickListener(answerC);
         Button buttonD = (Button) findViewById(R.id.answer4);
         buttonD.setOnClickListener(answerD);
-        //
-
-        initImageLoader();
 
 
     }
@@ -202,6 +199,7 @@ public class QuizActivity extends AppCompatActivity {
             relativeLayout.setVisibility(View.VISIBLE);
             TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
             questionBesideImg.setText(fromHtml(result.getQuestion()));
+            questionBesideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
 
             String imageURL = result.getPicturePath();
