@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -65,20 +66,38 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_container_bottom">
+
+        <ImageView
+            android:id="@+id/lineQ"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:srcCompat="@color/colorLine" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
         android:id="@+id/answerArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_container_bottom"
-        android:layout_marginLeft="10dp">
+        android:gravity="center">
+
+
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:text=""
             android:id="@+id/btn_marked"
-            android:gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:textColor="@color/colorPrimaryDark"
             android:background="?android:attr/selectableItemBackground"
             android:textSize="18sp"/>

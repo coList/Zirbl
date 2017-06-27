@@ -80,9 +80,9 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         successMessage = "Willkommen bei der ";
         successMessage += tourName;
-        successMessage += "-Tour: \n";
-        successMessage += "Klasse " + klasse + ", ";
-        successMessage += school;
+        successMessage += "-Tour: <br />";
+        successMessage += "<b>Klasse " + klasse + ", ";
+        successMessage += school +"</b>";
 
     }
 

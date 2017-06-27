@@ -16,18 +16,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import hsaugsburg.zirbl001.Models.StationLocationModel;
+import hsaugsburg.zirbl001.Models.StationModel;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
 
-public class JSONStationLocation extends AsyncTask<String, String, StationLocationModel>{
+public class JSONStationLocation extends AsyncTask<String, String, StationModel>{
         private SearchActivity activity;
         private int tourID;
+        private int stationID;
 
-        public JSONStationLocation (SearchActivity activity, int tourId) {
+        public JSONStationLocation (SearchActivity activity, int tourID, int stationID) {
             this.activity = activity;
-            this.tourID = tourId;
+            this.tourID = tourID;
+            this.stationID = stationID;
         }
-        protected StationLocationModel doInBackground(String... params) {
+        protected StationModel doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
@@ -55,7 +58,7 @@ public class JSONStationLocation extends AsyncTask<String, String, StationLocati
                     JSONArray mJSONArrayStationLocations = parentObject.getJSONArray("stationlocations");
 
                     StationLocationModel stationLocationModel = new StationLocationModel();
-                    //StationModel stationModel = new StationModel();
+
 
                     for (int i = 0; i<mJSONArrayStationLocations.length()  ; i++) {
                         JSONObject mJSONObjectStationDetails = mJSONArrayStationLocations.optJSONObject(i);
@@ -64,10 +67,26 @@ public class JSONStationLocation extends AsyncTask<String, String, StationLocati
                             stationLocationModel.setTourID(mJSONObjectStationDetails.getInt("tourid"));
                             stationLocationModel.setStationModel(mJSONObjectStationDetails.getJSONArray("stations"));
                             Log.d("JSONStationLocation", "doInBackground: hello" + stationLocationModel.getStationModel());
-
                         }
-                }
-                    return stationLocationModel;
+                    }
+
+
+                    StationModel stationModel = new StationModel();
+                    JSONArray stations = stationLocationModel.getStationModel();
+                    
+                    for(int y=0; y<stations.length(); y++){
+                        JSONObject mJSONObjectStation = stations.optJSONObject(y);
+
+                        if(mJSONObjectStation.getInt("stationid") == stationID){
+                            stationModel.setTourID(mJSONObjectStation.getInt("tourid"));
+                            stationModel.setChronologyNumber(mJSONObjectStation.getInt("chronologynumber"));
+                            stationModel.setStationID(mJSONObjectStation.getInt("stationid"));
+                            stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
+                            stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
+                            stationModel.setStationName(mJSONObjectStation.getString("stationname"));
+                        }
+                    }
+                    return stationModel;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -89,7 +108,7 @@ public class JSONStationLocation extends AsyncTask<String, String, StationLocati
             }
             return null;
         }
-        protected void onPostExecute(StationLocationModel result){
+        protected void onPostExecute(StationModel result){
             super.onPostExecute(result);
             try {
                 activity.processData(result);
