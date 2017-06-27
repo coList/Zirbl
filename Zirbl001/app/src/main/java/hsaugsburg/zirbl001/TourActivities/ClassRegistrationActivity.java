@@ -108,7 +108,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
-            findViewById(R.id.continueButton).startAnimation(shake);
+            findViewById(R.id.createButton).startAnimation(shake);
             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibe.vibrate(100);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
