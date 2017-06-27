@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -105,8 +106,12 @@ public class LettersActivity extends AppCompatActivity {
         score = result.getScore();
 
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
+        Log.d("LettersActivitySolution", result.getSolution() + ",");
+        Log.d("LettersActivityOthers", result.getOtherLetters() + ",");
         shuffleLetters(stringBuilder);
+        Log.d("LettersActivityStringbuilder", stringBuilder.toString());
         final String letters = stringBuilder.toString().toUpperCase();
+        Log.d("LettersActivityString", letters);
 
 
         //create "solution-buttons"
@@ -122,7 +127,6 @@ public class LettersActivity extends AppCompatActivity {
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            button.setText("");
 
 
             //user wants to remove the old letter
@@ -149,6 +153,8 @@ public class LettersActivity extends AppCompatActivity {
                 }
             });
 
+
+            button.setText("");
             button.setLayoutParams(params);
             tableRow.addView(button);
 
