@@ -124,12 +124,8 @@ public class LettersActivity extends AppCompatActivity {
         score = result.getScore();
 
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
-        Log.d("LettersActivitySolution", result.getSolution() + ",");
-        Log.d("LettersActivityOthers", result.getOtherLetters() + ",");
         shuffleLetters(stringBuilder);
-        Log.d("LettersActivityStringbuilder", stringBuilder.toString());
         final String letters = stringBuilder.toString().toUpperCase();
-        Log.d("LettersActivityString", letters);
 
 
         //create "solution-buttons"

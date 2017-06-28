@@ -152,7 +152,7 @@ public class SliderActivity extends AppCompatActivity {
                     //Integer value = progress + minValue.intValue();
                     //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
                     sliderCount.setText(Integer.toString(progress + minValue.intValue()));
-                    
+
                 }
 
                 seekBar.getProgressDrawable().setColorFilter(
