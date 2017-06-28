@@ -79,12 +79,15 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
 
                     List<String> picturesPathList = new ArrayList<>();
 
-                    for (int j = 0; j < mJsonLObjectTourDetails.getJSONArray("picturespath").length(); j++) {
-                        String picturesPath = mJsonLObjectTourDetails.getJSONArray("picturespath").getString(j);
-                        picturesPathList.add(picturesPath);
+                    if (!mJsonLObjectTourDetails.isNull("picturespath")) {
+                        for (int j = 0; j < mJsonLObjectTourDetails.getJSONArray("picturespath").length(); j++) {
+                            String picturesPath = mJsonLObjectTourDetails.getJSONArray("picturespath").getString(j);
+                            picturesPathList.add(picturesPath);
+                        }
+
+                        tourDetailModel.setPicturesPath(picturesPathList);
                     }
 
-                    tourDetailModel.setPicturesPath(picturesPathList);
                     // adding the final object in the list
                     tourDetailModelList.add(tourDetailModel);
                 }
