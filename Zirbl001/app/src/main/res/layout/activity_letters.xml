@@ -31,265 +31,248 @@
 
 
             <LinearLayout
-                android:id="@+id/LinearLayout"
+                android:id="@+id/questionArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp">
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/answerArea"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/questionArea"
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                    android:id="@+id/questionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:orientation="vertical">
 
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                        android:id="@+id/questionText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="24dp"
-                        android:textAlignment="viewStart"
-                        android:visibility="visible" />
-
-                    <RelativeLayout
-                        android:id="@+id/qestionImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/behindQuestionImage"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:visibility="visible"
-                            app:srcCompat="@color/colorTurquoise" />
-
-                        <TextView
-                            android:id="@+id/besideImgQuestion"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/behindQuestionImage"
-                            android:background="@drawable/code_pressed_route"
-                            android:gravity="bottom"
-                            android:paddingBottom="24dp"
-                            android:paddingLeft="24dp"
-                            android:paddingRight="24dp"
-                            android:paddingTop="24dp"
-                            android:textColor="@color/colorAccent" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/lineQ"
-                        android:layout_width="match_parent"
-
-                        android:layout_height="1dp"
-                        app:srcCompat="@color/colorTransparentLight" />
-
-                </LinearLayout>
-
-                <TableLayout
-                    android:id="@+id/answerArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:layout_editor_absoluteX="8dp"
-                    tools:layout_editor_absoluteY="8dp">
-
-                    <TableRow
-                        android:id="@+id/inputArea"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginTop="24dp">
-
-
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/topLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter1"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter2"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter3"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter4"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter5"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter6"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter7"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/bottomLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp">
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter8"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter9"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter10"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter11"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter12"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter13"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                            android:id="@+id/letter14"
-                            android:layout_width="0dp"
-                            android:layout_height="65dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="@color/common_google_signin_btn_text_dark_disabled"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="18sp" />
-                    </TableRow>
-
-                </TableLayout>
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="24dp"
+                    android:visibility="visible" />
 
                 <RelativeLayout
-                    android:id="@+id/continueArea"
+                    android:id="@+id/qestionImage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center_vertical">
+                    android:layout_height="200dp"
+                    android:visibility="gone">
 
-                    <ImageButton
-                        android:id="@+id/continueButton"
+                    <ImageView
+                        android:id="@+id/behindQuestionImage"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="24dp"
-                        android:layout_marginTop="16dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:onClick="continueToNextView"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/btn_continue" />
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                        android:id="@+id/besideImgQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/behindQuestionImage"
+                        android:background="@drawable/code_pressed_route"
+                        android:gravity="bottom"
+                        android:paddingBottom="24dp"
+                        android:paddingLeft="24dp"
+                        android:paddingRight="24dp"
+                        android:paddingTop="24dp"
+                        android:textColor="@color/colorAccent" />
                 </RelativeLayout>
 
             </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/answerArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/continueArea"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <TableRow
+                    android:id="@+id/inputArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="24dp">
+
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/topLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter1"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter2"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter3"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter4"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter5"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter6"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter7"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/bottomLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter8"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter9"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter10"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter11"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter12"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter13"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/letter14"
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/common_google_signin_btn_text_dark_disabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <RelativeLayout
+                android:id="@+id/continueArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/continueButton"
+                    android:layout_width="175dp"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:onClick="continueToNextView"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_continue" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
 
