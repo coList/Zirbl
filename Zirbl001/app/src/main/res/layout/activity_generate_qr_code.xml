@@ -7,17 +7,6 @@
     tools:context="hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity"
     android:background="@color/colorAccent">
 
-    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-        android:id="@+id/scanPrompt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/school"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Die Schüler müssen den QR Code abscannen, um an der Tour teilnehmen zu können."
-        android:textSize="12sp" />
-
     <ImageView
         android:id="@+id/qrCode"
         android:layout_width="250dp"
@@ -27,37 +16,5 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="24dp" />
-
-    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-        android:id="@+id/tourClassInfo"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/qrCode"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:text="#"
-        android:textSize="12sp" />
-
-    <RelativeLayout
-        android:id="@+id/continueArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-        <ImageButton
-            android:id="@+id/saveButton"
-            android:layout_width="190dp"
-            android:layout_height="48dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="16dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:onClick="generateQrCode"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_create" />
-    </RelativeLayout>
 
 </RelativeLayout>
