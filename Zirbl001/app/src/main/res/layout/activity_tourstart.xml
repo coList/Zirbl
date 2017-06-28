@@ -32,7 +32,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -86,13 +86,31 @@
                     android:inputType="textCapWords|textPersonName"
                     android:textCursorDrawable="@null" />
 
-            </LinearLayout>
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
+                    android:id="@+id/secondName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:backgroundTint="@color/colorLine"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:hint="Gruppenmitglied"
+                    android:inputType="textCapWords|textPersonName"
+                    android:textCursorDrawable="@null" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="24dp"
-                android:orientation="vertical">
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
+                    android:id="@+id/thirdName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:backgroundTint="@color/colorLine"
+                    android:cursorVisible="true"
+                    android:ems="10"
+                    android:hint="Gruppenmitglied"
+                    android:inputType="textCapWords|textPersonName"
+                    android:textCursorDrawable="@null" />
 
                 <ImageButton
                     android:id="@+id/plusButton"
@@ -106,15 +124,20 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/btn_plus" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/continueButton"
-                    android:layout_width="175dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:onClick="goIntoTour"

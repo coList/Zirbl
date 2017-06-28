@@ -73,6 +73,9 @@ public class QuizActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(stationName.toUpperCase());
 
+        TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
+        besideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
         new JSONQuiz(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");

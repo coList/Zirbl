@@ -6,6 +6,7 @@ import android.content.Intent;
 
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Vibrator;
 import android.support.v7.widget.Toolbar;
@@ -65,6 +66,9 @@ public class LettersActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(stationName.toUpperCase());
+
+        TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
+        besideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
 
         new JSONLetters(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
@@ -140,7 +144,7 @@ public class LettersActivity extends AppCompatActivity {
 
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
             button.setTextColor(colorId);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
 
 
             //user wants to remove the old letter
