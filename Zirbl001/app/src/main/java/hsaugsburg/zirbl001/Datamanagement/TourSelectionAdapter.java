@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,19 @@ public class TourSelectionAdapter extends BaseAdapter {
     private List<JSONModel> mDataSource;
     private ImageLoader imageLoader;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
+
     public TourSelectionAdapter(Context context, List<JSONModel> items, ImageLoader imageLoader) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+        SharedPreferences globalValues = context.getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
         this.imageLoader = imageLoader;
     }
 
@@ -71,7 +81,7 @@ public class TourSelectionAdapter extends BaseAdapter {
 
         //new DownloadImageTask((ImageView) rowView.findViewById(R.id.imageView)).execute(tourSelection.getMainpicture());
         ImageView mainPicture = (ImageView)rowView.findViewById(R.id.imageView);
-        ImageLoader.getInstance().displayImage(tourSelection.getMainpicture(), mainPicture);
+        ImageLoader.getInstance().displayImage(serverName + tourSelection.getMainpicture(), mainPicture);
         return rowView;
 
     }

@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -53,6 +54,9 @@ public class SliderActivity extends AppCompatActivity {
 
     private int currentScore;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
 
     @Override
     protected void onPause() {
@@ -82,7 +86,11 @@ public class SliderActivity extends AppCompatActivity {
 
         slider.getProgressDrawable().setColorFilter(
                 ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
-        new JSONSlider(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONSlider(this, taskID).execute(serverName + "/selectGuessTheNumberView.php");
     }
 
     public void continueToNextView(View view) {

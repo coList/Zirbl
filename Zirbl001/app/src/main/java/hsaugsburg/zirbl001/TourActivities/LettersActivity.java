@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,9 @@ public class LettersActivity extends AppCompatActivity {
 
     private int currentScore;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -70,8 +74,11 @@ public class LettersActivity extends AppCompatActivity {
         TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
         besideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
 
-        new JSONLetters(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectHangmanView.php");
+
+        new JSONLetters(this, taskID).execute(serverName + "/selectHangmanView.php");
 
 
     }

@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,9 @@ public class HomeActivity extends AppCompatActivity implements Callback {
     private Context mContext = HomeActivity.this;
     private ListView mListView;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     private ImageLoader imageLoader;
 
     //Animation beim Activity wechsel verhindern
@@ -62,7 +66,9 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         setupBottomNavigationView();
 
-        new JSONTourSelection(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourSelectionView.php");
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+        new JSONTourSelection(this).execute(serverName + "/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
 
@@ -109,6 +115,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
                 startActivity(intent1);
             }
         });
+        
 
     }
 }

@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,6 +74,7 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
                     tourSelectionModel.setDistance(mJsonLObjectTourSelection.getInt("distance"));
                     tourSelectionModel.setMainpicture(mJsonLObjectTourSelection.getString("mainpicture"));
                     // adding the final object in the list
+
                     tourSelectionModelList.add(tourSelectionModel);
                 }
 
@@ -84,7 +86,9 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
+        } catch (Exception e) {
+            e.toString();
+        } finally{
             if (connection != null) {
                 connection.disconnect();
             }
