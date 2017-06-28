@@ -67,9 +67,11 @@ public class ClassRegistrationActivity extends AppCompatActivity {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
         // Update the action bar title with the TypefaceSpan instance
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(s);
+        */
 
 
         QuicksandRegularPrimaryEdit schoolField = (QuicksandRegularPrimaryEdit) findViewById(R.id.school);
