@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,6 +26,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
@@ -76,6 +80,19 @@ public class TrueFalseActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("START");
         }
 
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);

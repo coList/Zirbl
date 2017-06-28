@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
@@ -74,6 +78,20 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         setSupportActionBar(toolbar);
         String knowledge = "WISSEN";
         getSupportActionBar().setTitle(knowledge);
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
 
     }
 

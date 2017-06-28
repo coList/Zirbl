@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -80,6 +83,20 @@ public class QuizActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(stationName.toUpperCase());
         } else {
             getSupportActionBar().setTitle("START");
+        }
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
         }
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));

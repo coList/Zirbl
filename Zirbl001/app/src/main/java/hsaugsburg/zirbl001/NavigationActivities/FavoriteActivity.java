@@ -2,16 +2,22 @@ package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
@@ -38,6 +44,20 @@ public class FavoriteActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Favoriten");
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
 
         setupBottomNavigationView();
     }
