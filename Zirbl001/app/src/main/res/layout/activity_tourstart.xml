@@ -121,6 +121,7 @@
                     android:layout_marginTop="16dp"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
+                    android:onClick="addParticipant"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/btn_plus" />
 

@@ -73,9 +73,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         buttonTruth.setOnClickListener(answerTruth);
         Button buttonLie = (Button) findViewById(R.id.lie);
         buttonLie.setOnClickListener(answerLie);
-        //
 
-       // initImageLoader();
     }
 
     private void initImageLoader(){
@@ -169,6 +167,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     public void processData(TrueFalseModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(fromHtml(result.getQuestion()));
+        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
         rightAnswer = String.valueOf(result.isTrue());
         answerCorrect = result.getAnswerCorrect();
