@@ -72,11 +72,9 @@
                 <SeekBar
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:progressTint="@color/colorTurquoise"
-                    android:thumbTint="@color/colorTurquoise"/>
+                    android:layout_height="match_parent"
+                    android:progressDrawable="@drawable/code_custom_seekbar"
+                    android:thumb="@drawable/code_custom_thumb"/>
 
             </LinearLayout>
 
