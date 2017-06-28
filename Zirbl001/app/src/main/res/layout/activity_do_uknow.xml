@@ -53,10 +53,7 @@
                             android:layout_marginBottom="24dp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp"
-                            android:paddingLeft="24dp"
-                            android:paddingRight="24dp"
-                            android:paddingTop="16dp" />
+                            android:layout_marginTop="16dp" />
 
                         <ImageView
                             android:id="@+id/speechOpen"
@@ -73,7 +70,10 @@
                             android:layout_alignTop="@+id/speechOpen"
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/img_zirbl_small_qrcode" />
+                            android:paddingLeft="100dp"
+                            android:paddingRight="100dp"
+                            android:paddingTop="16dp"
+                            app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
 
                     </RelativeLayout>
 

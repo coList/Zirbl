@@ -57,14 +57,20 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                 JSONArray mJsonArrayQuiz = parentObject.getJSONArray("singlechoice");
 
                 QuizModel quizModel = new QuizModel();
+                Log.d("JSONQuiz", "Try");
 
                 for (int i = 0; i < mJsonArrayQuiz.length(); i++) {
                     JSONObject mJsonLObjectQuiz = mJsonArrayQuiz.getJSONObject(i);
 
                     if (mJsonLObjectQuiz.getInt("taskid") == taskID) {
                         quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
-                        quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
-                        quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
+                        if (!mJsonLObjectQuiz.isNull("stationid")) {
+                           quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
+                        }
+
+                        if (!mJsonLObjectQuiz.isNull("tourid")) {
+                            quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
+                        }
                         quizModel.setScore(mJsonLObjectQuiz.getInt("score"));
                         quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
                         quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));

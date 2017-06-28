@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     private TourChronologyTask tourChronologyTask;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -52,7 +56,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
         tourChronologyTask.readChronologyFile();
 
-        new JSONStationLocation2(this, selectedTour, stationID).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/selectStationLocationsView.php");
 
         TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
         naviTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
