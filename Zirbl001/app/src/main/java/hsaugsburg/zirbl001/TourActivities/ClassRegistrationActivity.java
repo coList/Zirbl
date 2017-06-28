@@ -1,13 +1,18 @@
 package hsaugsburg.zirbl001.TourActivities;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
+import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
+import hsaugsburg.zirbl001.Fonts.TypefaceSpan;
 import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity {
@@ -51,11 +58,25 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         setIntentExtras();
 
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Klasse Anmelden");*/
+
+        /*SpannableString s = new SpannableString("My Title");
+        s.setSpan(new TypefaceSpan(this, "Quicksand-Bold.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+
+        // Update the action bar title with the TypefaceSpan instance
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Klasse Anmelden");
+        getSupportActionBar().setTitle(s);
 
-        // ActionBar Font...zz nur auf dieser Seite
+
+        QuicksandRegularPrimaryEdit schoolField = (QuicksandRegularPrimaryEdit) findViewById(R.id.school);
+        ViewCompat.setBackgroundTintList(schoolField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+
+
+        /*/ ActionBar Font...zz nur auf dieser Seite
         TextView yourTextView = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
@@ -69,7 +90,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         }
         catch (IllegalAccessException e) {
         }
-        //
+        /*/
 
         NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
         NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
