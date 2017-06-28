@@ -6,6 +6,7 @@ import android.content.Intent;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
@@ -77,6 +79,20 @@ public class LettersActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(stationName.toUpperCase());
         } else {
             getSupportActionBar().setTitle("START");
+        }
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
         }
 
         TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);

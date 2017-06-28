@@ -3,18 +3,23 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
@@ -66,6 +71,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
 
+
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
@@ -102,6 +108,20 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerImage.setImageResource(R.drawable.img_wrong);
                 getSupportActionBar().setTitle(wrong);
             }
+        }
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
         }
 
 
