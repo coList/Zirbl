@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -68,7 +69,6 @@ public class SliderActivity extends AppCompatActivity {
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
         stationName = getIntent().getStringExtra("stationName");
-        Log.d("Slider", stationName);
 
         setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
@@ -80,6 +80,8 @@ public class SliderActivity extends AppCompatActivity {
         TextView count = (TextView) findViewById(R.id.sliderCount);
         count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 56);
 
+        slider.getProgressDrawable().setColorFilter(
+                ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
         new JSONSlider(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectGuessTheNumberView.php");
     }
 
@@ -150,7 +152,11 @@ public class SliderActivity extends AppCompatActivity {
                     //Integer value = progress + minValue.intValue();
                     //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
                     sliderCount.setText(Integer.toString(progress + minValue.intValue()));
+
                 }
+
+                seekBar.getProgressDrawable().setColorFilter(
+                        ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
 
             }
 

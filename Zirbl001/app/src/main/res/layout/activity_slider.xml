@@ -76,7 +76,7 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:progressTint="@color/colorTurquoise"
-                    android:thumbTint="@color/colorTurquoise" />
+                    android:thumbTint="@color/colorTurquoise"/>
 
             </LinearLayout>
 
