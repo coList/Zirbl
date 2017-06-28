@@ -58,25 +58,16 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         setIntentExtras();
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Klasse Anmelden");*/
-
-        /*SpannableString s = new SpannableString("My Title");
-        s.setSpan(new TypefaceSpan(this, "Quicksand-Bold.ttf"), 0, s.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-
-        // Update the action bar title with the TypefaceSpan instance
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(s);
+        getSupportActionBar().setTitle("Klasse anmelden");
 
 
         QuicksandRegularPrimaryEdit schoolField = (QuicksandRegularPrimaryEdit) findViewById(R.id.school);
         ViewCompat.setBackgroundTintList(schoolField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
 
 
-        /*/ ActionBar Font...zz nur auf dieser Seite
+        // ActionBar Font...zz nur auf dieser Seite
         TextView yourTextView = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
@@ -90,7 +81,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         }
         catch (IllegalAccessException e) {
         }
-        /*/
+        //
 
         NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
         NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
