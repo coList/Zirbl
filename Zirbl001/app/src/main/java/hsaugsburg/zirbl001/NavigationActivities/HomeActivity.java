@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
                 startActivity(intent1);
             }
         });
-        
+
 
     }
 }

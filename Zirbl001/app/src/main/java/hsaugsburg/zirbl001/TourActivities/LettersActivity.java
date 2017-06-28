@@ -65,11 +65,19 @@ public class LettersActivity extends AppCompatActivity {
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+
         stationName = getIntent().getStringExtra("stationName");
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(stationName.toUpperCase());
+
+        if (stationName != null && !stationName.isEmpty()) {
+            getSupportActionBar().setTitle(stationName.toUpperCase());
+        } else {
+            getSupportActionBar().setTitle("START");
+        }
 
         TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
         besideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));

@@ -75,7 +75,12 @@ public class QuizActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(stationName.toUpperCase());
+
+        if (stationName != null && !stationName.isEmpty()) {
+            getSupportActionBar().setTitle(stationName.toUpperCase());
+        } else {
+            getSupportActionBar().setTitle("START");
+        }
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
@@ -194,6 +199,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public void processData (QuizModel result) {
+
         TextView question = (TextView) findViewById(R.id.questionText);
 
 

@@ -69,7 +69,12 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(stationName.toUpperCase());
+
+        if (stationName != null && !stationName.isEmpty()) {
+            getSupportActionBar().setTitle(stationName.toUpperCase());
+        } else {
+            getSupportActionBar().setTitle("START");
+        }
 
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);

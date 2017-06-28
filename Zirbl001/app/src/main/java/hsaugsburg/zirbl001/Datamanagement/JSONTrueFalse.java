@@ -66,8 +66,13 @@ public class JSONTrueFalse extends AsyncTask<String, String, TrueFalseModel> {
 
                     if (mJsonLObjectTrueFalse.getInt("taskid") == taskID) {
                         trueFalseModel.setTaskID(mJsonLObjectTrueFalse.getInt("taskid"));
-                        trueFalseModel.setStationID(mJsonLObjectTrueFalse.getInt("stationid"));
-                        trueFalseModel.setTourID(mJsonLObjectTrueFalse.getInt("tourid"));
+
+                        if (!mJsonLObjectTrueFalse.isNull("stationid")) {
+                            trueFalseModel.setStationID(mJsonLObjectTrueFalse.getInt("stationid"));
+                        }
+                        if (!mJsonLObjectTrueFalse.isNull("tourid")) {
+                            trueFalseModel.setTourID(mJsonLObjectTrueFalse.getInt("tourid"));
+                        }
                         trueFalseModel.setScore(mJsonLObjectTrueFalse.getInt("score"));
                         trueFalseModel.setQuestion(mJsonLObjectTrueFalse.getString("question"));
 
