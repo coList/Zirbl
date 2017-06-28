@@ -55,13 +55,13 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="24dp"
                         android:textSize="18sp"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                     <RelativeLayout
                         android:id="@+id/questionImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/behindQuestionImage"
@@ -80,7 +80,8 @@
                             android:paddingLeft="24dp"
                             android:paddingRight="24dp"
                             android:paddingTop="24dp"
-                            android:text="#"
+                            android:text=""
+                            android:visibility="visible"
                             android:textColor="@color/colorAccent" />
                     </RelativeLayout>
 
