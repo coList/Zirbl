@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -49,6 +50,9 @@ public class TourstartActivity extends AppCompatActivity {
 
     private int count = 0;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     public int getSelectedTour() {
         return selectedTour;
     }
@@ -74,7 +78,9 @@ public class TourstartActivity extends AppCompatActivity {
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
 
-        new JSONTourstart(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectChronologyView.php");
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+        new JSONTourstart(this).execute(serverName + "/selectChronologyView.php");
     }
 
     public void processData (ChronologyModel result) {

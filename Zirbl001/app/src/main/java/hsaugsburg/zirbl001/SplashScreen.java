@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +12,20 @@ public class SplashScreen extends AppCompatActivity {
 
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName = "https://zirbl.de";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        SharedPreferences settings = getSharedPreferences(GLOBAL_VALUES, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("serverName", serverName);
+
+        editor.commit();
+
 
 
         new Handler().postDelayed(new Runnable() {

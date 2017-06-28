@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
     private int tourID;
     private String tourName;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
     }
@@ -92,7 +96,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
         mDetailPhoto = (ImageView) findViewById(R.id.image);
 
-        new JSONTourDetail(this).execute("https://zirbl.multimedia.hs-augsburg.de/selectTourDetailsView.php");
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONTourDetail(this).execute(serverName + "/selectTourDetailsView.php");
 
         initImageLoader();
         //setDetailImage();
@@ -184,11 +191,11 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
         //load picture from cache or from web
         ImageView mainPicture = (ImageView)findViewById(R.id.image);
-        if (MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
-            mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+        if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+            mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
             //Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
         } else {
-            ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
+            ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
         }
         //setDetailImage(mainPictureURL);
         //Log.d(TAG, "mainPictureURL: " + mainPictureURL);

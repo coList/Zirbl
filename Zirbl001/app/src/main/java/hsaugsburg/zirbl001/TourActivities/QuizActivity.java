@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -52,6 +53,9 @@ public class QuizActivity extends AppCompatActivity {
 
     private int currentScore;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -75,7 +79,10 @@ public class QuizActivity extends AppCompatActivity {
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
-        new JSONQuiz(this, taskID).execute("https://zirbl.multimedia.hs-augsburg.de/selectSingleChoiceView.php");
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONQuiz(this, taskID).execute(serverName + "/selectSingleChoiceView.php");
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -205,7 +212,7 @@ public class QuizActivity extends AppCompatActivity {
             String imageURL = result.getPicturePath();
             ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
 
-            ImageLoader.getInstance().displayImage(imageURL, questionPicture);
+            ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
             ImageView line4 = (ImageView) findViewById(R.id.line4);

@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,9 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
     private TourChronologyTask tourChronologyTask;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -57,7 +61,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
         int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
-        new JSONDoUKnow(this, infoPopupID).execute("https://zirbl.multimedia.hs-augsburg.de/selectInfoPopupView.php");
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONDoUKnow(this, infoPopupID).execute(serverName + "/selectInfoPopupView.php");
         tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
 
         tourChronologyTask.readChronologyFile();
