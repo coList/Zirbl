@@ -22,10 +22,12 @@ import hsaugsburg.zirbl001.TourActivities.QuizActivity;
 
 public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
     private QuizActivity activity;
+    private int selectedTour;
     private int taskID;
 
-    public JSONQuiz (QuizActivity activity, int taskID) {
+    public JSONQuiz (QuizActivity activity, int selectedTour, int taskID) {
         this.activity = activity;
+        this.selectedTour = selectedTour;
         this.taskID = taskID;
     }
 
@@ -54,33 +56,54 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
-                JSONArray mJsonArrayQuiz = parentObject.getJSONArray("singlechoice");
+                JSONArray mJsonArrayTourQuiz = parentObject.getJSONArray("toursinglechoice");
 
                 QuizModel quizModel = new QuizModel();
-                Log.d("JSONQuiz", "Try");
 
-                for (int i = 0; i < mJsonArrayQuiz.length(); i++) {
-                    JSONObject mJsonLObjectQuiz = mJsonArrayQuiz.getJSONObject(i);
+                for (int i = 0; i < mJsonArrayTourQuiz.length(); i++) {
+                    JSONObject mJsonLObjectTourQuiz = mJsonArrayTourQuiz.getJSONObject(i);
+                    boolean equalsSelectedTour = false;
 
-                    if (mJsonLObjectQuiz.getInt("taskid") == taskID) {
-                        quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
-                        if (!mJsonLObjectQuiz.isNull("stationid")) {
-                           quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
+                    if (!mJsonLObjectTourQuiz.isNull("tourID")) {
+                        if (mJsonLObjectTourQuiz.getInt("tourID") == selectedTour) {
+                            equalsSelectedTour = true;
                         }
-
-                        if (!mJsonLObjectQuiz.isNull("tourid")) {
-                            quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
-                        }
-                        quizModel.setScore(mJsonLObjectQuiz.getInt("score"));
-                        quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
-                        quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
-                        quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
-                        quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
-                        quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
-                        quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
-                        quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
-                        quizModel.setOption4(mJsonLObjectQuiz.getString("option4"));
+                    } else {
+                        equalsSelectedTour = true;
                     }
+                    if (equalsSelectedTour) {
+
+                        JSONArray mJSONArrayQuiz = mJsonLObjectTourQuiz.getJSONArray("singlechoice");
+
+                        for (int j = 0; j < mJSONArrayQuiz.length(); j++) {
+                            JSONObject mJsonLObjectQuiz = mJSONArrayQuiz.getJSONObject(j);
+
+                            if (mJsonLObjectQuiz.getInt("taskid") == taskID) {
+                                quizModel.setTaskID(mJsonLObjectQuiz.getInt("taskid"));
+                                if (!mJsonLObjectQuiz.isNull("stationid")) {
+                                    quizModel.setStationID(mJsonLObjectQuiz.getInt("stationid"));
+                                }
+
+                                if (!mJsonLObjectQuiz.isNull("tourid")) {
+                                    quizModel.setTourID(mJsonLObjectQuiz.getInt("tourid"));
+                                }
+                                quizModel.setScore(mJsonLObjectQuiz.getInt("score"));
+                                quizModel.setQuestion(mJsonLObjectQuiz.getString("question"));
+                                quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
+                                quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
+
+                                //if (!mJsonLObjectQuiz.isNull("picturepath")) {
+                                    quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
+                                //}
+                                quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
+                                quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
+                                quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
+                                quizModel.setOption4(mJsonLObjectQuiz.getString("option4"));
+                            }
+                        }
+                    }
+
+
                 }
 
 
@@ -109,6 +132,10 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
     protected void onPostExecute(QuizModel result){
         super.onPostExecute(result);
         activity.processData(result);
+    }
+
+    private void setData() {
+
     }
 
 }

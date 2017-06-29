@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        new JSONTourSelection(this).execute(serverName + "/selectTourSelectionView.php");
+        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
 

@@ -80,7 +80,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONDoUKnow(this, infoPopupID).execute(serverName + "/selectInfoPopupView.php");
+        new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
         tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
 
         tourChronologyTask.readChronologyFile();

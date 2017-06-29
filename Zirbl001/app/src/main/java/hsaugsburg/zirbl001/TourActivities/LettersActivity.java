@@ -110,7 +110,7 @@ public class LettersActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
 
 
-        new JSONLetters(this, taskID).execute(serverName + "/selectHangmanView.php");
+        new JSONLetters(this, selectedTour, taskID).execute(serverName + "/api/selectHangmanView.php");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);

@@ -117,7 +117,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTourDetail(this).execute(serverName + "/selectTourDetailsView.php");
+        new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
 
         initImageLoader();
         //setDetailImage();

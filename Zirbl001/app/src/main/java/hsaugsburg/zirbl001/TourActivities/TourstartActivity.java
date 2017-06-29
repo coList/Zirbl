@@ -84,7 +84,7 @@ public class TourstartActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTourstart(this).execute(serverName + "/selectChronologyView.php");
+        new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
 
     }
