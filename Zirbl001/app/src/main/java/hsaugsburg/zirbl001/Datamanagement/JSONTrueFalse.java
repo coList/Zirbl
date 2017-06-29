@@ -68,8 +68,8 @@ public class JSONTrueFalse extends AsyncTask<String, String, TrueFalseModel> {
 
                     boolean equalsSelectedTour = false;
 
-                    if (!mJsonLObjectTourTrueFalse.isNull("tourID")) {
-                        if (mJsonLObjectTourTrueFalse.getInt("tourID") == selectedTour) {
+                    if (!mJsonLObjectTourTrueFalse.isNull("tourid")) {
+                        if (mJsonLObjectTourTrueFalse.getInt("tourid") == selectedTour) {
                             equalsSelectedTour = true;
                         }
                     } else {
