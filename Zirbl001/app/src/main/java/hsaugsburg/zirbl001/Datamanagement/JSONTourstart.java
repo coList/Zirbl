@@ -30,6 +30,7 @@ import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 
 public class JSONTourstart extends AsyncTask<String, String, ChronologyModel> {
     private TourstartActivity activity;
+    private int lastChronologyValue;
 
     public JSONTourstart (TourstartActivity activity) {
         this.activity = activity;
@@ -86,6 +87,7 @@ public class JSONTourstart extends AsyncTask<String, String, ChronologyModel> {
                                 firstChronology.setChronologyNumber(mJsonLObjectChronologyItems.getInt("chronologynumber"));
                                 firstChronology.setInfoPopupID(mJsonLObjectChronologyItems.getInt("infopopupid"));
                             }
+                            lastChronologyValue = mJsonLObjectChronologyItems.getInt("chronologynumber");
                         }
                     }
                 }
@@ -119,7 +121,7 @@ public class JSONTourstart extends AsyncTask<String, String, ChronologyModel> {
     }
     protected void onPostExecute(ChronologyModel result){
         super.onPostExecute(result);
-        activity.processData(result);
+        activity.processData(result, lastChronologyValue);
     }
 
 }

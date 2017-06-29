@@ -21,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -59,6 +60,9 @@ public class SliderActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
+
 
     @Override
     protected void onPause() {
@@ -73,7 +77,12 @@ public class SliderActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        //get global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
         stationName = getIntent().getStringExtra("stationName");
 
         setContentView(R.layout.activity_slider);
@@ -112,6 +121,10 @@ public class SliderActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
 
         new JSONSlider(this, taskID).execute(serverName + "/selectGuessTheNumberView.php");
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
     }
 
     public void continueToNextView(View view) {
@@ -133,7 +146,6 @@ public class SliderActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-            intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
