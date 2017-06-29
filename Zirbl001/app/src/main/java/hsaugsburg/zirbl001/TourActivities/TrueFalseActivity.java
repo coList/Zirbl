@@ -106,7 +106,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTrueFalse(this, taskID).execute(serverName + "/selectTrueFalseView.php");
+        new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/selectTrueFalseView2.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);

@@ -24,10 +24,12 @@ import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 public class JSONLetters extends AsyncTask<String, String, LettersModel> {
     private LettersActivity activity;
 
+    private int selectedTour;
     private int taskID;
 
-    public JSONLetters (LettersActivity activity, int taskID) {
+    public JSONLetters (LettersActivity activity, int selectedTour, int taskID) {
         this.activity = activity;
+        this.selectedTour = selectedTour;
         this.taskID = taskID;
     }
 
@@ -56,29 +58,46 @@ public class JSONLetters extends AsyncTask<String, String, LettersModel> {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
-                JSONArray mJsonArrayLetters = parentObject.getJSONArray("letters");
+                JSONArray mJsonArrayTourLetters = parentObject.getJSONArray("tourletters");
 
                 LettersModel lettersModel = new LettersModel();
 
-                for (int i = 0; i < mJsonArrayLetters.length(); i++) {
-                    JSONObject mJsonLObjectLetters = mJsonArrayLetters.getJSONObject(i);
+                for (int i = 0; i < mJsonArrayTourLetters.length(); i++) {
+                    JSONObject mJsonLObjectTourLetters = mJsonArrayTourLetters.getJSONObject(i);
 
-                    if (mJsonLObjectLetters.getInt("taskid") == taskID) {
-                        lettersModel.setTaskID(mJsonLObjectLetters.getInt("taskid"));
+                    boolean equalsSelectedTour = false;
 
-                        if (!mJsonLObjectLetters.isNull("stationid")) {
-                            lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
+                    if (!mJsonLObjectTourLetters.isNull("tourID")) {
+                        if (mJsonLObjectTourLetters.getInt("tourID") == selectedTour) {
+                            equalsSelectedTour = true;
                         }
-                        if (!mJsonLObjectLetters.isNull("tourid")) {
-                            lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
+                    } else {
+                        equalsSelectedTour = true;
+                    }
+
+                    if (equalsSelectedTour) {
+                        JSONArray mJSONArrayLetters = mJsonLObjectTourLetters.getJSONArray("letters");
+
+                        for (int j = 0; j < mJSONArrayLetters.length(); j++) {
+                            JSONObject mJsonLObjectLetters =  mJSONArrayLetters.getJSONObject(j);
+                            if (mJsonLObjectLetters.getInt("taskid") == taskID) {
+                                lettersModel.setTaskID(mJsonLObjectLetters.getInt("taskid"));
+
+                                if (!mJsonLObjectLetters.isNull("stationid")) {
+                                    lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
+                                }
+                                if (!mJsonLObjectLetters.isNull("tourid")) {
+                                    lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
+                                }
+                                lettersModel.setScore(mJsonLObjectLetters.getInt("score"));
+                                lettersModel.setQuestion(mJsonLObjectLetters.getString("question"));
+                                lettersModel.setSolution(mJsonLObjectLetters.getString("solution"));
+                                lettersModel.setAnswerCorrect(mJsonLObjectLetters.getString("answercorrect"));
+                                lettersModel.setAnswerWrong(mJsonLObjectLetters.getString("answerwrong"));
+                                lettersModel.setPicturePath(mJsonLObjectLetters.getString("picturepath"));
+                                lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
+                            }
                         }
-                        lettersModel.setScore(mJsonLObjectLetters.getInt("score"));
-                        lettersModel.setQuestion(mJsonLObjectLetters.getString("question"));
-                        lettersModel.setSolution(mJsonLObjectLetters.getString("solution"));
-                        lettersModel.setAnswerCorrect(mJsonLObjectLetters.getString("answercorrect"));
-                        lettersModel.setAnswerWrong(mJsonLObjectLetters.getString("answerwrong"));
-                        lettersModel.setPicturePath(mJsonLObjectLetters.getString("picturepath"));
-                        lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
                     }
                 }
 

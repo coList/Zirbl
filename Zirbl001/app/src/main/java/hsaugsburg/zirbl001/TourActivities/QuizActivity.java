@@ -113,7 +113,7 @@ public class QuizActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONQuiz(this, taskID).execute(serverName + "/selectSingleChoiceView.php");
+        new JSONQuiz(this, selectedTour, taskID).execute(serverName + "/selectSingleChoiceView2.php");
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -233,7 +233,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         ArrayList<String> answers = new ArrayList<>();
-        if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
+        if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
         } else {  //if it has an image:
