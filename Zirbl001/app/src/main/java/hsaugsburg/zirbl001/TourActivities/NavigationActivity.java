@@ -92,7 +92,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         }
         catch (IllegalAccessException e) {
         }
-        new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/selectStationLocationsView.php");
+        new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/api/selectStationLocationsView.php");
 
         TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
         naviTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));

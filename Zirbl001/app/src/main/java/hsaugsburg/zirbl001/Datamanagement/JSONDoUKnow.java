@@ -24,10 +24,12 @@ import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 
 public class JSONDoUKnow extends AsyncTask<String, String, DoUKnowModel> {
     private DoUKnowActivity activity;
+    private int selectedTour;
     private int infoPopupID;
 
-    public JSONDoUKnow (DoUKnowActivity activity, int infoPopupID) {
+    public JSONDoUKnow (DoUKnowActivity activity, int selectedTour, int infoPopupID) {
         this.activity = activity;
+        this.selectedTour = selectedTour;
         this.infoPopupID = infoPopupID;
     }
 
@@ -56,24 +58,34 @@ public class JSONDoUKnow extends AsyncTask<String, String, DoUKnowModel> {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
-                JSONArray mJsonArrayDoUKnow = parentObject.getJSONArray("infopopups");
+                JSONArray mJsonArrayTourDoUKnow = parentObject.getJSONArray("tourinfopopups");
 
                 DoUKnowModel doUKnowModel = new DoUKnowModel();
-                for (int i = 0; i < mJsonArrayDoUKnow.length(); i++) {
-                    JSONObject mJsonLObjectDoUKnow = mJsonArrayDoUKnow.getJSONObject(i);
+                for (int i = 0; i < mJsonArrayTourDoUKnow.length(); i++) {
+                    JSONObject mJsonLObjectTourDoUKnow = mJsonArrayTourDoUKnow.getJSONObject(i);
+
+                    if (mJsonLObjectTourDoUKnow.getInt("tourid") == selectedTour) {
+
+                        JSONArray mJSONArrayDoUKnow = mJsonLObjectTourDoUKnow.getJSONArray("infopopups");
+
+                        for (int j = 0; j < mJSONArrayDoUKnow.length(); j++) {
+                            JSONObject mJsonLObjectDoUKnow = mJSONArrayDoUKnow.getJSONObject(j);
+
+                            if (mJsonLObjectDoUKnow.getInt("infopopupid") == infoPopupID) {
+                                doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
+                                doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
+                                doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
+                                doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
 
 
-                    if (mJsonLObjectDoUKnow.getInt("infopopupid") == infoPopupID) {
-                        doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
-                        doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
-                        doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
-                        if (!mJsonLObjectDoUKnow.isNull("picturepath")) {
-                            doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
+
+                                //doUKnowModel.setLatitude(mJsonLObjectDoUKnow.getDouble("latitude"));
+                                //doUKnowModel.setLongitude(mJsonLObjectDoUKnow.getDouble("longitude"));
+                            }
                         }
                     }
 
-                    //doUKnowModel.setLatitude(mJsonLObjectDoUKnow.getDouble("latitude"));
-                    //doUKnowModel.setLongitude(mJsonLObjectDoUKnow.getDouble("longitude"));
+
 
                 }
 
