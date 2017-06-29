@@ -37,26 +37,11 @@
             android:scaleType="fitCenter"
             android:src="@drawable/img_zirbl_speech_bubble_class" />
 
-        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
-            android:id="@+id/school"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/registrationWelcome"
-            android:layout_marginLeft="21dp"
-            android:layout_marginRight="21dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/colorLine"
-            android:cursorVisible="true"
-            android:ems="10"
-            android:hint="Schule"
-            android:inputType="textCapWords|textPersonName"
-            android:textCursorDrawable="@null" />
-
         <LinearLayout
             android:id="@+id/inputClass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/school"
+            android:layout_below="@+id/registrationWelcome"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
@@ -73,7 +58,7 @@
                 android:id="@+id/grade"
                 android:layout_width="50dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -83,7 +68,7 @@
                 android:id="@+id/classletter"
                 android:layout_width="50dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -91,8 +76,23 @@
 
         </LinearLayout>
 
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
+            android:id="@+id/school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inputClass"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorLine"
+            android:cursorVisible="true"
+            android:ems="10"
+            android:hint="Schule"
+            android:inputType="textCapWords|textPersonName"
+            android:textCursorDrawable="@null" />
+
         <LinearLayout
-            android:id="@+id/continueAreaScroll"
+            android:id="@+id/continueArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

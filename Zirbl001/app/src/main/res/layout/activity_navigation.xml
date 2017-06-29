@@ -28,6 +28,7 @@
             android:id="@+id/navigationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp" />
@@ -61,7 +62,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/continueAreaScroll"
+        android:id="@+id/continueArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom|center_vertical">

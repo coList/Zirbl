@@ -25,94 +25,133 @@
         android:orientation="vertical">
 
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/AnswerArea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/answerText"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/AnswerArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/pointsImage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_right" />
-
-                        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-                            android:id="@+id/points"
-                            android:layout_width="72dp"
-                            android:layout_height="79dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="10dp"
-                            android:ellipsize="none"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:textSize="60sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
-                            app:layout_constraintHorizontal_bias="0.498"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/pointsImage"
-                            app:layout_constraintVertical_bias="0.778"
-                            tools:layout_editor_absoluteX="167dp"
-                            tools:layout_editor_absoluteY="246dp" /> <!-- maximum size -->
-
-
-                    </android.support.constraint.ConstraintLayout>
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                        android:id="@+id/answerText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="16dp" />
-
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/continueAreaScroll"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/pointsImage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="24dp"
-                    android:gravity="center_vertical">
+                    android:adjustViewBounds="true"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_golden" />
 
-                    <ImageButton
-                        android:id="@+id/continueButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:onClick="continueToNextView"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/btn_continue" />
-                </RelativeLayout>
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+                    android:id="@+id/goldenPoints"
+                    android:layout_width="72dp"
+                    android:layout_height="79dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="none"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="2"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/pointsImage"
+                    app:layout_constraintVertical_bias="0.778"
+                    tools:layout_editor_absoluteX="167dp"
+                    tools:layout_editor_absoluteY="246dp" /> <!-- maximum size -->
 
-            </LinearLayout>
-        </ScrollView>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+            android:id="@+id/answerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/zirblnuts"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Glückwunsch! Ihr habt 1 von 4 goldenen Zirblnüssen gefunden. Haltet weiter die Augen offen." />
+
+        <LinearLayout
+            android:id="@+id/zirblnuts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/continueArea"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/nut1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/btn_go" />
+
+            <ImageView
+                android:id="@+id/nut2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/btn_go" />
+
+            <ImageView
+                android:id="@+id/nut3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/btn_go" />
+
+            <ImageView
+                android:id="@+id/nut4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/btn_go" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/continueArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="continueToNextView"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </LinearLayout>

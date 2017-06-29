@@ -91,7 +91,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:id="@+id/continueAreaScroll"
+                    android:id="@+id/continueArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"

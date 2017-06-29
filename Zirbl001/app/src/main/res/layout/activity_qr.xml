@@ -53,7 +53,7 @@
                 android:id="@+id/zirblfigur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/continueAreaScroll"
+                android:layout_above="@+id/continueArea"
                 android:layout_below="@+id/scanText"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
@@ -61,7 +61,7 @@
                 app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
 
             <LinearLayout
-                android:id="@+id/continueAreaScroll"
+                android:id="@+id/continueArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

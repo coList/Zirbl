@@ -80,7 +80,7 @@
                 android:id="@+id/answerArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/continueAreaScroll"
+                android:layout_above="@+id/continueArea"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="8dp"
@@ -254,7 +254,7 @@
             </TableLayout>
 
             <RelativeLayout
-                android:id="@+id/continueAreaScroll"
+                android:id="@+id/continueArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

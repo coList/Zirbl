@@ -9,12 +9,64 @@
 
     <ImageView
         android:id="@+id/qrCode"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/scanPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="48dp"
+        android:adjustViewBounds="true"
+        android:background="@color/colorTurquoise" />
+
+    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+        android:id="@+id/qrClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/qrSchool"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="48dp"
+        android:text="Klasse" />
+
+    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+        android:id="@+id/qrSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/qrInfo"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="Schule" />
+
+    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+        android:id="@+id/qrInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/continueArea"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Diesen QR Code müssen die Schüler abscannen, um an der Tour teilnehmen zu können." />
+
+    <LinearLayout
+        android:id="@+id/continueArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/btn_create" />
+    </LinearLayout>
 
 </RelativeLayout>
