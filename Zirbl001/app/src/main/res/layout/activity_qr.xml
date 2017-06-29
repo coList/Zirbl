@@ -75,7 +75,7 @@
                     android:layout_height="48dp"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
-                    android:onClick="generateQrCode"
+                    android:onClick="scanBarcode"
                     android:scaleType="fitCenter"
                     android:src="@drawable/btn_scan" />
             </LinearLayout>

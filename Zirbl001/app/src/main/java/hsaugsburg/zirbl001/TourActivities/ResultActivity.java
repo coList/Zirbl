@@ -30,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
 
         currentScore = Integer.valueOf(getIntent().getStringExtra("currentscore"));
 
-        TextView totalScore = (TextView) findViewById(R.id.points);
+        TextView totalScore = (TextView) findViewById(R.id.endPoints);
         totalScore.setText(Integer.toString(currentScore));
     }
 

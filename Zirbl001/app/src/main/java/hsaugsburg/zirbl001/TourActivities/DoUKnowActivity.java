@@ -98,7 +98,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void processData(DoUKnowModel result) {
-        TextView doUKnow = (TextView) findViewById(R.id.DoUKnowScroll);
+        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         doUKnow.setText(fromHtml(result.getContentText()));
     }
 
