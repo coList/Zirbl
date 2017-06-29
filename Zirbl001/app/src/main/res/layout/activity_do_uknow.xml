@@ -4,120 +4,179 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity">
+    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-
-        <!-- top actionbar -->
-        <RelativeLayout
-            android:id="@+id/relLayoutActionBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/layout_top_dark_actionbar" />
-
-        </RelativeLayout>
-
-        <!-- Middle section (body) -->
-        <LinearLayout
-            android:id="@+id/relLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relLayoutActionBar"
-            android:background="@color/colorAccent"
-            android:orientation="vertical">
-
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/DoUKnowArea"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                            android:id="@+id/DoUKnow"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:layout_marginRight="24dp"
-                            android:layout_marginTop="16dp" />
-
-                        <ImageView
-                            android:id="@+id/speechOpen"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/DoUKnow"
-                            android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/img_speech_bubble_open" />
-
-                        <ImageView
-                            android:id="@+id/themeZirbl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/speechOpen"
-                            android:layout_centerHorizontal="true"
-                            android:adjustViewBounds="true"
-                            android:paddingLeft="100dp"
-                            android:paddingRight="100dp"
-                            android:paddingTop="16dp"
-                            app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/continueArea"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="bottom|center_vertical">
-
-                        <ImageButton
-                            android:id="@+id/endButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="24dp"
-                            android:layout_marginTop="16dp"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:onClick="continueToNextView"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/btn_end"
-                            android:visibility="gone" />
-
-                        <ImageButton
-                            android:id="@+id/continueButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="24dp"
-                            android:layout_marginTop="16dp"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:onClick="continueToNextView"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/btn_continue"
-                            android:visibility="visible" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
-
+        <include layout="@layout/layout_top_dark_actionbar" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_progressbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutSite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+            android:id="@+id/DoUKnow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp" />
+
+        <ImageView
+            android:id="@+id/speechOpen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/DoUKnow"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/img_speech_bubble_open" />
+
+        <ImageView
+            android:id="@+id/themeZirbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/continueArea"
+            android:layout_below="@+id/DoUKnow"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
+
+        <LinearLayout
+            android:id="@+id/continueArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp">
+
+            <ImageButton
+                android:id="@+id/endButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="showEndTourDialog"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue"
+                android:visibility="gone"
+                app:srcCompat="@drawable/btn_end" />
+
+            <ImageButton
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="continueToNextView"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue"
+                android:visibility="visible"
+                app:srcCompat="@drawable/btn_continue" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/ScrollLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:orientation="vertical">
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                    android:id="@+id/DoUKnow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp" />
+
+                <ImageView
+                    android:id="@+id/speechOpen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/DoUKnow"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/img_speech_bubble_open" />
+
+                <ImageView
+                    android:id="@+id/themeZirbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_below="@+id/DoUKnow"
+                    android:layout_marginTop="16dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
+
+                <LinearLayout
+                    android:id="@+id/continueArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/themeZirbl"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageButton
+                        android:id="@+id/endButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:onClick="showEndTourDialog"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/btn_continue"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/btn_end" />
+
+                    <ImageButton
+                        android:id="@+id/continueButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:onClick="continueToNextView"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/btn_continue"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/btn_continue" />
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
 </LinearLayout>

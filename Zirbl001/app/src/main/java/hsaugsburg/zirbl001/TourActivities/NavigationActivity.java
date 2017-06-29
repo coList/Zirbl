@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
@@ -80,11 +81,14 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     //click on station name to hide or show the mapinstruction
     public void onClick(View view) {
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
+        ImageView arrow = (ImageView) findViewById(R.id.arrow);
 
         if (mapInstruction.getVisibility() == View.VISIBLE) {
             mapInstruction.setVisibility(View.GONE);
+            arrow.setScaleY(-1);
         } else {
             mapInstruction.setVisibility(View.VISIBLE);
+            arrow.setScaleY(1);
         }
     }
 
