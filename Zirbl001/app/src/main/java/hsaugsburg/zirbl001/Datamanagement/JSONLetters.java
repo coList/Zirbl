@@ -65,8 +65,13 @@ public class JSONLetters extends AsyncTask<String, String, LettersModel> {
 
                     if (mJsonLObjectLetters.getInt("taskid") == taskID) {
                         lettersModel.setTaskID(mJsonLObjectLetters.getInt("taskid"));
-                        lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
-                        lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
+
+                        if (!mJsonLObjectLetters.isNull("stationid")) {
+                            lettersModel.setStationID(mJsonLObjectLetters.getInt("stationid"));
+                        }
+                        if (!mJsonLObjectLetters.isNull("tourid")) {
+                            lettersModel.setTourID(mJsonLObjectLetters.getInt("tourid"));
+                        }
                         lettersModel.setScore(mJsonLObjectLetters.getInt("score"));
                         lettersModel.setQuestion(mJsonLObjectLetters.getString("question"));
                         lettersModel.setSolution(mJsonLObjectLetters.getString("solution"));

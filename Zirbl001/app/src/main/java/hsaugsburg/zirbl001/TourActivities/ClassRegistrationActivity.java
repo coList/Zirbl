@@ -67,15 +67,15 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
 
         // ActionBar Font...zz nur auf dieser Seite
-        TextView yourTextView = null;
+        TextView actionbarText = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
             f.setAccessible(true);
-            yourTextView = (TextView) f.get(toolbar);
-            yourTextView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            yourTextView.setAllCaps(true);
-            yourTextView.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            yourTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             } catch (NoSuchFieldException e) {
         }
         catch (IllegalAccessException e) {
