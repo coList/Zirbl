@@ -64,8 +64,8 @@ public class JSONQuiz extends AsyncTask<String, String, QuizModel> {
                     JSONObject mJsonLObjectTourQuiz = mJsonArrayTourQuiz.getJSONObject(i);
                     boolean equalsSelectedTour = false;
 
-                    if (!mJsonLObjectTourQuiz.isNull("tourID")) {
-                        if (mJsonLObjectTourQuiz.getInt("tourID") == selectedTour) {
+                    if (!mJsonLObjectTourQuiz.isNull("tourid")) {
+                        if (mJsonLObjectTourQuiz.getInt("tourid") == selectedTour) {
                             equalsSelectedTour = true;
                         }
                     } else {
