@@ -51,10 +51,10 @@
                     android:id="@+id/questionText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:textSize="18sp"
                     android:visibility="visible" />
 
@@ -135,6 +135,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_1_normal" />
                 </RelativeLayout>
@@ -179,6 +180,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_2_normal" />
                 </RelativeLayout>
@@ -222,6 +224,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_3_normal" />
                 </RelativeLayout>
@@ -264,6 +267,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_4_normal" />
                 </RelativeLayout>
@@ -277,25 +281,25 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/continueArea"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="16dp"
                 android:gravity="bottom">
 
                 <ImageButton
                     android:id="@+id/continueButton"
-                    android:layout_width="175dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_centerHorizontal="true"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:onClick="continueToNextView"
                     android:scaleType="fitCenter"
                     android:src="@drawable/btn_continue" />
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>
