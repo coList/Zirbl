@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -34,10 +35,15 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadImageTask;
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
@@ -125,17 +131,81 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     }
 
+    public void downloadTour() {
+        new DownloadJSON(this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
+        new DownloadJSON(this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
+        new DownloadJSON(this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
+        new DownloadJSON(this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
+        new DownloadJSON(this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
+        new DownloadJSON(this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
+        new DownloadJSON(this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+
+    }
+
     public void setIntentExtras(){
         Intent intent = getIntent();
         tourID = Integer.parseInt(intent.getStringExtra("tourID"));
         tourName = intent.getStringExtra("tourName");
     }
 
+    boolean first = true;
     public void startTour(View view){
+        /*
         Intent intent = new Intent(mContext, TourstartActivity.class);
         intent.putExtra("tourID", Integer.toString(tourID));
         startActivity(intent);
+        */
 
+        if (first) {
+
+            downloadTour();
+            first = false;
+        } else {
+
+            readTestFile("infopopups" + tourID + ".txt");
+            //readTestFile("/imageDir/" + tourID + "taskid" + 62 + ".jpg");
+            File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
+
+            try {
+                File f=new File(zirblImages , tourID + "taskid" + 62 + ".jpg");
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                ImageView img=(ImageView)findViewById(R.id.image);
+                img.setImageBitmap(b);
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+
+    static final int READ_BLOCK_SIZE = 100;
+
+    public void readTestFile(String filename) {
+        try {
+            FileInputStream fileIn = openFileInput(filename);
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
+
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
+            int charRead;
+
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                // char to string conversion
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
+
+            }
+            InputRead.close();
+            Log.d("TourDetailActivity", s.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void classRegistration(View view) {

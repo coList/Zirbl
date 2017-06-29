@@ -12,28 +12,22 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import org.w3c.dom.Text;
 
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 
 import hsaugsburg.zirbl001.R;
@@ -84,7 +78,7 @@ public class TourstartActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
+        //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
 
     }
