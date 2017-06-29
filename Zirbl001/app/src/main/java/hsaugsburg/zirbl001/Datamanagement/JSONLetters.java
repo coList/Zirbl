@@ -67,8 +67,8 @@ public class JSONLetters extends AsyncTask<String, String, LettersModel> {
 
                     boolean equalsSelectedTour = false;
 
-                    if (!mJsonLObjectTourLetters.isNull("tourID")) {
-                        if (mJsonLObjectTourLetters.getInt("tourID") == selectedTour) {
+                    if (!mJsonLObjectTourLetters.isNull("tourid")) {
+                        if (mJsonLObjectTourLetters.getInt("tourid") == selectedTour) {
                             equalsSelectedTour = true;
                         }
                     } else {

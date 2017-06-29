@@ -65,8 +65,8 @@ public class JSONSlider extends AsyncTask<String, String, SliderModel> {
                     JSONObject mJsonLObjectTourSlider = mJsonArrayTourSlider.getJSONObject(i);
                     boolean equalsSelectedTour = false;
 
-                    if (!mJsonLObjectTourSlider.isNull("tourID")) {
-                        if (mJsonLObjectTourSlider.getInt("tourID") == selectedTour) {
+                    if (!mJsonLObjectTourSlider.isNull("tourid")) {
+                        if (mJsonLObjectTourSlider.getInt("tourid") == selectedTour) {
                             equalsSelectedTour = true;
                         }
                     } else {

@@ -58,36 +58,34 @@ public class JSONStationLocation2 extends AsyncTask<String, String, StationModel
 
                 JSONArray mJSONArrayStationLocations = parentObject.getJSONArray("stationlocations");
 
-                StationLocationModel stationLocationModel = new StationLocationModel();
+
+                StationModel stationModel = new StationModel();
+
 
 
                 for (int i = 0; i<mJSONArrayStationLocations.length()  ; i++) {
                     JSONObject mJSONObjectStationDetails = mJSONArrayStationLocations.optJSONObject(i);
 
                     if(mJSONObjectStationDetails.getInt("tourid") == tourID) {
-                        stationLocationModel.setTourID(mJSONObjectStationDetails.getInt("tourid"));
-                        stationLocationModel.setStationModel(mJSONObjectStationDetails.getJSONArray("stations"));
-                        Log.d("JSONStationLocation", "doInBackground: hello" + stationLocationModel.getStationModel());
+
+                        JSONArray mJSONArrayStationDetails = mJSONObjectStationDetails.getJSONArray("stations");
+                        for(int y=0; y<mJSONArrayStationDetails.length(); y++){
+                            JSONObject mJSONObjectStation = mJSONArrayStationDetails.optJSONObject(y);
+
+                            if(mJSONObjectStation.getInt("stationid") == stationID){
+                                stationModel.setTourID(mJSONObjectStation.getInt("tourid"));
+                                stationModel.setChronologyNumber(mJSONObjectStation.getInt("chronologynumber"));
+                                stationModel.setStationID(mJSONObjectStation.getInt("stationid"));
+                                stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
+                                stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
+                                stationModel.setStationName(mJSONObjectStation.getString("stationname"));
+                                stationModel.setMapInstruction(mJSONObjectStation.getString("mapinstruction"));
+                            }
+                        }
+
                     }
                 }
 
-
-                StationModel stationModel = new StationModel();
-                JSONArray stations = stationLocationModel.getStationModel();
-
-                for(int y=0; y<stations.length(); y++){
-                    JSONObject mJSONObjectStation = stations.optJSONObject(y);
-
-                    if(mJSONObjectStation.getInt("stationid") == stationID){
-                        stationModel.setTourID(mJSONObjectStation.getInt("tourid"));
-                        stationModel.setChronologyNumber(mJSONObjectStation.getInt("chronologynumber"));
-                        stationModel.setStationID(mJSONObjectStation.getInt("stationid"));
-                        stationModel.setLatitude(mJSONObjectStation.getDouble("latitude"));
-                        stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
-                        stationModel.setStationName(mJSONObjectStation.getString("stationname"));
-                        stationModel.setMapInstruction(mJSONObjectStation.getString("mapinstruction"));
-                    }
-                }
                 return stationModel;
             } catch (JSONException e) {
                 e.printStackTrace();
