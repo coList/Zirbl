@@ -4,102 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.SliderActivity">
 
 
     <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-
-        <!-- top actionbar -->
-        <RelativeLayout
-            android:id="@+id/relLayoutActionBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/layout_top_dark_actionbar" />
-
-        </RelativeLayout>
-
-        <!-- Middle section (body) -->
-        <RelativeLayout
-            android:id="@+id/relLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relLayoutActionBar"
-            android:background="@color/colorAccent">
-
-
-            <LinearLayout
-                android:id="@+id/questionArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/questionText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="24dp"
-                    android:textAlignment="viewStart"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/answerArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
-                    android:id="@+id/sliderCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp" />
-
-                <SeekBar
-                    android:id="@+id/slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:progressDrawable="@drawable/code_custom_seekbar"
-                    android:thumb="@drawable/code_custom_thumb"/>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/continueArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp">
-
-                <ImageButton
-                    android:id="@+id/continueButton"
-                    android:layout_width="175dp"
-                    android:layout_height="48dp"
-                    android:layout_centerHorizontal="true"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:onClick="continueToNextView"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_continue" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
+        <include layout="@layout/layout_top_dark_actionbar" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_progressbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relLayoutActionBar"
+        android:background="@color/colorAccent">
+
+
+        <LinearLayout
+            android:id="@+id/questionArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/questionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:textAlignment="viewStart"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/answerArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
+                android:id="@+id/sliderCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp" />
+
+            <SeekBar
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:progressDrawable="@drawable/code_custom_seekbar"
+                android:thumb="@drawable/code_custom_thumb" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/continueArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp">
+
+            <ImageButton
+                android:id="@+id/continueButton"
+                android:layout_width="175dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="continueToNextView"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>
