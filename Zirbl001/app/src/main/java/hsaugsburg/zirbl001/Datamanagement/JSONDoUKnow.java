@@ -67,12 +67,14 @@ public class JSONDoUKnow extends AsyncTask<String, String, DoUKnowModel> {
                         doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
                         doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
                         doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
+                        if (!mJsonLObjectDoUKnow.isNull("picturepath")) {
+                            doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
+                        }
                     }
 
                     //doUKnowModel.setLatitude(mJsonLObjectDoUKnow.getDouble("latitude"));
                     //doUKnowModel.setLongitude(mJsonLObjectDoUKnow.getDouble("longitude"));
-                    //doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
-                    //doUKnowModelList.add(doUKnowModel);
+
                 }
 
 

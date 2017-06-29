@@ -15,8 +15,12 @@ import android.util.StringBuilderPrinter;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -114,6 +118,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     public void processData(DoUKnowModel result) {
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         doUKnow.setText(fromHtml(result.getContentText()));
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
+            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        }
     }
 
     private void showEndTourDialog(){
