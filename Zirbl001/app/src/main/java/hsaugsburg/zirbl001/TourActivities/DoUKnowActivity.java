@@ -2,28 +2,15 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
@@ -83,7 +70,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void processData(DoUKnowModel result) {
-        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
+        TextView doUKnow = (TextView) findViewById(R.id.DoUKnowScroll);
         doUKnow.setText(fromHtml(result.getContentText()));
     }
 
