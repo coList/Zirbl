@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONSlider;
@@ -79,7 +81,26 @@ public class SliderActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(stationName.toUpperCase());
+
+        if (stationName != null && !stationName.isEmpty()) {
+            getSupportActionBar().setTitle(stationName.toUpperCase());
+        } else {
+            getSupportActionBar().setTitle("START");
+        }
+
+        TextView actionbarText = null;
+        try {
+            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+            f.setAccessible(true);
+            actionbarText = (TextView) f.get(toolbar);
+            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+            actionbarText.setAllCaps(true);
+            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        } catch (NoSuchFieldException e) {
+        }
+        catch (IllegalAccessException e) {
+        }
 
         TextView count = (TextView) findViewById(R.id.sliderCount);
         count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 56);
