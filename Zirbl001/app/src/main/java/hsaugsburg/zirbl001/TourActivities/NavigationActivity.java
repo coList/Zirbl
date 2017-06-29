@@ -61,13 +61,14 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         setContentView(R.layout.activity_navigation);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
-        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
+        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
         tourChronologyTask.readChronologyFile();
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -102,8 +103,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
-        Log.d("NavigationActivity", Integer.toString(totalChronologyValue + 1));
-        Log.d("NavigationActivity", Integer.toString(chronologyNumber + 1));
     }
 
     public void processData(StationModel result) {

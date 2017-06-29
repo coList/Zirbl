@@ -92,6 +92,7 @@ public class TourstartActivity extends AppCompatActivity {
     public void processData (ChronologyModel result, int lastChronologyValue) {
         nextChronologyItem = result;
 
+        //set global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("tourID", Integer.toString(selectedTour));
@@ -160,7 +161,6 @@ public class TourstartActivity extends AppCompatActivity {
             if (nextChronologyItem.getInfoPopupID() != null) {
                 Intent intent = new Intent(mContext, DoUKnowActivity.class);
                 intent.putExtra("chronologyNumber", Integer.toString(0));
-                intent.putExtra("selectedTour", Integer.toString(selectedTour));
                 intent.putExtra("currentscore", Integer.toString(currentScore));
                 intent.putExtra("stationName", "Start");
                 intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));

@@ -58,8 +58,9 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
 
+
+        //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
@@ -87,12 +88,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             double rightAnswer = Double.valueOf(solution);
 
             Double range = Double.parseDouble(getIntent().getStringExtra("range"));
-            Log.d("PointsActivityRange", Double.toString(range));
-            Log.d("PointsActivityUserInput", Double.toString(userInput));
-            Log.d("PointsActivityRight-", Double.toString(rightAnswer-0.05 * range));
-            Log.d("PointsActivityRight+", Double.toString(rightAnswer+0.05 * range));
-            //if (userInput >= rightAnswer - 0.02 * rightAnswer &&
-            //        userInput <= rightAnswer + 0.02 * rightAnswer) {
             if (userInput >= rightAnswer - 0.05 * range &&
                     userInput <= rightAnswer + 0.05 * range) {
                 answerText.setText(fromHtml(answerCorrect));
@@ -135,7 +130,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         }
 
 
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
+        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
 
         tourChronologyTask.readChronologyFile();
 

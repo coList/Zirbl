@@ -30,15 +30,13 @@ public class TourChronologyTask {
     private ChronologyModel nextChronologyItem;
     private int chronologyNumber;
     private int currentScore;
-    private int selectedTour;
 
-    public TourChronologyTask(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int chronologyNumber, int currentScore, int selectedTour) {
+    public TourChronologyTask(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int chronologyNumber, int currentScore) {
         this.activity = activity;
         this.tourActivity = tourActivity;
         this.nextChronologyItem = nextChronologyItem;
         this.chronologyNumber = chronologyNumber;
         this.currentScore = currentScore;
-        this.selectedTour = selectedTour;
     }
 
     public ChronologyModel readChronologyFile() {
@@ -120,7 +118,6 @@ public class TourChronologyTask {
         }
         int nextchronologyNumber = chronologyNumber + 1;
         intent.putExtra("currentscore", Integer.toString(currentScore));
-        intent.putExtra("selectedTour", Integer.toString(selectedTour));
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
         intent.putExtra("stationName", tourActivity.getStationName());
         activity.startActivity(intent);

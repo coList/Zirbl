@@ -70,8 +70,8 @@ public class LettersActivity extends AppCompatActivity {
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
 
+        //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
@@ -140,7 +140,6 @@ public class LettersActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-            intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
