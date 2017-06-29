@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -51,6 +52,9 @@ public class LettersActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -66,7 +70,11 @@ public class LettersActivity extends AppCompatActivity {
 
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
 
         stationName = getIntent().getStringExtra("stationName");
@@ -103,6 +111,10 @@ public class LettersActivity extends AppCompatActivity {
 
 
         new JSONLetters(this, taskID).execute(serverName + "/selectHangmanView.php");
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
 
 
     }

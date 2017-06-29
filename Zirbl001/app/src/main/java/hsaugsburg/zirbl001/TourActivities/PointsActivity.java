@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,6 +37,9 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private int selectedTour;
     private String stationName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
+
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private TourChronologyTask tourChronologyTask;
@@ -53,7 +58,12 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
         stationName = getIntent().getStringExtra("stationName");
 
         String solution = getIntent().getStringExtra("solution");
@@ -128,6 +138,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
 
         tourChronologyTask.readChronologyFile();
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
 
     }
 
