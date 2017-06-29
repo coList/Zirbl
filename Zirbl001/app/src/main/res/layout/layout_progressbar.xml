@@ -14,7 +14,7 @@
             android:layout_height="9dp"
             android:layout_marginBottom="1dp"
             android:elevation="30dp"
-            android:progress="20"
+            android:progress="80"
             android:progressDrawable="@drawable/code_progressbar_style" />
 
     </RelativeLayout>

@@ -17,7 +17,16 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relLayout1"
+        android:id="@+id/relLayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_progressbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relLayoutActionBar"

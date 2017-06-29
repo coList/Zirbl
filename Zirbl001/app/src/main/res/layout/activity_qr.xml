@@ -53,25 +53,32 @@
                 android:id="@+id/zirblfigur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/scan_barcode"
-                android:layout_alignTop="@+id/speechbubble"
+                android:layout_above="@+id/continueArea"
+                android:layout_below="@+id/scanText"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/img_zirbl_small_qrcode" />
+                app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
 
-            <ImageButton
-                android:id="@+id/scan_barcode"
-                android:layout_width="175dp"
-                android:layout_height="48dp"
-                android:layout_alignBaseline="@+id/speechbubble"
+            <LinearLayout
+                android:id="@+id/continueArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="24dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:onClick="scanBarcode"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/btn_scan" />
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/scanButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:onClick="scanBarcode"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_scan" />
+            </LinearLayout>
 
         </RelativeLayout>
 
