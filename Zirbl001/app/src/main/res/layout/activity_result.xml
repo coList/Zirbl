@@ -98,7 +98,7 @@
             android:id="@+id/resultMembers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/ranking"
+            android:layout_above="@+id/placementOfAllArea"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:text="Teilnehmer:"
@@ -106,10 +106,10 @@
             tools:layout_editor_absoluteY="81dp" />
 
         <LinearLayout
-            android:id="@+id/ranking"
+            android:id="@+id/placementOfAllArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/performance"
+            android:layout_above="@+id/usedTimeArea"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="16dp"
@@ -119,14 +119,14 @@
             tools:layout_editor_absoluteY="89dp">
 
             <ImageView
-                android:id="@+id/ranking"
+                android:id="@+id/imagePlacement"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/ic_cup" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/rankingText"
+                android:id="@+id/textPlacement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -134,7 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/performance"
+            android:id="@+id/usedTimeArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/continueArea"
@@ -147,14 +147,14 @@
             tools:layout_editor_absoluteY="89dp">
 
             <ImageView
-                android:id="@+id/performanceTime"
+                android:id="@+id/imageUsedTime"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:adjustViewBounds="true"
                 app:srcCompat="@drawable/ic_time" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/performanceTeamname"
+                android:id="@+id/textUsedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -180,7 +180,8 @@
                 android:background="@android:color/transparent"
                 android:onClick="endTour"
                 android:scaleType="fitCenter"
-                android:src="@drawable/btn_continue" />
+                android:src="@drawable/btn_continue"
+                app:srcCompat="@drawable/btn_done" />
         </RelativeLayout>
 
     </RelativeLayout>
