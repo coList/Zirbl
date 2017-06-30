@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,10 +29,12 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
 import hsaugsburg.zirbl001.Models.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
@@ -70,7 +73,6 @@ public class TrueFalseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_true_false);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
 
@@ -106,7 +108,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
+        //new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -117,6 +119,33 @@ public class TrueFalseActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
+
+
+        setDataView();
+    }
+
+    public void setDataView() {
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        TrueFalseModel result = new LoadTrueFalse(this, selectedTour, taskID).readFile();
+
+
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+        String imageURL = result.getPicturePath();
+        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+        File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
+        File f=new File(zirblImages , selectedTour + "taskid" + taskID + ".jpg");
+        final String uri = Uri.fromFile(f).toString();
+        ImageLoader.getInstance().displayImage(uri, questionPicture);
 
     }
 

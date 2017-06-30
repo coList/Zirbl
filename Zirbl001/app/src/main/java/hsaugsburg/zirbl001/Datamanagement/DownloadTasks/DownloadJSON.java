@@ -71,7 +71,6 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
 
                 FileOutputStream fileout= activity.openFileOutput(innerName + selectedTour + ".txt", activity.MODE_PRIVATE);
-                Log.d("DownloadJSON", innerName + selectedTour + ".txt");
                 OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
 
                 for (int i = 0; i < mJsonArrayTourElement.length(); i++) {

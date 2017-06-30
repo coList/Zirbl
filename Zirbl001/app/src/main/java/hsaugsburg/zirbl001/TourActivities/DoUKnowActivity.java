@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
@@ -76,14 +77,13 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
-        int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
 
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
         loadTourChronology.readChronologyFile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
@@ -109,6 +109,23 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        setDataView();
+
+    }
+
+    public void setDataView() {
+
+        int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
+        DoUKnowModel result = new LoadDoUKnow(this, selectedTour, infoPopupID).readFile();
+
+
+        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
+        doUKnow.setText(fromHtml(result.getContentText()));
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
+            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        }
     }
 
 

@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation2;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
@@ -93,7 +94,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         }
         catch (IllegalAccessException e) {
         }
-        new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/api/selectStationLocationsView.php");
+        //new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/api/selectStationLocationsView.php");
 
         TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
         naviTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
@@ -104,6 +105,19 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        setDataView();
+
+    }
+
+
+    public void setDataView() {
+        StationModel result = new LoadStationLocation(this, selectedTour, stationID).readFile();
+        stationName = result.getStationName();
+        TextView stationName = (TextView) findViewById(R.id.navigationTitle);
+        stationName.setText(result.getStationName());
+
+        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
+        mapInstruction.setText(result.getMapInstruction());
     }
 
     public void processData(StationModel result) {

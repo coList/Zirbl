@@ -170,9 +170,13 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
                 ImageLoader.getInstance().displayImage(uri, img);
 
                 */
+            readTestFile("chronology" + tourID + ".txt");
+
             Intent intent = new Intent(mContext, TourstartActivity.class);
             intent.putExtra("tourID", Integer.toString(tourID));
             startActivity(intent);
+
+
         }
 
 

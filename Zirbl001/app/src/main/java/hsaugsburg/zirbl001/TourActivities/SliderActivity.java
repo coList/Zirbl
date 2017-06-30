@@ -29,6 +29,7 @@ import java.lang.reflect.Field;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONSlider;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadSlider;
 import hsaugsburg.zirbl001.Models.SliderModel;
 import hsaugsburg.zirbl001.R;
 
@@ -75,7 +76,6 @@ public class SliderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
         //get global tour values
@@ -120,11 +120,71 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONSlider(this, selectedTour, taskID).execute(serverName + "/api/selectGuessTheNumberView.php");
+        //new JSONSlider(this, selectedTour, taskID).execute(serverName + "/api/selectGuessTheNumberView.php");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
+
+        setDataView();
+    }
+
+    public void setDataView() {
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        SliderModel result = new LoadSlider(this, selectedTour, taskID).readFile();
+
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+        isInteger = result.getIsInteger();
+        minValue = result.getMinRange();
+        range = result.getMaxRange() - minValue;
+
+
+        sliderCount = (TextView) findViewById(R.id.sliderCount);
+
+        if (!isInteger) {
+            slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
+            sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+        } else {
+            Double value = result.getMaxRange() - minValue;
+            slider.setMax(value.intValue());
+            sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
+        }
+
+
+
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                answerSelected = true;
+                if (!isInteger) {
+                    //Double value = getConvertedDoubleValue(progress) + minValue;
+                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
+                    sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+                } else {
+                    //Integer value = progress + minValue.intValue();
+                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
+                    sliderCount.setText(Integer.toString(progress + minValue.intValue()));
+
+                }
+
+                seekBar.getProgressDrawable().setColorFilter(
+                        ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
+
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+
+        rightAnswer = Double.toString(result.getRightNumber());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
     }
 
     public void continueToNextView(View view) {

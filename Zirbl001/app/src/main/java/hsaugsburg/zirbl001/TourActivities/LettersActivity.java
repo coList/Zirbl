@@ -30,6 +30,7 @@ import java.lang.reflect.Field;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLetters;
 import hsaugsburg.zirbl001.Models.LettersModel;
 import hsaugsburg.zirbl001.R;
 
@@ -68,7 +69,6 @@ public class LettersActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
         //get global tour values
@@ -110,13 +110,109 @@ public class LettersActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
 
 
-        new JSONLetters(this, selectedTour, taskID).execute(serverName + "/api/selectHangmanView.php");
+        //new JSONLetters(this, selectedTour, taskID).execute(serverName + "/api/selectHangmanView.php");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        setDataView();
+    }
 
+    public void setDataView() {
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        LettersModel result = new LoadLetters(this, selectedTour, taskID).readFile();
+
+
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+
+        TableRow tableRow = (TableRow) findViewById(R.id.inputArea);
+        final int solutionLength = result.getSolution().length();
+        solution = result.getSolution();
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+        StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
+        shuffleLetters(stringBuilder);
+        final String letters = stringBuilder.toString().toUpperCase();
+
+
+        //create "solution-buttons"
+        for (int i = 0; i < solutionLength; i++) {
+            final Button button = new Button(this);
+            button.setId(i);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
+            params.weight = 1;
+            Context context = button.getContext();
+            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
+            button.setBackgroundResource(drawableId);
+
+            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
+            button.setTextColor(colorId);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+
+
+            //user wants to remove the old letter
+            //empty the button text
+            //set used letter visible again
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+
+                    boolean foundText = false;
+
+                    for (int i = 0; i < letters.length(); i++) {
+                        if (!foundText) {
+                            String name = "letter" + (i + 1);
+                            int id = getResources().getIdentifier(name, "id", getPackageName());
+                            TextView letter = (TextView) findViewById(id);
+                            if (letter.getText().toString().equals(button.getText()) && letter.getVisibility() == View.INVISIBLE) {
+                                letter.setVisibility(View.VISIBLE);
+                                button.setText("");
+                                foundText = true;
+                            }
+                        }
+                    }
+
+                }
+            });
+
+
+            button.setText("");
+            button.setLayoutParams(params);
+            tableRow.addView(button);
+
+        }
+
+
+        //set letters
+        for (int i = 0; i < letters.length(); i++) {
+            String name = "letter" + (i + 1);
+            int id = getResources().getIdentifier(name, "id", getPackageName());
+            final TextView letter = (TextView) findViewById(id);
+            letter.setText(String.valueOf(letters.charAt(i)));
+
+            //Click on Letters: If empty space in solution, set invisible and set text of solutionLetter
+            letter.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    String letterText = letter.getText().toString();
+
+                    boolean foundButton = false;
+                    for (int i = 0; i < solutionLength; i++) {
+                        if (!foundButton) {
+                            Button button = (Button) findViewById(i);
+                            if (button.getText().equals("")) {
+                                button.setText(letterText);
+                                letter.setVisibility(View.INVISIBLE);
+                                foundButton = true;
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 
     public void continueToNextView(View view) {
