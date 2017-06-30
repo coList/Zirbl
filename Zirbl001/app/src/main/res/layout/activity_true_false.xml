@@ -26,72 +26,58 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relLayout1"
+        android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relLayoutActionBar"
         android:background="@color/colorAccent">
 
 
-        <LinearLayout
-            android:id="@+id/LinearLayout"
+        <RelativeLayout
+            android:id="@+id/questionArea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/answerArea"
+            android:gravity="bottom|center_vertical"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/behindQuestionImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@color/colorAccent" />
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/questionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/behindQuestionImage"
+                android:background="@color/colorNavigation"
+                android:gravity="bottom"
+                android:paddingBottom="24dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="24dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/answerArea"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_above="@+id/continueArea"
+            android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
             <LinearLayout
-                android:id="@+id/questionArea"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="bottom|center_vertical"
-                android:orientation="vertical">
-
-
-                <RelativeLayout
-                    android:id="@+id/qestionImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/behindQuestionImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@color/colorAccent" />
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                        android:id="@+id/questionText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/behindQuestionImage"
-                        android:background="@drawable/code_pressed_route"
-                        android:gravity="bottom"
-                        android:paddingBottom="24dp"
-                        android:paddingLeft="24dp"
-                        android:paddingRight="24dp"
-                        android:paddingTop="24dp"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/lineQ"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    app:srcCompat="@color/colorTransparentLight" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/answerArea"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:orientation="horizontal"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/truthArea"
@@ -105,7 +91,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:paddingTop="45dp"
+                        android:paddingTop="65dp"
                         android:text="wahr"
                         android:textAllCaps="false" />
 
@@ -115,18 +101,11 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:adjustViewBounds="true"
-                        android:paddingBottom="40dp"
+                        android:paddingBottom="20dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_truth_normal" />
 
                 </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/lineBetween"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorTransparentLight" />
 
                 <RelativeLayout
                     android:id="@+id/lieArea"
@@ -140,7 +119,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:paddingTop="45dp"
+                        android:paddingTop="65dp"
                         android:text="gelogen"
                         android:textAllCaps="false" />
 
@@ -150,40 +129,51 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:adjustViewBounds="true"
-                        android:paddingBottom="40dp"
+                        android:paddingBottom="20dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_lie_normal" />
                 </RelativeLayout>
-
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/continueArea"
+            <ImageView
+                android:id="@+id/lineBetween"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                app:srcCompat="@color/colorTransparentLight" />
+
+            <ImageView
+                android:id="@+id/lineBottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|center_vertical">
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:visibility="visible"
+                app:srcCompat="@color/colorTransparentLight" />
 
-                <ImageView
-                    android:id="@+id/lineC"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorTransparentLight" />
+        </RelativeLayout>
 
-                <ImageButton
-                    android:id="@+id/continueButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="24dp"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:onClick="continueToNextView"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_continue" />
-            </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/continueArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="continueToNextView"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue" />
         </LinearLayout>
 
     </RelativeLayout>
