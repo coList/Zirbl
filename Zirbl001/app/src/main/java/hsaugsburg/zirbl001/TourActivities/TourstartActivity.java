@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +54,8 @@ public class TourstartActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+
     public int getSelectedTour() {
         return selectedTour;
     }
@@ -80,11 +83,27 @@ public class TourstartActivity extends AppCompatActivity {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        new JSONTourstart(this).execute(serverName + "/selectChronologyView.php");
+
+        new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
+
+
     }
 
-    public void processData (ChronologyModel result) {
+    public void processData (ChronologyModel result, int lastChronologyValue) {
         nextChronologyItem = result;
+
+        //set global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
+
+        editor.commit();
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(lastChronologyValue + 1);
+        progressBar.setProgress(0);
+
     }
 
     public void addParticipant(View view) {
@@ -142,7 +161,6 @@ public class TourstartActivity extends AppCompatActivity {
             if (nextChronologyItem.getInfoPopupID() != null) {
                 Intent intent = new Intent(mContext, DoUKnowActivity.class);
                 intent.putExtra("chronologyNumber", Integer.toString(0));
-                intent.putExtra("selectedTour", Integer.toString(selectedTour));
                 intent.putExtra("currentscore", Integer.toString(currentScore));
                 intent.putExtra("stationName", "Start");
                 intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));

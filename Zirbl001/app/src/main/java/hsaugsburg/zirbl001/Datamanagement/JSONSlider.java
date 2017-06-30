@@ -23,10 +23,12 @@ import hsaugsburg.zirbl001.TourActivities.SliderActivity;
 
 public class JSONSlider extends AsyncTask<String, String, SliderModel> {
     private SliderActivity activity;
+    private int selectedTour;
     private int taskID;
 
-    public JSONSlider (SliderActivity activity, int taskID) {
+    public JSONSlider (SliderActivity activity, int selectedTour, int taskID) {
         this.activity = activity;
+        this.selectedTour = selectedTour;
         this.taskID = taskID;
     }
 
@@ -55,34 +57,49 @@ public class JSONSlider extends AsyncTask<String, String, SliderModel> {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
-                JSONArray mJsonArraySlider = parentObject.getJSONArray("guessthenumber");
+                JSONArray mJsonArrayTourSlider = parentObject.getJSONArray("tourguessthenumber");
+
                 SliderModel sliderModel = new SliderModel();
-                for (int i = 0; i < mJsonArraySlider.length(); i++) {
-                    JSONObject mJsonLObjectSlider = mJsonArraySlider.getJSONObject(i);
 
-                    if (mJsonLObjectSlider.getInt("taskid") == taskID) {
-                        sliderModel.setTaskID(mJsonLObjectSlider.getInt("taskid"));
+                for (int i = 0; i < mJsonArrayTourSlider.length(); i++) {
+                    JSONObject mJsonLObjectTourSlider = mJsonArrayTourSlider.getJSONObject(i);
+                    boolean equalsSelectedTour = false;
 
-                        if (!mJsonLObjectSlider.isNull("stationid")) {
-                            sliderModel.setStationID(mJsonLObjectSlider.getInt("stationid"));
+                    if (!mJsonLObjectTourSlider.isNull("tourid")) {
+                        if (mJsonLObjectTourSlider.getInt("tourid") == selectedTour) {
+                            equalsSelectedTour = true;
                         }
-                        if (!mJsonLObjectSlider.isNull("tourid")) {
-                            sliderModel.setTourID(mJsonLObjectSlider.getInt("tourid"));
-                        }
-                        sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
-                        sliderModel.setQuestion(mJsonLObjectSlider.getString("question"));
-                        sliderModel.setAnswerCorrect(mJsonLObjectSlider.getString("answercorrect"));
-                        sliderModel.setAnswerWrong(mJsonLObjectSlider.getString("answerwrong"));
-                        sliderModel.setPicturePath(mJsonLObjectSlider.getString("picturepath"));
-                        sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
-                        sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
-                        sliderModel.setMaxRange(mJsonLObjectSlider.getDouble("maxrange"));
-                        sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
+                    } else {
+                        equalsSelectedTour = true;
                     }
 
+                    if (equalsSelectedTour) {
+                        JSONArray mJSONArraySlider = mJsonLObjectTourSlider.getJSONArray("guessthenumber");
 
+                        for (int j = 0; j < mJSONArraySlider.length(); j++) {
+                            JSONObject mJsonLObjectSlider =  mJSONArraySlider.getJSONObject(j);
+                            if (mJsonLObjectSlider.getInt("taskid") == taskID) {
+                                sliderModel.setTaskID(mJsonLObjectSlider.getInt("taskid"));
+
+                                if (!mJsonLObjectSlider.isNull("stationid")) {
+                                    sliderModel.setStationID(mJsonLObjectSlider.getInt("stationid"));
+                                }
+                                if (!mJsonLObjectSlider.isNull("tourid")) {
+                                    sliderModel.setTourID(mJsonLObjectSlider.getInt("tourid"));
+                                }
+                                sliderModel.setScore(mJsonLObjectSlider.getInt("score"));
+                                sliderModel.setQuestion(mJsonLObjectSlider.getString("question"));
+                                sliderModel.setAnswerCorrect(mJsonLObjectSlider.getString("answercorrect"));
+                                sliderModel.setAnswerWrong(mJsonLObjectSlider.getString("answerwrong"));
+                                sliderModel.setPicturePath(mJsonLObjectSlider.getString("picturepath"));
+                                sliderModel.setMaxRange(mJsonLObjectSlider.getDouble("maxrange"));
+                                sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
+                                sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
+                                sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
+                            }
+                        }
+                    }
                 }
-
 
                 return sliderModel;
             } catch (JSONException e) {

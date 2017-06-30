@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,9 @@ public class QuizActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -73,7 +77,12 @@ public class QuizActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        //get global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
         stationName = getIntent().getStringExtra("stationName");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
@@ -104,7 +113,7 @@ public class QuizActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONQuiz(this, taskID).execute(serverName + "/selectSingleChoiceView.php");
+        new JSONQuiz(this, selectedTour, taskID).execute(serverName + "/api/selectSingleChoiceView.php");
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -115,6 +124,10 @@ public class QuizActivity extends AppCompatActivity {
         buttonC.setOnClickListener(answerC);
         Button buttonD = (Button) findViewById(R.id.answer4);
         buttonD.setOnClickListener(answerD);
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
 
 
     }
@@ -139,7 +152,6 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-            intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("stationName", stationName);
             intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
@@ -221,7 +233,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         ArrayList<String> answers = new ArrayList<>();
-        if (result.getPicturePath().equals("null")) {  //is it a question with an image? if not:
+        if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
         } else {  //if it has an image:

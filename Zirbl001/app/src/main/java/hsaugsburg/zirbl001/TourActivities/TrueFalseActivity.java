@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,6 +54,9 @@ public class TrueFalseActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
+
 
     @Override
     protected void onPause() {
@@ -68,7 +72,12 @@ public class TrueFalseActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
         stationName = getIntent().getStringExtra("stationName");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
@@ -97,13 +106,17 @@ public class TrueFalseActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTrueFalse(this, taskID).execute(serverName + "/selectTrueFalseView.php");
+        new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
         buttonTruth.setOnClickListener(answerTruth);
         Button buttonLie = (Button) findViewById(R.id.lie);
         buttonLie.setOnClickListener(answerLie);
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
 
     }
 

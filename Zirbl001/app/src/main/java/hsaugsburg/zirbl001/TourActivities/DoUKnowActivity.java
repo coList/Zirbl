@@ -15,7 +15,12 @@ import android.util.StringBuilderPrinter;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,7 +50,10 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private TourChronologyTask tourChronologyTask;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
+
+    public static final String TOUR_VALUES = "tourValuesFile";
+    private int totalChronologyValue;
 
     @Override
     protected void onPause() {
@@ -58,7 +66,13 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
+
+        //get global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
+
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
         int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
@@ -66,8 +80,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONDoUKnow(this, infoPopupID).execute(serverName + "/selectInfoPopupView.php");
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore, selectedTour);
+        new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
+        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
 
         tourChronologyTask.readChronologyFile();
 
@@ -90,6 +104,10 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         catch (IllegalAccessException e) {
         }
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(totalChronologyValue + 1);
+        progressBar.setProgress(chronologyNumber + 1);
+
     }
 
 
@@ -100,6 +118,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     public void processData(DoUKnowModel result) {
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         doUKnow.setText(fromHtml(result.getContentText()));
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
+            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        }
     }
 
     private void showEndTourDialog(){
