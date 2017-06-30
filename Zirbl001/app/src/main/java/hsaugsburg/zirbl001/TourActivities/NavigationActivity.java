@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation2;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
@@ -41,7 +42,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
-    private TourChronologyTask tourChronologyTask;
+    private LoadTourChronology loadTourChronology;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -68,8 +69,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
-        tourChronologyTask.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology.readChronologyFile();
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -130,7 +131,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
     public void continueToNextView(View view) {
-        tourChronologyTask.continueToNextView();
+        loadTourChronology.continueToNextView();
     }
 
     private void showEndTourDialog(){

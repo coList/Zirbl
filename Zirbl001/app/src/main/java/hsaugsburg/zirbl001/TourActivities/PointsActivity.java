@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Field;
 
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
@@ -42,7 +43,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
-    private TourChronologyTask tourChronologyTask;
+    private LoadTourChronology loadTourChronology;
 
     @Override
     protected void onPause() {
@@ -130,9 +131,9 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         }
 
 
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
 
-        tourChronologyTask.readChronologyFile();
+        loadTourChronology.readChronologyFile();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
@@ -141,7 +142,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void continueToNextView(View view) {
-        tourChronologyTask.continueToNextView();
+        loadTourChronology.continueToNextView();
     }
 
     public void backToNavigationActivity(View view) {

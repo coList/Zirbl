@@ -27,19 +27,25 @@ import android.widget.ProgressBar;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
+import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 
 import hsaugsburg.zirbl001.R;
 
-public class TourstartActivity extends AppCompatActivity {
+public class TourstartActivity extends AppCompatActivity implements TourActivity{
 
     private static final String TAG = "TourstartActivity";
     private int maxAmountOfParticipants = 10;
 
     private int selectedTour;
     private int currentScore = 0;
-    ChronologyModel nextChronologyItem = new ChronologyModel();
+    private ChronologyModel nextChronologyItem = new ChronologyModel();
+    private int chronologyNumber = -1;
+    private LoadTourChronology loadTourChronology;
+    private String stationName = "Anmeldung";
 
     private Context mContext = TourstartActivity.this;
 
@@ -80,8 +86,12 @@ public class TourstartActivity extends AppCompatActivity {
 
         //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology.readChronologyFile();
+        Log.d("DownloadTourstart", "chronology" + selectedTour + ".txt");
 
     }
+
 
     public void processData (ChronologyModel result, int lastChronologyValue) {
         nextChronologyItem = result;
@@ -99,6 +109,7 @@ public class TourstartActivity extends AppCompatActivity {
         progressBar.setProgress(0);
 
     }
+
 
     public void addParticipant(View view) {
         if (count < maxAmountOfParticipants - 1) {
@@ -143,6 +154,7 @@ public class TourstartActivity extends AppCompatActivity {
     }
 
     public void goIntoTour(View view) {
+        Log.d("Tourstart", "goIntoTour");
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         EditText teamNameText = (EditText) findViewById(R.id.teamname);
@@ -152,6 +164,7 @@ public class TourstartActivity extends AppCompatActivity {
         String participant = participantText.getText().toString();
 
         if (teamName != null && !teamName.isEmpty() && participant != null && !participant.isEmpty()) {
+            /*
             if (nextChronologyItem.getInfoPopupID() != null) {
                 Intent intent = new Intent(mContext, DoUKnowActivity.class);
                 intent.putExtra("chronologyNumber", Integer.toString(0));
@@ -160,6 +173,8 @@ public class TourstartActivity extends AppCompatActivity {
                 intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
                 startActivity(intent);
             }
+            */
+            loadTourChronology.continueToNextView();
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.continueButton).startAnimation(shake);
@@ -171,6 +186,10 @@ public class TourstartActivity extends AppCompatActivity {
 
         //Intent intent = new Intent(mContext, NavigationActivity.class);
         //startActivity(intent);
+    }
+
+    public String getStationName() {
+        return stationName;
     }
 
     private void showEndTourDialog(){

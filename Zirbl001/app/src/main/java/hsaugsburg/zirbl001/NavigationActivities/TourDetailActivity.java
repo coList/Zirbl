@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -150,11 +151,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     boolean first = true;
     public void startTour(View view){
-        /*
-        Intent intent = new Intent(mContext, TourstartActivity.class);
-        intent.putExtra("tourID", Integer.toString(tourID));
-        startActivity(intent);
-        */
 
         if (first) {
 
@@ -162,20 +158,21 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
             first = false;
         } else {
 
+            /*
             readTestFile("infopopups" + tourID + ".txt");
             //readTestFile("/imageDir/" + tourID + "taskid" + 62 + ".jpg");
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
 
-            try {
+
                 File f=new File(zirblImages , tourID + "taskid" + 62 + ".jpg");
-                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
                 ImageView img=(ImageView)findViewById(R.id.image);
-                img.setImageBitmap(b);
-            }
-            catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            }
+                final String uri = Uri.fromFile(f).toString();
+                ImageLoader.getInstance().displayImage(uri, img);
+
+                */
+            Intent intent = new Intent(mContext, TourstartActivity.class);
+            intent.putExtra("tourID", Integer.toString(tourID));
+            startActivity(intent);
         }
 
 

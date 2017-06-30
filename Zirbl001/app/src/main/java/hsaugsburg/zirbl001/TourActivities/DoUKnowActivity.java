@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
@@ -47,7 +48,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private String stationName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
-    private TourChronologyTask tourChronologyTask;
+    private LoadTourChronology loadTourChronology;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     private String serverName;
@@ -81,9 +82,9 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         serverName = globalValues.getString("serverName", null);
 
         new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
 
-        tourChronologyTask.readChronologyFile();
+        loadTourChronology.readChronologyFile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
@@ -112,7 +113,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
     public void continueToNextView(View view) {
-        tourChronologyTask.continueToNextView();
+        loadTourChronology.continueToNextView();
     }
 
     public void processData(DoUKnowModel result) {
