@@ -69,6 +69,7 @@ public class SearchActivity extends AppCompatActivity{
         catch (IllegalAccessException e) {
         }
 
+
         setupBottomNavigationView();
 
 
