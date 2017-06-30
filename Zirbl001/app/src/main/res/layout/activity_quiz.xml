@@ -28,280 +28,279 @@
     <RelativeLayout
         android:id="@+id/relLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/colorAccent">
 
 
         <LinearLayout
-            android:id="@+id/LinearLayout"
+            android:id="@+id/questionArea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center_vertical"
+            android:orientation="vertical">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/questionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/questionImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/behindQuestionImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="visible" />
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                    android:id="@+id/besideImgQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/behindQuestionImage"
+                    android:background="@drawable/code_pressed_route"
+                    android:gravity="bottom"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="24dp"
+                    android:text=""
+                    android:textColor="@color/colorAccent"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/answerArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/continueArea"
+            android:layout_below="@+id/questionArea"
+            android:gravity="bottom"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
-            <LinearLayout
-                android:id="@+id/questionArea"
+
+            <ImageView
+                android:id="@+id/lineQ"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:srcCompat="@color/colorLine" />
+
+            <RelativeLayout
+                android:id="@+id/area1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="bottom|center_vertical"
-                android:orientation="vertical">
+                android:gravity="center_vertical">
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/questionText"
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                    android:id="@+id/answer1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="18sp"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:maxHeight="80dp"
+                    android:minHeight="50dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="90dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="10dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
                     android:visibility="visible" />
 
-                <RelativeLayout
-                    android:id="@+id/questionImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/behindQuestionImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:visibility="visible" />
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                        android:id="@+id/besideImgQuestion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/behindQuestionImage"
-                        android:background="@drawable/code_pressed_route"
-                        android:gravity="bottom"
-                        android:paddingBottom="24dp"
-                        android:paddingLeft="24dp"
-                        android:paddingRight="24dp"
-                        android:paddingTop="24dp"
-                        android:text=""
-                        android:textColor="@color/colorAccent"
-                        android:visibility="visible" />
-                </RelativeLayout>
-
                 <ImageView
-                    android:id="@+id/lineQ"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    app:srcCompat="@color/colorLine" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/answerArea"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp">
-
-
-                <RelativeLayout
-                    android:id="@+id/area1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                        android:id="@+id/answer1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="90dp"
-                        android:textAlignment="textStart"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/imgLetter1"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="5dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_1_normal" />
-                </RelativeLayout>
-
-
-                <ImageView
-                    android:id="@+id/line1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorLine" />
-
-                <RelativeLayout
-                    android:id="@+id/area2"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                        android:id="@+id/answer2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="90dp"
-                        android:textAlignment="textStart"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/imgLetter2"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="5dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_2_normal" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/line2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorLine" />
-
-
-                <RelativeLayout
-                    android:id="@+id/area3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                        android:id="@+id/answer3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="90dp"
-                        android:textAlignment="textStart"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/imgLetter3"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="5dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_3_normal" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/line3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorLine" />
-
-                <RelativeLayout
-                    android:id="@+id/area4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                        android:id="@+id/answer4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="90dp"
-                        android:textAlignment="textStart"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/imgLetter4"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="5dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_4_normal" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/line4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="visible"
-                    app:srcCompat="@color/colorLine" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/continueArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp"
-                android:gravity="bottom">
-
-                <ImageButton
-                    android:id="@+id/continueButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
+                    android:id="@+id/imgLetter1"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="5dp"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:onClick="continueToNextView"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_continue" />
-            </LinearLayout>
+                    app:srcCompat="@drawable/ic_1_normal" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                app:srcCompat="@color/colorLine" />
+
+            <RelativeLayout
+                android:id="@+id/area2"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                    android:id="@+id/answer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="90dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="10dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgLetter2"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_2_normal" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                app:srcCompat="@color/colorLine" />
+
+
+            <RelativeLayout
+                android:id="@+id/area3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                    android:id="@+id/answer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="90dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="10dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgLetter3"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_3_normal" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                app:srcCompat="@color/colorLine" />
+
+            <RelativeLayout
+                android:id="@+id/area4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                    android:id="@+id/answer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="90dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="10dp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgLetter4"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_4_normal" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                app:srcCompat="@color/colorLine" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/continueArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp">
+
+            <ImageButton
+                android:id="@+id/continueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="continueToNextView"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_continue" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>
