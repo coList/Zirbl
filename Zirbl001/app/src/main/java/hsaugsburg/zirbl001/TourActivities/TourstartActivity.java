@@ -18,6 +18,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.util.TypedValue;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
@@ -70,9 +72,9 @@ public class TourstartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourstart);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Anmeldung");
+        TextView title = (TextView) findViewById(R.id.titleActionbar);
+        title.setText("Anmeldung");
+
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
         ViewCompat.setBackgroundTintList(teamField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
@@ -86,8 +88,13 @@ public class TourstartActivity extends AppCompatActivity {
 
         new JSONTourstart(this).execute(serverName + "/selectChronologyView.php");
 
+    }
+    
+    public void showMenu(View view){
+        Log.d(TAG, "showMenu: click");
 
     }
+
 
     public void processData (ChronologyModel result, int lastChronologyValue) {
         nextChronologyItem = result;
@@ -174,9 +181,6 @@ public class TourstartActivity extends AppCompatActivity {
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
 
-
-        //Intent intent = new Intent(mContext, NavigationActivity.class);
-        //startActivity(intent);
     }
 
     private void showEndTourDialog(){

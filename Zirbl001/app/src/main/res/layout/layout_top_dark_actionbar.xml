@@ -8,14 +8,49 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
+                android:id="@+id/standard_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/standard_toolbar"
                 android:background="@color/colorPrimaryDark"
-                app:titleTextAppearance="@style/NewActionBarTitle">
+                app:titleTextAppearance="@style/NewActionBarTitle"
+                android:weightSum="1"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
+                        android:id="@+id/titleActionbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="24dp"
+                        android:text=""
+                        android:textColor="@color/colorAccent" />
+
+                    <ImageView
+                        android:id="@+id/dotMenu"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_top_dots"
+                        android:onClick="showMenu"/>
+
+                </RelativeLayout>
+
 
             </android.support.v7.widget.Toolbar>
 
