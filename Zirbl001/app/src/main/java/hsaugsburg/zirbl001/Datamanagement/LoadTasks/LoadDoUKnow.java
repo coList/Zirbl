@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,10 +44,15 @@ public class LoadDoUKnow {
 
             JSONArray jsonArray = new JSONArray(s);
 
+            Log.d("LoadDoUTour", Integer.toString(tourID));
+
             for (int j = 0; j < jsonArray.length(); j++) {
                 JSONObject mJsonLObjectDoUKnow = jsonArray.getJSONObject(j);
+                Log.d("LoadDoU", "inside for j");
+                Log.d("LoadDoU", Integer.toString(mJsonLObjectDoUKnow.getInt("infopopupid")));
 
                 if (mJsonLObjectDoUKnow.getInt("infopopupid") == infoPopupID) {
+                    Log.d("LoadDoUKnow", "inside IF infopopupID");
                     doUKnowModel.setTourID(mJsonLObjectDoUKnow.getInt("tourid"));
                     doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
                     doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));

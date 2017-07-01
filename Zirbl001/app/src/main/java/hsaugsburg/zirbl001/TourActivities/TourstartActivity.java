@@ -81,6 +81,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
 
+
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
@@ -88,7 +89,15 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
         loadTourChronology.readChronologyFile();
-        Log.d("DownloadTourstart", "chronology" + selectedTour + ".txt");
+
+        //set global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+        Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
+
+        editor.commit();
 
     }
 

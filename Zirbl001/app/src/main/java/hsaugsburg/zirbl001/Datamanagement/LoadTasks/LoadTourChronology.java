@@ -31,6 +31,7 @@ public class LoadTourChronology {
     private int chronologyNumber;
     private int currentScore;
     private int tourID;
+    private int lastChronologyValue;
 
     public LoadTourChronology(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int tourID, int chronologyNumber, int currentScore) {
         this.activity = activity;
@@ -60,7 +61,6 @@ public class LoadTourChronology {
             InputRead.close();
 
             JSONArray jsonArray = new JSONArray(s);
-            Log.d("TourChronologyTask", Integer.toString(chronologyNumber));
 
             for (int j = 0; j < jsonArray.length(); j++) {
                 JSONObject mJsonLObjectChronologyItems = jsonArray.getJSONObject(j);
@@ -83,10 +83,16 @@ public class LoadTourChronology {
                 }
             }
 
+            lastChronologyValue = jsonArray.length() - 1;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return nextChronologyItem;
+    }
+
+    public int getLastChronologyValue() {
+        return lastChronologyValue;
     }
 
     public void continueToNextView() {
