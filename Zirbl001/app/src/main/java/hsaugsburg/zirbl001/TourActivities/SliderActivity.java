@@ -120,7 +120,7 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONSlider(this, taskID).execute(serverName + "/selectGuessTheNumberView.php");
+        new JSONSlider(this, selectedTour, taskID).execute(serverName + "/api/selectGuessTheNumberView.php");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);

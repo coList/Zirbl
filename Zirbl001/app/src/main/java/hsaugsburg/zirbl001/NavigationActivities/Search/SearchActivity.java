@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.NavigationActivities.Search;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -35,6 +36,9 @@ public class SearchActivity extends AppCompatActivity{
 
     private Context mContext = SearchActivity.this;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
+
     //Animation beim Activity wechsel verhindern
     @Override
     protected void onPause() {
@@ -65,9 +69,14 @@ public class SearchActivity extends AppCompatActivity{
         catch (IllegalAccessException e) {
         }
 
+
         setupBottomNavigationView();
 
-        new JSONStationLocation(this, 1, 15).execute("https://zirbl.multimedia.hs-augsburg.de/selectStationLocationsView.php");
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+
+        new JSONStationLocation(this, 1, 15).execute(serverName + "/api/selectStationLocationsView.php");
     }
 
     public void processData(StationModel result) throws JSONException {
