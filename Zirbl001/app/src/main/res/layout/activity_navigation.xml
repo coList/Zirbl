@@ -71,8 +71,10 @@
             android:id="@+id/stationInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorNavigation"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorNavigation">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/navigationInfo"

@@ -16,13 +16,25 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
+<<<<<<< HEAD
+=======
+import android.util.TypedValue;
+import android.view.Menu;
+>>>>>>> refs/remotes/origin/master
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+<<<<<<< HEAD
+=======
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+>>>>>>> refs/remotes/origin/master
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
@@ -35,7 +47,14 @@ import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 
 import hsaugsburg.zirbl001.R;
 
+<<<<<<< HEAD
 public class TourstartActivity extends AppCompatActivity implements TourActivity{
+=======
+import static hsaugsburg.zirbl001.R.id.dotMenu;
+import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
+
+public class TourstartActivity extends AppCompatActivity {
+>>>>>>> refs/remotes/origin/master
 
     private static final String TAG = "TourstartActivity";
     private int maxAmountOfParticipants = 10;
@@ -60,6 +79,10 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         return selectedTour;
     }
 
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -70,9 +93,11 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourstart);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Anmeldung");
+        title = (TextView) findViewById(R.id.titleActionbar);
+        title.setText("Anmeldung");
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
         ViewCompat.setBackgroundTintList(teamField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
@@ -87,8 +112,43 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
+<<<<<<< HEAD
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
         loadTourChronology.readChronologyFile();
+=======
+    }
+    
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
+    }
+
+
+    public void processData (ChronologyModel result, int lastChronologyValue) {
+        nextChronologyItem = result;
+>>>>>>> refs/remotes/origin/master
 
         //set global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
@@ -174,9 +234,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
 
-
-        //Intent intent = new Intent(mContext, NavigationActivity.class);
-        //startActivity(intent);
     }
 
     public String getStationName() {
