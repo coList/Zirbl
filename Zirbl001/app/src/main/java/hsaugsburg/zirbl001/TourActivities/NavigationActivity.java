@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -239,8 +240,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         LatLng latLngAugsburg = new LatLng(48.3652377,10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang Sieht
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngAugsburg, 12));
 
@@ -538,7 +537,20 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             //Log.d(TAG, "onCreate: latlngtarget " + latLngMyTarget);
             //latLngMyPos = new LatLng(48.367588, 10.896769);
 
-            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !nut.isCollected()) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
+            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !nut.isCollected()) {
+                nut.setCollected(true);
+                for (int i = 0; i < nutMarker.size(); i++) {
+                    if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
+                        nutMarker.get(i).remove();
+                    }
+                }
+
+                Intent intent = new Intent(mContext, GoldenActivity.class);
+                intent.putExtra("score", Integer.toString(nut.getScore()));
+                intent.putExtra("foundText", nut.getFoundText());
+                startActivity(intent);
+
+            } else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !nut.isCollected()) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -560,12 +572,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                    if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
                        marker.setVisible(false);
                    }
-                }
-            } else if (nut.isCollected()) { //wenn die Nuss gesammelt wurde, lösche den Marker
-                for (int i = 0; i < nutMarker.size(); i++) {
-                    if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
-                        nutMarker.get(i).remove();
-                    }
                 }
             }
 

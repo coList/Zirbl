@@ -8,6 +8,8 @@ public class NutModel {
     private Double latitude;
     private Double longitude;
     private boolean collected = false;
+    private int score;
+    private String foundText;
 
     public int getTourID() {
         return tourID;
@@ -47,5 +49,21 @@ public class NutModel {
 
     public void setCollected(boolean collected) {
         this.collected = collected;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getFoundText() {
+        return foundText;
+    }
+
+    public void setFoundText(String foundText) {
+        this.foundText = foundText;
     }
 }
