@@ -220,6 +220,49 @@ public class SliderActivity extends AppCompatActivity {
     }
 
 
+
+    //Convert double value to int by multiplying it (every value is 100 times its value!)
+    private int getConvertedIntValue(double value) {
+        return (int) Math.round(value * 100);
+    }
+
+    private double getConvertedDoubleValue(int value) {
+        return value / 100.0;
+    }
+
+    private void showEndTourDialog(){
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
+
+
+
+
+
+
     //can't set minValue directly -> add minValue to valueDisplayed and substract minValue from maxValue
     public void processData(SliderModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
@@ -274,44 +317,5 @@ public class SliderActivity extends AppCompatActivity {
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
     }
-
-
-    //Convert double value to int by multiplying it (every value is 100 times its value!)
-    private int getConvertedIntValue(double value) {
-        return (int) Math.round(value * 100);
-    }
-
-    private double getConvertedDoubleValue(int value) {
-        return value / 100.0;
-    }
-
-    private void showEndTourDialog(){
-        this.runOnUiThread(new Runnable() {
-            public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
-                alertEnd.showDialog((Activity) mContext);
-            }
-        });
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            showEndTourDialog();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public static Spanned fromHtml(String html){
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
-    }
-
 
 }

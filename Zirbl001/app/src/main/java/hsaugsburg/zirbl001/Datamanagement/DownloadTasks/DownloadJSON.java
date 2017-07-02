@@ -25,15 +25,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
+
 public class DownloadJSON extends AsyncTask<String, String, String> {
     private Activity activity;
+    private DownloadActivity downloadActivity;
     private int selectedTour;
     private String outerName;
     private String innerName;
     private String serverName;
 
-    public DownloadJSON (Activity activity, String serverName, int selectedTour, String outerName, String innerName) {
+    public DownloadJSON (Activity activity, DownloadActivity downloadActivity, String serverName, int selectedTour, String outerName, String innerName) {
         this.activity = activity;
+        this.downloadActivity = downloadActivity;
         this.serverName = serverName;
         this.selectedTour = selectedTour;
         this.outerName = outerName;
@@ -164,6 +168,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
     }
     protected void onPostExecute(String result){
         super.onPostExecute(result);
+        downloadActivity.downloadFinished();
     }
 
 

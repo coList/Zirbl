@@ -102,24 +102,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     }
 
 
-    public void processData (ChronologyModel result, int lastChronologyValue) {
-        nextChronologyItem = result;
-
-        //set global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        SharedPreferences.Editor editor = tourValues.edit();
-        editor.putString("tourID", Integer.toString(selectedTour));
-        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
-
-        editor.commit();
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(lastChronologyValue + 1);
-        progressBar.setProgress(0);
-
-    }
-
-
     public void addParticipant(View view) {
         if (count < maxAmountOfParticipants - 1) {
             EditText previousParticipantText = new EditText(this);
@@ -217,5 +199,27 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+
+
+
+
+    public void processData (ChronologyModel result, int lastChronologyValue) {
+        nextChronologyItem = result;
+
+        //set global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
+
+        editor.commit();
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(lastChronologyValue + 1);
+        progressBar.setProgress(0);
+
     }
 }

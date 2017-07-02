@@ -46,6 +46,7 @@ import java.util.List;
 import hsaugsburg.zirbl001.Datamanagement.DownloadImageTask;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.Callback;
+import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Models.TourDetailModel;
@@ -58,7 +59,7 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
-public class TourDetailActivity extends AppCompatActivity implements Callback {
+public class TourDetailActivity extends AppCompatActivity implements Callback, DownloadActivity {
 
     private static final String TAG = "TourDetailActivity";
     private static final int ACTIVITY_NUM = 0;
@@ -75,6 +76,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+
+    private int downloadTasksCounter = 0;
+    private int amountOfDownloadTasks = 7;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -130,16 +134,30 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         //setDetailImage();
 
 
+        ImageButton goButton = (ImageButton) findViewById(R.id.go);
+        goButton.setImageResource(R.drawable.btn_plus);
+
+
     }
 
     public void downloadTour() {
-        new DownloadJSON(this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
-        new DownloadJSON(this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
-        new DownloadJSON(this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
-        new DownloadJSON(this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
-        new DownloadJSON(this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
-        new DownloadJSON(this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
-        new DownloadJSON(this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
+        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
+        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+
+    }
+
+    public void downloadFinished() {
+        downloadTasksCounter++;
+
+        if (downloadTasksCounter >= amountOfDownloadTasks) {
+            ImageButton goButton = (ImageButton) findViewById(R.id.go);
+            goButton.setImageResource(R.drawable.btn_go);
+        }
 
     }
 

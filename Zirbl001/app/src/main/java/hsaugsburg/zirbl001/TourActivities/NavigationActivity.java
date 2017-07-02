@@ -120,16 +120,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         mapInstruction.setText(result.getMapInstruction());
     }
 
-    public void processData(StationModel result) {
-        stationName = result.getStationName();
-        TextView stationName = (TextView) findViewById(R.id.navigationTitle);
-        stationName.setText(result.getStationName());
-
-        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
-        mapInstruction.setText(result.getMapInstruction());
-    }
-
-
     //click on station name to hide or show the mapinstruction
     public void onClick(View view) {
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
@@ -169,4 +159,17 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public String getStationName() {
         return stationName;
     }
+
+
+
+
+    public void processData(StationModel result) {
+        stationName = result.getStationName();
+        TextView stationName = (TextView) findViewById(R.id.navigationTitle);
+        stationName.setText(result.getStationName());
+
+        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
+        mapInstruction.setText(result.getMapInstruction());
+    }
+
 }

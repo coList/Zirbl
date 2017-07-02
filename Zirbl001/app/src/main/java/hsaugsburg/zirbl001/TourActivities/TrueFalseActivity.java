@@ -237,22 +237,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     //
 
-    public void processData(TrueFalseModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-        rightAnswer = String.valueOf(result.isTrue());
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-        String imageURL = result.getPicturePath();
-        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
-
-    }
 
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
@@ -280,5 +264,25 @@ public class TrueFalseActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+
+
+
+    public void processData(TrueFalseModel result) {
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+        String imageURL = result.getPicturePath();
+        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
+
     }
 }

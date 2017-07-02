@@ -297,65 +297,6 @@ public class QuizActivity extends AppCompatActivity {
         }
     };
 
-
-    public void processData (QuizModel result) {
-
-        TextView question = (TextView) findViewById(R.id.questionText);
-
-
-        ArrayList<String> answers = new ArrayList<>();
-        if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
-            question.setText(fromHtml(result.getQuestion()));
-            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
-        } else {  //if it has an image:
-            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
-            relativeLayout.setVisibility(View.VISIBLE);
-            TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
-            questionBesideImg.setText(fromHtml(result.getQuestion()));
-            questionBesideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-
-            String imageURL = result.getPicturePath();
-            ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-            ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
-
-
-            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
-            ImageView line4 = (ImageView) findViewById(R.id.line4);
-            area4.setVisibility(View.GONE);
-            line4.setVisibility(View.GONE);
-            question.setVisibility(View.GONE);
-
-
-            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
-        }
-
-        amountOfAnswers = answers.size();
-
-        //put answer options into layout
-
-
-        answers = shuffleArray(answers);
-
-
-        for (int i = 0; i < answers.size(); i++) {
-
-            String name = "answer" + (i + 1);
-            int id = getResources().getIdentifier(name, "id", getPackageName());
-            TextView answer = (TextView) findViewById(id);
-            answer.setText(answers.get(i));
-        }
-
-        rightAnswer = result.getRightAnswer();
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-
-
-    }
-
     public ArrayList<String> shuffleArray(ArrayList<String> list) {
         Random random = new Random();
 
@@ -418,6 +359,69 @@ public class QuizActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+
+
+
+
+
+    public void processData (QuizModel result) {
+
+        TextView question = (TextView) findViewById(R.id.questionText);
+
+
+        ArrayList<String> answers = new ArrayList<>();
+        if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
+            question.setText(fromHtml(result.getQuestion()));
+            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
+        } else {  //if it has an image:
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.questionImage);
+            relativeLayout.setVisibility(View.VISIBLE);
+            TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
+            questionBesideImg.setText(fromHtml(result.getQuestion()));
+            questionBesideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+
+            String imageURL = result.getPicturePath();
+            ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+            ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
+
+
+            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
+            ImageView line4 = (ImageView) findViewById(R.id.line4);
+            area4.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
+            question.setVisibility(View.GONE);
+
+
+            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
+        }
+
+        amountOfAnswers = answers.size();
+
+        //put answer options into layout
+
+
+        answers = shuffleArray(answers);
+
+
+        for (int i = 0; i < answers.size(); i++) {
+
+            String name = "answer" + (i + 1);
+            int id = getResources().getIdentifier(name, "id", getPackageName());
+            TextView answer = (TextView) findViewById(id);
+            answer.setText(answers.get(i));
+        }
+
+        rightAnswer = result.getRightAnswer();
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+
+
     }
 }
 

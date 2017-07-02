@@ -250,6 +250,53 @@ public class LettersActivity extends AppCompatActivity {
 
     }
 
+    private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
+        Random random = new Random();
+
+        for (int i = stringBuilder.length() - 1; i > 1; i--) {
+            int numberToSwapWith = random.nextInt(i);
+            char tmp = stringBuilder.charAt(numberToSwapWith);
+            stringBuilder.setCharAt(numberToSwapWith, stringBuilder.charAt(i));
+            stringBuilder.setCharAt(i, tmp);
+        }
+
+        return stringBuilder;
+    }
+
+    private void showEndTourDialog() {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                alertEnd.showDialog((Activity) mContext);
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            showEndTourDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
+
+
+
+
+
+
+
     public void processData(LettersModel result) {
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(fromHtml(result.getQuestion()));
@@ -341,46 +388,6 @@ public class LettersActivity extends AppCompatActivity {
         }
     }
 
-    private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
-        Random random = new Random();
-
-        for (int i = stringBuilder.length() - 1; i > 1; i--) {
-            int numberToSwapWith = random.nextInt(i);
-            char tmp = stringBuilder.charAt(numberToSwapWith);
-            stringBuilder.setCharAt(numberToSwapWith, stringBuilder.charAt(i));
-            stringBuilder.setCharAt(i, tmp);
-        }
-
-        return stringBuilder;
-    }
-
-    private void showEndTourDialog() {
-        this.runOnUiThread(new Runnable() {
-            public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
-                alertEnd.showDialog((Activity) mContext);
-            }
-        });
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            showEndTourDialog();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public static Spanned fromHtml(String html){
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
-    }
 
 
 }

@@ -133,16 +133,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         loadTourChronology.continueToNextView();
     }
 
-    public void processData(DoUKnowModel result) {
-        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
-        doUKnow.setText(fromHtml(result.getContentText()));
-
-        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
-            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
-            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
-        }
-    }
-
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
             public void run() {
@@ -173,5 +163,18 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
     public String getStationName() {
         return stationName;
+    }
+
+
+
+
+    public void processData(DoUKnowModel result) {
+        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
+        doUKnow.setText(fromHtml(result.getContentText()));
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
+            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        }
     }
 }
