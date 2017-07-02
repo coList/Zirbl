@@ -16,6 +16,7 @@
         <include layout="@layout/layout_top_dark_actionbar" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/relLayoutProgressBar"
         android:layout_width="match_parent"
@@ -24,6 +25,7 @@
         <include layout="@layout/layout_progressbar" />
 
     </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
