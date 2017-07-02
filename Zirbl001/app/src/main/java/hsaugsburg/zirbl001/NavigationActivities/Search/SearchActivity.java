@@ -18,14 +18,12 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
-import hsaugsburg.zirbl001.Models.StationModel;
+import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 

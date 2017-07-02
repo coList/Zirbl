@@ -15,8 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import hsaugsburg.zirbl001.Models.StationLocationModel;
-import hsaugsburg.zirbl001.Models.StationModel;
+import hsaugsburg.zirbl001.Models.MapModels.StationLocationModel;
+import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
 public class JSONStationLocation extends AsyncTask<String, String, StationModel> {

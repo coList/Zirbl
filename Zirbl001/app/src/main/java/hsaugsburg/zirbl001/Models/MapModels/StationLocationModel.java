@@ -1,12 +1,8 @@
-package hsaugsburg.zirbl001.Models;
+package hsaugsburg.zirbl001.Models.MapModels;
 
 import org.json.JSONArray;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-
-/**
- * Created by Mowie on 27.06.17.
- */
 
 public class StationLocationModel implements JSONModel{
 

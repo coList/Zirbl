@@ -78,7 +78,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     String serverName;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 7;
+    private int amountOfDownloadTasks = 8;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
 
@@ -150,6 +150,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
 
     }
 

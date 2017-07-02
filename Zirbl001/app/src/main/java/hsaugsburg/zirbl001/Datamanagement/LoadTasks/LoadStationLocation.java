@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,8 +8,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.StationModel;
-import hsaugsburg.zirbl001.Models.TrueFalseModel;
+import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 
 public class LoadStationLocation {
 

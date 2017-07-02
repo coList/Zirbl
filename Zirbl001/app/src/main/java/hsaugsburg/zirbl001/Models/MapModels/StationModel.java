@@ -1,8 +1,5 @@
-package hsaugsburg.zirbl001.Models;
+package hsaugsburg.zirbl001.Models.MapModels;
 
-/**
- * Created by Mowie on 26.06.17.
- */
 
 public class StationModel {
     private int tourID;
