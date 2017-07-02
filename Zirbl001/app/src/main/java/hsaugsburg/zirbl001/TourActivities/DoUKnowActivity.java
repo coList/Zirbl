@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,14 +33,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadDoUKnow;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 
+import static hsaugsburg.zirbl001.R.id.dotMenu;
+import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
+
 public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = DoUKnowActivity.this;
+
+    private static final String TAG = "DoUKnowActivity";
 
     private int chronologyNumber;
     private int selectedTour;
@@ -47,13 +55,19 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private String stationName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
-    private TourChronologyTask tourChronologyTask;
+    private LoadTourChronology loadTourChronology;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
+
+
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
 
     @Override
     protected void onPause() {
@@ -65,6 +79,13 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
+
+        //dot menu
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
+
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         //get global tour values
@@ -75,15 +96,14 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
-        int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
-        tourChronologyTask = new TourChronologyTask(this, this, nextChronologyItem, chronologyNumber, currentScore);
+        //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
 
-        tourChronologyTask.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology.readChronologyFile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
@@ -108,14 +128,16 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        setDataView();
+
     }
 
+    public void setDataView() {
 
-    public void continueToNextView(View view) {
-        tourChronologyTask.continueToNextView();
-    }
+        int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
+        DoUKnowModel result = new LoadDoUKnow(this, selectedTour, infoPopupID).readFile();
 
-    public void processData(DoUKnowModel result) {
+
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         doUKnow.setText(fromHtml(result.getContentText()));
 
@@ -123,6 +145,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
             ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
         }
+    }
+
+
+    public void continueToNextView(View view) {
+        loadTourChronology.continueToNextView();
     }
 
     private void showEndTourDialog(){
@@ -155,5 +182,46 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
     public String getStationName() {
         return stationName;
+    }
+
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
+    }
+
+
+
+
+    public void processData(DoUKnowModel result) {
+        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
+        doUKnow.setText(fromHtml(result.getContentText()));
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
+            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        }
     }
 }
