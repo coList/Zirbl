@@ -44,6 +44,7 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class QuizActivity extends AppCompatActivity {
 
     private Context mContext = QuizActivity.this;
+    private static final String TAG = "QuizActivity";
 
 
     private int amountOfAnswers;
@@ -66,6 +67,12 @@ public class QuizActivity extends AppCompatActivity {
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
 
+
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -76,6 +83,12 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        //dot menu
+
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
@@ -359,6 +372,34 @@ public class QuizActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
     }
 
 

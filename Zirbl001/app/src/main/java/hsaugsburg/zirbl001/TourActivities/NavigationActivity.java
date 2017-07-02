@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
@@ -33,6 +34,7 @@ import hsaugsburg.zirbl001.R;
 public class NavigationActivity extends AppCompatActivity implements TourActivity{
 
     private Context mContext = NavigationActivity.this;
+    private static final String TAG = "NavigationActivity";
 
     private int chronologyNumber;
     private int selectedTour;
@@ -51,6 +53,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
 
+
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -61,6 +69,14 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        //dot menu
+
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
+
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
 
@@ -160,6 +176,33 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         return stationName;
     }
 
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
+    }
 
 
 

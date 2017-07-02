@@ -2,59 +2,33 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
-<<<<<<< HEAD
-=======
-import android.util.TypedValue;
-import android.view.Menu;
->>>>>>> refs/remotes/origin/master
+
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-<<<<<<< HEAD
-=======
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
->>>>>>> refs/remotes/origin/master
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-
-import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
-import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
-
 import hsaugsburg.zirbl001.R;
 
-<<<<<<< HEAD
 public class TourstartActivity extends AppCompatActivity implements TourActivity{
-=======
-import static hsaugsburg.zirbl001.R.id.dotMenu;
-import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
-
-public class TourstartActivity extends AppCompatActivity {
->>>>>>> refs/remotes/origin/master
 
     private static final String TAG = "TourstartActivity";
     private int maxAmountOfParticipants = 10;
@@ -112,10 +86,16 @@ public class TourstartActivity extends AppCompatActivity {
 
         //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
-<<<<<<< HEAD
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
         loadTourChronology.readChronologyFile();
-=======
+
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+        Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
+
+        editor.commit();
     }
     
     public void showMenu(View view){
@@ -143,22 +123,6 @@ public class TourstartActivity extends AppCompatActivity {
     }
     public void quitTour(View view){
         showEndTourDialog();
-    }
-
-
-    public void processData (ChronologyModel result, int lastChronologyValue) {
-        nextChronologyItem = result;
->>>>>>> refs/remotes/origin/master
-
-        //set global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        SharedPreferences.Editor editor = tourValues.edit();
-        editor.putString("tourID", Integer.toString(selectedTour));
-        editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
-        Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
-
-        editor.commit();
-
     }
 
 

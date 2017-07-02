@@ -79,6 +79,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 7;
+    private boolean downloadStarted = false;
+    private boolean firstClickOnGo = true;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -167,28 +169,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         tourName = intent.getStringExtra("tourName");
     }
 
-    boolean first = true;
     public void startTour(View view){
 
-        if (first) {
-
-            downloadTour();
-            first = false;
+        if (firstClickOnGo) {
+            if (!downloadStarted) {
+                downloadTour();
+                downloadStarted = true;
+                firstClickOnGo = false;
+            }
         } else {
-
-            /*
-            readTestFile("infopopups" + tourID + ".txt");
-            //readTestFile("/imageDir/" + tourID + "taskid" + 62 + ".jpg");
-            File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
-
-
-                File f=new File(zirblImages , tourID + "taskid" + 62 + ".jpg");
-                ImageView img=(ImageView)findViewById(R.id.image);
-                final String uri = Uri.fromFile(f).toString();
-                ImageLoader.getInstance().displayImage(uri, img);
-
-                */
-            readTestFile("infopopups" + tourID + ".txt");
             Intent intent = new Intent(mContext, TourstartActivity.class);
             intent.putExtra("tourID", Integer.toString(tourID));
             startActivity(intent);

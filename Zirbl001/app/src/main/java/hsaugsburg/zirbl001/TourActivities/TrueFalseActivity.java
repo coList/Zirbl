@@ -42,6 +42,7 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class TrueFalseActivity extends AppCompatActivity {
 
     private Context mContext = TrueFalseActivity.this;
+    private static final String TAG = "TrueFalseActivity";
 
     private boolean answerSelected = false;
     private boolean trueSelected;
@@ -61,6 +62,12 @@ public class TrueFalseActivity extends AppCompatActivity {
     private int totalChronologyValue;
 
 
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -71,6 +78,12 @@ public class TrueFalseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_true_false);
+
+        //dot menu
+
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
@@ -264,6 +277,33 @@ public class TrueFalseActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
     }
 
 

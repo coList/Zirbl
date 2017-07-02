@@ -168,6 +168,8 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
     }
     protected void onPostExecute(String result){
         super.onPostExecute(result);
+        File file = new File(innerName + selectedTour + ".txt");
+        file.deleteOnExit();
         downloadActivity.downloadFinished();
     }
 

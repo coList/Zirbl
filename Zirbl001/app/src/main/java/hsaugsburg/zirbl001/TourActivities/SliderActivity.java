@@ -21,7 +21,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -36,9 +38,10 @@ import hsaugsburg.zirbl001.R;
 public class SliderActivity extends AppCompatActivity {
 
     private Context mContext = SliderActivity.this;
+    private static final String TAG = "SliderActivity";
 
-    private static SeekBar slider;
-    private static TextView sliderCount;
+    private  SeekBar slider;
+    private  TextView sliderCount;
     private static Double minValue;
     private static int sliderMax = 2000;
 
@@ -65,6 +68,12 @@ public class SliderActivity extends AppCompatActivity {
     private int totalChronologyValue;
 
 
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -74,6 +83,13 @@ public class SliderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_slider);
+        //dot menu
+
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
@@ -85,7 +101,6 @@ public class SliderActivity extends AppCompatActivity {
 
         stationName = getIntent().getStringExtra("stationName");
 
-        setContentView(R.layout.activity_slider);
         slider = (SeekBar) findViewById(R.id.slider);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
@@ -256,6 +271,33 @@ public class SliderActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
     }
 
 
