@@ -107,25 +107,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
 
         editor.commit();
-
-        ImageLoader.getInstance().destroy();
-
-        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheInMemory(false)
-                .considerExifParams(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
-                .build();
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                .threadPoolSize(1)
-                .threadPriority(Thread.MAX_PRIORITY)
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .defaultDisplayImageOptions(defaultOptions)
-                .diskCacheExtraOptions(480, 320, null)
-                //.memoryCache(new WeakMemoryCache())
-                .build();
-        ImageLoader.getInstance().init(config);
     }
     
     public void showMenu(View view){
