@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ public class GoldenActivity extends AppCompatActivity {
 
     private Context mContext = GoldenActivity.this;
     private static final String TAG = "GoldenActivity";
+
+
+    public static final String TOUR_VALUES = "tourValuesFile";
 
     private int currentScore;    //dot menu
     private TextView title;
@@ -53,6 +57,18 @@ public class GoldenActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.answerText);
         text.setText(fromHtml(intent.getStringExtra("foundText")));
 
+
+
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        currentScore += Integer.parseInt(intent.getStringExtra("score"));
+
+        //change currentScore preference value
+
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("currentScore", Integer.toString(currentScore));
+        editor.commit();
+
         int nutsCollected = Integer.parseInt(intent.getStringExtra("nutsCollected"));
 
         int totalAmountsOfNuts = Integer.parseInt(intent.getStringExtra("totalAmountOfNuts"));
@@ -78,8 +94,6 @@ public class GoldenActivity extends AppCompatActivity {
         }
 
 
-        //currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        //currentScore += Integer.parseInt(getIntent().getStringExtra("score"));
 
     }
 

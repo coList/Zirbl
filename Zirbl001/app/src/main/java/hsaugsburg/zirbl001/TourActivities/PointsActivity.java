@@ -71,12 +71,12 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         stationName = getIntent().getStringExtra("stationName");
@@ -127,13 +127,17 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         }
 
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
 
         loadTourChronology.readChronologyFile();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
+
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("currentScore", Integer.toString(currentScore));
+        editor.commit();
 
     }
 

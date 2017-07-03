@@ -86,12 +86,13 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("currentScore", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
         Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
 
@@ -179,16 +180,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         String participant = participantText.getText().toString();
 
         if (teamName != null && !teamName.isEmpty() && participant != null && !participant.isEmpty()) {
-            /*
-            if (nextChronologyItem.getInfoPopupID() != null) {
-                Intent intent = new Intent(mContext, DoUKnowActivity.class);
-                intent.putExtra("chronologyNumber", Integer.toString(0));
-                intent.putExtra("currentscore", Integer.toString(currentScore));
-                intent.putExtra("stationName", "Start");
-                intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
-                startActivity(intent);
-            }
-            */
             loadTourChronology.continueToNextView();
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);

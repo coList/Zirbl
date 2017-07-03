@@ -50,7 +50,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String answerCorrect;
     private String answerWrong;
     private int score;
-    private int currentScore;
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
@@ -86,7 +85,6 @@ public class TrueFalseActivity extends AppCompatActivity {
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
@@ -169,7 +167,6 @@ public class TrueFalseActivity extends AppCompatActivity {
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("stationName", stationName);
-            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);

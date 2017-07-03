@@ -44,20 +44,23 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        //get global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+
+        String titleText = "Ergebnis";
         //dot menu
         title = (TextView) findViewById(R.id.titleActionbar);
+        title.setText(titleText);
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
-        currentScore = Integer.valueOf(getIntent().getStringExtra("currentscore"));
 
         TextView totalScore = (TextView) findViewById(R.id.endPoints);
         totalScore.setText(Integer.toString(currentScore));
 
-        //get global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);

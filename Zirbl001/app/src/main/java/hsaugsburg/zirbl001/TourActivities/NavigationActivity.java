@@ -65,7 +65,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private int chronologyNumber;
     private int selectedTour;
     private int stationID;
-    private int currentScore;
 
     private String stationName;
 
@@ -166,8 +165,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);

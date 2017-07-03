@@ -51,7 +51,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
     private int chronologyNumber;
     private int selectedTour;
-    private int currentScore;
     private String stationName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
@@ -95,8 +94,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
-
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -104,7 +101,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
