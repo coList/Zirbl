@@ -190,9 +190,8 @@ public class SliderActivity extends AppCompatActivity {
             userAnswer = Integer.toString(slider.getProgress() + minValue.intValue());
         }
 
-        Log.d("SliderActivity", Integer.toString(slider.getProgress() + minValue.intValue()));
-
         if (answerSelected)  {
+            finish();
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "true");
             intent.putExtra("range", Double.toString(range));
