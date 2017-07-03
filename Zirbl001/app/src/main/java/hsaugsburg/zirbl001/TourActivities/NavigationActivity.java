@@ -99,7 +99,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private final String API_KEY = "AIzaSyAZKY3-8A2pA2VHyEjXcCuV5aqA1mhB_Q0";
 
     private List<Polyline> polylinePaths = new ArrayList<>();
-    ArrayList<NutModel> nuts;
+    private ArrayList<NutModel> nuts;
+    private int nutsCollected = 0;
 
     private Marker myPosition;
     private boolean positionMarkerWasSet = false;
@@ -152,6 +153,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         //dot menu
 
         title = (TextView) findViewById(R.id.titleActionbar);
+        title.setText("Navigation");
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
@@ -172,23 +174,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         serverName = globalValues.getString("serverName", null);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Navigation");
-
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
-        }
         //new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/api/selectStationLocationsView.php");
 
         TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
@@ -482,6 +467,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
             if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !nut.isCollected()) {
                 nut.setCollected(true);
+                nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
                         nutMarker.get(i).remove();
@@ -491,6 +477,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 Intent intent = new Intent(mContext, GoldenActivity.class);
                 intent.putExtra("score", Integer.toString(nut.getScore()));
                 intent.putExtra("foundText", nut.getFoundText());
+                intent.putExtra("nutsCollected", Integer.toString(nutsCollected));
+                intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
             } else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !nut.isCollected()) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?

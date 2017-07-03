@@ -101,30 +101,14 @@ public class SliderActivity extends AppCompatActivity {
 
         stationName = getIntent().getStringExtra("stationName");
 
-        slider = (SeekBar) findViewById(R.id.slider);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
 
         if (stationName != null && !stationName.isEmpty()) {
-            getSupportActionBar().setTitle(stationName.toUpperCase());
+            title.setText(stationName.toUpperCase());
         } else {
-            getSupportActionBar().setTitle("START");
+            title.setText("START");
         }
 
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
-        }
+        slider = (SeekBar) findViewById(R.id.slider);
 
         TextView count = (TextView) findViewById(R.id.sliderCount);
         count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 56);

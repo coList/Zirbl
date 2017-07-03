@@ -82,6 +82,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         //dot menu
         title = (TextView) findViewById(R.id.titleActionbar);
+        String knowledge = "Wissen";
+        title.setText(knowledge);
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
@@ -107,22 +109,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        String knowledge = "WISSEN";
-        getSupportActionBar().setTitle(knowledge);
-
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
-        }
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
