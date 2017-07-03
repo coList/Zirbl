@@ -112,5 +112,5 @@
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
-        app:srcCompat="@color/colorTransparentLight" />
+        app:srcCompat="@color/colorTransparent30" />
 </RelativeLayout>

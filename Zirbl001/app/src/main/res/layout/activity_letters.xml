@@ -26,7 +26,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relLayout1"
+        android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relLayoutActionBar"
@@ -37,6 +37,7 @@
             android:id="@+id/questionArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -53,13 +54,14 @@
             <RelativeLayout
                 android:id="@+id/qestionImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/behindQuestionImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:visibility="visible" />
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -74,38 +76,41 @@
                     android:paddingRight="24dp"
                     android:paddingTop="24dp"
                     android:textColor="@color/colorAccent" />
+
             </RelativeLayout>
 
         </LinearLayout>
+
+        <TableRow
+            android:id="@+id/inputArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/answerArea"
+            android:layout_below="@+id/questionArea"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical">
+
+
+        </TableRow>
 
         <TableLayout
             android:id="@+id/answerArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/continueArea"
-            android:layout_below="@+id/questionArea"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
-            <TableRow
-                android:id="@+id/inputArea"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="24dp">
-
-
-            </TableRow>
 
             <TableRow
                 android:id="@+id/topLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter1"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -115,7 +120,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter2"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -125,7 +130,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter3"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -135,7 +140,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter4"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -145,7 +150,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter5"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -155,7 +160,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter6"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -165,7 +170,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter7"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -181,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter8"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -191,7 +196,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter9"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -201,7 +206,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter10"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -211,7 +216,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter11"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -221,7 +226,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter12"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -231,7 +236,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter13"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
@@ -241,7 +246,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                     android:id="@+id/letter14"
                     android:layout_width="0dp"
                     android:layout_height="48dp"

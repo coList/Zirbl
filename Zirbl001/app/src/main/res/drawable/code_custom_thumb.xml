@@ -8,7 +8,7 @@
             <solid android:color="#d8d8d8" />
             <corners android:radius="7dp" />
             <gradient android:type="radial" android:gradientRadius="150"
-                android:startColor="@color/colorAccent" android:endColor="@color/colorTransparent" />
+                android:startColor="@color/colorAccent" android:endColor="@color/colorTransparent30" />
 
             <size
                 android:height="37dp"
