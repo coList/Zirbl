@@ -223,6 +223,7 @@ public class LettersActivity extends AppCompatActivity {
         }
 
         if (answerSelected) {
+            finish();
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "false");
             intent.putExtra("userAnswer", userAnswer);

@@ -210,6 +210,7 @@ public class QuizActivity extends AppCompatActivity {
             Button selectedButton = (Button) findViewById(id);
             String userAnswer = selectedButton.getText().toString();
 
+            finish();
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "false");
             intent.putExtra("userAnswer", userAnswer);
