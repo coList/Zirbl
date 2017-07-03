@@ -51,7 +51,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
     private int chronologyNumber;
     private int selectedTour;
-    private int currentScore;
     private String stationName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
@@ -82,6 +81,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         //dot menu
         title = (TextView) findViewById(R.id.titleActionbar);
+        String knowledge = "Wissen";
+        title.setText(knowledge);
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
@@ -93,8 +94,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
-
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         stationName = getIntent().getStringExtra("stationName");
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -102,27 +101,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
-        String knowledge = "WISSEN";
-        getSupportActionBar().setTitle(knowledge);
-
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
-        }
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);

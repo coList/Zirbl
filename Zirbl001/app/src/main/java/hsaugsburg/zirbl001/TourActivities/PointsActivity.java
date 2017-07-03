@@ -71,12 +71,12 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
 
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         stationName = getIntent().getStringExtra("stationName");
@@ -93,9 +93,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         String correct = "RICHTIG";
         String wrong = "FALSCH";
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-
 
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
@@ -108,11 +105,11 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
-                getSupportActionBar().setTitle(correct);
+                title.setText(correct);
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
-                getSupportActionBar().setTitle(wrong);
+                title.setText(wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
@@ -120,37 +117,27 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerImage.setImageResource(R.drawable.img_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
-                getSupportActionBar().setTitle(correct);
+                title.setText(correct);
 
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
-                getSupportActionBar().setTitle(wrong);
+                title.setText(wrong);
             }
         }
 
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
-        }
 
-
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
 
         loadTourChronology.readChronologyFile();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
+
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("currentScore", Integer.toString(currentScore));
+        editor.commit();
 
     }
 

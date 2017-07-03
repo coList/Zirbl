@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_zirblnut_golden" />
+                app:srcCompat="@drawable/ic_sw_zirbl" />
 
             <ImageView
                 android:id="@+id/nut2"
@@ -139,7 +139,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_zirblnut_sw" />
+                app:srcCompat="@drawable/ic_sw_zirbl" />
 
             <ImageView
                 android:id="@+id/nut3"
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_zirblnut_sw" />
+                app:srcCompat="@drawable/ic_sw_zirbl" />
 
             <ImageView
                 android:id="@+id/nut4"
@@ -157,7 +157,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_zirblnut_sw" />
+                app:srcCompat="@drawable/ic_sw_zirbl" />
 
         </LinearLayout>
 

@@ -51,8 +51,6 @@ public class LettersActivity extends AppCompatActivity {
     private String answerWrong;
     private int score;
 
-    private int currentScore;
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
@@ -84,8 +82,6 @@ public class LettersActivity extends AppCompatActivity {
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
-        currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
-
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
@@ -95,27 +91,10 @@ public class LettersActivity extends AppCompatActivity {
         stationName = getIntent().getStringExtra("stationName");
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
-        setSupportActionBar(toolbar);
-
         if (stationName != null && !stationName.isEmpty()) {
-            getSupportActionBar().setTitle(stationName.toUpperCase());
+            title.setText(stationName.toUpperCase());
         } else {
-            getSupportActionBar().setTitle("START");
-        }
-
-        TextView actionbarText = null;
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            actionbarText = (TextView) f.get(toolbar);
-            actionbarText.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-            actionbarText.setAllCaps(true);
-            actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
+            title.setText("START");
         }
 
         TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
@@ -252,7 +231,6 @@ public class LettersActivity extends AppCompatActivity {
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
-            intent.putExtra("currentscore", Integer.toString(currentScore));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(LettersActivity.this, R.anim.shake);
