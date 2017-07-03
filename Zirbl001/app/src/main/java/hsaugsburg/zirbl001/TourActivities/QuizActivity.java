@@ -431,9 +431,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
-            ImageView line4 = (ImageView) findViewById(R.id.line4);
             area4.setVisibility(View.GONE);
-            line4.setVisibility(View.GONE);
             question.setVisibility(View.GONE);
 
 

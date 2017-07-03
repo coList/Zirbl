@@ -15,5 +15,6 @@ public class QuicksandBoldPrimaryButton extends android.support.v7.widget.AppCom
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Bold.ttf"));
         this.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        this.setAllCaps(false);
     }
 }

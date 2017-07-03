@@ -32,7 +32,6 @@
         android:background="@color/colorAccent"
         android:visibility="visible">
 
-
         <RelativeLayout
             android:id="@+id/answerArea"
             android:layout_width="match_parent"
@@ -70,15 +69,15 @@
 
                     <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
                         android:id="@+id/points"
-                        android:layout_width="match_parent"
+                        android:layout_width="120dp"
                         android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_weight="1"
                         android:ellipsize="none"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="100"
                         android:textSize="60sp"
                         app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
                         app:layout_constraintHorizontal_bias="0.49"
@@ -142,40 +141,89 @@
 
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">>
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/pointsImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    app:srcCompat="@drawable/img_right" />
+                <RelativeLayout
+                    android:id="@+id/pointsArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/pointsImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        app:srcCompat="@drawable/img_right" />
+
+                    <LinearLayout
+                        android:id="@+id/matchPointHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignBottom="@+id/pointsImage"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/placeholderAbove"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="2" />
+
+                        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+                            android:id="@+id/points"
+                            android:layout_width="120dp"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:ellipsize="none"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:textSize="60sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+                            app:layout_constraintHorizontal_bias="0.49"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/pointsImage"
+                            app:layout_constraintVertical_bias="0.81"
+                            tools:layout_editor_absoluteX="167dp"
+                            tools:layout_editor_absoluteY="246dp" />
+
+                        <TextView
+                            android:id="@+id/placeholderBelow"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5" />
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                     android:id="@+id/answerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/pointsImage"
+                    android:layout_below="@+id/pointsArea"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
 
                 <LinearLayout
                     android:id="@+id/continueArea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/answerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="24dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal">
 
                     <ImageButton
                         android:id="@+id/continueButton"
@@ -187,11 +235,14 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/btn_continue" />
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
         </ScrollView>
-        <![CDATA[>
+        <![CDATA[
 
-            ]]>
+        >
+
+
+    ]]>
     </RelativeLayout>
 
 </LinearLayout>
