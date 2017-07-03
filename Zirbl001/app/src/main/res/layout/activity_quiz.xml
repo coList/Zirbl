@@ -56,18 +56,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/imgLetter1"
+                    android:visibility="visible"
                     app:srcCompat="@color/colorLine" />
 
                 <RelativeLayout
                     android:id="@+id/questionImage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/behindQuestionImage"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
                         android:visibility="visible" />
 
                     <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -82,8 +84,7 @@
                         android:paddingRight="24dp"
                         android:paddingTop="24dp"
                         android:text=""
-                        android:textColor="@color/colorAccent"
-                        android:visibility="visible" />
+                        android:textColor="@color/colorAccent" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -97,7 +98,6 @@
                         android:id="@+id/answer1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/line1"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
                         android:textAlignment="textStart" />
@@ -133,7 +133,6 @@
                         android:id="@+id/answer2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/line2"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
                         android:textAlignment="textStart" />
@@ -169,7 +168,6 @@
                         android:id="@+id/answer3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/line3"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
                         android:textAlignment="textStart" />
@@ -205,7 +203,6 @@
                         android:id="@+id/answer4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignBottom="@+id/line4"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
                         android:textAlignment="textStart" />

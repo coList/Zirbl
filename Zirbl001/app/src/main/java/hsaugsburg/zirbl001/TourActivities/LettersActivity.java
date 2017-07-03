@@ -33,6 +33,7 @@ import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLetters;
+import hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton;
 import hsaugsburg.zirbl001.Models.LettersModel;
 import hsaugsburg.zirbl001.R;
 
@@ -136,17 +137,17 @@ public class LettersActivity extends AppCompatActivity {
 
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
-            final Button button = new Button(this);
+            final OpenSansBoldPrimaryButton button = new OpenSansBoldPrimaryButton(this);
             button.setId(i);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
             Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
-            button.setBackgroundResource(drawableId);
+            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName()); //Linie
+            button.setBackgroundResource(drawableId); //Linie
 
-            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
 
             //user wants to remove the old letter
@@ -340,7 +341,7 @@ public class LettersActivity extends AppCompatActivity {
             TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
             params.weight = 1;
             Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
+            int drawableId = context.getResources().getIdentifier("line", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
