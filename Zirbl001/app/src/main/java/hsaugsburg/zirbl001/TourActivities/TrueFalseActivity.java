@@ -157,6 +157,7 @@ public class TrueFalseActivity extends AppCompatActivity {
                 userAnswer = "false";
             }
 
+            finish();
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "false");
             intent.putExtra("userAnswer", userAnswer);
