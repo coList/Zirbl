@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/behindQuestionImage"
-                android:background="@color/colorNavigation"
+                android:background="@color/colorTransparent80"
                 android:gravity="bottom"
                 android:paddingBottom="24dp"
                 android:paddingLeft="24dp"
@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:visibility="visible"
-                app:srcCompat="@color/colorTransparentLight" />
+                app:srcCompat="@color/colorTransparent30" />
 
             <ImageView
                 android:id="@+id/lineBottom"
@@ -150,7 +150,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
                 android:visibility="visible"
-                app:srcCompat="@color/colorTransparentLight" />
+                app:srcCompat="@color/colorTransparent30" />
 
         </RelativeLayout>
 

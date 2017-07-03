@@ -24,7 +24,6 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
-import hsaugsburg.zirbl001.Fonts.TypefaceSpan;
 import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity {

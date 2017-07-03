@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/stationInfo"
-            android:background="@color/colorNavigation"
+            android:background="@color/colorTransparent80"
             android:clickable="true"
             android:onClick="onClick">
 
@@ -82,7 +82,7 @@
             android:id="@+id/stationInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorNavigation"
+            android:background="@color/colorTransparent80"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">

@@ -17,5 +17,6 @@ public class OpenSansBoldPoints extends AutoResizeTextView {
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-ExtraBold.ttf"));
         this.setTextColor(ContextCompat.getColor(context, R.color.colorBrown));
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
+        this.setAllCaps(true);
     }
 }
