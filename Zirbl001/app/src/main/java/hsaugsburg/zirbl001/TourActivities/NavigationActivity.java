@@ -27,8 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -77,7 +75,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
-    SharedPreferences tourValues;
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
 
@@ -164,7 +161,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
 
         //get global tour values
-        tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
@@ -202,6 +199,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 double latMyPos = location.getLatitude();
                 double lngMyPos = location.getLongitude();
                 latLngMyPos = new LatLng(latMyPos, lngMyPos);
+                Log.d(TAG, "location changed");
                 Geocoder geocoder = new Geocoder(getApplicationContext());
                 try {
                     List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
@@ -262,6 +260,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         mapInstruction.setText(result.getMapInstruction());
+
+
+
+
+
     }
 
 
@@ -291,6 +294,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             if (route.size() != 0) {
                 for (int i = 0; i < routes.getPoints().size(); i++)
                     polylineOptions.add(routes.getPoints().get(i));
+                Log.i("waypoints", routes.getPoints().get(0).toString());
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
             }
         }
@@ -300,10 +304,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        mMap.clear();
-        LatLng latLngAugsburg = new LatLng(48.3652377,10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang sieht
+
+        mMap = googleMap;
+        LatLng latLngAugsburg = new LatLng(48.3652377,10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang Sieht
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngAugsburg, 12));
 
 
@@ -375,8 +379,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
     public void continueToNextView(View view) {
-        mMap.clear();
-        finish();
         loadTourChronology.continueToNextView();
     }
 
@@ -437,8 +439,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             firstCall = false;
             String origin = "" + latLngMyPos.latitude + "," + latLngMyPos.longitude;
             String destination = "" + latTarget + "," + lngTarget;
+            Log.d(TAG, "onMapReady: orgign " + origin);
+            Log.d(TAG, "onMapReady: destination " + destination);
 
             String url = createURL(origin, destination);
+            Log.d(TAG, "onCreate: execute: " + url);
+
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
 
@@ -454,6 +460,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             int nutID = nut.getNutID();
             latLngNut = new LatLng(latNut, lngNut);
 
+            //Log.d(TAG, "onCreate: latlngtarget " + latLngMyTarget);
+            //latLngMyPos = new LatLng(48.367588, 10.896769);
+
             if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !nut.isCollected()) {
                 nut.setCollected(true);
                 nutsCollected ++;
@@ -463,14 +472,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     }
                 }
 
-                SharedPreferences.Editor editor = tourValues.edit();
-                editor.putString("nutsCollected", Integer.toString(nutsCollected));
-                editor.commit();
-
-                mMap.clear();
                 Intent intent = new Intent(mContext, GoldenActivity.class);
                 intent.putExtra("score", Integer.toString(nut.getScore()));
                 intent.putExtra("foundText", nut.getFoundText());
+                intent.putExtra("nutsCollected", Integer.toString(nutsCollected));
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
@@ -508,13 +513,21 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         drawPolyline(route);
 
-    }
+        /*
+        for (Route r: route) {
+            for (LatLng latLng: r.getPoints()) {
+                LatLng point = latLng;
+
+                mMap.addMarker(new MarkerOptions()
+                        .position(point)
+                        .title("Nächstes Ziel: " + "Punkt")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_flag))
+                );
+            }
+        }
+        */
 
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        System.gc();
     }
 
 

@@ -26,7 +26,7 @@ public class GoldenActivity extends AppCompatActivity {
 
     public static final String TOUR_VALUES = "tourValuesFile";
 
-    //dot menu
+    private int currentScore;    //dot menu
     private TextView title;
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
@@ -60,8 +60,7 @@ public class GoldenActivity extends AppCompatActivity {
 
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        int currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-        int nutsCollected = Integer.parseInt(tourValues.getString("nutsCollected", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         currentScore += Integer.parseInt(intent.getStringExtra("score"));
 
         //change currentScore preference value
@@ -69,6 +68,8 @@ public class GoldenActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("currentScore", Integer.toString(currentScore));
         editor.commit();
+
+        int nutsCollected = Integer.parseInt(intent.getStringExtra("nutsCollected"));
 
         int totalAmountsOfNuts = Integer.parseInt(intent.getStringExtra("totalAmountOfNuts"));
 
