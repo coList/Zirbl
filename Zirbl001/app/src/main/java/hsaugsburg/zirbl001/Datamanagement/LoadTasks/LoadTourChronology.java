@@ -29,16 +29,14 @@ public class LoadTourChronology {
     private Activity activity;
     private ChronologyModel nextChronologyItem;
     private int chronologyNumber;
-    private int currentScore;
     private int tourID;
     private int lastChronologyValue;
 
-    public LoadTourChronology(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int tourID, int chronologyNumber, int currentScore) {
+    public LoadTourChronology(Activity activity, TourActivity tourActivity, ChronologyModel nextChronologyItem, int tourID, int chronologyNumber) {
         this.activity = activity;
         this.tourActivity = tourActivity;
         this.nextChronologyItem = nextChronologyItem;
         this.chronologyNumber = chronologyNumber;
-        this.currentScore = currentScore;
         this.tourID = tourID;
     }
 
@@ -126,7 +124,6 @@ public class LoadTourChronology {
 
         }
         int nextchronologyNumber = chronologyNumber + 1;
-        intent.putExtra("currentscore", Integer.toString(currentScore));
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
         intent.putExtra("stationName", tourActivity.getStationName());
         activity.startActivity(intent);
