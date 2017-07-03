@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,10 +29,12 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
 import hsaugsburg.zirbl001.Models.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
@@ -39,6 +42,7 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class TrueFalseActivity extends AppCompatActivity {
 
     private Context mContext = TrueFalseActivity.this;
+    private static final String TAG = "TrueFalseActivity";
 
     private boolean answerSelected = false;
     private boolean trueSelected;
@@ -58,6 +62,12 @@ public class TrueFalseActivity extends AppCompatActivity {
     private int totalChronologyValue;
 
 
+    //dot menu
+    private TextView title;
+    private RelativeLayout dotMenuLayout;
+    private boolean dotMenuOpen = false;
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -69,8 +79,13 @@ public class TrueFalseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_true_false);
 
+        //dot menu
+
+        title = (TextView) findViewById(R.id.titleActionbar);
+        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         currentScore = Integer.parseInt(getIntent().getStringExtra("currentscore"));
         //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
 
@@ -106,7 +121,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
+        //new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -117,6 +132,33 @@ public class TrueFalseActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
+
+
+        setDataView();
+    }
+
+    public void setDataView() {
+
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        TrueFalseModel result = new LoadTrueFalse(this, selectedTour, taskID).readFile();
+
+
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+        String imageURL = result.getPicturePath();
+        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+        File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
+        File f=new File(zirblImages , selectedTour + "taskid" + taskID + ".jpg");
+        final String uri = Uri.fromFile(f).toString();
+        ImageLoader.getInstance().displayImage(uri, questionPicture);
 
     }
 
@@ -208,22 +250,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     };
     //
 
-    public void processData(TrueFalseModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-        rightAnswer = String.valueOf(result.isTrue());
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-        String imageURL = result.getPicturePath();
-        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
-
-    }
 
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
@@ -251,5 +277,52 @@ public class TrueFalseActivity extends AppCompatActivity {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public void showMenu(View view){
+
+        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
+        TextView menuStats = (TextView) findViewById(R.id.menuStats);
+        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
+
+        if(dotMenuOpen){
+            dotMenuLayout.setVisibility(RelativeLayout.GONE);
+            dotMenuOpen = false;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
+        } else {
+            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
+            dotMenuOpen = true;
+            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+            menuQuit.setTextSize(18);
+            menuStats.setTextSize(18);
+        }
+    }
+    public void showStats(View view){
+        Log.d(TAG, "showStats: Stats");
+    }
+    public void quitTour(View view){
+        showEndTourDialog();
+    }
+
+
+
+
+    public void processData(TrueFalseModel result) {
+        TextView question = (TextView) findViewById(R.id.questionText);
+        question.setText(fromHtml(result.getQuestion()));
+        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        rightAnswer = String.valueOf(result.isTrue());
+        answerCorrect = result.getAnswerCorrect();
+        answerWrong = result.getAnswerWrong();
+        score = result.getScore();
+
+        String imageURL = result.getPicturePath();
+        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
+
+        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
+
     }
 }

@@ -157,7 +157,7 @@
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:onClick="continueToNextView"
+                android:onClick="backToNavigation"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_continue"
                 android:visibility="visible"

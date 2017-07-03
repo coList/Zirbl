@@ -2,57 +2,43 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.util.TypedValue;
-import android.view.Menu;
+
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import hsaugsburg.zirbl001.Datamanagement.JSONTourstart;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
-
 import hsaugsburg.zirbl001.R;
 
-import static hsaugsburg.zirbl001.R.id.dotMenu;
-import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
-
-public class TourstartActivity extends AppCompatActivity {
+public class TourstartActivity extends AppCompatActivity implements TourActivity{
 
     private static final String TAG = "TourstartActivity";
     private int maxAmountOfParticipants = 10;
 
     private int selectedTour;
     private int currentScore = 0;
-    ChronologyModel nextChronologyItem = new ChronologyModel();
+    private ChronologyModel nextChronologyItem = new ChronologyModel();
+    private int chronologyNumber = -1;
+    private LoadTourChronology loadTourChronology;
+    private String stationName = "Anmeldung";
 
     private Context mContext = TourstartActivity.this;
 
@@ -94,12 +80,22 @@ public class TourstartActivity extends AppCompatActivity {
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
 
+
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
+        //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
+        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber, currentScore);
+        loadTourChronology.readChronologyFile();
 
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+        Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
+
+        editor.commit();
     }
     
     public void showMenu(View view){
@@ -129,23 +125,6 @@ public class TourstartActivity extends AppCompatActivity {
         showEndTourDialog();
     }
 
-
-    public void processData (ChronologyModel result, int lastChronologyValue) {
-        nextChronologyItem = result;
-
-        //set global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        SharedPreferences.Editor editor = tourValues.edit();
-        editor.putString("tourID", Integer.toString(selectedTour));
-        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
-
-        editor.commit();
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(lastChronologyValue + 1);
-        progressBar.setProgress(0);
-
-    }
 
     public void addParticipant(View view) {
         if (count < maxAmountOfParticipants - 1) {
@@ -190,6 +169,7 @@ public class TourstartActivity extends AppCompatActivity {
     }
 
     public void goIntoTour(View view) {
+        Log.d("Tourstart", "goIntoTour");
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         EditText teamNameText = (EditText) findViewById(R.id.teamname);
@@ -199,6 +179,7 @@ public class TourstartActivity extends AppCompatActivity {
         String participant = participantText.getText().toString();
 
         if (teamName != null && !teamName.isEmpty() && participant != null && !participant.isEmpty()) {
+            /*
             if (nextChronologyItem.getInfoPopupID() != null) {
                 Intent intent = new Intent(mContext, DoUKnowActivity.class);
                 intent.putExtra("chronologyNumber", Integer.toString(0));
@@ -207,6 +188,8 @@ public class TourstartActivity extends AppCompatActivity {
                 intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
                 startActivity(intent);
             }
+            */
+            loadTourChronology.continueToNextView();
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.continueButton).startAnimation(shake);
@@ -215,6 +198,10 @@ public class TourstartActivity extends AppCompatActivity {
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
 
+    }
+
+    public String getStationName() {
+        return stationName;
     }
 
     private void showEndTourDialog(){
@@ -233,5 +220,27 @@ public class TourstartActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+
+
+
+
+    public void processData (ChronologyModel result, int lastChronologyValue) {
+        nextChronologyItem = result;
+
+        //set global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+        editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
+
+        editor.commit();
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(lastChronologyValue + 1);
+        progressBar.setProgress(0);
+
     }
 }

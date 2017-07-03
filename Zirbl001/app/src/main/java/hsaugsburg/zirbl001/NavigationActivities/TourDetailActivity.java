@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -34,11 +36,17 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadImageTask;
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.Callback;
+import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Models.TourDetailModel;
@@ -51,7 +59,7 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
-public class TourDetailActivity extends AppCompatActivity implements Callback {
+public class TourDetailActivity extends AppCompatActivity implements Callback, DownloadActivity {
 
     private static final String TAG = "TourDetailActivity";
     private static final int ACTIVITY_NUM = 0;
@@ -68,6 +76,11 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+
+    private int downloadTasksCounter = 0;
+    private int amountOfDownloadTasks = 8;
+    private boolean downloadStarted = false;
+    private boolean firstClickOnGo = true;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -123,6 +136,32 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
         //setDetailImage();
 
 
+        ImageButton goButton = (ImageButton) findViewById(R.id.go);
+        goButton.setImageResource(R.drawable.btn_plus);
+
+
+    }
+
+    public void downloadTour() {
+        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
+        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
+        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
+
+    }
+
+    public void downloadFinished() {
+        downloadTasksCounter++;
+
+        if (downloadTasksCounter >= amountOfDownloadTasks) {
+            ImageButton goButton = (ImageButton) findViewById(R.id.go);
+            goButton.setImageResource(R.drawable.btn_go);
+        }
+
     }
 
     public void setIntentExtras(){
@@ -132,10 +171,49 @@ public class TourDetailActivity extends AppCompatActivity implements Callback {
     }
 
     public void startTour(View view){
-        Intent intent = new Intent(mContext, TourstartActivity.class);
-        intent.putExtra("tourID", Integer.toString(tourID));
-        startActivity(intent);
 
+        if (firstClickOnGo) {
+            if (!downloadStarted) {
+                downloadTour();
+                downloadStarted = true;
+                firstClickOnGo = false;
+            }
+        } else {
+            Intent intent = new Intent(mContext, TourstartActivity.class);
+            intent.putExtra("tourID", Integer.toString(tourID));
+            startActivity(intent);
+
+
+        }
+
+
+    }
+
+
+    static final int READ_BLOCK_SIZE = 100;
+
+    public void readTestFile(String filename) {
+        try {
+            FileInputStream fileIn = openFileInput(filename);
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
+
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
+            int charRead;
+
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                // char to string conversion
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
+
+            }
+            InputRead.close();
+            Log.d("TourDetailActivity", s.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void classRegistration(View view) {

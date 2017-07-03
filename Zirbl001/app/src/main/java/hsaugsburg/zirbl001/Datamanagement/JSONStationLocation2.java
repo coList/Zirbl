@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,10 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import hsaugsburg.zirbl001.Models.StationLocationModel;
-import hsaugsburg.zirbl001.Models.StationModel;
-import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
-import hsaugsburg.zirbl001.TourActivities.MapsActivity;
+import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 import hsaugsburg.zirbl001.TourActivities.NavigationActivity;
 
 public class JSONStationLocation2 extends AsyncTask<String, String, StationModel> {
