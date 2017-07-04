@@ -176,8 +176,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             e.printStackTrace();
         }
 
-        Log.d(TAG, listIsNutCollected.toString());
-
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
@@ -464,7 +462,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             int nutID = nuts.get(h).getNutID();
             latLngNut = new LatLng(latNut, lngNut);
 
-            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !listIsNutCollected.get(h)) {
+            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
@@ -472,17 +470,18 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     }
                 }
 
+                listIsNutCollected.set(h, true);
+
                 SharedPreferences.Editor editor = tourValues.edit();
                 editor.putString("nutsCollected", Integer.toString(nutsCollected));
                 try {
+                    editor.remove("listIsNutCollected");
                     editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 editor.commit();
 
-                listIsNutCollected.set(h, true);
-                Log.d(TAG, listIsNutCollected.toString());
                 Intent intent = new Intent(mContext, GoldenActivity.class);
                 intent.putExtra("score", Integer.toString(nuts.get(h).getScore()));
                 intent.putExtra("foundText", nuts.get(h).getFoundText());

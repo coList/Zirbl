@@ -3,7 +3,6 @@ package hsaugsburg.zirbl001.NavigationActivities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -38,7 +31,6 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HomeActivity extends AppCompatActivity implements Callback {
 
