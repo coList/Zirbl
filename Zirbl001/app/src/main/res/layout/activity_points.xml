@@ -48,8 +48,10 @@
                 <pl.droidsonroids.gif.GifImageView
                     android:id="@+id/gifImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:src="@drawable/confetti" />
 
                 <ImageView

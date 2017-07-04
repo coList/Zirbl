@@ -342,7 +342,7 @@ public class LettersActivity extends AppCompatActivity {
             TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
             params.weight = 1;
             Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName());
+            int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
