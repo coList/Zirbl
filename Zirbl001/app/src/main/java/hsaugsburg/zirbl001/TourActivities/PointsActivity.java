@@ -86,6 +86,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         int score = Integer.parseInt(getIntent().getStringExtra("score"));
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
+        View gif = (View) findViewById(R.id.gifImageView);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
         TextView scoreText = (TextView) findViewById(R.id.points);
 
@@ -107,6 +108,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
+                gif.setVisibility(View.GONE);
                 title.setText(wrong);
             }
         } else { //if not:

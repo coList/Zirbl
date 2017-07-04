@@ -93,15 +93,13 @@
                 <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                     android:id="@+id/startCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:layout_height="wrap_content" />
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                     android:id="@+id/endCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="100" />
+                    android:layout_alignParentRight="true" />
             </RelativeLayout>
 
         </LinearLayout>

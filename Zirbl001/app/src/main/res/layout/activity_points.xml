@@ -45,6 +45,13 @@
                 android:layout_above="@+id/answerText"
                 android:visibility="visible">
 
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gifImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/confetti" />
+
                 <ImageView
                     android:id="@+id/pointsImage"
                     android:layout_width="match_parent"
@@ -53,13 +60,6 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     app:srcCompat="@drawable/img_right"/>
-
-                <!--pl.droidsonroids.gif.GifImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/confetti"
-                    android:background="@android:color/transparent"
-                    /-->
 
                 <LinearLayout
                     android:id="@+id/matchPointHeight"
