@@ -95,7 +95,7 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
-        findViewById(R.id.slider).setPadding(100,0,100,0);
+        findViewById(R.id.slider).setPadding(40,0,40,0);
 
         stationName = getIntent().getStringExtra("stationName");
 
