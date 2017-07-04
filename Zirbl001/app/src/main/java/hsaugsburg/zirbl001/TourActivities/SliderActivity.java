@@ -95,6 +95,7 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        findViewById(R.id.slider).setPadding(100,0,100,0);
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -108,7 +109,7 @@ public class SliderActivity extends AppCompatActivity {
         slider = (SeekBar) findViewById(R.id.slider);
 
         TextView count = (TextView) findViewById(R.id.sliderCount);
-        count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 56);
+        count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
 
         slider.getProgressDrawable().setColorFilter(
                 ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -134,6 +135,12 @@ public class SliderActivity extends AppCompatActivity {
         isInteger = result.getIsInteger();
         minValue = result.getMinRange();
         range = result.getMaxRange() - minValue;
+
+        TextView startCount = (TextView) findViewById(R.id.startCount);
+        startCount.setText(""+result.getMinRange());
+
+        TextView endCount = (TextView) findViewById(R.id.endCount);
+        endCount.setText(""+result.getMaxRange());
 
 
         sliderCount = (TextView) findViewById(R.id.sliderCount);

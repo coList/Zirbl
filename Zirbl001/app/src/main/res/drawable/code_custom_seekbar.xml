@@ -1,37 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <item
         android:id="@android:id/background">
-        <shape>
+        <shape android:shape="rectangle">
             <corners
                 android:radius="5dp" />
             <gradient
                 android:angle="270"
-                android:startColor="#33000000"
-                android:endColor="#11000000"
+                android:startColor="@color/colorTransparent30"
+                android:endColor="@color/colorTransparent30"
                 android:centerY="0.2"
                 android:type="linear"
                 />
         </shape>
     </item>
 
-    <!--android:drawable="@drawable/img_seekbar"-->
-    <!--
-    <item android:id="@android:id/progress">
-        <clip
-            android:drawable="@color/colorTurquoise" />
+    <item
+        android:id="@android:id/progress" >
+        <scale android:scaleWidth="100%">
+            <shape android:shape="rectangle">
+                <corners android:radius="8dp"/>
+                <gradient
+                    android:endColor="#00FFA2"
+                    android:startColor="#2BC5D7"
+                    android:centerColor="#15E3BB" />
+            </shape>
+        </scale>
     </item>
-    -->
 
-    <item android:id="@android:id/progress">
-        <clip>
+    <item android:id="@android:id/secondaryProgress">
         <shape android:shape="rectangle">
-            <corners android:radius="8dp"/>
-            <gradient
-                android:endColor="@color/colorTurquoise"
-                android:startColor="#e8e8e8" />
-        </shape> />
-        </clip>
+            <size android:height="9dp"/>
+            <solid android:color="@color/android:transparent"/>
+        </shape>
     </item>
-
 </layer-list>
