@@ -68,18 +68,41 @@
                             android:layout_alignParentStart="true"
                             app:srcCompat="@drawable/code_pressed_route" />
 
-                        <ImageButton
-                            android:id="@+id/go"
-                            android:layout_width="62dp"
-                            android:layout_height="62dp"
+                        <RelativeLayout
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_alignBottom="@+id/position"
                             android:layout_alignRight="@+id/position"
                             android:layout_marginBottom="25dp"
-                            android:layout_marginRight="24dp"
-                            android:background="@android:color/transparent"
-                            android:onClick="startTour"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@drawable/btn_go" />
+                            android:layout_marginRight="24dp"                            >
+
+                            <ImageButton
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:id="@+id/go"
+                                android:background="@android:color/transparent"
+                                android:onClick="startTour"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@drawable/btn_go"
+                                android:layout_centerInParent="true"
+                                android:visibility="visible"/>
+
+                            <ProgressBar
+                                android:id="@+id/progressBarDownload"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="68dp"
+                                android:layout_height="68dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/code_circle_shape"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progress="65"
+                                android:progressDrawable="@drawable/code_circular_progressbar"
+                                android:visibility="gone" />
+
+
+                        </RelativeLayout>
+
 
                         <LinearLayout
                             android:id="@+id/iconArea"
