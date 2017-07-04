@@ -95,6 +95,7 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        findViewById(R.id.slider).setPadding(40,0,40,0);
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -108,7 +109,7 @@ public class SliderActivity extends AppCompatActivity {
         slider = (SeekBar) findViewById(R.id.slider);
 
         TextView count = (TextView) findViewById(R.id.sliderCount);
-        count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 56);
+        count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
 
         slider.getProgressDrawable().setColorFilter(
                 ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -135,16 +136,27 @@ public class SliderActivity extends AppCompatActivity {
         minValue = result.getMinRange();
         range = result.getMaxRange() - minValue;
 
+        TextView startCount = (TextView) findViewById(R.id.startCount);
+
+        TextView endCount = (TextView) findViewById(R.id.endCount);
+
 
         sliderCount = (TextView) findViewById(R.id.sliderCount);
 
         if (!isInteger) {
             slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
             sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+            startCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(minValue))));
+            endCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
         } else {
             Double value = result.getMaxRange() - minValue;
             slider.setMax(value.intValue());
             sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
+
+            startCount.setText(Integer.toString(minValue.intValue()));
+
+            Double maxValue = result.getMaxRange();
+            endCount.setText(Integer.toString(maxValue.intValue()));
         }
 
 

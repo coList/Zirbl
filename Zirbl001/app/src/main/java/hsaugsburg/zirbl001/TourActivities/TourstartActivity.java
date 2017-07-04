@@ -31,11 +31,15 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
 public class TourstartActivity extends AppCompatActivity implements TourActivity{
 
@@ -104,7 +108,17 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
-        Log.d("TourStartActivity", Integer.toString(loadTourChronology.getLastChronologyValue()));
+        try {
+            ArrayList<Boolean> listIsNutCollected = new ArrayList<>();
+
+            for (int i = 0; i < 4; i++) {
+                listIsNutCollected.add(false);
+            }
+            Log.d(TAG, listIsNutCollected.toString());
+            editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         editor.commit();
     }

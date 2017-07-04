@@ -1,13 +1,13 @@
 package hsaugsburg.zirbl001.NavigationActivities;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,24 +18,17 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Text;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,14 +36,12 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.DownloadImageTask;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Models.TourDetailModel;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
@@ -79,6 +70,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 8;
+    private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
 
@@ -136,10 +128,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         //setDetailImage();
 
 
-        ImageButton goButton = (ImageButton) findViewById(R.id.go);
-        goButton.setImageResource(R.drawable.btn_plus);
-
-
     }
 
     public void downloadTour() {
@@ -158,8 +146,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         downloadTasksCounter++;
 
         if (downloadTasksCounter >= amountOfDownloadTasks) {
-            ImageButton goButton = (ImageButton) findViewById(R.id.go);
-            goButton.setImageResource(R.drawable.btn_go);
+            downloadFinished = true;
         }
 
     }
@@ -171,22 +158,53 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     }
 
     public void startTour(View view){
-
         if (firstClickOnGo) {
             if (!downloadStarted) {
                 downloadTour();
                 downloadStarted = true;
                 firstClickOnGo = false;
+
+                doProgressBarAnimation();
             }
-        } else {
-            Intent intent = new Intent(mContext, TourstartActivity.class);
-            intent.putExtra("tourID", Integer.toString(tourID));
-            startActivity(intent);
-
-
         }
+    }
+
+    public void doProgressBarAnimation() {
+        ImageButton goButton = (ImageButton)findViewById(R.id.go);
+        goButton.setColorFilter(R.color.colorTransparent30);
+
+        final ProgressBar progressBarDownload = (ProgressBar) findViewById(R.id.progressBarDownload);
+        progressBarDownload.setMax(amountOfDownloadTasks - 1);
+        progressBarDownload.setProgress(0);
+        progressBarDownload.setVisibility(View.VISIBLE);
+
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+
+            public void run() {
+
+                    if(android.os.Build.VERSION.SDK_INT >= 11){
+                        // will update the "progress" propriety of seekbar until it reaches progress
+                        ObjectAnimator animation = ObjectAnimator.ofInt(progressBarDownload, "progress", downloadTasksCounter + 1);
+                        animation.setDuration(500);
+                        animation.setInterpolator(new DecelerateInterpolator());
+                        animation.start();
+                    }
+                    else
+                        progressBarDownload.setProgress(downloadTasksCounter + 1);
 
 
+                if (!downloadFinished) {
+                    handler.postDelayed(this, 500);
+                } else {
+
+                    Intent intent = new Intent(mContext, TourstartActivity.class);
+                    intent.putExtra("tourID", Integer.toString(tourID));
+                    startActivity(intent);
+                }
+            }
+        };
+        handler.postDelayed(runnable, 500);
     }
 
 

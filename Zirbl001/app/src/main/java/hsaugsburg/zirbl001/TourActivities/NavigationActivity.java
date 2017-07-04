@@ -57,6 +57,7 @@ import hsaugsburg.zirbl001.Models.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback {
 
@@ -80,6 +81,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     SharedPreferences tourValues;
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
+    ArrayList<Boolean> listIsNutCollected;
 
     private List<Route> directionRoute;
 
@@ -167,6 +169,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        listIsNutCollected = new ArrayList<>();
+        try {
+            listIsNutCollected = (ArrayList<Boolean>) ObjectSerializer.deserialize(tourValues.getString("listIsNutCollected", ObjectSerializer.serialize(new ArrayList<Boolean>())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
@@ -448,14 +456,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     private List<Marker> nutMarker = new ArrayList<Marker>();
     public void setNuts() {
-        for (NutModel nut: nuts) {
-            Double latNut = nut.getLatitude();
-            Double lngNut = nut.getLongitude();
-            int nutID = nut.getNutID();
+        for (int h = 0; h < nuts.size(); h++) {
+            Double latNut = nuts.get(h).getLatitude();
+            Double lngNut = nuts.get(h).getLongitude();
+            int nutID = nuts.get(h).getNutID();
             latLngNut = new LatLng(latNut, lngNut);
 
-            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !nut.isCollected()) {
-                nut.setCollected(true);
+            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
@@ -463,18 +470,25 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     }
                 }
 
+                listIsNutCollected.set(h, true);
+
                 SharedPreferences.Editor editor = tourValues.edit();
                 editor.putString("nutsCollected", Integer.toString(nutsCollected));
+                try {
+                    editor.remove("listIsNutCollected");
+                    editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 editor.commit();
 
-                mMap.clear();
                 Intent intent = new Intent(mContext, GoldenActivity.class);
-                intent.putExtra("score", Integer.toString(nut.getScore()));
-                intent.putExtra("foundText", nut.getFoundText());
+                intent.putExtra("score", Integer.toString(nuts.get(h).getScore()));
+                intent.putExtra("foundText", nuts.get(h).getFoundText());
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
-            } else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !nut.isCollected()) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
+            } else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -491,7 +505,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     ));
                 }
 
-            } else if (!nut.isCollected()) {
+            } else if (!listIsNutCollected.get(h)) {
                 for (Marker marker: nutMarker) {
                    if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
                        marker.setVisible(false);
