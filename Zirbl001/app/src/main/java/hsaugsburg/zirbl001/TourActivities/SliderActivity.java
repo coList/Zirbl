@@ -137,10 +137,8 @@ public class SliderActivity extends AppCompatActivity {
         range = result.getMaxRange() - minValue;
 
         TextView startCount = (TextView) findViewById(R.id.startCount);
-        startCount.setText(""+result.getMinRange());
 
         TextView endCount = (TextView) findViewById(R.id.endCount);
-        endCount.setText(""+result.getMaxRange());
 
 
         sliderCount = (TextView) findViewById(R.id.sliderCount);
@@ -148,10 +146,16 @@ public class SliderActivity extends AppCompatActivity {
         if (!isInteger) {
             slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
             sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+            startCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(minValue))));
+            endCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
         } else {
             Double value = result.getMaxRange() - minValue;
             slider.setMax(value.intValue());
             sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
+
+            startCount.setText(Integer.toString(getConvertedIntValue(minValue)));
+
+            endCount.setText(Integer.toString(getConvertedIntValue(result.getMaxRange())));
         }
 
 

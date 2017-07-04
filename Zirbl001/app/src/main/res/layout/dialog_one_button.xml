@@ -30,7 +30,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_container_top"
         android:background="@color/colorAccent"
-        android:layout_below="@+id/title_container">
+        android:layout_below="@+id/title_container"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:layout_width="wrap_content"
@@ -49,9 +51,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_container_bottom"
+        android:id="@+id/text_container_middle"
         android:background="@color/colorAccent"
         android:layout_below="@+id/text_container_top">
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/text_dialog_middle"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_container_bottom"
+        android:background="@color/colorAccent"
+        android:layout_below="@+id/text_container_middle">
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:layout_width="wrap_content"
@@ -76,6 +101,49 @@
             android:layout_height="2dp"
             app:srcCompat="@color/colorLine" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/download_animation_container"
+        android:background="@color/colorAccent"
+        android:layout_below="@+id/title_container"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_loading_point_color" />
+
+        <ImageView
+            android:id="@+id/dot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_loading_point_color" />
+
+        <ImageView
+            android:id="@+id/dot3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/ic_loading_point_color" />
     </LinearLayout>
 
 
