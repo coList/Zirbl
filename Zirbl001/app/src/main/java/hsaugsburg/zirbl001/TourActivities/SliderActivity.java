@@ -153,9 +153,10 @@ public class SliderActivity extends AppCompatActivity {
             slider.setMax(value.intValue());
             sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
 
-            startCount.setText(Integer.toString(getConvertedIntValue(minValue)));
+            startCount.setText(Integer.toString(minValue.intValue()));
 
-            endCount.setText(Integer.toString(getConvertedIntValue(result.getMaxRange())));
+            Double maxValue = result.getMaxRange();
+            endCount.setText(Integer.toString(maxValue.intValue()));
         }
 
 
