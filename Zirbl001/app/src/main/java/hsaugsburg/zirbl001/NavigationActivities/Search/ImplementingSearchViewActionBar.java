@@ -15,7 +15,7 @@ public class ImplementingSearchViewActionBar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.searchview_android_actionbar);
+        setContentView(R.layout.activity_search);
     }
 
     @Override
