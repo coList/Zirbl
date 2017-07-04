@@ -33,6 +33,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
     private Context mContext = ScanBarcodeActivity.this;
     private String errorMessage = "Das Scannen des QR-Codes hat leider nicht funktioniert.";
     private String successMessage = "";
+    String downloadMessage = "Lade dir die <b>Tour</b> jetzt herunter, um <b>Wartezeiten</b> während der Tour zu <b>vermeiden</b>.";
 
     private int tourID;
     private String tourName;
@@ -91,8 +92,8 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         this.runOnUiThread(new Runnable() {
             public void run() {
-                QrDialog alertSuccess = new QrDialog(mContext, true, "WEITER");
-                alertSuccess.showDialog((Activity) mContext, successMessage, "Viel Spaß bei der Tour!", tourID);
+                QrDialog alertSuccess = new QrDialog(mContext, true, "DOWNLOAD");
+                alertSuccess.showDialog((Activity) mContext, successMessage, downloadMessage, "Viel Spaß bei der Tour!", tourID);
             }
         });
     }
@@ -102,7 +103,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
         this.runOnUiThread(new Runnable() {
             public void run() {
                 QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL");
-                alertFail.showDialog((Activity) mContext, errorMessage, "Versuche es erneut!", tourID);
+                alertFail.showDialog((Activity) mContext, errorMessage, null, "Versuche es erneut!", tourID);
             }
         });
     }
