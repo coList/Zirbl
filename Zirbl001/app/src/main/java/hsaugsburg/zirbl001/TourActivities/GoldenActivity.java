@@ -54,7 +54,7 @@ public class GoldenActivity extends AppCompatActivity {
         goldenPoints.setTextColor(ContextCompat.getColor(this, R.color.colorGold));
         goldenPoints.setText(intent.getStringExtra("score"));
 
-        TextView text = (TextView) findViewById(R.id.answerText);
+        TextView text = (TextView) findViewById(R.id.goldenText);
         text.setText(fromHtml(intent.getStringExtra("foundText")));
 
 
