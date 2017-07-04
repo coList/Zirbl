@@ -69,9 +69,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
-
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);

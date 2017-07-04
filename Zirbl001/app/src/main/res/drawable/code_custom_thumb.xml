@@ -3,29 +3,39 @@
 
     <!-- Bottom 2dp Shadow -->
     <item>
-        <shape  android:shape="oval">
 
-            <solid android:color="#d8d8d8" />
-            <corners android:radius="7dp" />
-            <gradient android:type="radial" android:gradientRadius="150"
-                android:startColor="@color/colorAccent" android:endColor="@color/colorTransparent30" />
+        <shape
+            android:shape="oval">
 
+            <corners
+                android:radius="7dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="150"
+                android:startColor="@color/colorAccent"
+                android:endColor="@color/colorTransparent30" />
             <size
-                android:height="37dp"
-                android:width="37dp" />
+                android:height="35dp"
+                android:width="35dp" />
 
         </shape>
+
     </item>
 
     <!-- White Top color -->
-    <item android:bottom="3px" android:top="3px" android:left="3px" android:right="3px">
+    <item
+        android:bottom="2px"
+        android:top="2px"
+        android:left="2px"
+        android:right="2px">
 
-        <shape  android:shape="oval">
+        <shape
+            android:shape="oval">
 
-            <solid android:color="#FFFFFF" />
-            <corners android:radius="7dp" />
-
-
+            <solid
+                android:color="#FFFFFF" />
+            <corners
+                android:radius="7dp" />
 
         </shape>
 
