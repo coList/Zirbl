@@ -76,8 +76,6 @@
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
                 android:background="@android:color/white"
                 android:gravity="center|center_vertical"
                 android:maxHeight="7dp"
@@ -88,8 +86,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="48dp"
-                android:layout_marginRight="48dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
                 android:orientation="horizontal">
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
