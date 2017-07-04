@@ -108,7 +108,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong);
-                gif.setVisibility(View.GONE);
                 title.setText(wrong);
             }
         } else { //if not:

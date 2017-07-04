@@ -141,8 +141,11 @@ public class LettersActivity extends AppCompatActivity {
             button.setId(i);
             TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
+            float d = getResources().getDisplayMetrics().density;
+            params.leftMargin = (int) (3 * d);
+            params.rightMargin = (int) (3 * d);
             Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("button_underline", "drawable", context.getPackageName()); //Linie
+            int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName()); //Linie
             button.setBackgroundResource(drawableId); //Linie
 
             int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
@@ -339,15 +342,18 @@ public class LettersActivity extends AppCompatActivity {
         for (int i = 0; i < solutionLength; i++) {
             final Button button = new Button(this);
             button.setId(i);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
+            float d = getResources().getDisplayMetrics().density;
+            params.leftMargin = (int) (3 * d);
+            params.rightMargin = (int) (3 * d);
             Context context = button.getContext();
             int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
             int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
             button.setTextColor(colorId);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
 
             //user wants to remove the old letter
