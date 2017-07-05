@@ -88,6 +88,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
         TextView scoreText = (TextView) findViewById(R.id.points);
+        ImageView gif = (ImageView) findViewById(R.id.gifConfetti);
 
         String correct = "RICHTIG";
         String wrong = "FALSCH";
@@ -100,26 +101,30 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userInput >= rightAnswer - 0.05 * range &&
                     userInput <= rightAnswer + 0.05 * range) {
                 answerText.setText(fromHtml(answerCorrect));
-                answerImage.setImageResource(R.drawable.img_right);
+                answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
                 title.setText(correct);
             } else {
                 answerText.setText(fromHtml(answerWrong));
-                answerImage.setImageResource(R.drawable.img_wrong);
+                answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                gif.setImageResource(R.drawable.confetti_wrong);
                 title.setText(wrong);
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
-                answerImage.setImageResource(R.drawable.img_right);
+                answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
                 title.setText(correct);
 
             } else {
                 answerText.setText(fromHtml(answerWrong));
-                answerImage.setImageResource(R.drawable.img_wrong);
+                answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                gif.setImageResource(R.drawable.confetti_wrong);
                 title.setText(wrong);
             }
         }
