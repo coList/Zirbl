@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -254,6 +255,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                                 }
                                 editor.commit();
 
+
+                                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                                vibe.vibrate(100);
                                 Intent intent = new Intent(mContext, DoUKnowActivity.class);
                                 intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
                                 intent.putExtra("chronologyNumber", Integer.toString(-1));
@@ -266,6 +270,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
                     if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
                         loadTourChronology.continueToNextView();
                     }
 
@@ -519,6 +526,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 }
                 editor.commit();
 
+
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(100);
                 Intent intent = new Intent(mContext, GoldenActivity.class);
                 intent.putExtra("score", Integer.toString(nuts.get(h).getScore()));
                 intent.putExtra("foundText", nuts.get(h).getFoundText());
