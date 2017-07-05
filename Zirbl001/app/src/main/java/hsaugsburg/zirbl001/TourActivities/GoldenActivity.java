@@ -89,7 +89,7 @@ public class GoldenActivity extends AppCompatActivity {
             String nameImageView = "nut" + (i + 1);
             int imageViewID = getResources().getIdentifier(nameImageView, "id", getPackageName());
             ImageView nutsImages = (ImageView) findViewById(imageViewID);
-            nutsImages.setImageResource(R.drawable.ic_gold_zirbl);
+            nutsImages.setImageResource(R.drawable.ic_zirblnut_golden);
         }
 
 

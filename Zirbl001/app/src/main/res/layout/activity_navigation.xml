@@ -75,7 +75,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="24dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/arrow" />
+                app:srcCompat="@drawable/_map_arrow" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -103,19 +103,15 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|center_vertical">
 
-            <ImageButton
+            <Button
                 android:id="@+id/nextTourItem"
-                android:layout_width="175dp"
+                android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:onClick="continueToNextView"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_continue"
-                android:visibility="visible" />
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="3dp"
+                android:onClick="continueToNextView" />
+
         </RelativeLayout>
     </RelativeLayout>
 

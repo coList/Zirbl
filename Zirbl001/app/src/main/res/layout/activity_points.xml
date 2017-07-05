@@ -43,7 +43,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/answerText"
+                android:layout_alignParentTop="true"
                 android:visibility="visible">
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gifConfetti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:src="@drawable/confetti_right" />
 
                 <ImageView
                     android:id="@+id/pointsImage"
@@ -52,14 +63,7 @@
                     android:adjustViewBounds="true"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    app:srcCompat="@drawable/img_right"/>
-
-                <!--pl.droidsonroids.gif.GifImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/confetti"
-                    android:background="@android:color/transparent"
-                    /-->
+                    app:srcCompat="@drawable/img_right_without_confetti" />
 
                 <LinearLayout
                     android:id="@+id/matchPointHeight"
