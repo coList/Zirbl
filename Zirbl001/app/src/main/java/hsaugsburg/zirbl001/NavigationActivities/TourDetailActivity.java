@@ -169,6 +169,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }
     }
 
+    private int secondCounter = 0;
     public void doProgressBarAnimation() {
         ImageButton goButton = (ImageButton)findViewById(R.id.go);
         goButton.setColorFilter(R.color.colorTransparent30);
@@ -191,10 +192,17 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                         animation.start();
                     }
                     else
+                    {
                         progressBarDownload.setProgress(downloadTasksCounter + 1);
+                    }
+
+                    if (downloadFinished) {
+                        secondCounter++;
+                    }
 
 
-                if (!downloadFinished) {
+
+                if (!downloadFinished || secondCounter < 2) {
                     handler.postDelayed(this, 500);
                 } else {
 
