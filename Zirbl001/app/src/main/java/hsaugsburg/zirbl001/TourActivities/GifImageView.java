@@ -8,12 +8,13 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 
-public class GifImageView extends View {
+public class GifImageView extends android.support.v7.widget.AppCompatImageView {
 
     private InputStream mInputStream;
     private Movie mMovie;
