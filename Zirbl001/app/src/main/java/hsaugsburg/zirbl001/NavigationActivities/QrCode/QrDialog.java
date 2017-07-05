@@ -42,7 +42,7 @@ public class QrDialog implements DownloadActivity {
     String serverName;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 7;
+    private int amountOfDownloadTasks = 9;
 
     Activity activity;
 
@@ -214,6 +214,8 @@ public class QrDialog implements DownloadActivity {
         new DownloadJSON(activity, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
 
     }
 

@@ -132,7 +132,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
     public void continueToNextView(View view) {
-        loadTourChronology.continueToNextView();
+        if (chronologyNumber < 0) {
+            this.finish();
+        } else {
+            loadTourChronology.continueToNextView();
+        }
     }
 
     private void showEndTourDialog(){
