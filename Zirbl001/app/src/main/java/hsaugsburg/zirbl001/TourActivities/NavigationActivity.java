@@ -48,11 +48,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDirectionsAPI;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadNutLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.Models.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
@@ -82,6 +84,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
     ArrayList<Boolean> listIsNutCollected;
+    ArrayList<Boolean> listDoUKnowRead;
 
     private List<Route> directionRoute;
 
@@ -105,6 +108,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ArrayList<NutModel> nuts;
     private int nutsCollected = 0;
+
+    private ArrayList<DoUKnowModel> doUKnowModels;
 
     private Marker myPosition;
     private boolean positionMarkerWasSet = false;
@@ -170,8 +175,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         listIsNutCollected = new ArrayList<>();
+        listDoUKnowRead = new ArrayList<>();
         try {
             listIsNutCollected = (ArrayList<Boolean>) ObjectSerializer.deserialize(tourValues.getString("listIsNutCollected", ObjectSerializer.serialize(new ArrayList<Boolean>())));
+            listDoUKnowRead = (ArrayList<Boolean>) ObjectSerializer.deserialize(tourValues.getString("listDoUKnowRead", ObjectSerializer.serialize(new ArrayList<Boolean>())));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,6 +203,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         setDataView();
         nuts = new LoadNutLocation(this, selectedTour).readFile();
+        doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -228,9 +236,38 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
                     //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
 
-
                     setRoute();
                     setNuts();
+
+                    //check for infopopup
+                    for (int i = 0; i < doUKnowModels.size(); i++) {
+                        if (!listDoUKnowRead.get(i)) {
+                            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
+                                listDoUKnowRead.set(i, true);
+
+                                SharedPreferences.Editor editor = tourValues.edit();
+                                try {
+                                    editor.remove("listDoUKnowRead");
+                                    editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                editor.commit();
+
+                                Intent intent = new Intent(mContext, DoUKnowActivity.class);
+                                intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
+                                intent.putExtra("chronologyNumber", Integer.toString(-1));
+                                intent.putExtra("stationName", getStationName());
+                                startActivity(intent);
+                            }
+                        }
+
+                    }
+
+
+                    if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+                        loadTourChronology.continueToNextView();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -462,7 +499,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             int nutID = nuts.get(h).getNutID();
             latLngNut = new LatLng(latNut, lngNut);
 
-            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !(listIsNutCollected.get(h))) {
+            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {

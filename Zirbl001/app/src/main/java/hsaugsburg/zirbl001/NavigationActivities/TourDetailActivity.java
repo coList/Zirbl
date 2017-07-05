@@ -69,7 +69,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     String serverName;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 8;
+    private int amountOfDownloadTasks = 9;
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
@@ -139,6 +139,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
         new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
 
     }
 
@@ -147,6 +148,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         if (downloadTasksCounter >= amountOfDownloadTasks) {
             downloadFinished = true;
+            readTestFile("location_infopopups" + tourID + ".txt");
         }
 
     }
@@ -169,6 +171,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }
     }
 
+    private int secondCounter = 0;
     public void doProgressBarAnimation() {
         ImageButton goButton = (ImageButton)findViewById(R.id.go);
         goButton.setColorFilter(R.color.colorTransparent30);
@@ -191,10 +194,17 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                         animation.start();
                     }
                     else
+                    {
                         progressBarDownload.setProgress(downloadTasksCounter + 1);
+                    }
+
+                    if (downloadFinished) {
+                        secondCounter++;
+                    }
 
 
-                if (!downloadFinished) {
+
+                if (!downloadFinished || secondCounter < 2) {
                     handler.postDelayed(this, 500);
                 } else {
 
