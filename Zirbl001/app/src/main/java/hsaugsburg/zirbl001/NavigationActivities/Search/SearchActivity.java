@@ -53,6 +53,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     private ListView mListView;
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+    private SearchSelectionAdapter adapter;
 
 
     //Animation beim Activity wechsel verhindern
@@ -121,6 +122,10 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+                //Hier muss die Liste gefiltert werden
+                adapter.getFilter().filter(newText);
+
                 return false;
             }
         });
@@ -143,9 +148,10 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     public void processData(List<JSONModel> result) {
 
 
-        SearchSelectionAdapter adapter = new SearchSelectionAdapter(this, result);
+        adapter = new SearchSelectionAdapter(this, result);
         mListView.setAdapter(adapter);
         final List<JSONModel> tourSelectionItems = result;
+
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

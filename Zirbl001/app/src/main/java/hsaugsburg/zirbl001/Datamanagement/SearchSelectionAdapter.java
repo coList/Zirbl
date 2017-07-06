@@ -8,22 +8,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
 
-public class SearchSelectionAdapter extends BaseAdapter {
+public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<JSONModel> mDataSource;
+
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -86,5 +92,11 @@ public class SearchSelectionAdapter extends BaseAdapter {
 
         return rowView;
 
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }
