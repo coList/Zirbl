@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tour_selection_element"
+    android:id="@+id/search_selection_element"
     android:layout_width="match_parent"
-    android:layout_height="187dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="4dp">
 
-    <ImageView
-        android:id="@+id/transparent"
+    <LinearLayout
+        android:id="@+id/titleArea"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorAccent" />
-
-    <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/descriptionShort"
+        android:layout_alignBottom="@+id/transparent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="horizontal">
+
+        <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
+            android:id="@+id/tourTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/descriptionShort"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/descriptionArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/transparent"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimaryDark" />
+        android:orientation="horizontal"
+        android:layout_below="@+id/titleArea">
 
-    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-        android:id="@+id/descriptionShort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/iconArea"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:text="#" />
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+            android:id="@+id/descriptionShort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/iconArea"
+            android:text="Erkundet mit Zirbl den Augsburger Zoo." />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/iconArea"
@@ -44,7 +55,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/descriptionArea">
 
         <ImageView
             android:id="@+id/duration"
@@ -61,9 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textAlignment="textEnd" />
 
         <ImageView
             android:id="@+id/distance"
@@ -80,9 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textAlignment="textEnd" />
 
         <ImageView
             android:id="@+id/difficulty"
@@ -99,18 +107,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="24dp"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textAlignment="textEnd" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/bottomLine"
-        android:layout_width="match_parent"
 
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="1"
-        app:srcCompat="@color/colorTransparent30" />
 </RelativeLayout>

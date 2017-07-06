@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tabbar"
         android:background="@color/colorPrimaryDark"
-        android:visibility="gone">
+>
 
         <LinearLayout
             android:id="@+id/lineOne"
