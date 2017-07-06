@@ -57,7 +57,7 @@
 
         <ImageButton
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"

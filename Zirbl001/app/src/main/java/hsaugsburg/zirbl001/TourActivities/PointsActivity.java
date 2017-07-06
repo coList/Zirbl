@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -83,6 +85,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String userAnswer = getIntent().getStringExtra("userAnswer");
         String answerCorrect = getIntent().getStringExtra("answerCorrect");
         String answerWrong = getIntent().getStringExtra("answerWrong");
+        int stringLengthC = answerCorrect.length();
+        Log.d(TAG, Integer.toString(stringLengthC));
+        int stringLengthW = answerWrong.length();
+        Log.d(TAG, Integer.toString(stringLengthW));
         int score = Integer.parseInt(getIntent().getStringExtra("score"));
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
@@ -128,6 +134,45 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 title.setText(wrong);
             }
         }
+
+        //Scroll View State Change
+        RelativeLayout pointsArea = (RelativeLayout) findViewById(R.id.pointsArea);
+        LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
+        RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
+        RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
+        RelativeLayout.LayoutParams paramsText = (RelativeLayout.LayoutParams) answerText.getLayoutParams();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        Log.d(TAG, "Höhe: " + height);
+        Log.d(TAG, Double.toString(((double)stringLengthC)/height));
+        Log.d(TAG, Double.toString(((double)stringLengthW)/height));
+        if(((double)stringLengthC)/height <= 0.16 || ((double)stringLengthW)/height <= 0.16) {
+            paramsContinue.addRule(RelativeLayout.BELOW, 0);
+            paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+            paramsText.addRule(RelativeLayout.BELOW, 0);
+            paramsText.addRule(RelativeLayout.ABOVE, R.id.continueArea);
+
+            paramsPoints.addRule(RelativeLayout.ABOVE, R.id.answerText);
+
+            continueArea.setLayoutParams(paramsContinue);
+            pointsArea.setLayoutParams(paramsPoints);
+            answerText.setLayoutParams(paramsText);
+        } else {
+            paramsPoints.addRule(RelativeLayout.ABOVE, 0);
+
+            paramsText.addRule(RelativeLayout.ABOVE, 0);
+            paramsText.addRule(RelativeLayout.BELOW, R.id.pointsArea);
+
+            paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            paramsContinue.addRule(RelativeLayout.BELOW, R.id.answerText);
+
+            continueArea.setLayoutParams(paramsContinue);
+            pointsArea.setLayoutParams(paramsPoints);
+            answerText.setLayoutParams(paramsText);
+        }
+        //
 
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
