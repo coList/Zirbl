@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -48,11 +49,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDirectionsAPI;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadNutLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadStationLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.Models.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
@@ -82,6 +85,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
     ArrayList<Boolean> listIsNutCollected;
+    ArrayList<Boolean> listDoUKnowRead;
 
     private List<Route> directionRoute;
 
@@ -93,7 +97,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     LocationManager locationManager;
     private final Integer MIN_DISTANCE_METERS = 0;
-    private final Integer LOCATION_UPDATE_INTERVALL_MSEC = 2000;
+    private final Integer LOCATION_UPDATE_INTERVALL_MSEC = 1000;
     private final String DIRECTIONS_API_JSON = "https://maps.googleapis.com/maps/api/directions/json?";
 
     private LatLng latLngMyTarget;
@@ -105,6 +109,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ArrayList<NutModel> nuts;
     private int nutsCollected = 0;
+
+    private ArrayList<DoUKnowModel> doUKnowModels;
 
     private Marker myPosition;
     private boolean positionMarkerWasSet = false;
@@ -139,11 +145,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         }
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20000, 1, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
 
         } else {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 1, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
             }
         }
     }
@@ -170,8 +176,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         listIsNutCollected = new ArrayList<>();
+        listDoUKnowRead = new ArrayList<>();
         try {
             listIsNutCollected = (ArrayList<Boolean>) ObjectSerializer.deserialize(tourValues.getString("listIsNutCollected", ObjectSerializer.serialize(new ArrayList<Boolean>())));
+            listDoUKnowRead = (ArrayList<Boolean>) ObjectSerializer.deserialize(tourValues.getString("listDoUKnowRead", ObjectSerializer.serialize(new ArrayList<Boolean>())));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -181,9 +189,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-
-        //new JSONStationLocation2(this, selectedTour, stationID).execute(serverName + "/api/selectStationLocationsView.php");
 
         TextView naviTitle = (TextView) findViewById(R.id.navigationTitle);
         naviTitle.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
@@ -196,6 +201,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         setDataView();
         nuts = new LoadNutLocation(this, selectedTour).readFile();
+        doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -228,9 +234,45 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
                     //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
 
-
                     setRoute();
                     setNuts();
+
+                    //check for infopopup
+                    for (int i = 0; i < doUKnowModels.size(); i++) {
+                        if (!listDoUKnowRead.get(i)) {
+                            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
+                            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.04) {
+                                listDoUKnowRead.set(i, true);
+
+                                SharedPreferences.Editor editor = tourValues.edit();
+                                try {
+                                    editor.remove("listDoUKnowRead");
+                                    editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                editor.commit();
+
+
+                                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                                vibe.vibrate(100);
+                                Intent intent = new Intent(mContext, DoUKnowActivity.class);
+                                intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
+                                intent.putExtra("chronologyNumber", Integer.toString(-1));
+                                intent.putExtra("stationName", getStationName());
+                                startActivity(intent);
+                            }
+                        }
+
+                    }
+
+
+                    //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+                    if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.04) {
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        loadTourChronology.continueToNextView();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -462,7 +504,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             int nutID = nuts.get(h).getNutID();
             latLngNut = new LatLng(latNut, lngNut);
 
-            if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.05 && !(listIsNutCollected.get(h))) {
+            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
+            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.04 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
@@ -482,13 +525,17 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 }
                 editor.commit();
 
+
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(100);
                 Intent intent = new Intent(mContext, GoldenActivity.class);
                 intent.putExtra("score", Integer.toString(nuts.get(h).getScore()));
                 intent.putExtra("foundText", nuts.get(h).getFoundText());
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
-            } else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
+            } //else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
+             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.04 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -532,7 +579,31 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
 
-    private static final int earthRadius = 6371;
+
+    //return distance in kilometers
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    /*
+    private static final int earthRadius = 6371;   //kilometer
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2)
     {
         double dLat = Math.toRadians(lat2 - lat1);
@@ -543,7 +614,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
         double d = earthRadius * c;
         return d;
-    }
+    }*/
+
+
 
 
 

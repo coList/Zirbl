@@ -16,6 +16,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -128,11 +129,39 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
             ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
         }
+        //
+        RelativeLayout zirbl = (RelativeLayout) findViewById(R.id.zirbl);
+        LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
+        RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
+        RelativeLayout.LayoutParams paramsZirbl = (RelativeLayout.LayoutParams) zirbl.getLayoutParams();
+
+        if(result.getContentText().length() <= 200) {
+            paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            paramsContinue.addRule(RelativeLayout.BELOW, 0);
+
+            paramsZirbl.addRule(RelativeLayout.ABOVE, R.id.continueArea);
+
+            continueArea.setLayoutParams(paramsContinue);
+            zirbl.setLayoutParams(paramsZirbl);
+        } else {
+            paramsZirbl.addRule(RelativeLayout.ABOVE, 0);
+
+            paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            paramsContinue.addRule(RelativeLayout.BELOW, R.id.zirbl);
+
+            continueArea.setLayoutParams(paramsContinue);
+            zirbl.setLayoutParams(paramsZirbl);
+        }
+            //
     }
 
 
     public void continueToNextView(View view) {
-        loadTourChronology.continueToNextView();
+        if (chronologyNumber < 0) {
+            this.finish();
+        } else {
+            loadTourChronology.continueToNextView();
+        }
     }
 
     private void showEndTourDialog(){

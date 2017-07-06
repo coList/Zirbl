@@ -129,7 +129,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         Log.d(TAG, "Classletter: " + valuesClassnumber[npClass.getValue()-1]);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
-        className = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1];
+        className = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1].toString();
         school = etSchool.getText().toString();
         Log.d(TAG, "setInput: " + className);
 

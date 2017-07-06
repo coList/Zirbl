@@ -33,6 +33,9 @@ public class ResultActivity extends AppCompatActivity {
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
 
+    private String team;
+    private String members;
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -60,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
 
         TextView totalScore = (TextView) findViewById(R.id.endPoints);
         totalScore.setText(Integer.toString(currentScore));
-
+        setTeamInformation();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
@@ -103,6 +106,19 @@ public class ResultActivity extends AppCompatActivity {
             menuStats.setTextSize(18);
         }
     }
+
+    public void setTeamInformation(){
+        Intent intent = getIntent();
+        team = intent.getStringExtra("team");
+        members = intent.getStringExtra("members");
+
+        TextView resultTeam = (TextView) findViewById(R.id.resultTeam);
+        TextView resultMembers = (TextView) findViewById(R.id.resultMembers);
+
+        resultTeam.setText("team");
+        resultMembers.setText("members");
+    }
+
     public void showStats(View view){
         Log.d(TAG, "showStats: Stats");
     }
