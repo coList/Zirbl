@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,10 +36,12 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
+import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
@@ -69,6 +73,8 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private TextView title;
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
+    private String team;
+    private String members;
 
     @Override
     protected void onPause() {
@@ -108,14 +114,22 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+
+        ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
         try {
             ArrayList<Boolean> listIsNutCollected = new ArrayList<>();
+            ArrayList<Boolean> listDoUKnowRead = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
                 listIsNutCollected.add(false);
             }
+
+            for (int i = 0; i < doUKnowModels.size(); i++) {
+                listDoUKnowRead.add(false);
+            }
             Log.d(TAG, listIsNutCollected.toString());
             editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
+            editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -197,14 +211,13 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         Log.d("Tourstart", "goIntoTour");
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
-        EditText teamNameText = (EditText) findViewById(R.id.teamname);
-        String teamName = teamNameText.getText().toString();
+        setInput();
 
-        EditText participantText = (EditText) findViewById(R.id.firstName);
-        String participant = participantText.getText().toString();
-
-        if (teamName != null && !teamName.isEmpty() && participant != null && !participant.isEmpty()) {
+        if (team != null && !team.isEmpty() && members != null && !members.isEmpty()) {
             loadTourChronology.continueToNextView();
+            Intent intent = new Intent(mContext, ResultActivity.class);
+            intent.putExtra("team", team);
+            intent.putExtra("members", members);
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.continueButton).startAnimation(shake);
@@ -257,5 +270,13 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         progressBar.setMax(lastChronologyValue + 1);
         progressBar.setProgress(0);
 
+    }
+
+    public void setInput(){
+        EditText teamname = (EditText) findViewById(R.id.teamname);
+        EditText firstname = (EditText) findViewById(R.id.firstName);
+
+        team = teamname.getText().toString();
+        members = firstname.getText().toString();
     }
 }

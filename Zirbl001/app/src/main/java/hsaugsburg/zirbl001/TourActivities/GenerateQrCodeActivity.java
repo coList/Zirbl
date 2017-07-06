@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -33,7 +35,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
 
     private int tourID;
     private String tourName;
-    private String klasse;
+    private String grade;
     private String school;
 
     //Animation beim Activity wechsel verhindern
@@ -66,7 +68,13 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         tourID = Integer.parseInt(intent.getStringExtra("tourID"));
         tourName = intent.getStringExtra("tourName");
         school = intent.getStringExtra("school");
-        klasse = intent.getStringExtra("klasse");
+        grade = intent.getStringExtra("className");
+
+        TextView qrClass = (TextView) findViewById(R.id.qrClass);
+        TextView qrSchool = (TextView) findViewById(R.id.qrSchool);
+
+        qrClass.setText(grade);
+        qrSchool.setText(school);
     }
 
     /*
@@ -74,8 +82,8 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     *
      */
     public String generateString(){
-        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ klasse + ";" + school);
-        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ klasse + ";" + school;
+        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ grade + ";" + school);
+        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ grade + ";" + school;
     }
 
 
