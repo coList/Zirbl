@@ -36,10 +36,12 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
+import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
@@ -112,14 +114,22 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+
+        ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
         try {
             ArrayList<Boolean> listIsNutCollected = new ArrayList<>();
+            ArrayList<Boolean> listDoUKnowRead = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
                 listIsNutCollected.add(false);
             }
+
+            for (int i = 0; i < doUKnowModels.size(); i++) {
+                listDoUKnowRead.add(false);
+            }
             Log.d(TAG, listIsNutCollected.toString());
             editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
+            editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
         } catch (IOException e) {
             e.printStackTrace();
         }
