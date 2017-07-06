@@ -15,6 +15,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/code_title_gradient"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="24dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="24dp"
+                android:weightSum="1"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="24dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="24dp"
                 app:titleTextAppearance="@style/NewActionBarTitle"/>
 
         </android.support.design.widget.AppBarLayout>

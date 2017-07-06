@@ -208,7 +208,30 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     }
 
     public void goIntoTour(View view) {
-        Log.d("Tourstart", "goIntoTour");
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        SharedPreferences.Editor editor = tourValues.edit();
+
+        EditText teamName = (EditText)findViewById(R.id.teamname);
+        editor.putString("teamName", teamName.getText().toString());
+
+        ArrayList<String> participants = new ArrayList<>();
+        participants.add(((EditText)findViewById(R.id.firstName)).getText().toString());
+
+        editor.putString("startTime", Long.toString(System.currentTimeMillis()));
+
+        for (int i = 0; i < count; i++) {
+            EditText nextParticipant = (EditText) findViewById(i);
+            participants.add(nextParticipant.getText().toString());
+        }
+
+        try {
+            editor.putString("participants", ObjectSerializer.serialize(participants));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        editor.commit();
+
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         setInput();
