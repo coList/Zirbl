@@ -40,6 +40,15 @@
                 android:dividerHeight="4.0sp">
             </ListView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/noConnection"
+                android:text="Keine Internetverbindung"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+
         </RelativeLayout>
 
         <!-- bottom navigation -->

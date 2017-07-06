@@ -282,47 +282,54 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     public void processData(List<JSONModel> result) {
 
-        TextView duration = (TextView) findViewById(R.id.durationText);
-        duration.setText(Integer.toString(((TourDetailModel) result.get(tourID)).getDuration()) + " min");
+        if(result != null) {
 
-        TextView distance = (TextView) findViewById(R.id.distanceText);
-        double dist = ((TourDetailModel) result.get(tourID)).getDistance() / 1000.0;
-        distance.setText(Double.toString(dist) + " km");
+            TextView duration = (TextView) findViewById(R.id.durationText);
+            duration.setText(Integer.toString(((TourDetailModel) result.get(tourID)).getDuration()) + " min");
 
-        TextView difficultyName = (TextView)findViewById(R.id.difficultyText);
-        difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
+            TextView distance = (TextView) findViewById(R.id.distanceText);
+            double dist = ((TourDetailModel) result.get(tourID)).getDistance() / 1000.0;
+            distance.setText(Double.toString(dist) + " km");
 
-        TextView description = (TextView)findViewById(R.id.description);
-        description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
+            TextView difficultyName = (TextView) findViewById(R.id.difficultyText);
+            difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
 
-        if (hasOpeningHours) {
-            TextView openingHours = (TextView) findViewById(R.id.openingHours);
-            TextView openingHoursTitle = (TextView)findViewById(R.id.openingHoursTitle);
+            TextView description = (TextView) findViewById(R.id.description);
+            description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
 
-            openingHours.setVisibility(View.VISIBLE);
-            openingHours.setVisibility(View.VISIBLE);
+            if (hasOpeningHours) {
+                TextView openingHours = (TextView) findViewById(R.id.openingHours);
+                TextView openingHoursTitle = (TextView) findViewById(R.id.openingHoursTitle);
+
+                openingHours.setVisibility(View.VISIBLE);
+                openingHours.setVisibility(View.VISIBLE);
+            }
+
+            if (!(((TourDetailModel) result.get(tourID)).getWarnings().equals("null"))) {
+                TextView warnings = (TextView) findViewById(R.id.warnings);
+                TextView warningsTitle = (TextView) findViewById(R.id.warningsTitle);
+                warnings.setText(fromHtml(((TourDetailModel) result.get(tourID)).getWarnings()));
+
+                warnings.setVisibility(View.VISIBLE);
+                warningsTitle.setVisibility(View.VISIBLE);
+            }
+
+            String mainPictureURL = ((TourDetailModel) result.get(tourID)).getMainPicture();
+            //load picture from cache or from web
+            ImageView mainPicture = (ImageView) findViewById(R.id.image);
+            if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+                mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+                //Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
+            } else {
+                ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
+            }
+            //setDetailImage(mainPictureURL);
+            //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
+
+        }else{
+            TextView noConnection = (TextView)findViewById(R.id.noConnection);
+            noConnection.setVisibility(View.VISIBLE);
         }
-
-        if (!(((TourDetailModel)result.get(tourID)).getWarnings().equals("null"))) {
-            TextView warnings = (TextView)findViewById(R.id.warnings);
-            TextView warningsTitle = (TextView)findViewById(R.id.warningsTitle);
-            warnings.setText(fromHtml(((TourDetailModel)result.get(tourID)).getWarnings()));
-
-            warnings.setVisibility(View.VISIBLE);
-            warningsTitle.setVisibility(View.VISIBLE);
-        }
-
-        String mainPictureURL = ((TourDetailModel)result.get(tourID)).getMainPicture();
-        //load picture from cache or from web
-        ImageView mainPicture = (ImageView)findViewById(R.id.image);
-        if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
-            mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
-            //Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
-        } else {
-            ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
-        }
-        //setDetailImage(mainPictureURL);
-        //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
 
 
     }
