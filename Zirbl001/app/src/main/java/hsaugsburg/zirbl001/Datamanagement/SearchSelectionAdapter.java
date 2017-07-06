@@ -24,11 +24,16 @@ import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
+import static android.R.attr.data;
+
 
 public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<JSONModel> mDataSource;
+    private List<JSONModel> originalData;
+    private List<JSONModel> filteredData;
+    private static final String TAG = "SearchSelectionAdapter";
+    private int test= 1;
 
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -37,9 +42,9 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
 
     public SearchSelectionAdapter(Context context, List<JSONModel> items) {
         mContext = context;
-        mDataSource = items;
+        originalData = items;
+        filteredData = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
 
         SharedPreferences globalValues = context.getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -49,13 +54,13 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
     //1
     @Override
     public int getCount() {
-        return mDataSource.size();
+        return filteredData.size();
     }
 
     //2
     @Override
     public Object getItem(int position) {
-        return mDataSource.get(position);
+        return filteredData.get(position);
     }
 
     //3
@@ -96,7 +101,55 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
 
 
     @Override
+    public Filter getFilter()
+    {
+        return new Filter()
+        {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence)
+            {
+                FilterResults results = new FilterResults();
+
+                //If there's nothing to filter on, return the original data for your list
+                if(charSequence == null || charSequence.length() == 0)
+                {
+                    results.values = originalData;
+                    results.count = originalData.size();
+                }
+                else
+                {
+                    List<JSONModel> filterResultsData = new ArrayList<>();
+
+                    for(JSONModel data : originalData)
+                    {
+                        TourSelectionModel tourSelection = (TourSelectionModel) data;
+
+                        if((tourSelection.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        {
+                            filterResultsData.add(data);
+                        }
+
+                    }
+
+                    results.values = filterResultsData;
+                    results.count = filterResultsData.size();
+                }
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults)
+            {
+                filteredData = (List<JSONModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+/*
+    @Override
     public Filter getFilter() {
         return null;
     }
+*/
 }

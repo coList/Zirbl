@@ -54,6 +54,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
     private SearchSelectionAdapter adapter;
+    private List<JSONModel> searchResult;
 
 
     //Animation beim Activity wechsel verhindern
@@ -147,6 +148,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
     public void processData(List<JSONModel> result) {
 
+        searchResult = result;
 
         adapter = new SearchSelectionAdapter(this, result);
         mListView.setAdapter(adapter);
