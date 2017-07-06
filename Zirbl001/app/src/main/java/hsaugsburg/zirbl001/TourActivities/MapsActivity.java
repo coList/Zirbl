@@ -169,6 +169,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .position(latLngNut)
                     .title("Eine goldene Nuss: " + nutID)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_gold_zirbl))
+                    //.icon(BitmapDescriptorFactory.fromResource(R.drawable._map_gold_zirbl_rotate))
             );
         } catch (Exception e){
             e.printStackTrace();
