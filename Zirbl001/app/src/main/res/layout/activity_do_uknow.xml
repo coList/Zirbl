@@ -26,93 +26,19 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relLayoutSite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-            android:id="@+id/DoUKnow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="16dp" />
-
-        <ImageView
-            android:id="@+id/speechOpen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/DoUKnow"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/img_speech_bubble_open" />
-
-        <ImageView
-            android:id="@+id/themeZirbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/continueArea"
-            android:layout_below="@+id/DoUKnow"
-            android:layout_marginTop="16dp"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
-
-        <LinearLayout
-            android:id="@+id/continueArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="16dp">
-
-            <ImageButton
-                android:id="@+id/endButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:onClick="showEndTourDialog"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_continue"
-                android:visibility="gone"
-                app:srcCompat="@drawable/btn_end" />
-
-            <ImageButton
-                android:id="@+id/continueButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:onClick="continueToNextView"
-                android:scaleType="fitCenter"
-                android:src="@drawable/btn_continue"
-                android:visibility="visible"
-                app:srcCompat="@drawable/btn_continue" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/relLayoutScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:background="@color/colorAccent">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <RelativeLayout
-                android:id="@+id/ScrollLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -124,29 +50,42 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
 
-                <ImageView
-                    android:id="@+id/speechOpen"
+                <RelativeLayout
+                    android:id="@+id/zirbl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/DoUKnow"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/img_speech_bubble_open" />
+                    android:background="@color/colorAccent"
+                    android:minHeight="100dp">
 
-                <ImageView
-                    android:id="@+id/themeZirbl"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_below="@+id/DoUKnow"
-                    android:layout_marginTop="16dp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
+                    <ImageView
+                        android:id="@+id/speechOpen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/DoUKnow"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/img_speech_bubble_open" />
+
+                    <ImageView
+                        android:id="@+id/themeZirbl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="400dp"
+                        android:minHeight="100dp"
+                        app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/continueArea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/themeZirbl"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@+id/zirbl"
                     android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="16dp">
 
