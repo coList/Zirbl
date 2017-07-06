@@ -62,7 +62,7 @@ import hsaugsburg.zirbl001.Models.MapModels.StationModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
-public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback {
+public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener {
 
     private Context mContext = NavigationActivity.this;
     private NavigationActivity activity = this;
@@ -97,7 +97,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     LocationManager locationManager;
     private final Integer MIN_DISTANCE_METERS = 0;
-    private final Integer LOCATION_UPDATE_INTERVALL_MSEC = 1000;
+    private final Integer LOCATION_UPDATE_INTERVALL_MSEC = 300;
     private final String DIRECTIONS_API_JSON = "https://maps.googleapis.com/maps/api/directions/json?";
 
     private LatLng latLngMyTarget;
@@ -121,13 +121,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
 
-    private LocationListener locationListener;
 
     @Override
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
-        locationManager.removeUpdates(locationListener);
+        locationManager.removeUpdates(this);
     }
 
     public void onResume() {
@@ -145,12 +144,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         }
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
+        }
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
 
-        } else {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
-            }
         }
     }
 
@@ -208,97 +206,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                double latMyPos = location.getLatitude();
-                double lngMyPos = location.getLongitude();
-                latLngMyPos = new LatLng(latMyPos, lngMyPos);
-                Geocoder geocoder = new Geocoder(getApplicationContext());
-                try {
-                    List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
-                    String strMyPosMarker = adressList.get(0).getAddressLine(0);
-
-                    if (!positionMarkerWasSet) {
-                        myPosition = mMap.addMarker(new MarkerOptions()
-                                .position(latLngMyPos)
-                                .title("Mein Standort: " + strMyPosMarker)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_zirbl))
-                        );
-                        positionMarkerWasSet = true;
-                    } else {
-                        myPosition.setPosition(latLngMyPos);
-                    }
-
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
-
-                    setRoute();
-                    setNuts();
-
-                    //check for infopopup
-                    for (int i = 0; i < doUKnowModels.size(); i++) {
-                        if (!listDoUKnowRead.get(i)) {
-                            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
-                            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.04) {
-                                listDoUKnowRead.set(i, true);
-
-                                SharedPreferences.Editor editor = tourValues.edit();
-                                try {
-                                    editor.remove("listDoUKnowRead");
-                                    editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                editor.commit();
-
-
-                                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                                vibe.vibrate(100);
-                                Intent intent = new Intent(mContext, DoUKnowActivity.class);
-                                intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
-                                intent.putExtra("chronologyNumber", Integer.toString(-1));
-                                intent.putExtra("stationName", getStationName());
-                                startActivity(intent);
-                            }
-                        }
-
-                    }
-
-
-                    //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
-                    if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.04) {
-                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        vibe.vibrate(100);
-                        loadTourChronology.continueToNextView();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-
-
-
     }
 
 
@@ -396,15 +303,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
 
-
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
-
-
-        } else {
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, locationListener);
-            }
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
         }
 
 
@@ -505,7 +407,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             latLngNut = new LatLng(latNut, lngNut);
 
             //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
-            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.04 && !(listIsNutCollected.get(h))) {
+            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
@@ -535,7 +437,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 startActivity(intent);
 
             } //else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
-             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.04 && !listIsNutCollected.get(h)) {
+             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -615,6 +517,91 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         double d = earthRadius * c;
         return d;
     }*/
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        double latMyPos = location.getLatitude();
+        double lngMyPos = location.getLongitude();
+        latLngMyPos = new LatLng(latMyPos, lngMyPos);
+        Geocoder geocoder = new Geocoder(getApplicationContext());
+        try {
+            List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
+            String strMyPosMarker = adressList.get(0).getAddressLine(0);
+
+            if (!positionMarkerWasSet) {
+                myPosition = mMap.addMarker(new MarkerOptions()
+                        .position(latLngMyPos)
+                        .title("Mein Standort: " + strMyPosMarker)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_zirbl))
+                );
+                positionMarkerWasSet = true;
+            } else {
+                myPosition.setPosition(latLngMyPos);
+            }
+
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
+
+            setRoute();
+            setNuts();
+
+            //check for infopopup
+            for (int i = 0; i < doUKnowModels.size(); i++) {
+                if (!listDoUKnowRead.get(i)) {
+                    //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
+                    if (distance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
+                        listDoUKnowRead.set(i, true);
+
+                        SharedPreferences.Editor editor = tourValues.edit();
+                        try {
+                            editor.remove("listDoUKnowRead");
+                            editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        editor.commit();
+
+
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        Intent intent = new Intent(mContext, DoUKnowActivity.class);
+                        intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
+                        intent.putExtra("chronologyNumber", Integer.toString(-1));
+                        intent.putExtra("stationName", getStationName());
+                        startActivity(intent);
+                    }
+                }
+
+            }
+
+
+            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(100);
+                loadTourChronology.continueToNextView();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Maps", "StatusChanged");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Maps", "ProviderEnabled");
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Maps", "ProviderDisabled");
+    }
 
 
 

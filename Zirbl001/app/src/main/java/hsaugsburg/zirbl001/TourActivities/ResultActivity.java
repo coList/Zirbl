@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,9 +17,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
 public class ResultActivity extends AppCompatActivity {
     private int currentScore;
@@ -53,6 +59,38 @@ public class ResultActivity extends AppCompatActivity {
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
+        String teamName = tourValues.getString("teamName", null);
+        ArrayList<String> participants = new ArrayList<>();
+        try {
+            participants = (ArrayList<String>) ObjectSerializer.deserialize(tourValues.getString("participants", ObjectSerializer.serialize(new ArrayList<String>())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        long startTime = Long.parseLong(tourValues.getString("startTime", null));
+        long totalTime = System.currentTimeMillis() - startTime;
+
+        String time = String.format("%d h %d min",
+                TimeUnit.MILLISECONDS.toHours(totalTime),
+                TimeUnit.MILLISECONDS.toMinutes(totalTime) -
+                        TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(totalTime))
+        );
+
+        String teamViewStart = "<b>Team: </b>";
+        TextView teamNameView = (TextView)findViewById(R.id.resultTeam);
+        teamNameView.setText(fromHtml(teamViewStart + teamName));
+
+        String participantsViewText = "<b>Teilnehmer: </b>";
+        TextView participantsView = (TextView)findViewById(R.id.resultMembers);
+        for (String participant: participants) {
+            participantsViewText += participant + ", ";
+        }
+        participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
+        participantsView.setText(fromHtml(participantsViewText));
+
+        TextView durationView = (TextView) findViewById(R.id.textUsedTime);
+        durationView.setText(time);
+
         String titleText = "Ergebnis";
         //dot menu
         title = (TextView) findViewById(R.id.titleActionbar);
@@ -63,11 +101,12 @@ public class ResultActivity extends AppCompatActivity {
 
         TextView totalScore = (TextView) findViewById(R.id.endPoints);
         totalScore.setText(Integer.toString(currentScore));
-        setTeamInformation();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(totalChronologyValue + 1);
+
+
 
     }
 
@@ -107,22 +146,22 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    public void setTeamInformation(){
-        Intent intent = getIntent();
-        team = intent.getStringExtra("team");
-        members = intent.getStringExtra("members");
-
-        TextView resultTeam = (TextView) findViewById(R.id.resultTeam);
-        TextView resultMembers = (TextView) findViewById(R.id.resultMembers);
-
-        resultTeam.setText("team");
-        resultMembers.setText("members");
-    }
-
     public void showStats(View view){
         Log.d(TAG, "showStats: Stats");
     }
     public void quitTour(View view){
         showEndTourDialog();
     }
+
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
+
 }
