@@ -262,6 +262,19 @@
                 android:visibility="gone"
                 />
 
+
+            <ImageButton
+                android:id="@+id/tryAgain"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="121dp"
+                android:onClick="tryConnectionAgain"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/btn_go" />
+
         </RelativeLayout>
 
         <!-- bottom navigation -->
