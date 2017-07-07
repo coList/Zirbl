@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -132,6 +133,16 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         else{
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
+            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+            tryAgain.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void tryConnectionAgain(View view) {
+        TextView noConnection = (TextView)findViewById(R.id.noConnection);
+        noConnection.setVisibility(View.GONE);
+        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+        tryAgain.setVisibility(View.GONE);
+        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
     }
 }

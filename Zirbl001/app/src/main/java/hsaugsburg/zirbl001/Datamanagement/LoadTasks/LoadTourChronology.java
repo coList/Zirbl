@@ -3,8 +3,6 @@ package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.view.menu.ActionMenuItem;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +14,7 @@ import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
-import hsaugsburg.zirbl001.TourActivities.NavigationActivity;
+import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 import hsaugsburg.zirbl001.TourActivities.QuizActivity;
 import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 import hsaugsburg.zirbl001.TourActivities.SliderActivity;

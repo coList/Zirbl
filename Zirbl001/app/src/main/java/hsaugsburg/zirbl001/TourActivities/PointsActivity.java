@@ -4,16 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,15 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.lang.reflect.Field;
-
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
-import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 
 public class PointsActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = PointsActivity.this;

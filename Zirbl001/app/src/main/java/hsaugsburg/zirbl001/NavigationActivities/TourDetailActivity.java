@@ -37,6 +37,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
+import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -329,9 +330,21 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }else{
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
+            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+            tryAgain.setVisibility(View.VISIBLE);
         }
 
 
+    }
+
+
+
+    public void tryConnectionAgain(View view) {
+        TextView noConnection = (TextView)findViewById(R.id.noConnection);
+        noConnection.setVisibility(View.GONE);
+        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+        tryAgain.setVisibility(View.GONE);
+        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
     }
 
     public static Spanned fromHtml(String html){
