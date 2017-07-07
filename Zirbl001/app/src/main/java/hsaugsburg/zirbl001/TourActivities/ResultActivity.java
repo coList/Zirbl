@@ -73,7 +73,7 @@ public class ResultActivity extends AppCompatActivity {
         String time = String.format("%d h %d min",
                 TimeUnit.MILLISECONDS.toHours(totalTime),
                 TimeUnit.MILLISECONDS.toMinutes(totalTime) -
-                        TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(totalTime))
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
         );
 
         String teamViewStart = "<b>Team: </b>";
