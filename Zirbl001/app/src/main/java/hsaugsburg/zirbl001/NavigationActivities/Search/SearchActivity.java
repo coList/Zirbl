@@ -55,6 +55,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     String serverName;
     private SearchSelectionAdapter adapter;
     private List<JSONModel> searchResult;
+    private boolean iConnection = true;
 
 
     //Animation beim Activity wechsel verhindern
@@ -109,28 +110,32 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if(iConnection) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_view_menu_item, menu);
-        MenuItem searchViewItem = menu.findItem(R.id.action_search);
-        final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
-        searchViewAndroidActionBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchViewAndroidActionBar.clearFocus();
-                return true;
-            }
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.search_view_menu_item, menu);
+            MenuItem searchViewItem = menu.findItem(R.id.action_search);
+            final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+            searchViewAndroidActionBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    searchViewAndroidActionBar.clearFocus();
+                    return true;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
+                @Override
+                public boolean onQueryTextChange(String newText) {
 
-                //Hier muss die Liste gefiltert werden
-                adapter.getFilter().filter(newText);
+                    //Hier muss die Liste gefiltert werden
+                    adapter.getFilter().filter(newText);
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
+
+        }
         return super.onCreateOptionsMenu(menu);
+
     }
 
 
@@ -149,26 +154,32 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     public void processData(List<JSONModel> result) {
 
         searchResult = result;
+        if (result != null) {
+            adapter = new SearchSelectionAdapter(this, result);
+            mListView.setAdapter(adapter);
+            final List<JSONModel> tourSelectionItems = result;
 
-        adapter = new SearchSelectionAdapter(this, result);
-        mListView.setAdapter(adapter);
-        final List<JSONModel> tourSelectionItems = result;
 
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    JSONModel selectedTour = tourSelectionItems.get(position);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                JSONModel selectedTour = tourSelectionItems.get(position);
+                    //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
 
-                //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
-
-                Intent intent1 = new Intent(mContext, TourDetailActivity.class);
-                intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
-                intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
-                startActivity(intent1);
-            }
-        });
+                    Intent intent1 = new Intent(mContext, TourDetailActivity.class);
+                    intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
+                    intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
+                    startActivity(intent1);
+                }
+            });
+        }
+            else{
+            iConnection = false;
+            TextView noConnection = (TextView)findViewById(R.id.noConnection);
+            noConnection.setVisibility(View.VISIBLE);
+        }
 
 
     }

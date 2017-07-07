@@ -1,4 +1,4 @@
-package hsaugsburg.zirbl001.TourActivities;
+package hsaugsburg.zirbl001.TourActivities.Navigation;
 
 import android.Manifest;
 import android.app.Activity;
@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,9 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,8 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,7 +38,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +52,11 @@ import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.Models.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
+import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
+import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
+import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener {
@@ -145,8 +142,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        }
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
 
         }
@@ -206,6 +202,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+
     }
 
 
@@ -307,6 +306,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
+        } else {
+            showDialogGPS();
         }
 
 
@@ -615,5 +616,16 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         mapInstruction.setText(result.getMapInstruction());
     }
+
+    public void showDialogGPS() {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                GPSDialog alertGPS = new GPSDialog(mContext);
+                alertGPS.showDialog();
+            }
+        });
+    }
+
+
 
 }

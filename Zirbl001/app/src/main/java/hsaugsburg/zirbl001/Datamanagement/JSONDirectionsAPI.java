@@ -21,8 +21,7 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Models.MapModels.DirectionsAPIModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
-import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
-import hsaugsburg.zirbl001.TourActivities.NavigationActivity;
+import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 
 
 public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {

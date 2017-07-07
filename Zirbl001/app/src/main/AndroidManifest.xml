@@ -74,7 +74,7 @@
             android:name=".TourActivities.GenerateQrCodeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TourActivities.NavigationActivity"
+            android:name=".TourActivities.Navigation.NavigationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TourActivities.LettersActivity"
