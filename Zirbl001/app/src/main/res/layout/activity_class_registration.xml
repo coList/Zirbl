@@ -102,7 +102,7 @@
 
             <ImageButton
                 android:id="@+id/createButton"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
