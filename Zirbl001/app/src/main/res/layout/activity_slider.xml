@@ -115,7 +115,7 @@
 
             <ImageButton
                 android:id="@+id/continueButton"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"

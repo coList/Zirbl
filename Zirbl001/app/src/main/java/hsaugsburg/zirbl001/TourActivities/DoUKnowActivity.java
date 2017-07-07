@@ -3,6 +3,8 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 import android.util.TypedValue;
@@ -123,19 +126,26 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
-        doUKnow.setText(fromHtml(result.getContentText()));
+        String resultText = result.getContentText();
+        doUKnow.setText(fromHtml(resultText));
+        int stringLength = resultText.length();
+        Log.d(TAG, Integer.toString(stringLength));
 
         if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
             ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
             ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
         }
-        //
+        // Scroll View State Change
         RelativeLayout zirbl = (RelativeLayout) findViewById(R.id.zirbl);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
         RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
         RelativeLayout.LayoutParams paramsZirbl = (RelativeLayout.LayoutParams) zirbl.getLayoutParams();
-
-        if(result.getContentText().length() <= 200) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        Log.d(TAG, "Höhe: " + height);
+        Log.d(TAG, Double.toString(((double)stringLength)/height));
+        if(((double)stringLength)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             paramsContinue.addRule(RelativeLayout.BELOW, 0);
 
