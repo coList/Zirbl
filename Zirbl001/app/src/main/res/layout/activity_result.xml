@@ -29,8 +29,7 @@
         android:id="@+id/relLayoutScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:visibility="visible">
+        android:background="@color/colorAccent">
 
 
         <ScrollView
@@ -72,6 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/pointsImage"
+                        android:layout_alignParentTop="true"
                         android:orientation="vertical">
 
                         <TextView
@@ -82,7 +82,7 @@
 
                         <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
                             android:id="@+id/endPoints"
-                            android:layout_width="120dp"
+                            android:layout_width="110dp"
                             android:layout_height="0dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="8dp"
