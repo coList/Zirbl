@@ -34,11 +34,10 @@
 
             <ListView
                 android:id="@+id/search_list_view"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:divider="@color/colorLine"
-                android:dividerHeight="4.0sp">
-            </ListView>
+                android:dividerHeight="2.0sp"></ListView>
 
         </RelativeLayout>
 
