@@ -54,9 +54,7 @@ public class SplashScreen extends AppCompatActivity {
             //the app is being launched for first time, do something
             final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
             userName = createRandomString(50);
-            Log.d("SplashScreenUsername", userName);
             deviceToken = createRandomString(150);
-            Log.d("SplashScreenDeviceToken", deviceToken);
 
             editor.putString("userName", userName);
             editor.putString("deviceToken", deviceToken);
@@ -66,8 +64,6 @@ public class SplashScreen extends AppCompatActivity {
 
             // record the fact that the app has been started at least once
             editor.putBoolean("firstTime", false);
-        } else {
-            Log.d("SplashScreen", "notTheFirstTime!");
         }
 
 
@@ -114,8 +110,6 @@ public class SplashScreen extends AppCompatActivity {
                 URL url = new URL(serverName + "/api/insertIntoUser.php");
 
                 JSONObject postDataParams = new JSONObject();
-                Log.d("SplashAsynkUserName", userName);
-                Log.d("SplashAsynkDevice", deviceToken);
                 postDataParams.put("username", userName);
                 postDataParams.put("devicetoken", deviceToken);
 
@@ -169,8 +163,7 @@ public class SplashScreen extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+            Log.d("SplashScreen", result);
         }
     }
 
