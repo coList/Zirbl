@@ -126,6 +126,7 @@ public class QuizActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        initImageLoader();
         setDataView();
 
 
