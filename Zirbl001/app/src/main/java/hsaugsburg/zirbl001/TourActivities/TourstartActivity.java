@@ -94,8 +94,10 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
         ViewCompat.setBackgroundTintList(teamField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
-        QuicksandRegularPrimaryEdit memberField = (QuicksandRegularPrimaryEdit) findViewById(R.id.firstName);
-        ViewCompat.setBackgroundTintList(memberField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+        QuicksandRegularPrimaryEdit memberField1 = (QuicksandRegularPrimaryEdit) findViewById(R.id.firstName);
+        ViewCompat.setBackgroundTintList(memberField1, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+        QuicksandRegularPrimaryEdit memberField2 = (QuicksandRegularPrimaryEdit) findViewById(R.id.secondName);
+        ViewCompat.setBackgroundTintList(memberField2, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
 
