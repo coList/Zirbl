@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoParticipates;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
@@ -33,6 +34,9 @@ public class ResultActivity extends AppCompatActivity {
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
+
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+    String serverName;
 
     //dot menu
     private TextView title;
@@ -106,6 +110,11 @@ public class ResultActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(totalChronologyValue + 1);
 
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        serverName = globalValues.getString("serverName", null);
+        String userName = globalValues.getString("userName", null);
+
+        new InsertIntoParticipates(userName, selectedTour, 0, teamName, currentScore, (int)totalTime, participants, serverName).execute();
 
 
     }
