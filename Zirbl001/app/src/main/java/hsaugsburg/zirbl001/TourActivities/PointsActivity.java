@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -129,7 +130,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         }
 
         //Scroll View State Change
-        RelativeLayout pointsArea = (RelativeLayout) findViewById(R.id.pointsArea);
+        ConstraintLayout pointsArea = (ConstraintLayout) findViewById(R.id.pointsArea);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
         RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
         RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
