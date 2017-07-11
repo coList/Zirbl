@@ -14,6 +14,8 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -23,6 +25,7 @@ import java.lang.reflect.Field;
 import hsaugsburg.zirbl001.NavigationActivities.ImpressumActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext = ProfileActivity.this;
+    private Typeface mTypeface;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -66,11 +70,12 @@ public class ProfileActivity extends AppCompatActivity {
         setupViewPager();
 
 
+
     }
 
     // Responsible for adding the 2 tabs: Eigene Statistik, Klassen Statistik
     private void setupViewPager(){
-        ProfileSectionPagerAdapter adapter = new ProfileSectionPagerAdapter(getSupportFragmentManager());
+        TabSectionPagerAdapter adapter = new TabSectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileOwnFragment());
         adapter.addFragment(new ProfileClassFragment());
 
@@ -82,6 +87,27 @@ public class ProfileActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setText("Eigene Statistik");
         tabLayout.getTabAt(1).setText("Klassenstatistik");
+        changeTabsFont();
+
+    }
+
+    private void changeTabsFont() {
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setTypeface(mTypeface, Typeface.BOLD);
+                }
+            }
+        }
     }
 
 

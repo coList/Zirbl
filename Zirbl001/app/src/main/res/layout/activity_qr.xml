@@ -30,55 +30,25 @@
             android:layout_below="@+id/relLayoutActionBar"
             android:layout_marginBottom="?actionBarSize">
 
-            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                android:id="@+id/scanText"
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/ProfileTab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="24dp"
-                android:text="Scanne den QR-Code deiner Lehrerin oder deines Lehrers ab." />
+                android:layout_height="?actionBarSize"
+                android:background="@color/colorAccent"
+                android:elevation="1dp"
+                app:tabIndicatorColor="@color/colorTurquoise"
+                app:tabIndicatorHeight="3dp" />
 
-            <ImageView
-                android:id="@+id/speechbubble"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/scanText"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/img_speech_bubble_open" />
+                android:layout_height="fill_parent"
+                android:layout_below="@id/tab_layout"
+                android:background="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/zirblfigur"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/continueArea"
-                android:layout_below="@+id/scanText"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
 
-            <LinearLayout
-                android:id="@+id/continueArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp">
-
-                <ImageButton
-                    android:id="@+id/scanButton"
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:onClick="scanBarcode"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_scan" />
-            </LinearLayout>
 
         </RelativeLayout>
 
