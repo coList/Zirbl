@@ -40,15 +40,15 @@ public class QrDialog implements DownloadActivity {
     private int classID;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
 
-    Activity activity;
+    private Activity activity;
 
-    boolean downloadFinished = false;
-    Button dialogButtonAgain;
+    private boolean downloadFinished = false;
+    private Button dialogButtonAgain;
 
 
     public QrDialog(Context context, boolean success, String textButtonMarked, int classID, int tourID) {
@@ -167,7 +167,7 @@ public class QrDialog implements DownloadActivity {
 
     }
 
-    public void doDownloadAnimation(Dialog dialog1) {
+    private void doDownloadAnimation(Dialog dialog1) {
         final Dialog dialog = dialog1;
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -199,9 +199,7 @@ public class QrDialog implements DownloadActivity {
                     handler.postDelayed(this, 500);
                 } else {
                     Intent intent = new Intent(context, TourstartActivity.class);
-                    Log.d("QRDialogTour", Integer.toString(tourID));
                     intent.putExtra("tourID", Integer.toString(tourID));
-                    Log.d("QRDialog", Integer.toString(classID));
                     intent.putExtra("classID", Integer.toString(classID));
                     context.startActivity(intent);
                 }
@@ -212,7 +210,7 @@ public class QrDialog implements DownloadActivity {
     }
 
 
-    public void downloadTour() {
+    private void downloadTour() {
         new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
         new DownloadJSON(activity, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
