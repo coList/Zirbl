@@ -128,7 +128,6 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
                         {
                             filterResultsData.add(data);
                         }
-
                     }
 
                     results.values = filterResultsData;
@@ -146,10 +145,5 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
             }
         };
     }
-/*
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
-*/
+
 }

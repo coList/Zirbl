@@ -164,10 +164,9 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    JSONModel selectedTour = tourSelectionItems.get(position);
+                    JSONModel selectedTour = (JSONModel) adapter.getItem(position);
 
                     //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
-
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
                     intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
