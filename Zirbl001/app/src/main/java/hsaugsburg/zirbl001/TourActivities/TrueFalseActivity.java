@@ -114,6 +114,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        initImageLoader();
 
         setDataView();
     }

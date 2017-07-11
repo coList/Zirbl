@@ -44,6 +44,7 @@ import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.ChronologyModel;
 import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 import static hsaugsburg.zirbl001.R.id.dotMenu;
 import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
@@ -115,8 +116,14 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        initImageLoader();
         setDataView();
 
+    }
+
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     public void setDataView() {
