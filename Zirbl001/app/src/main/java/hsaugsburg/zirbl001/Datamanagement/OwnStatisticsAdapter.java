@@ -11,8 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Text;
+import com.google.zxing.FormatException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -71,12 +76,26 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         TextView ranking = (TextView) rowView.findViewById(R.id.textPlacement);
         TextView teamname = (TextView) rowView.findViewById(R.id.teamName);
         TextView participants = (TextView) rowView.findViewById(R.id.membersOfTeam);
+        TextView score = (TextView) rowView.findViewById(R.id.statPoints);
 
         OwnStatisticsModel ownStatisticsModel = (OwnStatisticsModel) getItem(position);
         Log.d("OwnStatistics", "getView");
 
         tourName.setText(ownStatisticsModel.getTourName());
-        participationDate.setText(ownStatisticsModel.getParticipationDate());
+
+        String strCurrentDate = ownStatisticsModel.getParticipationDate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = "";
+        try {
+
+            Date newDate = format.parse(strCurrentDate);
+            Calendar cal = Calendar.getInstance();
+            format = new SimpleDateFormat("dd. MMMM yyyy");
+            date = format.format(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        participationDate.setText(date);
 
         int totalTime = ownStatisticsModel.getDuration();
         String time = String.format("%d h %d min",
@@ -94,6 +113,8 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         }
         participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
         participants.setText(participantsViewText);
+
+        score.setText(Integer.toString(ownStatisticsModel.getScore()));
 
         return rowView;
 
