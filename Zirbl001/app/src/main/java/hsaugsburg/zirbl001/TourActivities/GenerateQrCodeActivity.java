@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoClass;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.R;
 
@@ -38,6 +40,9 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     private String grade;
     private String school;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+
+
     //Animation beim Activity wechsel verhindern
     @Override
     protected void onPause() {
@@ -54,13 +59,30 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         qrString = generateString();
         Log.d(TAG, "onCreate: " + qrString);
 
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        String serverName = globalValues.getString("serverName", null);
+        String userName = globalValues.getString("userName", null);
+
+        new InsertIntoClass(userName, tourID, grade, school, qrString, serverName, this).execute();
+
+    }
+
+
+    public void setQrCode(String result) {
+        qrString = result;
+        Log.d("GenerateQrCode", result);
+
+
         ImageView imageView = (ImageView) findViewById(R.id.qrCode);
+
         try {
             Bitmap bitmap = encodeAsBitmap(qrString);
             imageView.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
         }
+
     }
 
     public void setIntentExtras(){
@@ -82,8 +104,8 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     *
      */
     public String generateString(){
-        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ grade + ";" + school);
-        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ "0" +";"+ grade + ";" + school;
+        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ grade + ";" + school);
+        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";" + grade + ";" + school;
     }
 
 

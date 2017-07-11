@@ -14,30 +14,30 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
-    private String serverName;
+import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
+import hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity;
+
+public class InsertIntoClass extends AsyncTask<String, Void, String> {
     private String userName;
     private int tourID;
-    private int classID;
-    private String teamname;
-    private int score;
-    private int duration;
-    private ArrayList<String> participants;
+    private String className;
+    private String schoolName;
+    private String qrCode;
+    private String serverName;
+    private GenerateQrCodeActivity activity;
 
-    public InsertIntoParticipates(String userName, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
+    public InsertIntoClass(String userName, int tourID, String className, String schoolName, String qrCode, String serverName, GenerateQrCodeActivity activity) {
         this.userName = userName;
         this.tourID = tourID;
-        this.classID = classID;
-        this.teamname = teamname;
-        this.score = score;
-        this.duration = duration;
-        this.participants = participants;
+        this.className = className;
+        this.schoolName = schoolName;
+        this.qrCode = qrCode;
         this.serverName = serverName;
+        this.activity = activity;
     }
 
     protected void onPreExecute() {
@@ -47,25 +47,14 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
         try {
 
-            URL url = new URL(serverName + "/api/insertIntoParticipates.php");
+            URL url = new URL(serverName + "/api/insertIntoClass.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
             postDataParams.put("tourid", tourID);
-            if (classID > 0) {
-                postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
-            } else {
-                postDataParams.put("classid", null);
-            }
-            postDataParams.put("groupname", teamname);
-            postDataParams.put("score", score);
-            postDataParams.put("duration", duration);
-
-            JSONObject JSONParticipants= new JSONObject();
-            for (int i = 0; i < participants.size(); i++) {
-                JSONParticipants.put("participant" + i, participants.get(i));
-            }
-            postDataParams.put("participants", JSONParticipants); //JSON objekt?
+            postDataParams.put("classname", className);
+            postDataParams.put("schoolname", schoolName);
+            postDataParams.put("qrcode", qrCode);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
@@ -114,7 +103,8 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d("InsertIntoParticipates", result);
+        Log.d("InsertIntoClass", result);
+        activity.setQrCode(result);
     }
 
 

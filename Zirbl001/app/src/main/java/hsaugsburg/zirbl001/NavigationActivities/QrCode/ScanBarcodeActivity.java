@@ -69,11 +69,12 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         if(zirblIdent.equals("qrcodezirbl")){
             tourID = Integer.parseInt(splited[1]);
+            Log.d("ScanBarcodeActivity", Integer.toString(tourID));
             tourName = splited[2];
             Log.d(TAG, "saveScanInfos: " + tourName);
-            klassenID = Integer.parseInt(splited[3]);
-            klasse = splited[4];
-            school = splited[5];
+            klasse = splited[3];
+            school = splited[4];
+            klassenID = Integer.parseInt(splited[5]);
         }
     }
 
@@ -92,8 +93,8 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         this.runOnUiThread(new Runnable() {
             public void run() {
-                QrDialog alertSuccess = new QrDialog(mContext, true, "DOWNLOAD");
-                alertSuccess.showDialog((Activity) mContext, successMessage, downloadMessage, "Viel Spaß bei der Tour!", tourID);
+                QrDialog alertSuccess = new QrDialog(mContext, true, "DOWNLOAD", klassenID, tourID);
+                alertSuccess.showDialog((Activity) mContext, successMessage, downloadMessage, "Viel Spaß bei der Tour!");
             }
         });
     }
@@ -102,8 +103,8 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         this.runOnUiThread(new Runnable() {
             public void run() {
-                QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL");
-                alertFail.showDialog((Activity) mContext, errorMessage, null, "Versuche es erneut!", tourID);
+                QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL", klassenID, tourID);
+                alertFail.showDialog((Activity) mContext, errorMessage, null, "Versuche es erneut!");
             }
         });
     }

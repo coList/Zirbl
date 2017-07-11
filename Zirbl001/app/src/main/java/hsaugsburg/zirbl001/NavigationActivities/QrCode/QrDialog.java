@@ -37,6 +37,7 @@ public class QrDialog implements DownloadActivity {
     private final String textButtonMarked;
 
     private int tourID;
+    private int classID;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -50,13 +51,15 @@ public class QrDialog implements DownloadActivity {
     Button dialogButtonAgain;
 
 
-    public QrDialog(Context context, boolean success, String textButtonMarked) {
+    public QrDialog(Context context, boolean success, String textButtonMarked, int classID, int tourID) {
         this.context = context;
         this.success = success;
         this.textButtonMarked = textButtonMarked;
+        this.classID = classID;
+        this.tourID = tourID;
     }
 
-    public void showDialog(Activity activity, String msg, String msg1, String msg2, final int tourID) {
+    public void showDialog(Activity activity, String msg, String msg1, String msg2) {
         this.activity = activity;
         SharedPreferences globalValues = activity.getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -196,7 +199,10 @@ public class QrDialog implements DownloadActivity {
                     handler.postDelayed(this, 500);
                 } else {
                     Intent intent = new Intent(context, TourstartActivity.class);
+                    Log.d("QRDialogTour", Integer.toString(tourID));
                     intent.putExtra("tourID", Integer.toString(tourID));
+                    Log.d("QRDialog", Integer.toString(classID));
+                    intent.putExtra("classID", Integer.toString(classID));
                     context.startActivity(intent);
                 }
             }

@@ -31,12 +31,13 @@ public class ResultActivity extends AppCompatActivity {
     private Context mContext = ResultActivity.this;
     private static final String TAG = "ResultActivity";
     private int selectedTour;
+    private int classID;
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     //dot menu
     private TextView title;
@@ -62,6 +63,7 @@ public class ResultActivity extends AppCompatActivity {
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        classID = Integer.parseInt(tourValues.getString("classID", null));
 
         String teamName = tourValues.getString("teamName", null);
         ArrayList<String> participants = new ArrayList<>();
@@ -114,7 +116,7 @@ public class ResultActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
         String userName = globalValues.getString("userName", null);
 
-        new InsertIntoParticipates(userName, selectedTour, 0, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        new InsertIntoParticipates(userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
 
 
     }
