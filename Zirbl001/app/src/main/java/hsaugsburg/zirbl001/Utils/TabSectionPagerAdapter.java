@@ -1,4 +1,4 @@
-package hsaugsburg.zirbl001.NavigationActivities.Profile;
+package hsaugsburg.zirbl001.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileSectionPagerAdapter extends FragmentPagerAdapter {
+public class TabSectionPagerAdapter extends FragmentPagerAdapter {
 
-    private static final String TAG = "ProfileSectionPagerAdapter";
+    private static final String TAG = "TabSectionPagerAdapter";
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public ProfileSectionPagerAdapter(FragmentManager fm) {
+    public TabSectionPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

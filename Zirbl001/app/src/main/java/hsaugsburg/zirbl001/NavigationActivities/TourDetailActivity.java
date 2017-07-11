@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -48,7 +49,6 @@ import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
 public class TourDetailActivity extends AppCompatActivity implements Callback, DownloadActivity {
@@ -74,6 +74,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -114,10 +115,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         setupBottomNavigationView();
 
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
-        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
-
-
         mDetailPhoto = (ImageView) findViewById(R.id.image);
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -128,6 +125,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         initImageLoader();
         //setDetailImage();
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
 
     }
 
@@ -284,6 +290,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     public void processData(List<JSONModel> result) {
 
+
         if(result != null) {
 
             TextView duration = (TextView) findViewById(R.id.durationText);
@@ -328,14 +335,32 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             //setDetailImage(mainPictureURL);
             //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
 
+            Log.d(TAG, "processData: bin aber auch hier");
+
         }else{
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
             ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
             tryAgain.setVisibility(View.VISIBLE);
+            Log.d(TAG, "processData: shit ich bin hier");
         }
+    }
 
 
+    void refreshItems() {
+        /*
+        TextView noConnection = (TextView)findViewById(R.id.noConnection);
+        noConnection.setVisibility(View.GONE);
+        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+        tryAgain.setVisibility(View.GONE);
+        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
+        */
+        onItemsLoadComplete();
+    }
+
+    void onItemsLoadComplete() {
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -345,7 +370,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         noConnection.setVisibility(View.GONE);
         ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
         tryAgain.setVisibility(View.GONE);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
+        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
     }
 
     public static Spanned fromHtml(String html){

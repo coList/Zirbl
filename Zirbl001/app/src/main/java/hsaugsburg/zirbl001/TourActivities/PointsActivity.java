@@ -96,8 +96,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             double rightAnswer = Double.valueOf(solution);
 
             Double range = Double.parseDouble(getIntent().getStringExtra("range"));
-            if (userInput >= rightAnswer - 0.05 * range &&
-                    userInput <= rightAnswer + 0.05 * range) {
+            if (userInput >= rightAnswer - 0.08 * range &&
+                    userInput <= rightAnswer + 0.08 * range) {
                 answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 gif.setImageResource(R.drawable.confetti_right);
