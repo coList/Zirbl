@@ -3,8 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ListView
+        android:id="@+id/ownstatistics_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorLine"
+        android:dividerHeight="2.0sp"></ListView>
+    <!--
     <include
         layout="@layout/list_item_own_statistic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+        -->
 </RelativeLayout>

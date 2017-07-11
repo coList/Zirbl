@@ -89,10 +89,17 @@ public class SplashScreen extends AppCompatActivity {
     public String createRandomString(int length) {
         Random r = new Random();
 
+
+        char[] choices = ("abcdefghijklmnopqrstuvwxyz" +
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                "0123456789").toCharArray();
+
+        /*
         char[] choices = ("abcdefghijklmnopqrstuvwxyz" +
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
                 "0123456789" +
                 "_#$").toCharArray();
+                */
 
 
         StringBuilder salt = new StringBuilder(length);

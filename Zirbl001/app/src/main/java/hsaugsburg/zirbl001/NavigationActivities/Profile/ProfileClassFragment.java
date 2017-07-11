@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hsaugsburg.zirbl001.Models.OwnStatisticsModel;
 import hsaugsburg.zirbl001.R;
 
 
@@ -21,4 +25,5 @@ public class ProfileClassFragment extends Fragment {
 
         return view;
     }
+
 }

@@ -71,7 +71,6 @@ public class TourSelectionAdapter extends BaseAdapter {
         TextView distance = (TextView) rowView.findViewById(R.id.distanceText);
         TextView difficultyName = (TextView) rowView.findViewById(R.id.difficultyText);
 
-
         TourSelectionModel tourSelection = (TourSelectionModel) getItem(position);
         tourName.setText(tourSelection.getTourName());
         duration.setText(Integer.toString(tourSelection.getDuration()) + " min");
