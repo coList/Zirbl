@@ -168,12 +168,14 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
 
     public void addParticipant(View view) {
-        if (count < maxAmountOfParticipants - 1) {
+        EditText firstParticipantText = (EditText)findViewById(R.id.firstName);
+        EditText secondParticipantText = (EditText)findViewById(R.id.secondName);
+        if (count < maxAmountOfParticipants - 1 && !firstParticipantText.getText().toString().isEmpty() && !secondParticipantText.getText().toString().isEmpty()) {
             EditText previousParticipantText = new EditText(this);
             if (count > 0) {
                 previousParticipantText = (EditText) findViewById(count - 1);
             } else {
-                previousParticipantText = (EditText) findViewById(R.id.firstName);
+                previousParticipantText = secondParticipantText;
             }
             String previousParticipant = previousParticipantText.getText().toString();
 
@@ -206,6 +208,11 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
                 vibe.vibrate(100);
             }
 
+        } else {
+            Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+            findViewById(R.id.plusButton).startAnimation(shake);
+            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
         }
     }
 
@@ -218,6 +225,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         ArrayList<String> participants = new ArrayList<>();
         participants.add(((EditText)findViewById(R.id.firstName)).getText().toString());
+        participants.add(((EditText)findViewById(R.id.secondName)).getText().toString());
 
         editor.putString("startTime", Long.toString(System.currentTimeMillis()));
 
