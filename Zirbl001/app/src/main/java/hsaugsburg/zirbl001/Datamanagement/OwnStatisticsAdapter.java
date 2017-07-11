@@ -87,6 +87,14 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         duration.setText(time);
         ranking.setText(ownStatisticsModel.getRank() + ". Platz");
         teamname.setText(ownStatisticsModel.getGroupName());
+
+        String participantsViewText = "";
+        for (String participant: ownStatisticsModel.getParticipants()) {
+            participantsViewText += participant + ", ";
+        }
+        participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
+        participants.setText(participantsViewText);
+
         return rowView;
 
     }

@@ -78,11 +78,27 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
                     ownStatisticsModel.setGroupName(mJsonLObjectOwnStatistic.getString("groupname"));
                     ownStatisticsModel.setDuration(mJsonLObjectOwnStatistic.getInt("duration"));
                     ownStatisticsModel.setParticipationDate(mJsonLObjectOwnStatistic.getString("participationdate"));
+
                     ownStatisticsModel.setScore(mJsonLObjectOwnStatistic.getInt("score"));
                     ownStatisticsModel.setRank(mJsonLObjectOwnStatistic.getInt("worldranking"));
 
 
-                    //JSONObject participantsObject = mJsonLObjectOwnStatistic.getJSONObject("participants");
+                    JSONObject participantsObject = mJsonLObjectOwnStatistic.getJSONObject("participants");
+                    ArrayList<String> participants = new ArrayList<>();
+
+                    Iterator<String> iter = participantsObject.keys();
+                    while (iter.hasNext()) {
+                        String key = iter.next();
+                        try {
+                            Object value = participantsObject.get(key);
+                            participants.add(value.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    ownStatisticsModel.setParticipants(participants);
+
 
 
                     ownStatisticsModelList.add(ownStatisticsModel);

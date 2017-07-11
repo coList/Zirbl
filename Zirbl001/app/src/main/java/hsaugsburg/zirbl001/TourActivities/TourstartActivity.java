@@ -230,8 +230,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         participants.add(((EditText)findViewById(R.id.firstName)).getText().toString());
         participants.add(((EditText)findViewById(R.id.secondName)).getText().toString());
 
-        participants.add(((EditText)findViewById(R.id.secondName)).getText().toString());
-
         editor.putString("startTime", Long.toString(System.currentTimeMillis()));
 
         for (int i = 0; i < count; i++) {
