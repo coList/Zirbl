@@ -175,7 +175,8 @@ public class QrDialog implements DownloadActivity {
                 String nameDot = "dot" + (i + 1);
                 int dotID = activity.getResources().getIdentifier(nameDot, "id", activity.getPackageName());
                 ImageView dot = (ImageView) dialog.findViewById(dotID);
-                dot.setImageResource(R.drawable.ic_loading_point_black);
+                dot.setImageResource(R.drawable.ic_loading_point_color);
+                dot.setTranslationY(0-7);
 
                 int previous = i - 1;
                 if (previous < 0) {
@@ -186,7 +187,8 @@ public class QrDialog implements DownloadActivity {
                 String namePreviousDot = "dot" + (previous + 1);
                 int previousDotID = activity.getResources().getIdentifier(namePreviousDot, "id", activity.getPackageName());
                 ImageView previousDot = (ImageView) dialog.findViewById(previousDotID);
-                previousDot.setImageResource(R.drawable.ic_loading_point_color);
+                previousDot.setImageResource(R.drawable.ic_loading_point_black);
+                previousDot.setTranslationY(0);
 
                 i++;
                 if (i > 2) {

@@ -111,9 +111,6 @@ public class SliderActivity extends AppCompatActivity {
         TextView count = (TextView) findViewById(R.id.sliderCount);
         count.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
 
-        slider.getProgressDrawable().setColorFilter(
-                ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
-
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
@@ -174,10 +171,6 @@ public class SliderActivity extends AppCompatActivity {
                     sliderCount.setText(Integer.toString(progress + minValue.intValue()));
 
                 }
-
-                seekBar.getProgressDrawable().setColorFilter(
-                        ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
-
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
