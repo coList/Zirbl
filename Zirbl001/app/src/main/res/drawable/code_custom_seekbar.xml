@@ -13,24 +13,34 @@
                 android:type="linear" />
         </shape>
     </item>
+    <item
+        android:id="@android:id/background"
+        android:bottom="2px"
+        android:top="2px"
+        android:left="2px"
+        android:right="2px">
+        <shape android:shape="rectangle">
+            <corners
+                android:radius="5dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="@color/colorAccent"
+                android:endColor="@color/colorAccent"
+                android:centerY="0.2"
+                android:type="linear" />
+        </shape>
+    </item>
 
     <item
         android:id="@android:id/progress" >
-        <scale android:scaleWidth="100%">
+        <clip>
             <shape android:shape="rectangle">
                 <corners android:radius="8dp"/>
                 <gradient
-                    android:endColor="#00FFA2"
-                    android:startColor="#2BC5D7"
+                    android:endColor="#2BC5D7"
+                    android:startColor="#00FFA2"
                     android:centerColor="#15E3BB" />
             </shape>
-        </scale>
-    </item>
-
-    <item android:id="@android:id/secondaryProgress">
-        <shape android:shape="rectangle">
-            <size android:height="9dp"/>
-            <solid android:color="@color/android:transparent"/>
-        </shape>
+        </clip>
     </item>
 </layer-list>

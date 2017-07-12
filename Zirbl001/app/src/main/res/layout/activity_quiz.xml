@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/behindQuestionImage"
-                        android:background="@drawable/code_pressed_route"
+                        android:background="@color/colorTransparent80"
                         android:gravity="bottom"
                         android:paddingBottom="24dp"
                         android:paddingLeft="24dp"
@@ -99,6 +99,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
                         android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -134,6 +135,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -169,6 +171,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -204,6 +207,7 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
