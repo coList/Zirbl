@@ -501,7 +501,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 startActivity(intent);
 
             } //else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
-             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {
+             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.1 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -643,7 +643,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
             //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
-            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
+            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.01) {
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibe.vibrate(100);
                 loadTourChronology.continueToNextView();
@@ -696,7 +696,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
 
-    // On ConnectionListener anhängsel
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         requestLocationUpdates();
@@ -730,7 +729,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-    // On ConnectionListener anhängsel ende
 
 
 
