@@ -55,9 +55,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             Log.d("InsertIntoParticipates", Integer.toString(classID));
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
-            } else {
-                postDataParams.put("classid", null);
-            }
+            } 
             postDataParams.put("groupname", teamname);
             postDataParams.put("score", score);
             postDataParams.put("duration", duration);
