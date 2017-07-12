@@ -65,6 +65,8 @@ public class ResultActivity extends AppCompatActivity {
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         classID = Integer.parseInt(tourValues.getString("classID", null));
 
+        Log.d("ResultActivity", Integer.toString(classID));
+
         String teamName = tourValues.getString("teamName", null);
         ArrayList<String> participants = new ArrayList<>();
         try {

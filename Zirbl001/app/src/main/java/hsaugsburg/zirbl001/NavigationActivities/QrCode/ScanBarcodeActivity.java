@@ -60,8 +60,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
     public void saveScanInfos(String scanValue){
 
-        //String muss wie folgt ausschauen: ZirblIdent, TourID, Tourname, KlassenID, Klassenname, Schulname
-
         String[] splited = scanValue.split(";");
         Log.d(TAG, "saveScanInfos: " + scanValue);
 
@@ -75,6 +73,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
             klasse = splited[3];
             school = splited[4];
             klassenID = Integer.parseInt(splited[5]);
+            Log.d("ScanBarcodeActivity", Integer.toString(klassenID));
         }
     }
 

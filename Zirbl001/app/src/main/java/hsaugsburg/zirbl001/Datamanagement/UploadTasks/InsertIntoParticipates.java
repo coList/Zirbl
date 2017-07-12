@@ -52,6 +52,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
             postDataParams.put("tourid", tourID);
+            Log.d("InsertIntoParticipates", Integer.toString(classID));
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
             } else {

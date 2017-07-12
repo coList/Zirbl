@@ -102,6 +102,8 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
+        Log.d("TourstartActivity", Integer.toString(classID));
+        Log.d("TourstartActivity", "test");
 
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
