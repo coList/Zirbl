@@ -10,17 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-            android:id="@+id/statPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/imagePoints"
-            android:layout_alignStart="@+id/imagePoints"
-            android:layout_centerVertical="true"
-            android:text="000"
-            android:textAlignment="center"
-            app:textAllCaps="false" />
-
         <ImageView
             android:id="@+id/imagePoints"
             android:layout_width="wrap_content"
@@ -31,7 +20,18 @@
             android:layout_toEndOf="@+id/placementOfAllArea"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_zirbl" />
+            app:srcCompat="@drawable/img_right_without_confetti" />
+
+        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+            android:id="@+id/statPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/imagePoints"
+            android:layout_alignStart="@+id/imagePoints"
+            android:layout_centerVertical="true"
+            android:text="000"
+            android:textAlignment="center"
+            app:textAllCaps="false" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
             android:id="@+id/titleOfStatistic"

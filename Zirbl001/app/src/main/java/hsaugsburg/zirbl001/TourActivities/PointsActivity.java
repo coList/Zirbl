@@ -80,9 +80,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String answerCorrect = getIntent().getStringExtra("answerCorrect");
         String answerWrong = getIntent().getStringExtra("answerWrong");
         int stringLengthC = answerCorrect.length();
-        Log.d(TAG, Integer.toString(stringLengthC));
         int stringLengthW = answerWrong.length();
-        Log.d(TAG, Integer.toString(stringLengthW));
         int score = Integer.parseInt(getIntent().getStringExtra("score"));
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
