@@ -76,6 +76,9 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
                     tourDetailModel.setMapPicture(mJsonLObjectTourDetails.getString("mappicture"));
                     tourDetailModel.setVideoPath(mJsonLObjectTourDetails.getString("videopath"));
                     tourDetailModel.setWarnings(mJsonLObjectTourDetails.getString("warnings"));
+                    tourDetailModel.setShortDescription(mJsonLObjectTourDetails.getString("shortdescription"));
+                    tourDetailModel.setEndLocation(mJsonLObjectTourDetails.getString("endlocation"));
+                    tourDetailModel.setStartLocation(mJsonLObjectTourDetails.getString("startlocation"));
 
                     List<String> picturesPathList = new ArrayList<>();
 

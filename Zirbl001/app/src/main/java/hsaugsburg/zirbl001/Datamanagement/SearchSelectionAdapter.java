@@ -3,6 +3,8 @@ package hsaugsburg.zirbl001.Datamanagement;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
+import hsaugsburg.zirbl001.Models.TourDetailModel;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 
@@ -79,14 +82,18 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
         TextView duration = (TextView) rowView.findViewById(R.id.durationText);
         TextView distance = (TextView) rowView.findViewById(R.id.distanceText);
         TextView difficultyName = (TextView) rowView.findViewById(R.id.difficultyText);
+        TextView descriptionShort = (TextView) rowView.findViewById(R.id.descriptionShort);
 
 
-        TourSelectionModel tourSelection = (TourSelectionModel) getItem(position);
-        tourName.setText(tourSelection.getTourName());
-        duration.setText(Integer.toString(tourSelection.getDuration()) + " min");
-        double dist = tourSelection.getDistance() / 1000.0;
+        TourDetailModel tourDetail = (TourDetailModel) getItem(position);
+        tourName.setText(tourDetail.getTourName());
+
+        descriptionShort.setText(fromHtml(tourDetail.getShortDescription()));
+
+        duration.setText(Integer.toString(tourDetail.getDuration()) + " min");
+        double dist = tourDetail.getDistance() / 1000.0;
         distance.setText(Double.toString(dist) + " km");
-        difficultyName.setText(tourSelection.getDifficultyName());
+        difficultyName.setText(tourDetail.getDifficultyName());
 
 
         tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorStandardText));
@@ -122,9 +129,9 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
 
                     for(JSONModel data : originalData)
                     {
-                        TourSelectionModel tourSelection = (TourSelectionModel) data;
+                        TourDetailModel tourDetail = (TourDetailModel) data;
 
-                        if((tourSelection.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        if((tourDetail.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
                         {
                             filterResultsData.add(data);
                         }
@@ -144,6 +151,17 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         };
+    }
+
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 
 }
