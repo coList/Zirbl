@@ -12,6 +12,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -31,11 +33,13 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
+import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
 import hsaugsburg.zirbl001.Datamanagement.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
+import hsaugsburg.zirbl001.Models.TourDetailModel;
 import hsaugsburg.zirbl001.Models.TourSelectionModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
@@ -92,7 +96,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
+        new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
         mListView = (ListView) findViewById(R.id.search_list_view);
 
     }
@@ -168,8 +172,8 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
                     //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
-                    intent1.putExtra("tourID", Integer.toString(((TourSelectionModel)selectedTour).getTourID()));
-                    intent1.putExtra("tourName", ((TourSelectionModel)selectedTour).getTourName());
+                    intent1.putExtra("tourID", Integer.toString(((TourDetailModel)selectedTour).getTourID()));
+                    intent1.putExtra("tourName", ((TourDetailModel)selectedTour).getTourName());
                     startActivity(intent1);
                 }
             });
@@ -180,6 +184,16 @@ public class SearchActivity extends AppCompatActivity implements Callback{
             noConnection.setVisibility(View.VISIBLE);
         }
 
+    }
 
+
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }

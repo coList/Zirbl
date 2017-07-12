@@ -17,6 +17,7 @@ import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -306,6 +307,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             TextView description = (TextView) findViewById(R.id.description);
             description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
 
+            TextView startEnd = (TextView) findViewById(R.id.startEnd);
+            startEnd.setText(fromHtml("<b>Tourstart:</b> " + ((TourDetailModel) result.get(tourID)).getStartLocation() + "<br />" +
+            "<b>Tourende:</b> " + ((TourDetailModel) result.get(tourID)).getEndLocation()));
+
             if (hasOpeningHours) {
                 TextView openingHours = (TextView) findViewById(R.id.openingHours);
                 TextView openingHoursTitle = (TextView) findViewById(R.id.openingHoursTitle);
@@ -381,5 +386,27 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                /*
+                Intent intent1 = new Intent(mContext, ImpressumActivity.class);
+                startActivity(intent1);
+                */
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
