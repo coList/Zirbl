@@ -217,6 +217,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
                     Intent intent = new Intent(mContext, TourstartActivity.class);
                     intent.putExtra("tourID", Integer.toString(tourID));
+                    intent.putExtra("classID", "-1");
                     startActivity(intent);
                 }
             }
