@@ -9,13 +9,14 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,6 +25,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -52,14 +59,13 @@ import hsaugsburg.zirbl001.Models.DoUKnowModel;
 import hsaugsburg.zirbl001.Models.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.MapModels.Route;
 import hsaugsburg.zirbl001.Models.MapModels.StationModel;
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
-public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener {
+public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private Context mContext = NavigationActivity.this;
     private NavigationActivity activity = this;
@@ -68,6 +74,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private int chronologyNumber;
     private int selectedTour;
     private int stationID;
+
+    private static final int ACCURACY_HIGH = 3;
 
     private String stationName;
 
@@ -113,22 +121,56 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private boolean positionMarkerWasSet = false;
 
 
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
+    private FusedLocationProviderApi locationProviderApi = LocationServices.FusedLocationApi;
+    private Double latMyPos;
+    private Double lngMyPos;
+
+
     //dot menu
     private TextView title;
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
 
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        googleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        googleApiClient.disconnect();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
+
+
+        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
         overridePendingTransition(0, 0);
-        locationManager.removeUpdates(this);
+        //locationManager.removeUpdates(this);
     }
 
     public void onResume() {
         super.onResume();
 
+
+        if (googleApiClient.isConnected()){
+            requestLocationUpdates();
+        }
+
+
+
+
+ /*
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -144,8 +186,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-
         }
+      if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
+
+        }*/
     }
 
 
@@ -153,6 +200,22 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(100);
+        locationRequest.setFastestInterval(LOCATION_UPDATE_INTERVALL_MSEC);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+
+
+
+
 
         //dot menu
 
@@ -201,7 +264,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
 
@@ -302,13 +365,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
 
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+/*        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
         } else {
             showDialogGPS();
-        }
+        }*/
 
 
     }
@@ -522,8 +585,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     @Override
     public void onLocationChanged(Location location) {
-        double latMyPos = location.getLatitude();
-        double lngMyPos = location.getLongitude();
+
+
+
+        latMyPos = location.getLatitude();
+        lngMyPos = location.getLongitude();
         latLngMyPos = new LatLng(latMyPos, lngMyPos);
         Geocoder geocoder = new Geocoder(getApplicationContext());
         try {
@@ -589,7 +655,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
 
-    @Override
+/*    @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Maps", "StatusChanged");
     }
@@ -602,7 +668,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     @Override
     public void onProviderDisabled(String provider) {
         Log.d("Maps", "ProviderDisabled");
-    }
+    }*/
 
 
 
@@ -625,6 +691,46 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             }
         });
     }
+
+
+
+
+
+    // On ConnectionListener anhängsel
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        requestLocationUpdates();
+    }
+
+    private void requestLocationUpdates() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        // check if network provider is enabled
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    // On ConnectionListener anhängsel ende
 
 
 
