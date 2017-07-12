@@ -114,7 +114,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_below="@+id/lineTwo">
+            android:layout_below="@+id/lineTwo"
+            android:clickable="true"
+            android:onClick="quitTour">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuQuit"
