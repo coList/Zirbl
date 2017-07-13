@@ -9,25 +9,21 @@
 
             <corners
                 android:radius="7dp" />
-            <gradient
-                android:type="radial"
-                android:gradientRadius="150"
-                android:startColor="@color/colorAccent"
-                android:endColor="@color/colorTransparent30" />
+            <solid
+                android:color="@color/colorLine" />
             <size
-                android:height="35dp"
-                android:width="35dp" />
-
+                android:height="48dp"
+                android:width="48dp" />
         </shape>
 
     </item>
 
     <!-- White Top color -->
     <item
-        android:bottom="2px"
-        android:top="2px"
-        android:left="2px"
-        android:right="2px">
+        android:bottom="1px"
+        android:top="1px"
+        android:left="1px"
+        android:right="1px">
 
         <shape
             android:shape="oval">

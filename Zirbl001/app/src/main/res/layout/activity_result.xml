@@ -182,7 +182,6 @@
                         android:background="@android:color/transparent"
                         android:onClick="endTour"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/btn_continue"
                         app:srcCompat="@drawable/btn_end" />
                 </LinearLayout>
             </LinearLayout>

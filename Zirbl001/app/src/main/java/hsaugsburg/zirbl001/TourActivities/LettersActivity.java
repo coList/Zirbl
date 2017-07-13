@@ -76,7 +76,6 @@ public class LettersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_letters);
 
         //dot menu
-
         title = (TextView) findViewById(R.id.titleActionbar);
         dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
@@ -134,19 +133,18 @@ public class LettersActivity extends AppCompatActivity {
         shuffleLetters(stringBuilder);
         final String letters = stringBuilder.toString().toUpperCase();
 
-
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
-            final OpenSansBoldPrimaryButton button = new OpenSansBoldPrimaryButton(this);
+            final Button button = new Button(this);
             button.setId(i);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
             float d = getResources().getDisplayMetrics().density;
+            TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);
+            //params.weight = 1;
             params.leftMargin = (int) (3 * d);
             params.rightMargin = (int) (3 * d);
             Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName()); //Linie
-            button.setBackgroundResource(drawableId); //Linie
+            int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
+            button.setBackgroundResource(drawableId);
 
             int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
@@ -342,16 +340,16 @@ public class LettersActivity extends AppCompatActivity {
         for (int i = 0; i < solutionLength; i++) {
             final Button button = new Button(this);
             button.setId(i);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
-            params.weight = 1;
             float d = getResources().getDisplayMetrics().density;
+            TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);
+            //params.weight = 1;
             params.leftMargin = (int) (3 * d);
             params.rightMargin = (int) (3 * d);
             Context context = button.getContext();
             int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
-            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
