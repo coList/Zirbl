@@ -90,7 +90,7 @@ public class InsertIntoFavors extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d("SplashScreen", result);
+        Log.d("InsertIntoFavors", result);
     }
 
 

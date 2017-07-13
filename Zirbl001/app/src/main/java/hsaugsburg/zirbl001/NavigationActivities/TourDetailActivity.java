@@ -142,6 +142,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             }
         });
 
+        //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
         new InsertIntoFavors(userName, tourID, serverName).execute();
 
     }
