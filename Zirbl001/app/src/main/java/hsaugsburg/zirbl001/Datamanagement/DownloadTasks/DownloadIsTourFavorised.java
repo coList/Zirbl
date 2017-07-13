@@ -48,7 +48,6 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
         try {
             URL url;
             url = new URL(params[0] + "?username=" + username + "&tourid=" + tourID);
-            Log.d("DownloadIsTourFavorised", url.toString());
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();
@@ -63,7 +62,6 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
             }
 
             String isFavorisedString = buffer.toString();
-            Log.d("DownloadIsTourFavorised", isFavorisedString);
 
             Boolean isFavorised = "1".equals(isFavorisedString);
             Log.d("DownloadIsTourFavorisedBool", isFavorised.toString());

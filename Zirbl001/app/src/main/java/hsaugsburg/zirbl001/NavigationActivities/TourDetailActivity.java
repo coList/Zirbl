@@ -143,8 +143,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     }
 
-    public void setIsFavorised(boolean isFavorised) {
-        //this.isFavorised = isFavorised;
+    public void setIsFavorised(Boolean isFavorised) {
+        if (isFavorised != null) {
+            this.isFavorised = isFavorised;
+        }
     }
 
     public void downloadTour() {
