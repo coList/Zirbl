@@ -38,6 +38,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
 import hsaugsburg.zirbl001.Interfaces.Callback;
@@ -76,6 +77,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private boolean isFavorised;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -120,8 +123,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
+        String userName = globalValues.getString("userName", null);
 
         new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
+        new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
         //setDetailImage();
@@ -136,6 +141,12 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             }
         });
 
+    }
+
+    public void setIsFavorised(Boolean isFavorised) {
+        if (isFavorised != null) {
+            this.isFavorised = isFavorised;
+        }
     }
 
     public void downloadTour() {
