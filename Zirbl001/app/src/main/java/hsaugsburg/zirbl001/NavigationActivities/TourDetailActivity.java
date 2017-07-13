@@ -41,6 +41,7 @@ import java.util.List;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoFavors;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -140,6 +141,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 refreshItems();
             }
         });
+
+        new InsertIntoFavors(userName, tourID, serverName).execute();
 
     }
 
