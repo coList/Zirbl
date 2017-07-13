@@ -20,10 +20,10 @@
 
     <!-- White Top color -->
     <item
-        android:bottom="5px"
-        android:top="5px"
-        android:left="5px"
-        android:right="5px">
+        android:bottom="1px"
+        android:top="1px"
+        android:left="1px"
+        android:right="1px">
 
         <shape
             android:shape="oval">

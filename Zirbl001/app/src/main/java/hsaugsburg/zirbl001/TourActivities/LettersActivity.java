@@ -146,7 +146,7 @@ public class LettersActivity extends AppCompatActivity {
             int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
-            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
@@ -349,7 +349,7 @@ public class LettersActivity extends AppCompatActivity {
             int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
             button.setBackgroundResource(drawableId);
 
-            int colorId = context.getResources().getIdentifier("colorPrimaryDark", "color", context.getPackageName());
+            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
