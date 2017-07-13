@@ -7,14 +7,24 @@
     tools:context="hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity"
     android:background="@color/colorAccent">
 
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_top_standard_actionbar" />
+
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/qrCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/relLayoutActionBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
         android:adjustViewBounds="true"
         android:background="@color/colorTurquoise" />
 
