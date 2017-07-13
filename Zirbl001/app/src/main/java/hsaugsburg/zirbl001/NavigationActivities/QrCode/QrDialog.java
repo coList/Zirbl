@@ -37,26 +37,29 @@ public class QrDialog implements DownloadActivity {
     private final String textButtonMarked;
 
     private int tourID;
+    private int classID;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
 
-    Activity activity;
+    private Activity activity;
 
-    boolean downloadFinished = false;
-    Button dialogButtonAgain;
+    private boolean downloadFinished = false;
+    private Button dialogButtonAgain;
 
 
-    public QrDialog(Context context, boolean success, String textButtonMarked) {
+    public QrDialog(Context context, boolean success, String textButtonMarked, int classID, int tourID) {
         this.context = context;
         this.success = success;
         this.textButtonMarked = textButtonMarked;
+        this.classID = classID;
+        this.tourID = tourID;
     }
 
-    public void showDialog(Activity activity, String msg, String msg1, String msg2, final int tourID) {
+    public void showDialog(Activity activity, String msg, String msg1, String msg2) {
         this.activity = activity;
         SharedPreferences globalValues = activity.getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -164,7 +167,7 @@ public class QrDialog implements DownloadActivity {
 
     }
 
-    public void doDownloadAnimation(Dialog dialog1) {
+    private void doDownloadAnimation(Dialog dialog1) {
         final Dialog dialog = dialog1;
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -199,6 +202,7 @@ public class QrDialog implements DownloadActivity {
                 } else {
                     Intent intent = new Intent(context, TourstartActivity.class);
                     intent.putExtra("tourID", Integer.toString(tourID));
+                    intent.putExtra("classID", Integer.toString(classID));
                     context.startActivity(intent);
                 }
             }
@@ -208,7 +212,7 @@ public class QrDialog implements DownloadActivity {
     }
 
 
-    public void downloadTour() {
+    private void downloadTour() {
         new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
         new DownloadJSON(activity, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");

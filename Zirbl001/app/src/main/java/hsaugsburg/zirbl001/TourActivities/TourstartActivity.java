@@ -51,6 +51,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private int maxAmountOfParticipants = 10;
 
     private int selectedTour;
+    private int classID;
     private int currentScore = 0;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
     private int chronologyNumber = -1;
@@ -100,6 +101,9 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         ViewCompat.setBackgroundTintList(memberField2, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
+        classID = Integer.parseInt(getIntent().getStringExtra("classID"));
+        Log.d("TourstartActivity", Integer.toString(classID));
+        Log.d("TourstartActivity", "test");
 
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -113,6 +117,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("tourID", Integer.toString(selectedTour));
+        editor.putString("classID", Integer.toString(classID));
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
