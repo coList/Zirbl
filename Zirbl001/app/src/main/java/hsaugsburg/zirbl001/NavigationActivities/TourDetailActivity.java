@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -148,6 +149,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public void setIsFavorised(Boolean isFavorised) {
         if (isFavorised != null) {
             this.isFavorised = isFavorised;
+            Log.d(TAG, "isFavorisedTest");
         }
     }
 
