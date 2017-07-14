@@ -46,6 +46,8 @@ public class ProfileOwnFragment extends Fragment {
         String username = globalValues.getString("userName", null);
         new JSONOwnStatistics(this, username).execute(serverName + "/api/selectOwnStatisticsView.php");
         mListView = (ListView) view.findViewById(R.id.ownstatistics_list_view);
+        //TextView titleOfStatistic = (TextView) view.findViewById(R.id.titleOfStatistic);
+        //titleOfStatistic.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
         return view;
     }
 

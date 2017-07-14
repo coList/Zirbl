@@ -14,13 +14,14 @@
             android:id="@+id/imagePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/membersOfTeam"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:layout_toEndOf="@+id/placementOfAllArea"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img_right_without_confetti" />
+            app:srcCompat="@drawable/ic_zirblnut_golden" />
 
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
             android:id="@+id/statPoints"
@@ -29,6 +30,7 @@
             android:layout_alignEnd="@+id/imagePoints"
             android:layout_alignStart="@+id/imagePoints"
             android:layout_centerVertical="true"
+            android:paddingTop="16dp"
             android:text="000"
             android:textAlignment="center"
             app:textAllCaps="false" />
