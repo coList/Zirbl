@@ -65,7 +65,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.TourDetailActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.ImpressumActivity"

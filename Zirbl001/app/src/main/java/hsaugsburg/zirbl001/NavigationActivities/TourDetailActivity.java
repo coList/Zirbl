@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -41,6 +42,7 @@ import java.util.List;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoFavors;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -70,6 +72,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+    String userName;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -123,7 +126,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        String userName = globalValues.getString("userName", null);
+        userName = globalValues.getString("userName", null);
 
         new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
@@ -146,6 +149,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public void setIsFavorised(Boolean isFavorised) {
         if (isFavorised != null) {
             this.isFavorised = isFavorised;
+            Log.d(TAG, "isFavorisedTest");
         }
     }
 
@@ -411,10 +415,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                /*
-                Intent intent1 = new Intent(mContext, ImpressumActivity.class);
-                startActivity(intent1);
-                */
+
+                //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
+                new InsertIntoFavors(userName, tourID, serverName).execute();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

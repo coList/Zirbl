@@ -32,19 +32,11 @@ public class OwnStatisticsAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<OwnStatisticsModel> mDataSource;
 
-    public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
-
 
     public OwnStatisticsAdapter(Context context, List<OwnStatisticsModel> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-        SharedPreferences globalValues = context.getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
-
     }
 
     //1
