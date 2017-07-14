@@ -19,6 +19,7 @@ import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
 import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
+import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity;
 
 public class InsertIntoClass extends AsyncTask<String, Void, String> {
@@ -28,9 +29,9 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
     private String schoolName;
     private String qrCode;
     private String serverName;
-    private GenerateQrCodeActivity activity;
+    private ClassRegistrationActivity activity;
 
-    public InsertIntoClass(String userName, int tourID, String className, String schoolName, String qrCode, String serverName, GenerateQrCodeActivity activity) {
+    public InsertIntoClass(String userName, int tourID, String className, String schoolName, String qrCode, String serverName, ClassRegistrationActivity activity) {
         this.userName = userName;
         this.tourID = tourID;
         this.className = className;
@@ -103,7 +104,6 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d("InsertIntoClass", result);
         activity.setQrCode(result);
     }
 
