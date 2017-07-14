@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/part1"
+    android:id="@+id/teampart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/teamArea"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -39,14 +39,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/membersOfTeam"
         android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/area1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -54,13 +54,15 @@
                 android:id="@+id/image1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginBottom="3dp"
                 app:srcCompat="@drawable/ic_cup" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/rankingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="8dp"
                 android:text="#"
                 app:textAllCaps="false" />
         </LinearLayout>
@@ -69,8 +71,6 @@
             android:id="@+id/area2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -78,13 +78,15 @@
                 android:id="@+id/image2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginBottom="3dp"
                 app:srcCompat="@drawable/ic_time" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/durationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="8dp"
                 android:text="#"
                 app:textAllCaps="false" />
         </LinearLayout>
@@ -93,9 +95,6 @@
             android:id="@+id/area3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -103,13 +102,15 @@
                 android:id="@+id/image3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginBottom="3dp"
                 app:srcCompat="@drawable/ic_zirbl" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/scoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="8dp"
                 android:text="#"
                 app:textAllCaps="false" />
         </LinearLayout>

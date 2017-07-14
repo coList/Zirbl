@@ -135,7 +135,7 @@ public class LettersActivity extends AppCompatActivity {
 
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
-            final Button button = new Button(this);
+            final OpenSansBoldPrimaryButton button = new OpenSansBoldPrimaryButton(this);
             button.setId(i);
             float d = getResources().getDisplayMetrics().density;
             TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);
@@ -338,7 +338,7 @@ public class LettersActivity extends AppCompatActivity {
 
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
-            final Button button = new Button(this);
+            final OpenSansBoldPrimaryButton button = new OpenSansBoldPrimaryButton(this);
             button.setId(i);
             float d = getResources().getDisplayMetrics().density;
             TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);

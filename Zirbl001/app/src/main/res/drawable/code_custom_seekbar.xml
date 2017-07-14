@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@android:id/background">
-        <shape android:shape="rectangle">
-            <corners
-                android:radius="5dp" />
-            <gradient
-                android:angle="270"
-                android:startColor="@color/colorTransparent30"
-                android:endColor="@color/colorTransparent30"
-                android:centerY="0.2"
-                android:type="linear" />
-            <size
-                android:height="7dp"/>
-        </shape>
-    </item>
-    <item
         android:id="@android:id/background"
         android:bottom="3px"
         android:top="3px"
