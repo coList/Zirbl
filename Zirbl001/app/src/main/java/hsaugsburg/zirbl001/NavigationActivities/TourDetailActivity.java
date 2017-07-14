@@ -71,6 +71,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+    String userName;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -124,7 +125,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        String userName = globalValues.getString("userName", null);
+        userName = globalValues.getString("userName", null);
 
         new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
@@ -141,9 +142,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 refreshItems();
             }
         });
-
-        //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
-        new InsertIntoFavors(userName, tourID, serverName).execute();
 
     }
 
@@ -415,10 +413,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                /*
-                Intent intent1 = new Intent(mContext, ImpressumActivity.class);
-                startActivity(intent1);
-                */
+
+                //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
+                new InsertIntoFavors(userName, tourID, serverName).execute();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
