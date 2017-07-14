@@ -3,7 +3,9 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -21,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
+
 import java.lang.reflect.Field;
 
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoClass;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.R;
 
@@ -30,6 +35,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
     private static final String TAG = "ClassRegistrationActivity";
     private Context mContext = ClassRegistrationActivity.this;
+
+
+    public static final String GLOBAL_VALUES = "globalValuesFile";
 
     private int tourID;
     private String tourName;
@@ -107,13 +115,15 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         if(className != null && !className.isEmpty() && school !=null && !school.isEmpty()){
-            Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
-            intent.putExtra("tourID", Integer.toString(tourID));
-            intent.putExtra("tourName", tourName);
-            intent.putExtra("className", className);
-            intent.putExtra("school", school);
-            startActivity(intent);
-            speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
+            String qrString = generateString();
+
+            SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+            String serverName = globalValues.getString("serverName", null);
+            String userName = globalValues.getString("userName", null);
+
+            new InsertIntoClass(userName, tourID, className, school, qrString, serverName, this).execute();
+
+
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.createButton).startAnimation(shake);
@@ -123,15 +133,32 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    public void setQrCode(String result) {
+
+        Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
+        intent.putExtra("tourID", Integer.toString(tourID));
+        intent.putExtra("tourName", tourName);
+        intent.putExtra("className", className);
+        intent.putExtra("school", school);
+        intent.putExtra("qrCode", result);
+        startActivity(intent);
+        ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
+        speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
+
+    }
+
+
+    public String generateString(){
+        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";" + className + ";" + school;
+    }
+
     public void setInput(){
         NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
         NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
-        Log.d(TAG, "Classletter: " + valuesClassnumber[npClass.getValue()-1]);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
         className = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1].toString();
         school = etSchool.getText().toString();
-        Log.d(TAG, "setInput: " + className);
 
     }
 
