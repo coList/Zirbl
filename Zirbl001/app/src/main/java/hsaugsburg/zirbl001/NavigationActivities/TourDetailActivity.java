@@ -81,6 +81,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean firstClickOnGo = true;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private MenuItem favIconMenu;
+
     private boolean isFavorised;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
@@ -132,24 +134,22 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
-        //setDetailImage();
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshItems();
-            }
-        });
+    }
 
+    public void setFavIcon(){
+        Log.d(TAG, "setFavIcon: " + Boolean.toString(isFavorised));
+        if(isFavorised) {
+            favIconMenu.setIcon(R.drawable.ic_bottom_qrcode);
+        }else{
+            favIconMenu.setIcon(R.drawable.ic_bottom_star);
+        }
     }
 
     public void setIsFavorised(Boolean isFavorised) {
         if (isFavorised != null) {
             this.isFavorised = isFavorised;
-            Log.d(TAG, "isFavorisedTest");
         }
     }
 
@@ -366,25 +366,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }
     }
 
-
-    void refreshItems() {
-        /*
-        TextView noConnection = (TextView)findViewById(R.id.noConnection);
-        noConnection.setVisibility(View.GONE);
-        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-        tryAgain.setVisibility(View.GONE);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
-        */
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-
-
     public void tryConnectionAgain(View view) {
         TextView noConnection = (TextView)findViewById(R.id.noConnection);
         noConnection.setVisibility(View.GONE);
@@ -407,6 +388,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
+        favIconMenu = menu.findItem(R.id.action_favorite);
+        setFavIcon();
         return true;
     }
 
