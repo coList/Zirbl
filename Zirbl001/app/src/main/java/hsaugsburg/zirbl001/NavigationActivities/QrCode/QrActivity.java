@@ -40,7 +40,9 @@ public class QrActivity extends AppCompatActivity {
     private Context mContext = QrActivity.this;
     private Typeface mTypeface;
 
-    TextView barcodeResult;
+    private int position = 0;
+
+    private TextView barcodeResult;
 
 
     private String barcodeValue;
@@ -76,6 +78,11 @@ public class QrActivity extends AppCompatActivity {
         }
 
         setupBottomNavigationView();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            position = extras.getInt("viewpager_position");
+        }
 
         setupViewPager();
         
@@ -130,6 +137,7 @@ public class QrActivity extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(position);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);

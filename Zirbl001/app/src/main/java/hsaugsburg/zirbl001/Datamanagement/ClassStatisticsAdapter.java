@@ -2,7 +2,9 @@ package hsaugsburg.zirbl001.Datamanagement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +82,8 @@ public class ClassStatisticsAdapter extends BaseAdapter {
             }
         });
         TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
+        tourName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
         TextView participationDate = (TextView) rowView.findViewById(R.id.dateOfTour);
         TextView school = (TextView) rowView.findViewById(R.id.school);
 
@@ -116,8 +120,11 @@ public class ClassStatisticsAdapter extends BaseAdapter {
             TextView teamName = (TextView) teamStatistic.findViewById(R.id.teamName);
             TextView participants = (TextView) teamStatistic.findViewById(R.id.membersOfTeam);
             TextView ranking = (TextView) teamStatistic.findViewById(R.id.rankingText);
+            ranking.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             TextView duration = (TextView) teamStatistic.findViewById(R.id.durationText);
+            duration.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             TextView score = (TextView) teamStatistic.findViewById(R.id.scoreText);
+            score.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 
             teamName.setText(classStatisticsModel.getGroupName());
 

@@ -61,19 +61,15 @@ public class ScanBarcodeActivity extends AppCompatActivity{
     public void saveScanInfos(String scanValue){
 
         String[] splited = scanValue.split(";");
-        Log.d(TAG, "saveScanInfos: " + scanValue);
 
         zirblIdent = splited[0];
 
         if(zirblIdent.equals("qrcodezirbl")){
             tourID = Integer.parseInt(splited[1]);
-            Log.d("ScanBarcodeActivity", Integer.toString(tourID));
             tourName = splited[2];
-            Log.d(TAG, "saveScanInfos: " + tourName);
             klasse = splited[3];
             school = splited[4];
             klassenID = Integer.parseInt(splited[5]);
-            Log.d("ScanBarcodeActivity", Integer.toString(klassenID));
         }
     }
 

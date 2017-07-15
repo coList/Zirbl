@@ -59,7 +59,7 @@ public class EndTourDialog {
 
         Button dialogButtonAgain = (Button) dialog.findViewById(R.id.btn_marked);
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
-        dialogButtonAgain.setText("FORTSETZEN");
+        dialogButtonAgain.setText("NEIN");
         dialogButtonAgain.setTextColor(context.getResources().getColor(R.color.colorTurquoise));
         Log.d(TAG, "showDialog: ich bin türkis");
 
@@ -74,7 +74,7 @@ public class EndTourDialog {
 
         Button dialogButtonEnd = (Button) dialog.findViewById(R.id.btn_end);
         Typeface typeface2 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
-        dialogButtonEnd.setText("BEENDEN");
+        dialogButtonEnd.setText("JA");
         dialogButtonEnd.setTypeface(typeface2);
         dialogButtonEnd.setOnClickListener(new View.OnClickListener() {
             @Override
