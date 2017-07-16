@@ -84,6 +84,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private MenuItem favIconMenu;
 
     private boolean isFavorised;
+    private boolean isFilled;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -135,21 +136,18 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         initImageLoader();
 
-
-    }
-
-    public void setFavIcon(){
-        Log.d(TAG, "setFavIcon: " + Boolean.toString(isFavorised));
-        if(isFavorised) {
-            favIconMenu.setIcon(R.drawable.ic_bottom_qrcode);
-        }else{
-            favIconMenu.setIcon(R.drawable.ic_bottom_star);
-        }
     }
 
     public void setIsFavorised(Boolean isFavorised) {
         if (isFavorised != null) {
             this.isFavorised = isFavorised;
+        }
+        if(isFavorised) {
+            favIconMenu.setIcon(R.drawable.ic_star_filled);
+            isFilled = true;
+        }else{
+            favIconMenu.setIcon(R.drawable.ic_bottom_star);
+            isFilled = false;
         }
     }
 
@@ -389,7 +387,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
-        setFavIcon();
         return true;
     }
 
@@ -401,6 +398,13 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
                 //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
                 new InsertIntoFavors(userName, tourID, serverName).execute();
+                if(isFilled){
+                    isFilled = false;
+                    favIconMenu.setIcon(R.drawable.ic_bottom_star);
+                }else {
+                    isFilled = true;
+                    favIconMenu.setIcon(R.drawable.ic_star_filled);
+                }
 
                 return true;
             default:

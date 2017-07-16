@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -130,6 +131,8 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
             });
 
         }else {
+            RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.noFavs);
+            rl.setVisibility(View.VISIBLE);
             Log.d(TAG, "processData: result ist nicht befüllt");
         }
 
