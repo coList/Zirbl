@@ -262,7 +262,7 @@ public class LettersActivity extends AppCompatActivity {
     private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });

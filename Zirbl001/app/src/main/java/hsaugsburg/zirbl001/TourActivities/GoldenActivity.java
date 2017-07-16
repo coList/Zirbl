@@ -106,7 +106,7 @@ public class GoldenActivity extends AppCompatActivity {
     private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext, Integer.parseInt(tourValues.getString("tourID", null)));
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });
