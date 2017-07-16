@@ -83,12 +83,35 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
-
         initImageLoader();
     }
 
+    public void processData(List<JSONModel> result) {
+        if (result != null) {
+            TourSelectionAdapter adapter = new TourSelectionAdapter(this, result, imageLoader);
+            mListView.setAdapter(adapter);
+            final List<JSONModel> tourSelectionItems = result;
+
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    JSONModel selectedTour = tourSelectionItems.get(position);
+                    Intent intent1 = new Intent(mContext, TourDetailActivity.class);
+                    intent1.putExtra("tourID", Integer.toString(((TourSelectionModel) selectedTour).getTourID()));
+                    intent1.putExtra("tourName", ((TourSelectionModel) selectedTour).getTourName());
+                    startActivity(intent1);
+                }
+            });
+        } else{
+            TextView noConnection = (TextView)findViewById(R.id.noConnection);
+            noConnection.setVisibility(View.VISIBLE);
+            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+            tryAgain.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void initImageLoader(){
-        Log.d(TAG, "initImageLoader: ");
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
@@ -106,37 +129,6 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         menuItem.setChecked(true);
     }
 
-    public void processData(List<JSONModel> result) {
-
-        if (result != null) {
-            TourSelectionAdapter adapter = new TourSelectionAdapter(this, result, imageLoader);
-            mListView.setAdapter(adapter);
-            final List<JSONModel> tourSelectionItems = result;
-
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    JSONModel selectedTour = tourSelectionItems.get(position);
-
-                    //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
-
-                    Intent intent1 = new Intent(mContext, TourDetailActivity.class);
-                    intent1.putExtra("tourID", Integer.toString(((TourSelectionModel) selectedTour).getTourID()));
-                    intent1.putExtra("tourName", ((TourSelectionModel) selectedTour).getTourName());
-                    startActivity(intent1);
-                }
-            });
-
-
-        }
-        else{
-            TextView noConnection = (TextView)findViewById(R.id.noConnection);
-            noConnection.setVisibility(View.VISIBLE);
-            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-            tryAgain.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void tryConnectionAgain(View view) {
         TextView noConnection = (TextView)findViewById(R.id.noConnection);
