@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -118,9 +121,19 @@ public class ResultActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
         String userName = globalValues.getString("userName", null);
 
-        new InsertIntoParticipates(userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        new InsertIntoParticipates(this, userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
 
 
+    }
+
+    public void setRanking(JSONObject result) {
+        try {
+            TextView ranking = (TextView) findViewById(R.id.textPlacement);
+            String rankingText = result.getInt("worldranking") + ". Platz von " + result.getInt("totalparticipations");
+            ranking.setText(rankingText);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void endTour(View view) {
