@@ -122,6 +122,7 @@ public class ResultActivity extends AppCompatActivity {
         String userName = globalValues.getString("userName", null);
 
         new InsertIntoParticipates(this, userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        deleteFiles();
 
 
     }
@@ -136,6 +137,26 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
+    public void deleteFiles() {
+        File dir = getFilesDir();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
+        files.add(new File(dir, "letters" + selectedTour + ".txt"));
+        files.add(new File(dir, "singlechoice" + selectedTour + ".txt"));
+        files.add(new File(dir, "guessthenumber" + selectedTour + ".txt"));
+        files.add(new File(dir, "stations" + selectedTour + ".txt"));
+        files.add(new File(dir, "truefalse" + selectedTour + ".txt"));
+        files.add(new File(dir, "chronology" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+
+        for (File file: files) {
+            if (file.exists()) {
+                boolean isDeleted = file.delete();
+            }
+        }
+    }
+
     public void endTour(View view) {
         Intent intent = new Intent(mContext, HomeActivity.class);
         mContext.startActivity(intent);
@@ -145,7 +166,7 @@ public class ResultActivity extends AppCompatActivity {
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });
