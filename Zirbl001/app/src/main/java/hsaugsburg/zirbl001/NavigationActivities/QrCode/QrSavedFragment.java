@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -47,6 +49,9 @@ public class QrSavedFragment extends Fragment {
         if (result != null) {
             ClassesAdapter adapter = new ClassesAdapter((Context)getActivity(), result);
             mListView.setAdapter(adapter);
+        } else {
+            RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noCodes);
+            rl.setVisibility(View.VISIBLE);
         }
     }
 
