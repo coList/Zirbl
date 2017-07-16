@@ -4,6 +4,7 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -19,6 +20,9 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
+import hsaugsburg.zirbl001.TourActivities.ResultActivity;
+
 public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private String serverName;
     private String userName;
@@ -28,8 +32,10 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private int score;
     private int duration;
     private ArrayList<String> participants;
+    private ResultActivity resultActivity;
 
-    public InsertIntoParticipates(String userName, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
+    public InsertIntoParticipates(ResultActivity resultActivity, String userName, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
+        this.resultActivity = resultActivity;
         this.userName = userName;
         this.tourID = tourID;
         this.classID = classID;
@@ -52,7 +58,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
             postDataParams.put("tourid", tourID);
-            Log.d("InsertIntoParticipates", Integer.toString(classID));
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
             } 
@@ -114,6 +119,15 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.d("InsertIntoParticipates", result);
+
+        try {
+
+            JSONObject json = new JSONObject(result);
+            resultActivity.setRanking(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
