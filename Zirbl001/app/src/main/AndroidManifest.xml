@@ -30,7 +30,6 @@
         android:largeHeap="true">
         <activity
             android:name=".SplashScreen"
-            android:largeHeap="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>

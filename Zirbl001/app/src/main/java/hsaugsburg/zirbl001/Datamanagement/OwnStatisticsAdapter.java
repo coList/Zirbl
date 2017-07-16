@@ -75,7 +75,6 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         TextView score = (TextView) rowView.findViewById(R.id.statPoints);
 
         OwnStatisticsModel ownStatisticsModel = (OwnStatisticsModel) getItem(position);
-        Log.d("OwnStatistics", "getView");
 
         tourName.setText(ownStatisticsModel.getTourName());
 
@@ -100,7 +99,8 @@ public class OwnStatisticsAdapter extends BaseAdapter {
                         TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
         );
         duration.setText(time);
-        ranking.setText(ownStatisticsModel.getRank() + ". Platz");
+        String rankingText = ownStatisticsModel.getRank() + ". Platz von " + ownStatisticsModel.getTotalParticipations();
+        ranking.setText(rankingText);
         teamname.setText(ownStatisticsModel.getGroupName() + ":");
 
         String participantsViewText = "";

@@ -12,6 +12,7 @@ public class OwnStatisticsModel {
     private int duration;
     private int score;
     private int rank;
+    private int totalParticipations;
 
     public int getTourID() {
         return tourID;
@@ -75,5 +76,13 @@ public class OwnStatisticsModel {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public int getTotalParticipations() {
+        return totalParticipations;
+    }
+
+    public void setTotalParticipations(int totalParticipations) {
+        this.totalParticipations = totalParticipations;
     }
 }
