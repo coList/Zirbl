@@ -14,6 +14,7 @@ public class SliderModel {
     private double minRange;
     private double maxRange;
     private boolean isInteger;
+    private int toleranceRange;
 
     public int getTaskID() {
         return taskID;
@@ -109,5 +110,13 @@ public class SliderModel {
 
     public void setIsInteger(boolean integer) {
         isInteger = integer;
+    }
+
+    public int getToleranceRange() {
+        return toleranceRange;
+    }
+
+    public void setToleranceRange(int toleranceRange) {
+        this.toleranceRange = toleranceRange;
     }
 }

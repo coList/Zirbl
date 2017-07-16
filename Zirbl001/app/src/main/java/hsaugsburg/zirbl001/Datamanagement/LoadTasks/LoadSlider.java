@@ -66,6 +66,7 @@ public class LoadSlider {
                     sliderModel.setMinRange(mJsonLObjectSlider.getDouble("minrange"));
                     sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
                     sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
+                    sliderModel.setToleranceRange(mJsonLObjectSlider.getInt("tolerancerange"));
                 }
             }
 
