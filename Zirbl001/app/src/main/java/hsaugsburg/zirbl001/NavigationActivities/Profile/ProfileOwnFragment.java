@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,6 +57,9 @@ public class ProfileOwnFragment extends Fragment {
             OwnStatisticsAdapter adapter = new OwnStatisticsAdapter(getActivity(), result);
             mListView.setAdapter(adapter);
 
+        }else{
+            RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noOwnStats);
+            rl.setVisibility(View.VISIBLE);
         }
 
     }
