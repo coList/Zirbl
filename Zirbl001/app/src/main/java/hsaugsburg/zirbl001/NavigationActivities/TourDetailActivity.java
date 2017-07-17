@@ -316,6 +316,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
             }
 
+            ImageView mapPicture = (ImageView) findViewById(R.id.map);
+            String mapPictureURL = ((TourDetailModel) result.get(tourID)).getMapPicture();
+            if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+                mapPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+            } else {
+                ImageLoader.getInstance().displayImage(serverName + mapPictureURL, mapPicture);
+            }
+
+
         }else{
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
