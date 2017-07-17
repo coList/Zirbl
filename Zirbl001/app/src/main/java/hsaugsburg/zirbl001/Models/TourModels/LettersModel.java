@@ -1,8 +1,5 @@
 package hsaugsburg.zirbl001.Models.TourModels;
 
-
-import java.util.ArrayList;
-
 public class LettersModel {
     private int taskID;
     private int stationID;

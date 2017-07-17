@@ -7,7 +7,6 @@ import hsaugsburg.zirbl001.Interfaces.JSONModel;
 
 public class TourFavorModel implements JSONModel {
 
-
     private int userID;
     private int tourID;
     private String tourName;

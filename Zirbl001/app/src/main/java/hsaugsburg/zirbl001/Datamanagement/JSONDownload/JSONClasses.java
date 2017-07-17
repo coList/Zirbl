@@ -21,8 +21,8 @@ import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrSavedFragment;
 
 
 public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
-    QrSavedFragment qrSavedFragment;
-    String username;
+    private QrSavedFragment qrSavedFragment;
+    private String username;
 
     public JSONClasses (QrSavedFragment qrSavedFragment, String username) {
         this.qrSavedFragment = qrSavedFragment;

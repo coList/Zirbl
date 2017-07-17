@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.Models.TourModels;
 
-
 public class QuizModel {
     private int taskID;
     private int stationID;

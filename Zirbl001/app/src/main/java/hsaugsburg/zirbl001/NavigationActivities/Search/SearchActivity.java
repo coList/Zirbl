@@ -24,8 +24,6 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import org.json.JSONException;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -33,7 +31,6 @@ import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Models.TourModels.MapModels.StationModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
@@ -50,7 +47,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
     private SearchSelectionAdapter adapter;
-    private List<JSONModel> searchResult;
     private boolean iConnection = true;
 
 
@@ -93,17 +89,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
     }
 
-
-    public void processData(StationModel result) throws JSONException {
-        /*
-        double lat =  result.getLatitude();
-        double lng = result.getLongitude();
-
-        Log.d(TAG, "lat: " + String.valueOf(lat));
-        Log.d(TAG, "long:" + String.valueOf(lng));
-        */
-    }
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(iConnection) {
@@ -136,7 +121,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -148,13 +132,9 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     }
 
     public void processData(List<JSONModel> result) {
-
-        searchResult = result;
         if (result != null) {
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
-            final List<JSONModel> tourSelectionItems = result;
-
 
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -162,7 +142,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     JSONModel selectedTour = (JSONModel) adapter.getItem(position);
 
-                    //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(((TourDetailModel)selectedTour).getTourID()));
                     intent1.putExtra("tourName", ((TourDetailModel)selectedTour).getTourName());

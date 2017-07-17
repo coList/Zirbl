@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.JSONDownload;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +34,6 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
         BufferedReader reader = null;
 
         try {
-            Log.d("JSONOwnStatistics", "insideTry");
             URL url;
             url = new URL(params[0] + "?username=" + username);
             connection = (HttpURLConnection) url.openConnection();
@@ -63,7 +61,6 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
                     JSONObject mJsonLObjectOwnStatistic = parentArray.getJSONObject(i);
 
                     OwnStatisticsModel ownStatisticsModel = new OwnStatisticsModel();
-                    Log.d("JSONOwnStatistics", mJsonLObjectOwnStatistic.toString());
 
                     ownStatisticsModel.setTourID(mJsonLObjectOwnStatistic.getInt("tourid"));
                     ownStatisticsModel.setTourName(mJsonLObjectOwnStatistic.getString("tourname"));

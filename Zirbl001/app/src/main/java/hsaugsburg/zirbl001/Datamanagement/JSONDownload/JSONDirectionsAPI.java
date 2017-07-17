@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.JSONDownload;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -19,15 +18,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Models.TourModels.MapModels.DirectionsAPIModel;
 import hsaugsburg.zirbl001.Models.TourModels.MapModels.Route;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 
 
 public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
     private static final String TAG = "Jsondirec1";
-    private String poly;
-    private DirectionsAPIModel directionsAPIModel;
     private NavigationActivity activity;
 
     public JSONDirectionsAPI (NavigationActivity activity) {
@@ -38,7 +34,6 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
 
     protected List<Route> doInBackground(String... params) {
         HttpURLConnection connection;
-        connection = null;
         BufferedReader reader = null;
 
         try {
@@ -69,7 +64,6 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
                     JSONObject overviewPolylineJSON = routeJSON.getJSONObject("overview_polyline");
 
                     route.setPoints(decodePolyLine(overviewPolylineJSON.getString("points")));
-                    Log.d(TAG, "doInBackground: points: " + route.getPoints());
 
                     routes.add(route);
                 }

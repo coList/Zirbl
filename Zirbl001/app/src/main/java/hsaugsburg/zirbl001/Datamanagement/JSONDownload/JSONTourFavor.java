@@ -23,7 +23,7 @@ import hsaugsburg.zirbl001.Models.NavigationModels.TourFavorModel;
 
 public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
 
-    Callback callback;
+    private Callback callback;
 
     public JSONTourFavor(Callback callback) {
         this.callback = callback;

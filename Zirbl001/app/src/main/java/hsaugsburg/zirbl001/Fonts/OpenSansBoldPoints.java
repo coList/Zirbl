@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
 import com.lb.auto_fit_textview.AutoResizeTextView;
 

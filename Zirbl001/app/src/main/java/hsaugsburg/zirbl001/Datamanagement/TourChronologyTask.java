@@ -22,7 +22,7 @@ import hsaugsburg.zirbl001.TourActivities.TrueFalseActivity;
 
 public class TourChronologyTask {
 
-    static final int READ_BLOCK_SIZE = 100;
+    private static final int READ_BLOCK_SIZE = 100;
     private TourActivity tourActivity;
     private Activity activity;
     private ChronologyModel nextChronologyItem;

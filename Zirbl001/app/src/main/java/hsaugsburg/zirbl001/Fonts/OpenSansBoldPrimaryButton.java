@@ -6,8 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
-import com.lb.auto_fit_textview.AutoResizeTextView;
-
 import hsaugsburg.zirbl001.R;
 
 public class OpenSansBoldPrimaryButton extends android.support.v7.widget.AppCompatButton {

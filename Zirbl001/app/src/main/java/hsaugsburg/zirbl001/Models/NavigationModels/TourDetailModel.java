@@ -1,10 +1,7 @@
 package hsaugsburg.zirbl001.Models.NavigationModels;
 
-
 import android.graphics.Bitmap;
-
 import java.util.List;
-
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 
 public class TourDetailModel implements JSONModel {

@@ -141,27 +141,6 @@ public class ClassStatisticsAdapter extends BaseAdapter {
 
 
         }
-        /*
-        int totalTime = ownStatisticsModel.getDuration();
-        String time = String.format("%d h %d min",
-                TimeUnit.MILLISECONDS.toHours(totalTime),
-                TimeUnit.MILLISECONDS.toMinutes(totalTime) -
-                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
-        );
-        duration.setText(time);
-        ranking.setText(ownStatisticsModel.getRank() + ". Platz");
-        teamname.setText(ownStatisticsModel.getGroupName());
-
-        String participantsViewText = "";
-        for (String participant: ownStatisticsModel.getParticipants()) {
-            participantsViewText += participant + ", ";
-        }
-        participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
-        participants.setText(participantsViewText);
-
-        score.setText(Integer.toString(ownStatisticsModel.getScore()));
-        */
-
         return rowView;
 
     }

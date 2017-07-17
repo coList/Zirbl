@@ -2,8 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,10 +15,7 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrDialog;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
-import hsaugsburg.zirbl001.TourActivities.GenerateQrCodeActivity;
 
 public class InsertIntoClass extends AsyncTask<String, Void, String> {
     private String userName;
@@ -47,7 +42,6 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... arg0) {
 
         try {
-
             URL url = new URL(serverName + "/api/insertIntoClass.php");
 
             JSONObject postDataParams = new JSONObject();
@@ -108,7 +102,7 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
     }
 
 
-    public String getPostDataString(JSONObject params) throws Exception {
+    private String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
         boolean first = true;

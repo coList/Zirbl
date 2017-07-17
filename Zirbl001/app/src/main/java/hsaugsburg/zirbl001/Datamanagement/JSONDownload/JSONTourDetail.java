@@ -24,7 +24,7 @@ import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 
 
 public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
-    Callback callback;
+    private Callback callback;
 
     public JSONTourDetail (Callback callback) {
         this.callback = callback;

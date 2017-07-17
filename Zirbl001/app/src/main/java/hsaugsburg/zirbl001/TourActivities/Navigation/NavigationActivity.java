@@ -71,11 +71,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private NavigationActivity activity = this;
     private static final String TAG = "NavigationActivity";
 
-    private int chronologyNumber;
     private int selectedTour;
     private int stationID;
-
-    private static final int ACCURACY_HIGH = 3;
 
     private String stationName;
 
@@ -88,30 +85,16 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     SharedPreferences tourValues;
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
     ArrayList<Boolean> listIsNutCollected;
     ArrayList<Boolean> listDoUKnowRead;
-
-    private List<Route> directionRoute;
-
 
     private GoogleMap mMap;
     private double latTarget;
     private double lngTarget;
 
-
-    LocationManager locationManager;
-    private final Integer MIN_DISTANCE_METERS = 0;
-    private final Integer LOCATION_UPDATE_INTERVALL_MSEC = 300;
-    private final String DIRECTIONS_API_JSON = "https://maps.googleapis.com/maps/api/directions/json?";
-
     private LatLng latLngMyTarget;
     private LatLng latLngMyPos;
-    private LatLng latLngNut;
 
-    private final String API_KEY = "AIzaSyAZKY3-8A2pA2VHyEjXcCuV5aqA1mhB_Q0";
-
-    private List<Polyline> polylinePaths = new ArrayList<>();
     private ArrayList<NutModel> nuts;
     private int nutsCollected = 0;
 
@@ -124,17 +107,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
     private FusedLocationProviderApi locationProviderApi = LocationServices.FusedLocationApi;
-    private Double latMyPos;
-    private Double lngMyPos;
-
 
     //dot menu
     private TextView title;
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
-
-
-
 
     @Override
     protected void onStart() {
@@ -153,46 +130,16 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     protected void onPause() {
         super.onPause();
 
-
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
         overridePendingTransition(0, 0);
-        //locationManager.removeUpdates(this);
     }
 
     public void onResume() {
         super.onResume();
 
-
         if (googleApiClient.isConnected()){
             requestLocationUpdates();
         }
-
-
-
-
- /*
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        }
-      if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-
-        }*/
     }
 
 
@@ -209,13 +156,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         locationRequest = new LocationRequest();
         locationRequest.setInterval(100);
-        locationRequest.setFastestInterval(LOCATION_UPDATE_INTERVALL_MSEC);
+
+        int locationUpdateIntervallMsec = 300;
+        locationRequest.setFastestInterval(locationUpdateIntervallMsec);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-
-
-
-
 
         //dot menu
 
@@ -225,13 +169,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
 
-        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+        int chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
 
         //get global tour values
         tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         listIsNutCollected = new ArrayList<>();
         listDoUKnowRead = new ArrayList<>();
         try {
@@ -264,10 +208,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
-
-
+        if (!locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            showDialogGPS();
+        }
     }
 
 
@@ -285,19 +230,21 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
     private String createURL(String origin, String destination) {
-        return DIRECTIONS_API_JSON // => "maps.googleapis.com/maps/api/directions/json?" + ...
+        String directionsAPIJson = "https://maps.googleapis.com/maps/api/directions/json?";
+        String apiKey = "AIzaSyAZKY3-8A2pA2VHyEjXcCuV5aqA1mhB_Q0";
+
+        return directionsAPIJson
                 + "origin=" + origin
                 + "&destination=" + destination
                 + "&mode=walking"
-                + "&key=" + API_KEY;
+                + "&key=" + apiKey;
     }
 
 
 
     private void drawPolyline (List<Route> route) {
-        polylinePaths = new ArrayList<>();
-        Log.d(TAG, "drawPolyline: points: " + route);
 
+        List<Polyline> polylinePaths = new ArrayList<>();
 
         PolylineOptions polylineOptions = new PolylineOptions().
                 geodesic(true).
@@ -346,34 +293,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
            ========================================= */
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        // check if network provider is enabled
-
-        // Get the location from the given provider
-     /*   Location location = locationManager
-                .getLastKnownLocation(provider);
-
-        locationManager.requestLocationUpdates(provider, 1000, 1, this);*/
-
-
-
-/*        if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_UPDATE_INTERVALL_MSEC, MIN_DISTANCE_METERS, this);
-        } else {
-            showDialogGPS();
-        }*/
-
-
     }
 
     //click on station name to hide or show the mapinstruction
@@ -468,9 +389,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             Double latNut = nuts.get(h).getLatitude();
             Double lngNut = nuts.get(h).getLongitude();
             int nutID = nuts.get(h).getNutID();
-            latLngNut = new LatLng(latNut, lngNut);
+            LatLng latLngNut = new LatLng(latNut, lngNut);
 
-            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
             if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
                 nutsCollected ++;
                 for (int i = 0; i < nutMarker.size(); i++) {
@@ -500,8 +420,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
-            } //else if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.2 && !listIsNutCollected.get(h)) {  //befindet sich die Nuss im Radius von x-Kilometern zum User?
-             else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.1 && !listIsNutCollected.get(h)) {
+            } else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.1 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker: nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -531,10 +450,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
     public void processDirectionData(List<Route> route) throws JSONException {
-        directionRoute = route;
-
         drawPolyline(route);
-
     }
 
 
@@ -543,8 +459,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         super.onLowMemory();
         System.gc();
     }
-
-
 
     //return distance in kilometers
     private double distance(double lat1, double lon1, double lat2, double lon2) {
@@ -568,28 +482,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         return (rad * 180.0 / Math.PI);
     }
 
-    /*
-    private static final int earthRadius = 6371;   //kilometer
-    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2)
-    {
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a =
-                (Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
-                        * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2));
-        double c = (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-        double d = earthRadius * c;
-        return d;
-    }*/
-
-
     @Override
     public void onLocationChanged(Location location) {
-
-
-
-        latMyPos = location.getLatitude();
-        lngMyPos = location.getLongitude();
+        Double latMyPos = location.getLatitude();
+        Double lngMyPos = location.getLongitude();
         latLngMyPos = new LatLng(latMyPos, lngMyPos);
         Geocoder geocoder = new Geocoder(getApplicationContext());
         try {
@@ -607,15 +503,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 myPosition.setPosition(latLngMyPos);
             }
 
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
-
             setRoute();
             setNuts();
 
             //check for infopopup
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 if (!listDoUKnowRead.get(i)) {
-                    //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
                     if (distance(latLngMyPos.latitude, latLngMyPos.longitude, doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
                         listDoUKnowRead.set(i, true);
 
@@ -638,11 +531,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                         startActivity(intent);
                     }
                 }
-
             }
 
-
-            //if (calculateDistance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.02) {
             if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.01) {
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibe.vibrate(100);
@@ -652,35 +542,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-/*    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Maps", "StatusChanged");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        Log.d("Maps", "ProviderEnabled");
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.d("Maps", "ProviderDisabled");
-    }*/
-
-
-
-
-
-    public void processData(StationModel result) {
-        stationName = result.getStationName();
-        TextView stationName = (TextView) findViewById(R.id.navigationTitle);
-        stationName.setText(result.getStationName());
-
-        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
-        mapInstruction.setText(result.getMapInstruction());
     }
 
     public void showDialogGPS() {

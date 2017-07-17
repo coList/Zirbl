@@ -1,7 +1,5 @@
 package hsaugsburg.zirbl001.Models.TourModels;
 
-
-
 public class ChronologyModel {
     private int tourID;
     private Integer chronologyNumber;

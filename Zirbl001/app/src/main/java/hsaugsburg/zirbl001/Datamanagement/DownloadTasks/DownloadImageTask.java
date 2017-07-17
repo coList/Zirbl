@@ -1,21 +1,16 @@
 package hsaugsburg.zirbl001.Datamanagement.DownloadTasks;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.InputStream;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
-    ImageView bmImage;
+    private ImageView bmImage;
 
     public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
@@ -55,7 +50,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
                 // resize to desired dimensions
                 int height = bitmap.getHeight();
                 int width = bitmap.getWidth();
-                Log.d("DownloadImageTask", "1th scale operation dimenions - width: " + width + ", height: " + height);
 
                 double y = Math.sqrt(IMAGE_MAX_SIZE
                         / (((double) width) / height));
@@ -72,13 +66,11 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             }
             in.close();
 
-            Log.d("DownloadImageTask", "bitmap size - width: " +bitmap.getWidth() + ", height: " + bitmap.getHeight());
             return bitmap;
 
             //mIcon11 = BitmapFactory.decodeStream(in);
             //in.close();
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
             e.printStackTrace();
             return null;
         }

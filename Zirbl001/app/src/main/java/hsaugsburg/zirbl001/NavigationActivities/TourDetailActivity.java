@@ -4,17 +4,14 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,12 +56,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private static final int ACTIVITY_NUM = 0;
     private Context mContext = TourDetailActivity.this;
 
-    private Bitmap mainPictureBitmap;
-    private boolean hasOpeningHours = false;
-
-    private ImageView mDetailPhoto;
-    private ProgressBar mProgressBar;
-
     private int tourID;
     private String tourName;
 
@@ -77,16 +68,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private MenuItem favIconMenu;
 
-    private boolean isFavorised;
     private boolean isFilled;
-
-    public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
-        this.mainPictureBitmap = mainPictureBitmap;
-    }
 
     @Override
     protected void onPause() {
@@ -98,7 +83,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourdetail);
-        Log.d(TAG, "onCreate: starting");
 
         setIntentExtras();
 
@@ -123,8 +107,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         setupBottomNavigationView();
 
-        mDetailPhoto = (ImageView) findViewById(R.id.image);
-
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
         userName = globalValues.getString("userName", null);
@@ -137,9 +119,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     }
 
     public void setIsFavorised(Boolean isFavorised) {
-        if (isFavorised != null) {
-            this.isFavorised = isFavorised;
-        }
         if(isFavorised) {
             favIconMenu.setIcon(R.drawable.ic_star_filled);
             isFilled = true;
@@ -256,7 +235,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
             }
             InputRead.close();
-            Log.d("TourDetailActivity", s.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -273,7 +251,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -285,20 +262,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     }
 
     private void initImageLoader(){
-        Log.d(TAG, "initImageLoader: zweiter");
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
-
-    private void setDetailImage(String mainPictureURL){
-        Log.d(TAG, "setDetailImage: dritter");
-
-
-
-        //UniversalImageLoader.setImage(imgURL, mDetailPhoto, mProgressBar);
-
-    }
-
 
     public void processData(List<JSONModel> result) {
 
@@ -322,6 +288,8 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             startEnd.setText(fromHtml("<b>Tourstart:</b> " + ((TourDetailModel) result.get(tourID)).getStartLocation() + "<br />" +
             "<b>Tourende:</b> " + ((TourDetailModel) result.get(tourID)).getEndLocation()));
 
+            boolean hasOpeningHours = false;
+
             if (hasOpeningHours) {
                 TextView openingHours = (TextView) findViewById(R.id.openingHours);
                 TextView openingHoursTitle = (TextView) findViewById(R.id.openingHoursTitle);
@@ -344,21 +312,15 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             ImageView mainPicture = (ImageView) findViewById(R.id.image);
             if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
                 mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
-                //Log.d("TourDetailMemory", MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).toString());
             } else {
                 ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
             }
-            //setDetailImage(mainPictureURL);
-            //Log.d(TAG, "mainPictureURL: " + mainPictureURL);
-
-            Log.d(TAG, "processData: bin aber auch hier");
 
         }else{
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
             ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
             tryAgain.setVisibility(View.VISIBLE);
-            Log.d(TAG, "processData: shit ich bin hier");
         }
     }
 

@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.Models.NavigationModels;
 
-
 import java.util.ArrayList;
 
 public class ClassStatisticsModel {

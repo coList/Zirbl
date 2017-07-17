@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,8 +12,6 @@ import java.util.ArrayList;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 
 public class LoadLocationDoUKnow {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
 
@@ -30,6 +27,7 @@ public class LoadLocationDoUKnow {
             FileInputStream fileIn = activity.openFileInput("location_infopopups" + tourID + ".txt");
             InputStreamReader InputRead = new InputStreamReader(fileIn);
 
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer = new char[READ_BLOCK_SIZE];
             String s = "";
             int charRead;
@@ -44,10 +42,7 @@ public class LoadLocationDoUKnow {
 
             JSONArray jsonArray = new JSONArray(s);
 
-            Log.d("LoadLocation", "outside for");
-
             for (int j = 0; j < jsonArray.length(); j++) {
-                Log.d("LoadLocation", "inside for");
                 JSONObject mJsonLObjectDoUKnow = jsonArray.getJSONObject(j);
 
                 DoUKnowModel doUKnowModel = new DoUKnowModel();

@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,7 +57,6 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Favoriten");
@@ -80,7 +78,6 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
         userName = globalValues.getString("userName", null);
-        Log.d(TAG, "onCreate: "+serverName + "/api/selectFavoritesView.php?username="+userName);
         new JSONTourFavor(this).execute(serverName + "/api/selectFavoritesView.php?username="+userName);
         mListView = (ListView) findViewById(R.id.home_list_view);
 
@@ -89,7 +86,6 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -106,19 +102,16 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
 
             adapter = new TourFavorAdapter(this, result, imageLoader);
             mListView.setAdapter(adapter);
-            final List<JSONModel> tourFavorItems = result;
 
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(TAG, "onItemClick: " + Integer.toString(position));
                     JSONModel selectedTour = (JSONModel) adapter.getItem(position);
 
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(((TourFavorModel) selectedTour).getTourID()));
                     intent1.putExtra("tourName", ((TourFavorModel) selectedTour).getTourName());
-                    Log.d(TAG, "onItemClick: " + ((TourFavorModel) selectedTour).getTourName());
                     startActivity(intent1);
                 }
             });
@@ -126,7 +119,6 @@ public class FavoriteActivity extends AppCompatActivity implements Callback {
         }else {
             RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.noFavs);
             rl.setVisibility(View.VISIBLE);
-            Log.d(TAG, "processData: result ist nicht befüllt");
         }
 
     }

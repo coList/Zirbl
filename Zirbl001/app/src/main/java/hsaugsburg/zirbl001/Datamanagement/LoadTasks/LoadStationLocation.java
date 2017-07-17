@@ -11,8 +11,6 @@ import java.io.InputStreamReader;
 import hsaugsburg.zirbl001.Models.TourModels.MapModels.StationModel;
 
 public class LoadStationLocation {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
     private int stationID;
@@ -29,7 +27,7 @@ public class LoadStationLocation {
             FileInputStream fileIn=activity.openFileInput("stations" + tourID + ".txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;

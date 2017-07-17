@@ -26,7 +26,7 @@ public class TourSelectionAdapter extends BaseAdapter {
     private ImageLoader imageLoader;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
 
     public TourSelectionAdapter(Context context, List<JSONModel> items, ImageLoader imageLoader) {

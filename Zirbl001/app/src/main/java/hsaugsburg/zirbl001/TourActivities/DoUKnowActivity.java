@@ -84,8 +84,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
-
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
@@ -116,7 +114,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         String resultText = result.getContentText();
         doUKnow.setText(fromHtml(resultText));
         int stringLength = resultText.length();
-        Log.d(TAG, Integer.toString(stringLength));
 
         if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
             ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
@@ -130,8 +127,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
-        Log.d(TAG, "Höhe: " + height);
-        Log.d(TAG, Double.toString(((double)stringLength)/height));
         if(((double)stringLength)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             paramsContinue.addRule(RelativeLayout.BELOW, 0);

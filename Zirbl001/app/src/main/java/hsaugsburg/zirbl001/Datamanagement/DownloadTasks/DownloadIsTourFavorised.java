@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.DownloadTasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +17,7 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
     private TourDetailActivity tourDetailActivity;
     private String username;
     private int tourID;
+
     public DownloadIsTourFavorised (TourDetailActivity tourDetailActivity, String username, int tourID) {
         this.tourDetailActivity = tourDetailActivity;
         this.username = username;
@@ -47,7 +47,6 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
             String isFavorisedString = buffer.toString();
 
             Boolean isFavorised = "1".equals(isFavorisedString);
-            Log.d("DownloadIsTourFavorisedBool", isFavorised.toString());
 
             return isFavorised;
 

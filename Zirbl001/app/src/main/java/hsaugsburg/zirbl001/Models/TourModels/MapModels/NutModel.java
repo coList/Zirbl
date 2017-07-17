@@ -1,7 +1,5 @@
 package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
-
-
 public class NutModel {
     private int tourID;
     private int nutID;

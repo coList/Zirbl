@@ -27,11 +27,8 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
     private List<JSONModel> originalData;
     private List<JSONModel> filteredData;
     private static final String TAG = "SearchSelectionAdapter";
-    private int test= 1;
-
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
 
 
     public SearchSelectionAdapter(Context context, List<JSONModel> items) {
@@ -41,7 +38,6 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         SharedPreferences globalValues = context.getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
 
     }
 

@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
-
 public class StationModel {
     private int tourID;
     private int chronologyNumber;
@@ -9,8 +8,6 @@ public class StationModel {
     private String mapInstruction;
     private Double latitude;
     private Double longitude;
-
-
 
     public int getTourID() {
         return tourID;

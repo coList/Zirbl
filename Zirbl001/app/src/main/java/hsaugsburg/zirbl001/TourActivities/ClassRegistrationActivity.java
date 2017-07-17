@@ -1,11 +1,9 @@
 package hsaugsburg.zirbl001.TourActivities;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +11,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,8 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
-import com.google.zxing.WriterException;
 
 import java.lang.reflect.Field;
 
@@ -59,7 +54,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
-        Log.d(TAG, "onCreate: starting");
 
         setIntentExtras();
 
