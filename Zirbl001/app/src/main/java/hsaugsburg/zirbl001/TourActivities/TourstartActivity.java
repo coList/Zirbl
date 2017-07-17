@@ -196,7 +196,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
                 //TODO: set textCursorDrawable
                 participantField.setId(count);
-                participantField.setHint("Gruppenmitglied");
+                participantField.setHint("Name "+(count+3));
                 participantField.setHintTextColor(ContextCompat.getColor(mContext, R.color.colorTransparent30));
                 participantField.setCursorVisible(true);
                 ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
@@ -273,7 +273,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });

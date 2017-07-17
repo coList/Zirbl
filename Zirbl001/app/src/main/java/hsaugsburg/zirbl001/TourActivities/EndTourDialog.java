@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrActivity;
 import hsaugsburg.zirbl001.R;
@@ -24,10 +27,12 @@ public class EndTourDialog {
     private static final String MSG2 = "Dein Spielstand wird dabei nicht gespeichert.";
 
     private final Context context;
+    private int selectedTour;
 
 
-    public EndTourDialog(Context context){
+    public EndTourDialog(Context context, int selectedTour){
         this.context = context;
+        this.selectedTour = selectedTour;
     }
 
     public void showDialog(Activity activity){
@@ -59,7 +64,7 @@ public class EndTourDialog {
 
         Button dialogButtonAgain = (Button) dialog.findViewById(R.id.btn_marked);
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
-        dialogButtonAgain.setText("FORTSETZEN");
+        dialogButtonAgain.setText("NEIN");
         dialogButtonAgain.setTextColor(context.getResources().getColor(R.color.colorTurquoise));
         Log.d(TAG, "showDialog: ich bin türkis");
 
@@ -74,7 +79,7 @@ public class EndTourDialog {
 
         Button dialogButtonEnd = (Button) dialog.findViewById(R.id.btn_end);
         Typeface typeface2 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
-        dialogButtonEnd.setText("BEENDEN");
+        dialogButtonEnd.setText("JA");
         dialogButtonEnd.setTypeface(typeface2);
         dialogButtonEnd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +91,29 @@ public class EndTourDialog {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+
+
+    }
+
+
+    public void deleteFiles() {
+        File dir = context.getFilesDir();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
+        files.add(new File(dir, "letters" + selectedTour + ".txt"));
+        files.add(new File(dir, "singlechoice" + selectedTour + ".txt"));
+        files.add(new File(dir, "guessthenumber" + selectedTour + ".txt"));
+        files.add(new File(dir, "stations" + selectedTour + ".txt"));
+        files.add(new File(dir, "truefalse" + selectedTour + ".txt"));
+        files.add(new File(dir, "chronology" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+
+        for (File file: files) {
+            if (file.exists()) {
+                boolean isDeleted = file.delete();
+            }
+        }
 
 
     }

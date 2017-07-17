@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,8 +24,11 @@ import com.google.zxing.common.BitMatrix;
 
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoClass;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
+import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrActivity;
+import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrSavedFragment;
 import hsaugsburg.zirbl001.R;
 
+import static android.R.attr.fragment;
 import static android.R.attr.width;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
@@ -56,24 +61,11 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generate_qr_code);
         Log.d(TAG, "onCreate: starting");
         setIntentExtras();
-        qrString = generateString();
-        Log.d(TAG, "onCreate: " + qrString);
-
-
-        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        String serverName = globalValues.getString("serverName", null);
-        String userName = globalValues.getString("userName", null);
-
-        new InsertIntoClass(userName, tourID, grade, school, qrString, serverName, this).execute();
 
     }
 
 
-    public void setQrCode(String result) {
-        qrString = result;
-        Log.d("GenerateQrCode", result);
-
-
+    public void setQrCode() {
         ImageView imageView = (ImageView) findViewById(R.id.qrCode);
 
         try {
@@ -85,29 +77,30 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
 
     }
 
+
     public void setIntentExtras(){
         Intent intent = getIntent();
         tourID = Integer.parseInt(intent.getStringExtra("tourID"));
         tourName = intent.getStringExtra("tourName");
         school = intent.getStringExtra("school");
         grade = intent.getStringExtra("className");
+        qrString = intent.getStringExtra("qrCode");
 
         TextView qrClass = (TextView) findViewById(R.id.qrClass);
         TextView qrSchool = (TextView) findViewById(R.id.qrSchool);
 
         qrClass.setText(grade);
         qrSchool.setText(school);
+
+        setQrCode();
     }
 
-    /*
-    * String muss wie folgt ausschauen: ZirblIdent, TourID, Tourname, KlassenID, Klassenname, Schulname
-    *
-     */
-    public String generateString(){
-        Log.d(TAG, "generateString: " + "qrcodezirbl" +";"+ tourID +";"+ tourName +";"+ grade + ";" + school);
-        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";" + grade + ";" + school;
-    }
 
+    public void continueToSavedQrCodes(View view) {
+        Intent intent = new Intent(this, QrActivity.class);
+        intent.putExtra("viewpager_position", 1);
+        startActivity(intent);
+    }
 
     Bitmap encodeAsBitmap(String str) throws WriterException {
 

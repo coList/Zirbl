@@ -2,7 +2,9 @@ package hsaugsburg.zirbl001.Datamanagement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,19 +34,11 @@ public class OwnStatisticsAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<OwnStatisticsModel> mDataSource;
 
-    public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
-
 
     public OwnStatisticsAdapter(Context context, List<OwnStatisticsModel> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
-        SharedPreferences globalValues = context.getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
-
     }
 
     //1
@@ -71,6 +65,8 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         // Get view for row item
         View rowView = mInflater.inflate(R.layout.list_item_own_statistic, parent, false);
         TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
+        tourName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
         TextView participationDate = (TextView) rowView.findViewById(R.id.date);
         TextView duration = (TextView) rowView.findViewById(R.id.textUsedTime);
         TextView ranking = (TextView) rowView.findViewById(R.id.textPlacement);
@@ -79,7 +75,6 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         TextView score = (TextView) rowView.findViewById(R.id.statPoints);
 
         OwnStatisticsModel ownStatisticsModel = (OwnStatisticsModel) getItem(position);
-        Log.d("OwnStatistics", "getView");
 
         tourName.setText(ownStatisticsModel.getTourName());
 
@@ -104,8 +99,9 @@ public class OwnStatisticsAdapter extends BaseAdapter {
                         TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
         );
         duration.setText(time);
-        ranking.setText(ownStatisticsModel.getRank() + ". Platz");
-        teamname.setText(ownStatisticsModel.getGroupName());
+        String rankingText = ownStatisticsModel.getRank() + ". Platz von " + ownStatisticsModel.getTotalParticipations();
+        ranking.setText(rankingText);
+        teamname.setText(ownStatisticsModel.getGroupName() + ":");
 
         String participantsViewText = "";
         for (String participant: ownStatisticsModel.getParticipants()) {

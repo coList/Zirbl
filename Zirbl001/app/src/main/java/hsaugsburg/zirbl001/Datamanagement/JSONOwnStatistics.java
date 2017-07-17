@@ -80,8 +80,8 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
                     ownStatisticsModel.setParticipationDate(mJsonLObjectOwnStatistic.getString("participationdate"));
 
                     ownStatisticsModel.setScore(mJsonLObjectOwnStatistic.getInt("score"));
-                    Log.d("JSONOwnStatistics", Integer.toString(mJsonLObjectOwnStatistic.getInt("score")));
                     ownStatisticsModel.setRank(mJsonLObjectOwnStatistic.getInt("worldranking"));
+                    ownStatisticsModel.setTotalParticipations(mJsonLObjectOwnStatistic.getInt("totalparticipations"));
 
 
                     JSONObject participantsObject = mJsonLObjectOwnStatistic.getJSONObject("participants");

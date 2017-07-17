@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -37,8 +39,10 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
+import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoFavors;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -68,6 +72,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
+    String userName;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -75,6 +80,11 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private MenuItem favIconMenu;
+
+    private boolean isFavorised;
+    private boolean isFilled;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -119,22 +129,26 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
+        userName = globalValues.getString("userName", null);
 
         new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
+        new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
-        //setDetailImage();
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+    }
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshItems();
-            }
-        });
-
+    public void setIsFavorised(Boolean isFavorised) {
+        if (isFavorised != null) {
+            this.isFavorised = isFavorised;
+        }
+        if(isFavorised) {
+            favIconMenu.setIcon(R.drawable.ic_star_filled);
+            isFilled = true;
+        }else{
+            favIconMenu.setIcon(R.drawable.ic_bottom_star);
+            isFilled = false;
+        }
     }
 
     public void downloadTour() {
@@ -306,6 +320,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             TextView description = (TextView) findViewById(R.id.description);
             description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
 
+            TextView startEnd = (TextView) findViewById(R.id.startEnd);
+            startEnd.setText(fromHtml("<b>Tourstart:</b> " + ((TourDetailModel) result.get(tourID)).getStartLocation() + "<br />" +
+            "<b>Tourende:</b> " + ((TourDetailModel) result.get(tourID)).getEndLocation()));
+
             if (hasOpeningHours) {
                 TextView openingHours = (TextView) findViewById(R.id.openingHours);
                 TextView openingHoursTitle = (TextView) findViewById(R.id.openingHoursTitle);
@@ -346,25 +364,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }
     }
 
-
-    void refreshItems() {
-        /*
-        TextView noConnection = (TextView)findViewById(R.id.noConnection);
-        noConnection.setVisibility(View.GONE);
-        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-        tryAgain.setVisibility(View.GONE);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
-        */
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-
-
     public void tryConnectionAgain(View view) {
         TextView noConnection = (TextView)findViewById(R.id.noConnection);
         noConnection.setVisibility(View.GONE);
@@ -381,5 +380,35 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
+        favIconMenu = menu.findItem(R.id.action_favorite);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+
+                //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
+                new InsertIntoFavors(userName, tourID, serverName).execute();
+                if(isFilled){
+                    isFilled = false;
+                    favIconMenu.setIcon(R.drawable.ic_bottom_star);
+                }else {
+                    isFilled = true;
+                    favIconMenu.setIcon(R.drawable.ic_star_filled);
+                }
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

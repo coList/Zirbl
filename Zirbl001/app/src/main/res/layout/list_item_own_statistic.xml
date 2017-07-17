@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,30 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:id="@+id/placeholderPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/teamName"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"></LinearLayout>
+
         <ImageView
             android:id="@+id/imagePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/membersOfTeam"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:layout_toEndOf="@+id/placementOfAllArea"
+            android:layout_toRightOf="@+id/placeholderPoints"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/img_right_without_confetti" />
+            app:srcCompat="@drawable/img_statisticnut"
+            tools:layout_editor_absoluteY="8dp" />
 
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
             android:id="@+id/statPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imagePoints"
             android:layout_alignEnd="@+id/imagePoints"
             android:layout_alignStart="@+id/imagePoints"
-            android:layout_centerVertical="true"
+            android:layout_marginBottom="25dp"
             android:text="000"
             android:textAlignment="center"
-            app:textAllCaps="false" />
+            android:textSize="30sp" />
 
-        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+        <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
             android:id="@+id/titleOfStatistic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
