@@ -51,7 +51,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
 
 
     //dot menu
@@ -82,7 +81,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -94,8 +93,6 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-        //new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -145,7 +142,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     public void continueToNextView(View view) {
         if (answerSelected) {
             String userAnswer;
-            if (trueSelected == true) {
+            if (trueSelected) {
                 userAnswer = "true";
             } else {
                 userAnswer = "false";
@@ -279,25 +276,5 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
     public void quitTour(View view){
         showEndTourDialog();
-    }
-
-
-
-
-    public void processData(TrueFalseModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-        rightAnswer = String.valueOf(result.isTrue());
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-        String imageURL = result.getPicturePath();
-        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
-
     }
 }

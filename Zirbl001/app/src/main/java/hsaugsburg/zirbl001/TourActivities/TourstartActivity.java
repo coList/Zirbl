@@ -43,7 +43,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
     private int selectedTour;
     private int classID;
-    private int currentScore = 0;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
     private int chronologyNumber = -1;
     private LoadTourChronology loadTourChronology;
@@ -93,14 +92,9 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
-        Log.d("TourstartActivity", Integer.toString(classID));
-        Log.d("TourstartActivity", "test");
-
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-        //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
@@ -125,7 +119,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 listDoUKnowRead.add(false);
             }
-            Log.d(TAG, listIsNutCollected.toString());
             editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
             editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
         } catch (IOException e) {
@@ -175,7 +168,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             }
             String previousParticipant = previousParticipantText.getText().toString();
 
-            if (previousParticipant != null && !previousParticipant.isEmpty()) {
+            if (!previousParticipant.isEmpty()) {
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
                 QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(mContext);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -277,28 +270,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-
-
-
-
-
-    public void processData (ChronologyModel result, int lastChronologyValue) {
-        nextChronologyItem = result;
-
-        //set global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        SharedPreferences.Editor editor = tourValues.edit();
-        editor.putString("tourID", Integer.toString(selectedTour));
-        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
-
-        editor.commit();
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(lastChronologyValue + 1);
-        progressBar.setProgress(0);
-
     }
 
     public void setInput(){

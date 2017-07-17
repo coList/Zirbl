@@ -34,7 +34,6 @@ public class SliderActivity extends AppCompatActivity {
     private  SeekBar slider;
     private  TextView sliderCount;
     private static Double minValue;
-    private static int sliderMax = 2000;
 
     private int chronologyNumber;
     private int selectedTour;
@@ -44,7 +43,6 @@ public class SliderActivity extends AppCompatActivity {
 
     private Double range;
     private boolean isInteger;
-    private String userAnswer;
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
@@ -55,7 +53,6 @@ public class SliderActivity extends AppCompatActivity {
     String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
 
 
     //dot menu
@@ -86,7 +83,7 @@ public class SliderActivity extends AppCompatActivity {
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         findViewById(R.id.slider).setPadding(40,0,40,0);
 
         stationName = getIntent().getStringExtra("stationName");
@@ -106,8 +103,6 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        //new JSONSlider(this, selectedTour, taskID).execute(serverName + "/api/selectGuessTheNumberView.php");
-
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
@@ -124,8 +119,6 @@ public class SliderActivity extends AppCompatActivity {
         isInteger = result.getIsInteger();
         minValue = result.getMinRange();
         range = result.getMaxRange() - minValue;
-
-        Log.d("SliderActivityToleranceRange: ", Integer.toString(result.getToleranceRange()));
         toleranceRange = result.getToleranceRange();
 
         TextView startCount = (TextView) findViewById(R.id.startCount);
@@ -184,6 +177,7 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void continueToNextView(View view) {
+        String userAnswer;
         if (!isInteger) {
             userAnswer = Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue)));
         } else {
@@ -278,66 +272,6 @@ public class SliderActivity extends AppCompatActivity {
     }
     public void quitTour(View view){
         showEndTourDialog();
-    }
-
-
-
-
-
-
-    //can't set minValue directly -> add minValue to valueDisplayed and substract minValue from maxValue
-    public void processData(SliderModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-        isInteger = result.getIsInteger();
-        minValue = result.getMinRange();
-        range = result.getMaxRange() - minValue;
-
-
-        sliderCount = (TextView) findViewById(R.id.sliderCount);
-
-        if (!isInteger) {
-            slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
-            sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
-        } else {
-            Double value = result.getMaxRange() - minValue;
-            slider.setMax(value.intValue());
-            sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
-        }
-
-
-
-        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                answerSelected = true;
-                if (!isInteger) {
-                    //Double value = getConvertedDoubleValue(progress) + minValue;
-                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
-                    sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
-                } else {
-                    //Integer value = progress + minValue.intValue();
-                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
-                    sliderCount.setText(Integer.toString(progress + minValue.intValue()));
-
-                }
-
-                seekBar.getProgressDrawable().setColorFilter(
-                        ContextCompat.getColor(mContext, R.color.colorTurquoise), android.graphics.PorterDuff.Mode.SRC_IN);
-
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-
-        rightAnswer = Double.toString(result.getRightNumber());
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
     }
 
 }
