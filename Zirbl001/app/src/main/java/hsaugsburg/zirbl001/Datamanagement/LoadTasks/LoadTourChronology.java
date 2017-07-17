@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
-import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
@@ -21,8 +21,6 @@ import hsaugsburg.zirbl001.TourActivities.SliderActivity;
 import hsaugsburg.zirbl001.TourActivities.TrueFalseActivity;
 
 public class LoadTourChronology {
-
-    static final int READ_BLOCK_SIZE = 100;
     private TourActivity tourActivity;
     private Activity activity;
     private ChronologyModel nextChronologyItem;
@@ -41,14 +39,15 @@ public class LoadTourChronology {
     public ChronologyModel readChronologyFile() {
 
         try {
-            FileInputStream fileIn=activity.openFileInput("chronology" + tourID + ".txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
+            FileInputStream fileIn = activity.openFileInput("chronology" + tourID + ".txt");
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
 
-            char[] inputBuffer= new char[READ_BLOCK_SIZE];
+            int READ_BLOCK_SIZE = 100;
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;
 
-            while ((charRead=InputRead.read(inputBuffer))>0) {
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
                 // char to string conversion
                 String readstring=String.copyValueOf(inputBuffer,0,charRead);
                 s +=readstring;

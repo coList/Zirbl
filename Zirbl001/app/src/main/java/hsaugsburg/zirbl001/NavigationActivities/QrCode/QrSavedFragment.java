@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,10 +14,9 @@ import android.widget.RelativeLayout;
 
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.ClassesAdapter;
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
-import hsaugsburg.zirbl001.Datamanagement.JSONClasses;
-import hsaugsburg.zirbl001.Models.ClassesModel;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.ClassesAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClasses;
+import hsaugsburg.zirbl001.Models.NavigationModels.ClassesModel;
 import hsaugsburg.zirbl001.R;
 
 

@@ -2,7 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +19,6 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
 import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 
 public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
@@ -52,7 +50,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... arg0) {
 
         try {
-
             URL url = new URL(serverName + "/api/insertIntoParticipates.php");
 
             JSONObject postDataParams = new JSONObject();
@@ -118,8 +115,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d("InsertIntoParticipates", result);
-
         try {
 
             JSONObject json = new JSONObject(result);
@@ -131,7 +126,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     }
 
 
-    public String getPostDataString(JSONObject params) throws Exception {
+    private String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
         boolean first = true;

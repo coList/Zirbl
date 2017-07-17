@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
-import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 
@@ -97,8 +97,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
             Double range = Double.parseDouble(getIntent().getStringExtra("range"));
             int toleranceRange = Integer.parseInt(getIntent().getStringExtra("toleranceRange"));
-            Log.d("PointsActivity", Integer.toString(toleranceRange));
-            Log.d("PointsActivityTolerance", Double.toString(toleranceRange/100.0));
             if (userInput >= rightAnswer - (toleranceRange/100.0) * range &&
                     userInput <= rightAnswer + (toleranceRange/100.0) * range) {
                 answerText.setText(fromHtml(answerCorrect));
@@ -139,9 +137,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
-        Log.d(TAG, "Höhe: " + height);
-        Log.d(TAG, Double.toString(((double)stringLengthC)/height));
-        Log.d(TAG, Double.toString(((double)stringLengthW)/height));
         if(((double)stringLengthC)/height <= 0.16 || ((double)stringLengthW)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.BELOW, 0);
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

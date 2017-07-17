@@ -38,14 +38,8 @@ public class QrActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 2;
 
     private Context mContext = QrActivity.this;
-    private Typeface mTypeface;
 
     private int position = 0;
-
-    private TextView barcodeResult;
-
-
-    private String barcodeValue;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -85,8 +79,6 @@ public class QrActivity extends AppCompatActivity {
         }
 
         setupViewPager();
-        
-        //barcodeResult = (TextView) findViewById(R.id.barcode_result);
 
     }
 
@@ -107,27 +99,6 @@ public class QrActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
     }
-
-
-    @Override
-    public  void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if(requestCode==0){
-            if(resultCode == CommonStatusCodes.SUCCESS){
-                if(data != null) {
-                    Barcode barcode = data.getParcelableExtra("barcode");
-                    //barcodeResult.setText("Barcode value : "+ barcode.displayValue);
-
-                    barcodeValue = barcode.displayValue;
-
-                } else {
-                    //barcodeResult.setText("Ich nix finden");
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
 
     // Responsible for adding the 2 tabs: Scannen, Gespeicherte
     private void setupViewPager(){
@@ -151,7 +122,7 @@ public class QrActivity extends AppCompatActivity {
     private void changeTabsFont() {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
         int tabsCount = vg.getChildCount();
