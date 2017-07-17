@@ -298,6 +298,17 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 openingHours.setVisibility(View.VISIBLE);
             }
 
+            String costsText = ((TourDetailModel) result.get(tourID)).getCosts();
+            if (costsText != null && !costsText.isEmpty() && !costsText.equals("null")) {
+                TextView costsTitle = (TextView) findViewById(R.id.costsTitle);
+                TextView costs = (TextView) findViewById(R.id.costs);
+
+                costsTitle.setVisibility(View.VISIBLE);
+                costs.setVisibility(View.VISIBLE);
+
+                costs.setText(fromHtml(costsText));
+            }
+
             if (!(((TourDetailModel) result.get(tourID)).getWarnings().equals("null"))) {
                 TextView warnings = (TextView) findViewById(R.id.warnings);
                 TextView warningsTitle = (TextView) findViewById(R.id.warningsTitle);

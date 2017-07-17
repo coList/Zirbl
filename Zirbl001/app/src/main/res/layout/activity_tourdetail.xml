@@ -247,6 +247,29 @@
                             android:text="Öffnungszeiten:"
                             android:visibility="gone" />
 
+
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseCapitalView
+                            android:id="@+id/costsTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:text="Kosten"
+                            android:textSize="24sp"
+                            android:visibility="gone"
+                            app:textAllCaps="true" />
+
+                        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                            android:id="@+id/costs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:text=""
+                            android:visibility="gone" />
+
                         <ImageButton
                             android:id="@+id/classButton"
                             android:layout_width="wrap_content"
