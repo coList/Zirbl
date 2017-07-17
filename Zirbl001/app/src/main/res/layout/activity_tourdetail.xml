@@ -263,9 +263,9 @@
                         <ImageView
                             android:id="@+id/map"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:scaleType="centerCrop"
+                            android:layout_height = "wrap_content"
                             app:srcCompat="@drawable/img_card" />
+                            <!--android:layout_height="200dp"-->
 
                     </LinearLayout>
 
