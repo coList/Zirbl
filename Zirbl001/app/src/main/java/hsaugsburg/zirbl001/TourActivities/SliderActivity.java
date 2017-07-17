@@ -58,6 +58,7 @@ public class SliderActivity extends AppCompatActivity {
     private String answerCorrect;
     private String answerWrong;
     private int score;
+    private int toleranceRange;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -133,6 +134,9 @@ public class SliderActivity extends AppCompatActivity {
         minValue = result.getMinRange();
         range = result.getMaxRange() - minValue;
 
+        Log.d("SliderActivityToleranceRange: ", Integer.toString(result.getToleranceRange()));
+        toleranceRange = result.getToleranceRange();
+
         TextView startCount = (TextView) findViewById(R.id.startCount);
 
         TextView endCount = (TextView) findViewById(R.id.endCount);
@@ -205,6 +209,7 @@ public class SliderActivity extends AppCompatActivity {
             intent.putExtra("answerCorrect", answerCorrect);
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
+            intent.putExtra("toleranceRange", Integer.toString(toleranceRange));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
             startActivity(intent);
@@ -232,7 +237,7 @@ public class SliderActivity extends AppCompatActivity {
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });

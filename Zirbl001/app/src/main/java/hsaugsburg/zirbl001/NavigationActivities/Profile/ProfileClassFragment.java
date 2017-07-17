@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,11 @@ public class ProfileClassFragment extends Fragment {
         if (result != null) {
            ClassStatisticsAdapter adapter = new ClassStatisticsAdapter((Context)getActivity(), result);
            mListView.setAdapter(adapter);
+            Log.d(TAG, "processData: result");
+        }else{
+            Log.d(TAG, "processData: no result");
+            RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noClassStats);
+            rl.setVisibility(View.VISIBLE);
         }
     }
 

@@ -81,7 +81,10 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     private boolean firstClickOnGo = true;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private MenuItem favIconMenu;
+
     private boolean isFavorised;
+    private boolean isFilled;
 
     public void setMainPictureBitmap(Bitmap mainPictureBitmap) {
         this.mainPictureBitmap = mainPictureBitmap;
@@ -132,24 +135,19 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
-        //setDetailImage();
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshItems();
-            }
-        });
 
     }
 
     public void setIsFavorised(Boolean isFavorised) {
         if (isFavorised != null) {
             this.isFavorised = isFavorised;
-            Log.d(TAG, "isFavorisedTest");
+        }
+        if(isFavorised) {
+            favIconMenu.setIcon(R.drawable.ic_star_filled);
+            isFilled = true;
+        }else{
+            favIconMenu.setIcon(R.drawable.ic_bottom_star);
+            isFilled = false;
         }
     }
 
@@ -366,25 +364,6 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         }
     }
 
-
-    void refreshItems() {
-        /*
-        TextView noConnection = (TextView)findViewById(R.id.noConnection);
-        noConnection.setVisibility(View.GONE);
-        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-        tryAgain.setVisibility(View.GONE);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
-        */
-        onItemsLoadComplete();
-    }
-
-    void onItemsLoadComplete() {
-        // Stop refresh animation
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-
-
     public void tryConnectionAgain(View view) {
         TextView noConnection = (TextView)findViewById(R.id.noConnection);
         noConnection.setVisibility(View.GONE);
@@ -407,6 +386,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
+        favIconMenu = menu.findItem(R.id.action_favorite);
         return true;
     }
 
@@ -418,6 +398,13 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
 
                 //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
                 new InsertIntoFavors(userName, tourID, serverName).execute();
+                if(isFilled){
+                    isFilled = false;
+                    favIconMenu.setIcon(R.drawable.ic_bottom_star);
+                }else {
+                    isFilled = true;
+                    favIconMenu.setIcon(R.drawable.ic_star_filled);
+                }
 
                 return true;
             default:

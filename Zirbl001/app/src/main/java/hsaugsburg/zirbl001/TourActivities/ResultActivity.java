@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -118,9 +121,40 @@ public class ResultActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
         String userName = globalValues.getString("userName", null);
 
-        new InsertIntoParticipates(userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        new InsertIntoParticipates(this, userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        deleteFiles();
 
 
+    }
+
+    public void setRanking(JSONObject result) {
+        try {
+            TextView ranking = (TextView) findViewById(R.id.textPlacement);
+            String rankingText = result.getInt("worldranking") + ". Platz von " + result.getInt("totalparticipations");
+            ranking.setText(rankingText);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteFiles() {
+        File dir = getFilesDir();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
+        files.add(new File(dir, "letters" + selectedTour + ".txt"));
+        files.add(new File(dir, "singlechoice" + selectedTour + ".txt"));
+        files.add(new File(dir, "guessthenumber" + selectedTour + ".txt"));
+        files.add(new File(dir, "stations" + selectedTour + ".txt"));
+        files.add(new File(dir, "truefalse" + selectedTour + ".txt"));
+        files.add(new File(dir, "chronology" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+
+        for (File file: files) {
+            if (file.exists()) {
+                boolean isDeleted = file.delete();
+            }
+        }
     }
 
     public void endTour(View view) {
@@ -132,7 +166,7 @@ public class ResultActivity extends AppCompatActivity {
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });

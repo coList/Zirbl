@@ -25,6 +25,7 @@ public class GoldenActivity extends AppCompatActivity {
 
 
     public static final String TOUR_VALUES = "tourValuesFile";
+    private int selectedTour;
 
     //dot menu
     private TextView title;
@@ -63,6 +64,7 @@ public class GoldenActivity extends AppCompatActivity {
         int currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int nutsCollected = Integer.parseInt(tourValues.getString("nutsCollected", null));
         currentScore += Integer.parseInt(intent.getStringExtra("score"));
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
 
         //change currentScore preference value
 
@@ -104,7 +106,7 @@ public class GoldenActivity extends AppCompatActivity {
     private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
-                EndTourDialog alertEnd = new EndTourDialog(mContext);
+                EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
                 alertEnd.showDialog((Activity) mContext);
             }
         });

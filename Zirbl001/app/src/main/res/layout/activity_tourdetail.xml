@@ -30,11 +30,6 @@
             android:layout_below="@+id/relLayoutActionBar"
             android:layout_marginBottom="?actionBarSize">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/swipeRefreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -276,7 +271,6 @@
 
                 </LinearLayout>
             </ScrollView>
-            </android.support.v4.widget.SwipeRefreshLayout>
 
             <TextView
                 android:layout_width="match_parent"
