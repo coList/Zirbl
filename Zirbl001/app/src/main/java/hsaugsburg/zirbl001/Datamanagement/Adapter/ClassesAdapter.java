@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class ClassesAdapter extends BaseAdapter {
         TextView creationDate = (TextView) rowView.findViewById(R.id.savedDate);
 
         final ClassesModel classesModel = (ClassesModel) getItem(position);
+        Log.d("ClassesAdapter", classesModel.toString());
 
         rowView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -74,7 +76,8 @@ public class ClassesAdapter extends BaseAdapter {
         });
 
 
-        className.setText(classesModel.getClassname());
+        String classNameText = "Klasse " + classesModel.getClassname();
+        className.setText(classNameText);
         schoolName.setText(classesModel.getSchoolname());
 
         String strCurrentDate = classesModel.getCreationDate();

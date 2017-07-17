@@ -11,6 +11,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -129,6 +130,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
     public void setQrCode(String result) {
 
+        Log.d("Classes", result);
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
         intent.putExtra("tourID", Integer.toString(tourID));
         intent.putExtra("tourName", tourName);
