@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
+
         new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 

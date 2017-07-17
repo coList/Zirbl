@@ -111,8 +111,9 @@ public class ResultActivity extends AppCompatActivity {
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String userName = globalValues.getString("userName", null);
+        String deviceToken = globalValues.getString("deviceToken", null);
 
-        new InsertIntoParticipates(this, userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+        new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
         deleteFiles();
 
 
