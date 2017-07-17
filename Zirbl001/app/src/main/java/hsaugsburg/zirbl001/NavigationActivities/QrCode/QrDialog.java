@@ -9,19 +9,14 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.android.gms.vision.text.Line;
-import com.nostra13.universalimageloader.utils.L;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
@@ -43,7 +38,6 @@ public class QrDialog implements DownloadActivity {
     private String serverName;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 9;
 
     private Activity activity;
 
@@ -81,8 +75,8 @@ public class QrDialog implements DownloadActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
-        TextView titleText = (TextView) dialog.findViewById(R.id.title);
-        titleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
 
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);
@@ -97,11 +91,9 @@ public class QrDialog implements DownloadActivity {
         text2.setText(fromHtml(msg2));
 
         if (success) {
-            TextView title = (TextView) dialog.findViewById(R.id.title);
             title.setText("SCAN ERFOLGREICH");
             linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTurquoise));
         } else {
-            TextView title = (TextView) dialog.findViewById(R.id.title);
             title.setText("SCAN FEHLGESCHLAGEN");
             linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
         }
@@ -185,7 +177,6 @@ public class QrDialog implements DownloadActivity {
                 if (previous < 0) {
                     previous = 2;
                 }
-                Log.d(TAG, "dot" + (i + 1));
 
                 String namePreviousDot = "dot" + (previous + 1);
                 int previousDotID = activity.getResources().getIdentifier(namePreviousDot, "id", activity.getPackageName());
@@ -226,6 +217,7 @@ public class QrDialog implements DownloadActivity {
     }
 
     public void downloadFinished() {
+        int amountOfDownloadTasks = 9;
         downloadTasksCounter++;
 
         if (downloadTasksCounter >= amountOfDownloadTasks) {

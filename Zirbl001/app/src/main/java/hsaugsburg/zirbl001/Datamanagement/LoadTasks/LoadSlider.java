@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,11 +8,9 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.SliderModel;
+import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 
 public class LoadSlider {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
     private int taskID;
@@ -30,7 +27,7 @@ public class LoadSlider {
             FileInputStream fileIn=activity.openFileInput("guessthenumber" + tourID + ".txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;

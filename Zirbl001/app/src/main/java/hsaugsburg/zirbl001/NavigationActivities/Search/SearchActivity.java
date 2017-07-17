@@ -3,9 +3,7 @@ package hsaugsburg.zirbl001.NavigationActivities.Search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -16,7 +14,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,25 +24,17 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import org.json.JSONException;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
-import hsaugsburg.zirbl001.Datamanagement.SearchSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Models.MapModels.StationModel;
-import hsaugsburg.zirbl001.Models.TourDetailModel;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
-
-import static android.support.constraint.R.id.parent;
 
 public class SearchActivity extends AppCompatActivity implements Callback{
 
@@ -58,7 +47,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
     private SearchSelectionAdapter adapter;
-    private List<JSONModel> searchResult;
     private boolean iConnection = true;
 
 
@@ -101,17 +89,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
     }
 
-
-    public void processData(StationModel result) throws JSONException {
-        /*
-        double lat =  result.getLatitude();
-        double lng = result.getLongitude();
-
-        Log.d(TAG, "lat: " + String.valueOf(lat));
-        Log.d(TAG, "long:" + String.valueOf(lng));
-        */
-    }
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(iConnection) {
@@ -144,7 +121,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -156,13 +132,9 @@ public class SearchActivity extends AppCompatActivity implements Callback{
     }
 
     public void processData(List<JSONModel> result) {
-
-        searchResult = result;
         if (result != null) {
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
-            final List<JSONModel> tourSelectionItems = result;
-
 
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -170,7 +142,6 @@ public class SearchActivity extends AppCompatActivity implements Callback{
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     JSONModel selectedTour = (JSONModel) adapter.getItem(position);
 
-                    //changeToInfo(((TourSelectionModel)selectedTour).getTourID());
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(((TourDetailModel)selectedTour).getTourID()));
                     intent1.putExtra("tourName", ((TourDetailModel)selectedTour).getTourName());

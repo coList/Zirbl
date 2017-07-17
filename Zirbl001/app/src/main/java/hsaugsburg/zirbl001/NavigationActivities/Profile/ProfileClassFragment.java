@@ -6,23 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.ClassStatisticsAdapter;
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
-import hsaugsburg.zirbl001.Datamanagement.JSONOwnStatistics;
-import hsaugsburg.zirbl001.Models.ClassStatisticsModel;
-import hsaugsburg.zirbl001.Models.ClassesStatModel;
-import hsaugsburg.zirbl001.Models.OwnStatisticsModel;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.ClassStatisticsAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
+import hsaugsburg.zirbl001.Models.NavigationModels.ClassesStatModel;
 import hsaugsburg.zirbl001.R;
 
 
@@ -38,7 +32,6 @@ public class ProfileClassFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_class, container, false);
 
-
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
@@ -51,9 +44,7 @@ public class ProfileClassFragment extends Fragment {
         if (result != null) {
            ClassStatisticsAdapter adapter = new ClassStatisticsAdapter((Context)getActivity(), result);
            mListView.setAdapter(adapter);
-            Log.d(TAG, "processData: result");
         }else{
-            Log.d(TAG, "processData: no result");
             RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noClassStats);
             rl.setVisibility(View.VISIBLE);
         }

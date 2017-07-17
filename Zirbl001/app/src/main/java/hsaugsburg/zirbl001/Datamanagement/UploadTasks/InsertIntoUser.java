@@ -2,7 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -35,7 +34,6 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... arg0) {
 
         try {
-
             URL url = new URL(serverName + "/api/insertIntoUser.php");
 
             JSONObject postDataParams = new JSONObject();
@@ -59,7 +57,6 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
             os.close();
 
             int responseCode = conn.getResponseCode();
-            Log.d("SplashResponseCode", Integer.toString(responseCode));
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
 
@@ -89,12 +86,10 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        Log.d("SplashScreen", result);
-    }
+    protected void onPostExecute(String result) {}
 
 
-    public String getPostDataString(JSONObject params) throws Exception {
+    private String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
         boolean first = true;

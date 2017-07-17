@@ -9,11 +9,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import hsaugsburg.zirbl001.Models.MapModels.NutModel;
+import hsaugsburg.zirbl001.Models.TourModels.MapModels.NutModel;
 
 public class LoadNutLocation {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
 
@@ -28,7 +26,7 @@ public class LoadNutLocation {
             FileInputStream fileIn = activity.openFileInput("nuts" + tourID + ".txt");
             InputStreamReader InputRead = new InputStreamReader(fileIn);
 
-
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer = new char[READ_BLOCK_SIZE];
             String s = "";
             int charRead;

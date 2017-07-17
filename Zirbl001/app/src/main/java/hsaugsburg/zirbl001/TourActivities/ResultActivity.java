@@ -30,25 +30,18 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
 public class ResultActivity extends AppCompatActivity {
-    private int currentScore;
     private Context mContext = ResultActivity.this;
     private static final String TAG = "ResultActivity";
     private int selectedTour;
-    private int classID;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    private String serverName;
 
     //dot menu
     private TextView title;
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
-
-    private String team;
-    private String members;
 
     @Override
     protected void onPause() {
@@ -64,11 +57,9 @@ public class ResultActivity extends AppCompatActivity {
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
-        classID = Integer.parseInt(tourValues.getString("classID", null));
-
-        Log.d("ResultActivity", Integer.toString(classID));
+        int currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int classID = Integer.parseInt(tourValues.getString("classID", null));
 
         String teamName = tourValues.getString("teamName", null);
         ArrayList<String> participants = new ArrayList<>();
@@ -118,7 +109,7 @@ public class ResultActivity extends AppCompatActivity {
         progressBar.setProgress(totalChronologyValue + 1);
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
+        String serverName = globalValues.getString("serverName", null);
         String userName = globalValues.getString("userName", null);
 
         new InsertIntoParticipates(this, userName, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
@@ -152,7 +143,7 @@ public class ResultActivity extends AppCompatActivity {
 
         for (File file: files) {
             if (file.exists()) {
-                boolean isDeleted = file.delete();
+                file.delete();
             }
         }
     }

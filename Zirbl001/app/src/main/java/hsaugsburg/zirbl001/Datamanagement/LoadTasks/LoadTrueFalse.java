@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,11 +8,9 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.TrueFalseModel;
+import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 
 public class LoadTrueFalse {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
     private int taskID;
@@ -27,15 +24,15 @@ public class LoadTrueFalse {
     public TrueFalseModel readFile() {
         TrueFalseModel trueFalseModel = new TrueFalseModel();
         try {
-            FileInputStream fileIn=activity.openFileInput("truefalse" + tourID + ".txt");
+            FileInputStream fileIn = activity.openFileInput("truefalse" + tourID + ".txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
-
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;
 
-            while ((charRead=InputRead.read(inputBuffer))>0) {
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
                 // char to string conversion
                 String readstring=String.copyValueOf(inputBuffer,0,charRead);
                 s +=readstring;
@@ -45,7 +42,6 @@ public class LoadTrueFalse {
 
 
             JSONArray jsonArray = new JSONArray(s);
-            Log.d("LoadQuiz", jsonArray.toString());
 
             for (int j = 0; j < jsonArray.length(); j++) {
                 JSONObject mJsonLObjectTrueFalse = jsonArray.getJSONObject(j);
