@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.NavigationActivities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,8 +13,6 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,15 +24,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONTourFavor;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
-import hsaugsburg.zirbl001.Datamanagement.SearchSelectionAdapter;
-import hsaugsburg.zirbl001.Datamanagement.TourFavorAdapter;
-import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.TourFavorAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Models.TourFavorModel;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourFavorModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 

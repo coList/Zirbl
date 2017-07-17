@@ -10,19 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.ClassStatisticsAdapter;
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
-import hsaugsburg.zirbl001.Datamanagement.JSONOwnStatistics;
-import hsaugsburg.zirbl001.Models.ClassStatisticsModel;
-import hsaugsburg.zirbl001.Models.ClassesStatModel;
-import hsaugsburg.zirbl001.Models.OwnStatisticsModel;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.ClassStatisticsAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
+import hsaugsburg.zirbl001.Models.NavigationModels.ClassesStatModel;
 import hsaugsburg.zirbl001.R;
 
 

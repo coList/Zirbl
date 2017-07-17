@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -19,20 +16,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
-import java.util.Locale;
-
-import hsaugsburg.zirbl001.Datamanagement.JSONSlider;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadSlider;
-import hsaugsburg.zirbl001.Models.SliderModel;
+import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
 
 public class SliderActivity extends AppCompatActivity {

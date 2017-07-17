@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,7 +8,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.SliderModel;
+import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 
 public class LoadSlider {
 

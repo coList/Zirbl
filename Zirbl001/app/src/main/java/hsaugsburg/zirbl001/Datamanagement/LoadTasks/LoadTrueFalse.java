@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.TrueFalseModel;
+import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 
 public class LoadTrueFalse {
 

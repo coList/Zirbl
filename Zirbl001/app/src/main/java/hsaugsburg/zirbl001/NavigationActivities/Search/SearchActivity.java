@@ -3,9 +3,7 @@ package hsaugsburg.zirbl001.NavigationActivities.Search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -16,7 +14,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,20 +29,15 @@ import org.json.JSONException;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONStationLocation;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourDetail;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
-import hsaugsburg.zirbl001.Datamanagement.SearchSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Models.MapModels.StationModel;
-import hsaugsburg.zirbl001.Models.TourDetailModel;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
+import hsaugsburg.zirbl001.Models.TourModels.MapModels.StationModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
-
-import static android.support.constraint.R.id.parent;
 
 public class SearchActivity extends AppCompatActivity implements Callback{
 

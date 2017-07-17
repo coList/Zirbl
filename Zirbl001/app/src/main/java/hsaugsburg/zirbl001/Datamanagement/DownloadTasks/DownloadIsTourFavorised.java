@@ -3,31 +3,14 @@ package hsaugsburg.zirbl001.Datamanagement.DownloadTasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import hsaugsburg.zirbl001.Interfaces.Callback;
-import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Models.OwnStatisticsModel;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileClassFragment;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileOwnFragment;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 
 public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> {

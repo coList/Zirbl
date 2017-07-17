@@ -8,8 +8,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
-import hsaugsburg.zirbl001.Models.LettersModel;
+import hsaugsburg.zirbl001.Models.TourModels.LettersModel;
 
 public class LoadLetters {
 

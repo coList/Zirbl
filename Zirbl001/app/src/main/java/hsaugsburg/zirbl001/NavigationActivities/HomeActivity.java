@@ -26,10 +26,10 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourSelection;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
-import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 

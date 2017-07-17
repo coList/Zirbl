@@ -20,7 +20,6 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
 import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 
 public class InsertIntoParticipates extends AsyncTask<String, Void, String> {

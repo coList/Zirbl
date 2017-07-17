@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
+import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 
 public class LoadLocationDoUKnow {
 

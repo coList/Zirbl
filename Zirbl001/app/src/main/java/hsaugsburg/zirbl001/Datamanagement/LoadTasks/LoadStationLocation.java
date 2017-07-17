@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.MapModels.StationModel;
+import hsaugsburg.zirbl001.Models.TourModels.MapModels.StationModel;
 
 public class LoadStationLocation {
 

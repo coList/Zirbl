@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
-import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 

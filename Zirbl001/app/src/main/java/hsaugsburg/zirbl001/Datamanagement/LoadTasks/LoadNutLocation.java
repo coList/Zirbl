@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import hsaugsburg.zirbl001.Models.MapModels.NutModel;
+import hsaugsburg.zirbl001.Models.TourModels.MapModels.NutModel;
 
 public class LoadNutLocation {
 

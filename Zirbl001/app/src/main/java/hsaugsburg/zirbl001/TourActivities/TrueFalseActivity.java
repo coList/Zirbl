@@ -5,23 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,12 +26,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
-import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
-import hsaugsburg.zirbl001.Models.TrueFalseModel;
+import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 

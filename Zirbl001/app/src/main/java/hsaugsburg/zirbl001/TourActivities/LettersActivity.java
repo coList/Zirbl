@@ -6,12 +6,10 @@ import android.content.Intent;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Vibrator;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -28,13 +26,11 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLetters;
 import hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton;
-import hsaugsburg.zirbl001.Models.LettersModel;
+import hsaugsburg.zirbl001.Models.TourModels.LettersModel;
 import hsaugsburg.zirbl001.R;
 
 public class LettersActivity extends AppCompatActivity {
