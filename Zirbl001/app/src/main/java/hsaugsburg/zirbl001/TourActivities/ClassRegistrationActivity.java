@@ -114,8 +114,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
             String serverName = globalValues.getString("serverName", null);
             String userName = globalValues.getString("userName", null);
+            String deviceToken = globalValues.getString("deviceToken", null);
 
-            new InsertIntoClass(userName, tourID, className, school, qrString, serverName, this).execute();
+            new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
 
 
         } else {
