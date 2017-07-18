@@ -17,6 +17,7 @@
     <style name="SearchViewMy" parent="Widget.AppCompat.Light.SearchView">
         <item name="submitBackground">@android:color/transparent</item>
         <item name="queryBackground">@android:color/transparent</item>
+        <item name="searchHintIcon">@null</item>
     </style>
 
     <style name="NewActionBarTitle" parent="@style/Base.TextAppearance.AppCompat.Title">

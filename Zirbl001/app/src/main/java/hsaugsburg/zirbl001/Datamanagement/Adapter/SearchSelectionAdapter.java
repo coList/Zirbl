@@ -118,7 +118,9 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
                     {
                         TourDetailModel tourDetail = (TourDetailModel) data;
 
-                        if((tourDetail.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        if((tourDetail.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()) ||
+                                tourDetail.getDescription().toLowerCase().contains(charSequence.toString().toLowerCase()) ||
+                                tourDetail.getCategoryName().toLowerCase().contains(charSequence.toString().toLowerCase()))
                         {
                             filterResultsData.add(data);
                         }
