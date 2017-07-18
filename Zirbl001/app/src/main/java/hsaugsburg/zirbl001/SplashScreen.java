@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoUser;

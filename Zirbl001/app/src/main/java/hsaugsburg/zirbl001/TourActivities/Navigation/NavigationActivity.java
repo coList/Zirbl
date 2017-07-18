@@ -80,6 +80,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     private LoadTourChronology loadTourChronology;
 
+
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
@@ -113,6 +114,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private RelativeLayout dotMenuLayout;
     private boolean dotMenuOpen = false;
 
+    private List<Route> directionRoute;
+    private PolylineOptions polylineOptions;
+    private List<Polyline> polylinePaths;
+
+    private boolean first = true;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -137,7 +144,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     public void onResume() {
         super.onResume();
 
-        if (googleApiClient.isConnected()){
+        if (googleApiClient.isConnected()) {
             requestLocationUpdates();
         }
     }
@@ -165,7 +172,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         title = (TextView) findViewById(R.id.titleActionbar);
         title.setText("Navigation");
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
+        dotMenuLayout = (RelativeLayout) this.findViewById(R.id.dotMenu);
         dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
 
@@ -208,12 +215,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        final LocationManager locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (!locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             showDialogGPS();
         }
-    }
+    } // ends onCreate
 
 
     public void setDataView() {
@@ -241,12 +248,23 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
 
+    private void drawPolyline(List<Route> route) {
+        if (polylinePaths != null){
 
-    private void drawPolyline (List<Route> route) {
+            for (int i = 0; i < polylinePaths.size(); i++) {
 
-        List<Polyline> polylinePaths = new ArrayList<>();
+                polylinePaths.get(i).remove();
+                Log.d(TAG, "onLocationChanged: " + i);
 
-        PolylineOptions polylineOptions = new PolylineOptions().
+            }
+
+
+            Log.d("NavigationActivity", polylinePaths.get(0).toString());
+            //polylinePaths.clear();
+
+        }
+        polylinePaths = new ArrayList<>();
+        polylineOptions = new PolylineOptions().
                 geodesic(true).
                 color(ContextCompat.getColor(mContext, R.color.colorTurquoise)).
                 width(15);
@@ -258,18 +276,19 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 for (int i = 0; i < routes.getPoints().size(); i++)
                     polylineOptions.add(routes.getPoints().get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
+
             }
         }
-    }
 
+    } // ends createurl
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.clear();
-        LatLng latLngAugsburg = new LatLng(48.3652377,10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang sieht
+        //mMap.clear();
+        LatLng latLngAugsburg = new LatLng(48.3652377, 10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang sieht
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngAugsburg, 12));
 
 
@@ -284,7 +303,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     .title("Nächstes Ziel: " + stationName)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_flag))
             );
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -295,7 +314,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-    }
+    } // ends onmapready
+
 
     //click on station name to hide or show the mapinstruction
     public void onClick(View view) {
@@ -309,7 +329,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             mapInstruction.setVisibility(View.VISIBLE);
             arrow.setScaleY(1);
         }
-    }
+    } // onclick
 
     public void continueToNextView(View view) {
         mMap.clear();
@@ -317,7 +337,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         loadTourChronology.continueToNextView();
     }
 
-    private void showEndTourDialog(){
+    private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
@@ -327,7 +347,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
             return true;
@@ -340,13 +360,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
 
-    public void showMenu(View view){
+    public void showMenu(View view) {
 
         ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
         TextView menuStats = (TextView) findViewById(R.id.menuStats);
         TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
 
-        if(dotMenuOpen){
+        if (dotMenuOpen) {
             dotMenuLayout.setVisibility(RelativeLayout.GONE);
             dotMenuOpen = false;
             title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
@@ -359,15 +379,18 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             menuQuit.setTextSize(18);
             menuStats.setTextSize(18);
         }
-    }
-    public void showStats(View view){
+    } // ends showmenu
+
+    public void showStats(View view) {
         Log.d(TAG, "showStats: Stats");
     }
-    public void quitTour(View view){
+
+    public void quitTour(View view) {
         showEndTourDialog();
     }
 
     private boolean firstCall = true;
+
     public void setRoute() {
         if (firstCall) {
 
@@ -381,9 +404,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
             new JSONDirectionsAPI(activity).execute(url);
         }
-    }
+    } // ends setroute
+
 
     private List<Marker> nutMarker = new ArrayList<Marker>();
+
+
     public void setNuts() {
         for (int h = 0; h < nuts.size(); h++) {
             Double latNut = nuts.get(h).getLatitude();
@@ -392,7 +418,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             LatLng latLngNut = new LatLng(latNut, lngNut);
 
             if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
-                nutsCollected ++;
+                nutsCollected++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
                         nutMarker.get(i).remove();
@@ -422,7 +448,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
             } else if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.1 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
-                for (Marker marker: nutMarker) {
+                for (Marker marker : nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
                         marker.setVisible(true);
                         alreadyExists = true;
@@ -438,19 +464,20 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 }
 
             } else if (!listIsNutCollected.get(h)) {
-                for (Marker marker: nutMarker) {
-                   if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
-                       marker.setVisible(false);
-                   }
+                for (Marker marker : nutMarker) {
+                    if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
+                        marker.setVisible(false);
+                    }
                 }
             }
-
         }
+    } // ends setNuts
 
-    }
 
-    public void processDirectionData(List<Route> route) throws JSONException {
-        drawPolyline(route);
+    public void processDirectionData(List<Route> routes) throws JSONException {
+        directionRoute = routes;
+        //mMap.clear();
+        drawPolyline(routes);
     }
 
 
@@ -459,6 +486,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         super.onLowMemory();
         System.gc();
     }
+
 
     //return distance in kilometers
     private double distance(double lat1, double lon1, double lat2, double lon2) {
@@ -482,8 +510,10 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         return (rad * 180.0 / Math.PI);
     }
 
+
     @Override
     public void onLocationChanged(Location location) {
+
         Double latMyPos = location.getLatitude();
         Double lngMyPos = location.getLongitude();
         latLngMyPos = new LatLng(latMyPos, lngMyPos);
@@ -505,6 +535,14 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
             setRoute();
             setNuts();
+            String origin = "" + latLngMyPos.latitude + "," + latLngMyPos.longitude;
+            String destination = "" + latTarget + "," + lngTarget;
+
+            String url = createURL(origin, destination);
+
+
+                new JSONDirectionsAPI(this).execute(url);
+
 
             //check for infopopup
             for (int i = 0; i < doUKnowModels.size(); i++) {
@@ -542,7 +580,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } // ends onlocationchanged
+
 
     public void showDialogGPS() {
         this.runOnUiThread(new Runnable() {
@@ -552,9 +591,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             }
         });
     }
-
-
-
 
 
     @Override
@@ -574,17 +610,16 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
         // check if network provider is enabled
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    } // ends requestLocationUpdates
 
-
-    }
 
     @Override
     public void onConnectionSuspended(int i) {
 
     }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -592,5 +627,4 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     }
 
 
-
-}
+} // NavigationActivity end

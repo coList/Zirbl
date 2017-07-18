@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement.JSONDownload;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 
 import org.json.JSONArray;
@@ -21,22 +22,28 @@ import java.util.List;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
+import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 
 
-public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
-    private Callback callback;
+public class JSONTourDetail extends AsyncTask<String, String, TourDetailModel> {
+    private TourDetailActivity tourDetailActivity;
+    private int tourID;
 
-    public JSONTourDetail (Callback callback) {
-        this.callback = callback;
+    public JSONTourDetail (TourDetailActivity tourDetailActivity, int tourID) {
+        this.tourDetailActivity = tourDetailActivity;
+        this.tourID = tourID;
     }
-    protected List<JSONModel> doInBackground(String... params) {
+    protected TourDetailModel doInBackground(String... params) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
 
         try {
+
             URL url;
-            url = new URL(params[0]);
+            url = new URL(params[0] + "?tourid=" + tourID);
+            Log.d("JSONTourDetail", Integer.toString(tourID));
             connection = (HttpURLConnection) url.openConnection();
+
             connection.connect();
 
             InputStream stream = connection.getInputStream();
@@ -51,18 +58,11 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
             String finalJson = buffer.toString();
 
             try {
-                JSONArray parentArray = new JSONArray(finalJson);
-                JSONObject parentObject = parentArray.getJSONObject(0);
+                JSONArray mJsonArrayTourDetails = new JSONArray(finalJson);
 
-                JSONArray mJsonArrayTourDetails = parentObject.getJSONArray("tourdetails");
-
-                List<JSONModel> tourDetailModelList = new ArrayList<>();
-
-                for (int i = 0; i < mJsonArrayTourDetails.length(); i++) {
-                    JSONObject mJsonLObjectTourDetails = mJsonArrayTourDetails.getJSONObject(i);
+                    JSONObject mJsonLObjectTourDetails = mJsonArrayTourDetails.getJSONObject(0);
 
                     TourDetailModel tourDetailModel = new TourDetailModel();
-
                     tourDetailModel.setTourName(mJsonLObjectTourDetails.getString("tourname"));
                     tourDetailModel.setTourID(mJsonLObjectTourDetails.getInt("tourid"));
                     tourDetailModel.setCategoryName(mJsonLObjectTourDetails.getString("categoryname"));
@@ -90,11 +90,7 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
                         tourDetailModel.setPicturesPath(picturesPathList);
                     }
 
-                    // adding the final object in the list
-                    tourDetailModelList.add(tourDetailModel);
-                }
-
-                return tourDetailModelList;
+                return tourDetailModel;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -116,10 +112,10 @@ public class JSONTourDetail extends AsyncTask<String, String, List<JSONModel>> {
         }
         return null;
     }
-    protected void onPostExecute(List<JSONModel> result){
+    protected void onPostExecute(TourDetailModel result){
         super.onPostExecute(result);
 
-        callback.processData(result);
+        tourDetailActivity.processData(result);
     }
 
 }

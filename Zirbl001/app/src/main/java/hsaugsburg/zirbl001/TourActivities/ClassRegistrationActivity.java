@@ -114,8 +114,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
             String serverName = globalValues.getString("serverName", null);
             String userName = globalValues.getString("userName", null);
+            String deviceToken = globalValues.getString("deviceToken", null);
 
-            new InsertIntoClass(userName, tourID, className, school, qrString, serverName, this).execute();
+            new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
 
 
         } else {
@@ -128,7 +129,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     }
 
     public void setQrCode(String result) {
-
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
         intent.putExtra("tourID", Integer.toString(tourID));
         intent.putExtra("tourName", tourName);
@@ -138,7 +138,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         startActivity(intent);
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
-
     }
 
 
