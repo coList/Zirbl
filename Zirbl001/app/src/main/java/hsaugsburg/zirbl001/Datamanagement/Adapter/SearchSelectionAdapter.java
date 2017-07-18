@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.R;
 
@@ -24,14 +25,14 @@ import hsaugsburg.zirbl001.R;
 public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<JSONModel> originalData;
-    private List<JSONModel> filteredData;
+    private List<SearchModel> originalData;
+    private List<SearchModel> filteredData;
     private static final String TAG = "SearchSelectionAdapter";
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
 
-    public SearchSelectionAdapter(Context context, List<JSONModel> items) {
+    public SearchSelectionAdapter(Context context, List<SearchModel> items) {
         mContext = context;
         originalData = items;
         filteredData = items;
@@ -72,15 +73,15 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
         TextView descriptionShort = (TextView) rowView.findViewById(R.id.descriptionShort);
 
 
-        TourDetailModel tourDetail = (TourDetailModel) getItem(position);
-        tourName.setText(tourDetail.getTourName());
+        SearchModel searchModel = (SearchModel) getItem(position);
+        tourName.setText(searchModel.getTourName());
 
-        descriptionShort.setText(fromHtml(tourDetail.getShortDescription()));
+        descriptionShort.setText(fromHtml(searchModel.getShortDescription()));
 
-        duration.setText(Integer.toString(tourDetail.getDuration()) + " min");
-        double dist = tourDetail.getDistance() / 1000.0;
+        duration.setText(Integer.toString(searchModel.getDuration()) + " min");
+        double dist = searchModel.getDistance() / 1000.0;
         distance.setText(Double.toString(dist) + " km");
-        difficultyName.setText(tourDetail.getDifficultyName());
+        difficultyName.setText(searchModel.getDifficultyName());
 
 
         tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorStandardText));
@@ -112,13 +113,13 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
                 }
                 else
                 {
-                    List<JSONModel> filterResultsData = new ArrayList<>();
+                    List<SearchModel> filterResultsData = new ArrayList<>();
 
-                    for(JSONModel data : originalData)
+                    for(SearchModel data : originalData)
                     {
-                        TourDetailModel tourDetail = (TourDetailModel) data;
+                        SearchModel searchModel = (SearchModel) data;
 
-                        if((tourDetail.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
+                        if((searchModel.getTourName()).toLowerCase().contains(charSequence.toString().toLowerCase()))
                         {
                             filterResultsData.add(data);
                         }
@@ -134,7 +135,7 @@ public class SearchSelectionAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults)
             {
-                filteredData = (List<JSONModel>) filterResults.values;
+                filteredData = (List<SearchModel>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

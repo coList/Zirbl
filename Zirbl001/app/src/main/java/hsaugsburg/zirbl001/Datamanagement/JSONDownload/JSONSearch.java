@@ -20,16 +20,18 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
+import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
 
-public class JSONSearch extends AsyncTask<String, String, List<JSONModel>> {
-    private Callback callback;
+public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
+    private SearchActivity searchActivity;
 
-    public JSONSearch(Callback callback) {
-        this.callback = callback;
+    public JSONSearch(SearchActivity searchActivity) {
+        this.searchActivity = searchActivity;
     }
-    protected List<JSONModel> doInBackground(String... params) {
+    protected List<SearchModel> doInBackground(String... params) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
 
@@ -54,47 +56,28 @@ public class JSONSearch extends AsyncTask<String, String, List<JSONModel>> {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
-                JSONArray mJsonArrayTourDetails = parentObject.getJSONArray("tourdetails");
+                JSONArray mJsonArrayTourDetails = parentObject.getJSONArray("searchdetails");
 
-                List<JSONModel> tourDetailModelList = new ArrayList<>();
+                List<SearchModel> searchModelList = new ArrayList<>();
 
                 for (int i = 0; i < mJsonArrayTourDetails.length(); i++) {
                     JSONObject mJsonLObjectTourDetails = mJsonArrayTourDetails.getJSONObject(i);
 
-                    TourDetailModel tourDetailModel = new TourDetailModel();
+                    SearchModel searchModel = new SearchModel();
 
-                    tourDetailModel.setTourName(mJsonLObjectTourDetails.getString("tourname"));
-                    tourDetailModel.setTourID(mJsonLObjectTourDetails.getInt("tourid"));
-                    tourDetailModel.setCategoryName(mJsonLObjectTourDetails.getString("categoryname"));
-                    tourDetailModel.setCosts(mJsonLObjectTourDetails.getString("costs"));
-                    tourDetailModel.setDifficultyName(mJsonLObjectTourDetails.getString("difficultyname"));
-                    tourDetailModel.setDistance(mJsonLObjectTourDetails.getInt("distance"));
-                    tourDetailModel.setDuration(mJsonLObjectTourDetails.getInt("duration"));
-                    tourDetailModel.setMainPicture(mJsonLObjectTourDetails.getString("mainpicture"));
-                    tourDetailModel.setDescription(mJsonLObjectTourDetails.getString("description"));
-                    tourDetailModel.setMapPicture(mJsonLObjectTourDetails.getString("mappicture"));
-                    tourDetailModel.setVideoPath(mJsonLObjectTourDetails.getString("videopath"));
-                    tourDetailModel.setWarnings(mJsonLObjectTourDetails.getString("warnings"));
-                    tourDetailModel.setShortDescription(mJsonLObjectTourDetails.getString("shortdescription"));
-                    tourDetailModel.setEndLocation(mJsonLObjectTourDetails.getString("endlocation"));
-                    tourDetailModel.setStartLocation(mJsonLObjectTourDetails.getString("startlocation"));
-
-                    List<String> picturesPathList = new ArrayList<>();
-
-                    if (!mJsonLObjectTourDetails.isNull("picturespath")) {
-                        for (int j = 0; j < mJsonLObjectTourDetails.getJSONArray("picturespath").length(); j++) {
-                            String picturesPath = mJsonLObjectTourDetails.getJSONArray("picturespath").getString(j);
-                            picturesPathList.add(picturesPath);
-                        }
-
-                        tourDetailModel.setPicturesPath(picturesPathList);
-                    }
+                    searchModel.setTourName(mJsonLObjectTourDetails.getString("tourname"));
+                    searchModel.setTourID(mJsonLObjectTourDetails.getInt("tourid"));
+                    searchModel.setCategoryName(mJsonLObjectTourDetails.getString("categoryname"));
+                    searchModel.setDifficultyName(mJsonLObjectTourDetails.getString("difficultyname"));
+                    searchModel.setDistance(mJsonLObjectTourDetails.getInt("distance"));
+                    searchModel.setDuration(mJsonLObjectTourDetails.getInt("duration"));
+                    searchModel.setShortDescription(mJsonLObjectTourDetails.getString("shortdescription"));
 
                     // adding the final object in the list
-                    tourDetailModelList.add(tourDetailModel);
+                    searchModelList.add(searchModel);
                 }
 
-                return tourDetailModelList;
+                return searchModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -116,10 +99,10 @@ public class JSONSearch extends AsyncTask<String, String, List<JSONModel>> {
         }
         return null;
     }
-    protected void onPostExecute(List<JSONModel> result){
+    protected void onPostExecute(List<SearchModel> result){
         super.onPostExecute(result);
 
-        callback.processData(result);
+        searchActivity.processData(result);
     }
 
 }
