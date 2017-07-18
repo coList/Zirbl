@@ -31,12 +31,13 @@ import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONSearch;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
-public class SearchActivity extends AppCompatActivity implements Callback{
+public class SearchActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchActivity";
     private static final int ACTIVITY_NUM = 1;
@@ -131,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
         menuItem.setChecked(true);
     }
 
-    public void processData(List<JSONModel> result) {
+    public void processData(List<SearchModel> result) {
         if (result != null) {
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
@@ -140,11 +141,11 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    JSONModel selectedTour = (JSONModel) adapter.getItem(position);
+                    SearchModel selectedTour = (SearchModel) adapter.getItem(position);
 
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
-                    intent1.putExtra("tourID", Integer.toString(((TourDetailModel)selectedTour).getTourID()));
-                    intent1.putExtra("tourName", ((TourDetailModel)selectedTour).getTourName());
+                    intent1.putExtra("tourID", Integer.toString(selectedTour.getTourID()));
+                    intent1.putExtra("tourName", selectedTour.getTourName());
                     startActivity(intent1);
                 }
             });
