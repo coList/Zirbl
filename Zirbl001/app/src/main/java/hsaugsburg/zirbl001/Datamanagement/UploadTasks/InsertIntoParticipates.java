@@ -125,7 +125,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 

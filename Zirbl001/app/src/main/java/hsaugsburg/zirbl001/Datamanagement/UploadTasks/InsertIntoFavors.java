@@ -19,11 +19,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class InsertIntoFavors extends AsyncTask<String, Void, String> {
     private String userName;
+    private String deviceToken;
     private int tourID;
     private String serverName;
 
-    public InsertIntoFavors(String userName, int tourID, String serverName) {
+    public InsertIntoFavors(String userName, String deviceToken, int tourID, String serverName) {
         this.userName = userName;
+        this.deviceToken = deviceToken;
         this.tourID = tourID;
         this.serverName = serverName;
     }
@@ -38,6 +40,7 @@ public class InsertIntoFavors extends AsyncTask<String, Void, String> {
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
+            postDataParams.put("devicetoken", deviceToken);
             postDataParams.put("tourid", tourID);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

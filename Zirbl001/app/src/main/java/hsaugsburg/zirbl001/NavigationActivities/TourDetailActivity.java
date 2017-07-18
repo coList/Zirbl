@@ -62,6 +62,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
     String userName;
+    String deviceToken;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -110,6 +111,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
         userName = globalValues.getString("userName", null);
+        deviceToken = globalValues.getString("deviceToken", null);
 
         new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
@@ -377,7 +379,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             case R.id.action_favorite:
 
                 //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
-                new InsertIntoFavors(userName, tourID, serverName).execute();
+                new InsertIntoFavors(userName, deviceToken, tourID, serverName).execute();
                 if(isFilled){
                     isFilled = false;
                     favIconMenu.setIcon(R.drawable.ic_bottom_star);
