@@ -52,7 +52,7 @@ public class ClassesModel {
         return tourName;
     }
 
-    public void setTourName(String tourname) {
+    public void setTourName(String tourName) {
         this.tourName = tourName;
     }
 }
