@@ -5,6 +5,8 @@
         android:id="@+id/action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView"
+        app:iconifiedByDefault="false"
+        app:searchIcon="@null"
         android:icon="@drawable/ic_search"
         android:title="Suche" />
 </menu>
