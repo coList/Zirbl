@@ -33,7 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext = ProfileActivity.this;
-    private Typeface mTypeface;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -46,7 +45,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Mein Bereich");
@@ -94,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void changeTabsFont() {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
+        Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
         int tabsCount = vg.getChildCount();

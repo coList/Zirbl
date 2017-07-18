@@ -1,11 +1,9 @@
 package hsaugsburg.zirbl001.TourActivities;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +11,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,8 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
-import com.google.zxing.WriterException;
 
 import java.lang.reflect.Field;
 
@@ -59,7 +54,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
-        Log.d(TAG, "onCreate: starting");
 
         setIntentExtras();
 
@@ -120,8 +114,9 @@ public class ClassRegistrationActivity extends AppCompatActivity {
             SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
             String serverName = globalValues.getString("serverName", null);
             String userName = globalValues.getString("userName", null);
+            String deviceToken = globalValues.getString("deviceToken", null);
 
-            new InsertIntoClass(userName, tourID, className, school, qrString, serverName, this).execute();
+            new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
 
 
         } else {
@@ -134,7 +129,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
     }
 
     public void setQrCode(String result) {
-
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
         intent.putExtra("tourID", Integer.toString(tourID));
         intent.putExtra("tourName", tourName);
@@ -144,7 +138,6 @@ public class ClassRegistrationActivity extends AppCompatActivity {
         startActivity(intent);
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
-
     }
 
 

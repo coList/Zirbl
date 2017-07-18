@@ -3,35 +3,16 @@ package hsaugsburg.zirbl001;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Random;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoUser;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
-
-import static android.R.attr.name;
-import static hsaugsburg.zirbl001.R.id.add;
 
 public class SplashScreen extends AppCompatActivity {
 

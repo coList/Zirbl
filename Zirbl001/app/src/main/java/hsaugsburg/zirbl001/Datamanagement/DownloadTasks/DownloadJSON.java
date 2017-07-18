@@ -7,8 +7,6 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,12 +68,8 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                 JSONObject parentObject = parentArray.getJSONObject(0);
 
                 JSONArray mJsonArrayTourElement = parentObject.getJSONArray(outerName);
-                Log.d("DownloadJSON", outerName);
-
-
 
                 FileOutputStream fileout= activity.openFileOutput(innerName + selectedTour + ".txt", activity.MODE_PRIVATE);
-                Log.d("DownloadJSON", innerName + selectedTour + ".txt");
                 OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
 
                 for (int i = 0; i < mJsonArrayTourElement.length(); i++) {
@@ -142,7 +136,6 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                 }
 
                 outputWriter.close();
-                Log.d("TourDetail", "Download finished");
 
                 return "Download finished";
             } catch (JSONException e) {
@@ -175,7 +168,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
 
 
-    public static Bitmap getBitmapFromURL(String src) {
+    private static Bitmap getBitmapFromURL(String src) {
         try {
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

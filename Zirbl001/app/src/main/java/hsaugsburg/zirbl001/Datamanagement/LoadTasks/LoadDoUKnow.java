@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,11 +8,9 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
+import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 
 public class LoadDoUKnow {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
     private int infoPopupID;
@@ -30,6 +27,7 @@ public class LoadDoUKnow {
             FileInputStream fileIn=activity.openFileInput("infopopups" + tourID + ".txt");
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;
@@ -43,8 +41,6 @@ public class LoadDoUKnow {
             InputRead.close();
 
             JSONArray jsonArray = new JSONArray(s);
-
-            Log.d("LoadDoUTour", Integer.toString(tourID));
 
             for (int j = 0; j < jsonArray.length(); j++) {
                 JSONObject mJsonLObjectDoUKnow = jsonArray.getJSONObject(j);

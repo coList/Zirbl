@@ -3,9 +3,6 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +11,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,28 +21,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Field;
-import hsaugsburg.zirbl001.Datamanagement.JSONDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
-import hsaugsburg.zirbl001.Datamanagement.TourChronologyTask;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
-import hsaugsburg.zirbl001.Models.ChronologyModel;
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
+import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
-
-import static hsaugsburg.zirbl001.R.id.dotMenu;
-import static hsaugsburg.zirbl001.R.layout.layout_top_dark_actionbar;
 
 public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = DoUKnowActivity.this;
@@ -104,8 +84,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        //new JSONDoUKnow(this, selectedTour, infoPopupID).execute(serverName + "/api/selectInfoPopupView.php");
-
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
@@ -136,7 +114,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         String resultText = result.getContentText();
         doUKnow.setText(fromHtml(resultText));
         int stringLength = resultText.length();
-        Log.d(TAG, Integer.toString(stringLength));
 
         if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
             ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
@@ -150,8 +127,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
-        Log.d(TAG, "Höhe: " + height);
-        Log.d(TAG, Double.toString(((double)stringLength)/height));
         if(((double)stringLength)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             paramsContinue.addRule(RelativeLayout.BELOW, 0);

@@ -9,13 +9,9 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
-import hsaugsburg.zirbl001.Models.LettersModel;
-import hsaugsburg.zirbl001.Models.QuizModel;
+import hsaugsburg.zirbl001.Models.TourModels.QuizModel;
 
 public class LoadQuiz {
-
-    static final int READ_BLOCK_SIZE = 100;
     private Activity activity;
     private int tourID;
     private int taskID;
@@ -33,6 +29,7 @@ public class LoadQuiz {
             InputStreamReader InputRead= new InputStreamReader(fileIn);
 
 
+            int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;

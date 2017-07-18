@@ -17,7 +17,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrActivity;
 import hsaugsburg.zirbl001.R;
 
 public class EndTourDialog {
@@ -111,7 +110,7 @@ public class EndTourDialog {
 
         for (File file: files) {
             if (file.exists()) {
-                boolean isDeleted = file.delete();
+                file.delete();
             }
         }
 

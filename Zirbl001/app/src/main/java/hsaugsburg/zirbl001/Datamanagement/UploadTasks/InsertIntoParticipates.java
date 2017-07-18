@@ -2,7 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,12 +19,12 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONClassStatistics;
 import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 
 public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private String serverName;
     private String userName;
+    private String deviceToken;
     private int tourID;
     private int classID;
     private String teamname;
@@ -34,9 +33,10 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private ArrayList<String> participants;
     private ResultActivity resultActivity;
 
-    public InsertIntoParticipates(ResultActivity resultActivity, String userName, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
+    public InsertIntoParticipates(ResultActivity resultActivity, String userName, String deviceToken, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
         this.resultActivity = resultActivity;
         this.userName = userName;
+        this.deviceToken = deviceToken;
         this.tourID = tourID;
         this.classID = classID;
         this.teamname = teamname;
@@ -52,11 +52,11 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... arg0) {
 
         try {
-
             URL url = new URL(serverName + "/api/insertIntoParticipates.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
+            postDataParams.put("devicetoken", deviceToken);
             postDataParams.put("tourid", tourID);
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
@@ -118,8 +118,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d("InsertIntoParticipates", result);
-
         try {
 
             JSONObject json = new JSONObject(result);
@@ -131,7 +129,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     }
 
 
-    public String getPostDataString(JSONObject params) throws Exception {
+    private String getPostDataString(JSONObject params) throws Exception {
 
         StringBuilder result = new StringBuilder();
         boolean first = true;

@@ -5,23 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,12 +26,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
-import hsaugsburg.zirbl001.Datamanagement.JSONTrueFalse;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
-import hsaugsburg.zirbl001.Models.TrueFalseModel;
+import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
@@ -58,7 +51,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
 
 
     //dot menu
@@ -89,7 +81,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -101,8 +93,6 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-        //new JSONTrueFalse(this, selectedTour, taskID).execute(serverName + "/api/selectTrueFalseView.php");
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -152,7 +142,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     public void continueToNextView(View view) {
         if (answerSelected) {
             String userAnswer;
-            if (trueSelected == true) {
+            if (trueSelected) {
                 userAnswer = "true";
             } else {
                 userAnswer = "false";
@@ -286,25 +276,5 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
     public void quitTour(View view){
         showEndTourDialog();
-    }
-
-
-
-
-    public void processData(TrueFalseModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-        question.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-        rightAnswer = String.valueOf(result.isTrue());
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-        String imageURL = result.getPicturePath();
-        ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-        ImageLoader.getInstance().displayImage(serverName + imageURL, questionPicture);
-
     }
 }

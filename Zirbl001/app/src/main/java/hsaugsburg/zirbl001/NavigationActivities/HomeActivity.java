@@ -26,10 +26,10 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Datamanagement.JSONTourSelection;
-import hsaugsburg.zirbl001.Models.TourSelectionModel;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourSelection;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
-import hsaugsburg.zirbl001.Datamanagement.TourSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.Adapter.TourSelectionAdapter;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
@@ -57,7 +57,6 @@ public class HomeActivity extends AppCompatActivity implements Callback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Touren");
@@ -80,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
+
         new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
@@ -118,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements Callback {
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);

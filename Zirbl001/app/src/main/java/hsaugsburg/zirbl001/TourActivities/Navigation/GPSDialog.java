@@ -26,9 +26,6 @@ public class GPSDialog {
     private final Context context;
     private Activity activity;
 
-    private String title = "GPS aktivieren";
-    private String message = "Schalte dein GPS ein, um die Navigation nutzen zu können.";
-
     public GPSDialog(Context context) {
         this.context = context;
     }
@@ -48,14 +45,15 @@ public class GPSDialog {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
-        TextView titleText = (TextView) dialog.findViewById(R.id.title);
-        titleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
+        String message = "Schalte dein GPS ein, um die Navigation nutzen zu können.";
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);
         text.setText(message);
 
-        TextView title = (TextView) dialog.findViewById(R.id.title);
-        title.setText(this.title);
+        String titleText = "GPS aktivieren";
+        title.setText(titleText);
         linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTurquoise));
 
 
@@ -87,19 +85,9 @@ public class GPSDialog {
             }
         });
 
-        //checkGPS(dialog);
         dialog.show();
         dialog.getWindow().setAttributes(lp);
 
 
-    }
-
-    public void checkGPS(Dialog dialog) {
-
-        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            dialog.cancel();
-        }
     }
 }

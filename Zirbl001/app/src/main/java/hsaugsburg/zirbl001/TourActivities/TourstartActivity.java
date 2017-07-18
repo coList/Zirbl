@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -21,17 +20,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,9 +30,9 @@ import java.util.ArrayList;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
-import hsaugsburg.zirbl001.Models.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
-import hsaugsburg.zirbl001.Models.DoUKnowModel;
+import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 
@@ -52,7 +43,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
     private int selectedTour;
     private int classID;
-    private int currentScore = 0;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
     private int chronologyNumber = -1;
     private LoadTourChronology loadTourChronology;
@@ -102,14 +92,9 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
-        Log.d("TourstartActivity", Integer.toString(classID));
-        Log.d("TourstartActivity", "test");
-
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-        //new JSONTourstart(this).execute(serverName + "/api/selectChronologyView.php");
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
@@ -134,7 +119,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 listDoUKnowRead.add(false);
             }
-            Log.d(TAG, listIsNutCollected.toString());
             editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
             editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
         } catch (IOException e) {
@@ -184,7 +168,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             }
             String previousParticipant = previousParticipantText.getText().toString();
 
-            if (previousParticipant != null && !previousParticipant.isEmpty()) {
+            if (!previousParticipant.isEmpty()) {
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
                 QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(mContext);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -286,28 +270,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-
-
-
-
-
-    public void processData (ChronologyModel result, int lastChronologyValue) {
-        nextChronologyItem = result;
-
-        //set global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        SharedPreferences.Editor editor = tourValues.edit();
-        editor.putString("tourID", Integer.toString(selectedTour));
-        editor.putString("totalChronology", Integer.toString(lastChronologyValue));
-
-        editor.commit();
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(lastChronologyValue + 1);
-        progressBar.setProgress(0);
-
     }
 
     public void setInput(){

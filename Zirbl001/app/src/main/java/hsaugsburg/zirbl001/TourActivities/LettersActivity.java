@@ -6,12 +6,10 @@ import android.content.Intent;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Vibrator;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -28,19 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONLetters;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLetters;
 import hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton;
-import hsaugsburg.zirbl001.Models.LettersModel;
+import hsaugsburg.zirbl001.Models.TourModels.LettersModel;
 import hsaugsburg.zirbl001.R;
 
 public class LettersActivity extends AppCompatActivity {
-
-    private int amountOfLetters = 14;
-
     private Context mContext = LettersActivity.this;
     private static final String TAG = "LettersActivity";
     private int chronologyNumber;
@@ -56,8 +49,6 @@ public class LettersActivity extends AppCompatActivity {
     String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
-
 
     //dot menu
     private TextView title;
@@ -85,7 +76,7 @@ public class LettersActivity extends AppCompatActivity {
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
 
 
         stationName = getIntent().getStringExtra("stationName");
@@ -102,9 +93,6 @@ public class LettersActivity extends AppCompatActivity {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-
-        //new JSONLetters(this, selectedTour, taskID).execute(serverName + "/api/selectHangmanView.php");
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
@@ -313,107 +301,4 @@ public class LettersActivity extends AppCompatActivity {
     public void quitTour(View view){
         showEndTourDialog();
     }
-
-
-
-
-
-
-
-    public void processData(LettersModel result) {
-        TextView question = (TextView) findViewById(R.id.questionText);
-        question.setText(fromHtml(result.getQuestion()));
-
-        TableRow tableRow = (TableRow) findViewById(R.id.inputArea);
-        final int solutionLength = result.getSolution().length();
-        solution = result.getSolution();
-        answerCorrect = result.getAnswerCorrect();
-        answerWrong = result.getAnswerWrong();
-        score = result.getScore();
-
-        StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
-        shuffleLetters(stringBuilder);
-        final String letters = stringBuilder.toString().toUpperCase();
-
-
-        //create "solution-buttons"
-        for (int i = 0; i < solutionLength; i++) {
-            final OpenSansBoldPrimaryButton button = new OpenSansBoldPrimaryButton(this);
-            button.setId(i);
-            float d = getResources().getDisplayMetrics().density;
-            TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);
-            //params.weight = 1;
-            params.leftMargin = (int) (3 * d);
-            params.rightMargin = (int) (3 * d);
-            Context context = button.getContext();
-            int drawableId = context.getResources().getIdentifier("img_line_below_letters", "drawable", context.getPackageName());
-            button.setBackgroundResource(drawableId);
-
-            int colorId = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-            button.setTextColor(colorId);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-
-
-            //user wants to remove the old letter
-            //empty the button text
-            //set used letter visible again
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-
-                    boolean foundText = false;
-
-                    for (int i = 0; i < letters.length(); i++) {
-                        if (!foundText) {
-                            String name = "letter" + (i + 1);
-                            int id = getResources().getIdentifier(name, "id", getPackageName());
-                            TextView letter = (TextView) findViewById(id);
-                            if (letter.getText().toString().equals(button.getText()) && letter.getVisibility() == View.INVISIBLE) {
-                                letter.setVisibility(View.VISIBLE);
-                                button.setText("");
-                                foundText = true;
-                            }
-                        }
-                    }
-
-                }
-            });
-
-
-            button.setText("");
-            button.setLayoutParams(params);
-            tableRow.addView(button);
-
-        }
-
-
-        //set letters
-        for (int i = 0; i < letters.length(); i++) {
-            String name = "letter" + (i + 1);
-            int id = getResources().getIdentifier(name, "id", getPackageName());
-            final TextView letter = (TextView) findViewById(id);
-            letter.setText(String.valueOf(letters.charAt(i)));
-
-            //Click on Letters: If empty space in solution, set invisible and set text of solutionLetter
-            letter.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    String letterText = letter.getText().toString();
-
-                    boolean foundButton = false;
-                    for (int i = 0; i < solutionLength; i++) {
-                        if (!foundButton) {
-                            Button button = (Button) findViewById(i);
-                            if (button.getText().equals("")) {
-                                button.setText(letterText);
-                                letter.setVisibility(View.INVISIBLE);
-                                foundButton = true;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-
-
 }
