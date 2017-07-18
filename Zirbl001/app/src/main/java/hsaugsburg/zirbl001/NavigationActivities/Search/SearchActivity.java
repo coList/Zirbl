@@ -27,7 +27,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONSearch;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity implements Callback{
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
+        new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
         mListView = (ListView) findViewById(R.id.search_list_view);
 
     }
