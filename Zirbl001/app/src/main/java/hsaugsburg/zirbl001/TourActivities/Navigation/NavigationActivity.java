@@ -64,6 +64,7 @@ import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -110,16 +111,14 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private FusedLocationProviderApi locationProviderApi = LocationServices.FusedLocationApi;
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
     private List<Route> directionRoute;
     private PolylineOptions polylineOptions;
     private List<Polyline> polylinePaths;
 
-    private boolean first = true;
-
+    private long startTime;
+    private int currentScore;
     @Override
     protected void onStart() {
         super.onStart();
@@ -170,10 +169,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         //dot menu
 
-        title = (TextView) findViewById(R.id.titleActionbar);
-        title.setText("Navigation");
-        dotMenuLayout = (RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+        String titleText = "Navigation";
 
 
         int chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
@@ -183,6 +179,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
+
         listIsNutCollected = new ArrayList<>();
         listDoUKnowRead = new ArrayList<>();
         try {
@@ -254,12 +255,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             for (int i = 0; i < polylinePaths.size(); i++) {
 
                 polylinePaths.get(i).remove();
-                Log.d(TAG, "onLocationChanged: " + i);
-
             }
 
-
-            Log.d("NavigationActivity", polylinePaths.get(0).toString());
             //polylinePaths.clear();
 
         }
@@ -361,28 +358,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
 
     public void showMenu(View view) {
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if (dotMenuOpen) {
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     } // ends showmenu
 
     public void showStats(View view) {
-        Log.d(TAG, "showStats: Stats");
+
+        topDarkActionbar.showStats(currentScore, startTime);
     }
 
     public void quitTour(View view) {

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class GoldenActivity extends AppCompatActivity {
 
@@ -26,11 +27,11 @@ public class GoldenActivity extends AppCompatActivity {
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int selectedTour;
+    private int currentScore;
+    private long startTime;
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
     @Override
     protected void onPause() {
@@ -45,12 +46,6 @@ public class GoldenActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String titleText = "Glückwunsch";
-        title = (TextView) findViewById(R.id.titleActionbar);
-        title.setText(titleText);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
-
         TextView goldenPoints = (TextView) findViewById(R.id.goldenPoints);
         goldenPoints.setTextColor(ContextCompat.getColor(this, R.color.colorGold));
         goldenPoints.setText(intent.getStringExtra("score"));
@@ -61,16 +56,21 @@ public class GoldenActivity extends AppCompatActivity {
 
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        int currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int nutsCollected = Integer.parseInt(tourValues.getString("nutsCollected", null));
         currentScore += Integer.parseInt(intent.getStringExtra("score"));
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
 
         //change currentScore preference value
 
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("currentScore", Integer.toString(currentScore));
         editor.commit();
+
+
+        String titleText = "Glückwunsch";
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         int totalAmountsOfNuts = Integer.parseInt(intent.getStringExtra("totalAmountOfNuts"));
 
@@ -113,27 +113,10 @@ public class GoldenActivity extends AppCompatActivity {
     }
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();

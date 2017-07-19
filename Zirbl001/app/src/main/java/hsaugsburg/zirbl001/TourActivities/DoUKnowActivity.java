@@ -27,6 +27,7 @@ import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
@@ -45,13 +46,12 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int totalChronologyValue;
+    private int currentScore;
+    private long startTime;
 
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
     @Override
     protected void onPause() {
@@ -64,20 +64,20 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
 
-        //dot menu
-        title = (TextView) findViewById(R.id.titleActionbar);
-        String knowledge = "Wissen";
-        title.setText(knowledge);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
-
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+
+
+        //dot menu
+        String knowledge = "Wissen";
+        topDarkActionbar = new TopDarkActionbar(this, knowledge);
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -190,27 +190,11 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();
