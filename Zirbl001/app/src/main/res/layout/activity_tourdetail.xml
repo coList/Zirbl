@@ -75,18 +75,18 @@
                             android:layout_alignBottom="@+id/position"
                             android:layout_alignRight="@+id/position"
                             android:layout_marginBottom="25dp"
-                            android:layout_marginRight="24dp" >
+                            android:layout_marginRight="16dp">
 
                             <ImageButton
+                                android:id="@+id/go"
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
-                                android:id="@+id/go"
+                                android:layout_centerInParent="true"
                                 android:background="@android:color/transparent"
                                 android:onClick="startTour"
                                 android:scaleType="fitXY"
-                                app:srcCompat="@drawable/btn_go"
-                                android:layout_centerInParent="true"
-                                android:visibility="visible"/>
+                                android:visibility="visible"
+                                app:srcCompat="@drawable/btn_go" />
 
                             <ProgressBar
                                 android:id="@+id/progressBarDownload"
