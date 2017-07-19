@@ -35,6 +35,7 @@ import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class TourstartActivity extends AppCompatActivity implements TourActivity{
 
@@ -53,17 +54,18 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private int count = 0;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
+    private int currentScore;
+    private long startTime;
 
     public int getSelectedTour() {
         return selectedTour;
     }
 
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
+
     private String team;
     private String members;
 
@@ -77,10 +79,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourstart);
-        title = (TextView) findViewById(R.id.titleActionbar);
-        title.setText("Anmeldung");
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+        String titleText = "Anmeldung";
 
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
@@ -106,6 +105,10 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+
+
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
         try {
@@ -129,27 +132,10 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     }
     
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore);
     }
     public void quitTour(View view){
         showEndTourDialog();
@@ -214,7 +200,11 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         ArrayList<String> participants = new ArrayList<>();
         participants.add(((EditText)findViewById(R.id.firstName)).getText().toString());
-        participants.add(((EditText)findViewById(R.id.secondName)).getText().toString());
+
+        EditText secondParticipant = (EditText) findViewById(R.id.secondName);
+        if (!secondParticipant.getText().toString().isEmpty()) {
+            participants.add(((EditText) findViewById(R.id.secondName)).getText().toString());
+        }
 
         editor.putString("startTime", Long.toString(System.currentTimeMillis()));
 
@@ -279,4 +269,5 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         team = teamname.getText().toString();
         members = firstname.getText().toString();
     }
+
 }

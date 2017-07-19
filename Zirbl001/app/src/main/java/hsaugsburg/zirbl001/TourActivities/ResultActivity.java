@@ -28,6 +28,7 @@ import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoParticipates;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class ResultActivity extends AppCompatActivity {
     private Context mContext = ResultActivity.this;
@@ -39,9 +40,9 @@ public class ResultActivity extends AppCompatActivity {
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
+    private int currentScore;
+    private long startTime;
 
     @Override
     protected void onPause() {
@@ -57,7 +58,7 @@ public class ResultActivity extends AppCompatActivity {
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        int currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         int classID = Integer.parseInt(tourValues.getString("classID", null));
 
@@ -69,7 +70,7 @@ public class ResultActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        long startTime = Long.parseLong(tourValues.getString("startTime", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
         long totalTime = System.currentTimeMillis() - startTime;
 
         String time = String.format("%d h %d min",
@@ -95,11 +96,7 @@ public class ResultActivity extends AppCompatActivity {
 
         String titleText = "Ergebnis";
         //dot menu
-        title = (TextView) findViewById(R.id.titleActionbar);
-        title.setText(titleText);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
-
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         TextView totalScore = (TextView) findViewById(R.id.endPoints);
         totalScore.setText(Integer.toString(currentScore));
@@ -165,28 +162,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
 
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();

@@ -83,7 +83,8 @@
             android:id="@+id/firstRow"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_below="@+id/lineOne">
+            android:layout_below="@+id/lineOne"
+            android:onClick="showStats">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuStats"
@@ -91,17 +92,49 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
                 android:gravity="center_vertical"
-                android:onClick="showStats"
                 android:text="STATISTIK"
                 android:textColor="@color/colorAccent" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/firstRowFirstElement"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_below="@+id/firstRow"
+            android:visibility="gone">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                android:id="@+id/scoreElement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:gravity="center_vertical"
+                android:text="Score"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/firstRowSecondElement"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_below="@+id/firstRowFirstElement"
+            android:visibility="gone">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                android:id="@+id/timeElement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:gravity="center_vertical"
+                android:text="Time"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/lineTwo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/firstRow">
+            android:layout_below="@+id/firstRowSecondElement">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -112,9 +145,23 @@
 
 
         <LinearLayout
+            android:id="@+id/lineThree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lineTwo"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                app:srcCompat="@color/colorLine" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_below="@+id/lineTwo"
+            android:layout_below="@+id/lineThree"
             android:clickable="true"
             android:onClick="quitTour">
 
