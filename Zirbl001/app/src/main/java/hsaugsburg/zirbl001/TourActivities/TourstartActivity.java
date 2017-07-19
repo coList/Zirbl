@@ -105,7 +105,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("currentScore", Integer.toString(0));
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
-        startTime = Long.parseLong(tourValues.getString("startTime", null));
 
 
         topDarkActionbar = new TopDarkActionbar(this, titleText);
