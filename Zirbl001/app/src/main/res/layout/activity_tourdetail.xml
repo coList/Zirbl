@@ -290,8 +290,7 @@
                             android:layout_marginBottom="16dp"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            android:adjustViewBounds="true"
-                            app:srcCompat="@drawable/img_sichtraum" />
+                            android:adjustViewBounds="true" />
 
                     </LinearLayout>
 
