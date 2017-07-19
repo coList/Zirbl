@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:visibility="visible"
-                app:srcCompat="@color/colorTransparent30" />
+                app:srcCompat="@color/colorLine" />
 
             <ImageView
                 android:id="@+id/lineBottom"
@@ -150,7 +150,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
                 android:visibility="visible"
-                app:srcCompat="@color/colorTransparent30" />
+                app:srcCompat="@color/colorLine" />
 
         </RelativeLayout>
 
