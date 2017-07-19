@@ -36,12 +36,13 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourSelection;
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoFavors;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONSearch;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
@@ -50,7 +51,7 @@ import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 
-public class TourDetailActivity extends AppCompatActivity implements Callback, DownloadActivity {
+public class TourDetailActivity extends AppCompatActivity implements DownloadActivity {
 
     private static final String TAG = "TourDetailActivity";
     private static final int ACTIVITY_NUM = 0;
@@ -62,6 +63,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
     String userName;
+    String deviceToken;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -110,8 +112,9 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
         userName = globalValues.getString("userName", null);
+        deviceToken = globalValues.getString("deviceToken", null);
 
-        new JSONTourDetail(this).execute(serverName + "/api/selectTourDetailsView.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
         new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
@@ -266,27 +269,27 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
-    public void processData(List<JSONModel> result) {
+    public void processData(TourDetailModel result) {
 
 
         if(result != null) {
 
             TextView duration = (TextView) findViewById(R.id.durationText);
-            duration.setText(Integer.toString(((TourDetailModel) result.get(tourID)).getDuration()) + " min");
+            duration.setText(Integer.toString(result.getDuration()) + " min");
 
             TextView distance = (TextView) findViewById(R.id.distanceText);
-            double dist = ((TourDetailModel) result.get(tourID)).getDistance() / 1000.0;
+            double dist = result.getDistance() / 1000.0;
             distance.setText(Double.toString(dist) + " km");
 
             TextView difficultyName = (TextView) findViewById(R.id.difficultyText);
-            difficultyName.setText(((TourDetailModel) result.get(tourID)).getDifficultyName());
+            difficultyName.setText(result.getDifficultyName());
 
             TextView description = (TextView) findViewById(R.id.description);
-            description.setText(fromHtml(((TourDetailModel) result.get(tourID)).getDescription()));
+            description.setText(fromHtml(result.getDescription()));
 
             TextView startEnd = (TextView) findViewById(R.id.startEnd);
-            startEnd.setText(fromHtml("<b>Tourstart:</b> " + ((TourDetailModel) result.get(tourID)).getStartLocation() + "<br />" +
-            "<b>Tourende:</b> " + ((TourDetailModel) result.get(tourID)).getEndLocation()));
+            startEnd.setText(fromHtml("<b>Tourstart:</b> " + result.getStartLocation() + "<br />" +
+            "<b>Tourende:</b> " + result.getEndLocation()));
 
             boolean hasOpeningHours = false;
 
@@ -298,7 +301,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 openingHours.setVisibility(View.VISIBLE);
             }
 
-            String costsText = ((TourDetailModel) result.get(tourID)).getCosts();
+            String costsText = result.getCosts();
             if (costsText != null && !costsText.isEmpty() && !costsText.equals("null")) {
                 TextView costsTitle = (TextView) findViewById(R.id.costsTitle);
                 TextView costs = (TextView) findViewById(R.id.costs);
@@ -309,16 +312,16 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
                 costs.setText(fromHtml(costsText));
             }
 
-            if (!(((TourDetailModel) result.get(tourID)).getWarnings().equals("null"))) {
+            if (!(result.getWarnings().equals("null"))) {
                 TextView warnings = (TextView) findViewById(R.id.warnings);
                 TextView warningsTitle = (TextView) findViewById(R.id.warningsTitle);
-                warnings.setText(fromHtml(((TourDetailModel) result.get(tourID)).getWarnings()));
+                warnings.setText(fromHtml(result.getWarnings()));
 
                 warnings.setVisibility(View.VISIBLE);
                 warningsTitle.setVisibility(View.VISIBLE);
             }
 
-            String mainPictureURL = ((TourDetailModel) result.get(tourID)).getMainPicture();
+            String mainPictureURL = result.getMainPicture();
             //load picture from cache or from web
             ImageView mainPicture = (ImageView) findViewById(R.id.image);
             if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
@@ -328,7 +331,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             }
 
             ImageView mapPicture = (ImageView) findViewById(R.id.map);
-            String mapPictureURL = ((TourDetailModel) result.get(tourID)).getMapPicture();
+            String mapPictureURL = (result).getMapPicture();
             if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
                 mapPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
             } else {
@@ -349,7 +352,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
         noConnection.setVisibility(View.GONE);
         ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
         tryAgain.setVisibility(View.GONE);
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourDetailsView.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
     }
 
     public static Spanned fromHtml(String html){
@@ -377,7 +380,7 @@ public class TourDetailActivity extends AppCompatActivity implements Callback, D
             case R.id.action_favorite:
 
                 //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
-                new InsertIntoFavors(userName, tourID, serverName).execute();
+                new InsertIntoFavors(userName, deviceToken, tourID, serverName).execute();
                 if(isFilled){
                     isFilled = false;
                     favIconMenu.setIcon(R.drawable.ic_bottom_star);

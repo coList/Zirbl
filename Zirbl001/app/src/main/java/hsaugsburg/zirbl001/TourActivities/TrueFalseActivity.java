@@ -30,6 +30,7 @@ import java.io.File;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
 import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class TrueFalseActivity extends AppCompatActivity {
@@ -48,15 +49,15 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String stationName;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
+    private int currentScore;
+    private long startTime;
 
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
 
     @Override
@@ -72,9 +73,15 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         //dot menu
 
-        title = (TextView) findViewById(R.id.titleActionbar);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
+        stationName = getIntent().getStringExtra("stationName");
+        String titleText;
+        if (stationName != null && !stationName.isEmpty()) {
+            titleText = stationName.toUpperCase();
+        } else {
+            titleText = "START";
+        }
+
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
@@ -82,14 +89,13 @@ public class TrueFalseActivity extends AppCompatActivity {
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
-        stationName = getIntent().getStringExtra("stationName");
 
-        if (stationName != null && !stationName.isEmpty()) {
-            title.setText(stationName.toUpperCase());
-        } else {
-            title.setText("START");
-        }
+
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
+
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -252,27 +258,11 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();

@@ -25,6 +25,7 @@ import android.widget.TextView;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadSlider;
 import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class SliderActivity extends AppCompatActivity {
 
@@ -50,15 +51,15 @@ public class SliderActivity extends AppCompatActivity {
     private int toleranceRange;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
+    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
+    private int currentScore;
+    private long startTime;
 
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
 
     @Override
@@ -74,9 +75,15 @@ public class SliderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_slider);
         //dot menu
 
-        title = (TextView) findViewById(R.id.titleActionbar);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
+
+        stationName = getIntent().getStringExtra("stationName");
+        String titleText;
+
+        if (stationName != null && !stationName.isEmpty()) {
+            titleText = stationName.toUpperCase();
+        } else {
+            titleText = "START";
+        }
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
@@ -84,16 +91,11 @@ public class SliderActivity extends AppCompatActivity {
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         findViewById(R.id.slider).setPadding(40,0,40,0);
 
-        stationName = getIntent().getStringExtra("stationName");
-
-
-        if (stationName != null && !stationName.isEmpty()) {
-            title.setText(stationName.toUpperCase());
-        } else {
-            title.setText("START");
-        }
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         slider = (SeekBar) findViewById(R.id.slider);
 
@@ -248,27 +250,10 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();

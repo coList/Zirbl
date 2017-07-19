@@ -142,7 +142,7 @@ public class ClassRegistrationActivity extends AppCompatActivity {
 
 
     public String generateString(){
-        return "qrcodezirbl" +";"+ tourID +";"+ tourName +";" + className + ";" + school;
+        return "qrcodezirbl" + ";" + tourID + ";" + tourName + ";" + className + ";" + school;
     }
 
     public void setInput(){

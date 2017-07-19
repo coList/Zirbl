@@ -25,6 +25,7 @@ import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
+import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class PointsActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = PointsActivity.this;
@@ -38,6 +39,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int totalChronologyValue;
+    private long startTime;
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
@@ -45,9 +47,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
 
     //dot menu
-    private TextView title;
-    private RelativeLayout dotMenuLayout;
-    private boolean dotMenuOpen = false;
+    private TopDarkActionbar topDarkActionbar;
 
     @Override
     protected void onPause() {
@@ -60,10 +60,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_points);
 
-        //dot menu
-        title = (TextView) findViewById(R.id.titleActionbar);
-        dotMenuLayout=(RelativeLayout) this.findViewById(R.id.dotMenu);
-        dotMenuLayout.setVisibility(RelativeLayout.GONE);
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
@@ -72,6 +68,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -90,6 +88,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         String correct = "RICHTIG";
         String wrong = "FALSCH";
+        String titleText;
 
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
@@ -104,12 +103,12 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
-                title.setText(correct);
+                titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 gif.setImageResource(R.drawable.confetti_wrong);
-                title.setText(wrong);
+                titleText = wrong;
             }
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
@@ -118,15 +117,19 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
                 scoreText.setText(Integer.toString(score));
-                title.setText(correct);
+                titleText = correct;
 
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 gif.setImageResource(R.drawable.confetti_wrong);
-                title.setText(wrong);
+                titleText = wrong;
             }
         }
+
+
+        //dot menu
+        topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         //Scroll View State Change
         ConstraintLayout pointsArea = (ConstraintLayout) findViewById(R.id.pointsArea);
@@ -221,27 +224,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void showMenu(View view){
-
-        ImageView dotIcon = (ImageView) findViewById(R.id.dotIcon);
-        TextView menuStats = (TextView) findViewById(R.id.menuStats);
-        TextView menuQuit = (TextView) findViewById(R.id.menuQuit);
-
-        if(dotMenuOpen){
-            dotMenuLayout.setVisibility(RelativeLayout.GONE);
-            dotMenuOpen = false;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorAccent));
-        } else {
-            dotMenuLayout.setVisibility(RelativeLayout.VISIBLE);
-            dotMenuOpen = true;
-            title.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-            menuQuit.setTextSize(18);
-            menuStats.setTextSize(18);
-        }
+        topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        Log.d(TAG, "showStats: Stats");
+        topDarkActionbar.showStats(currentScore, startTime);
     }
     public void quitTour(View view){
         showEndTourDialog();
