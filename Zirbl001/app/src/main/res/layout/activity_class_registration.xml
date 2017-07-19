@@ -89,7 +89,8 @@
             android:ems="10"
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
         <LinearLayout
             android:id="@+id/continueArea"

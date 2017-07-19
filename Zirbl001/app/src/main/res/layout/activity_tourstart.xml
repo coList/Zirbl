@@ -73,7 +73,8 @@
                     android:ems="10"
                     android:hint="Teamname"
                     android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
                     android:id="@+id/firstName"
@@ -86,7 +87,8 @@
                     android:ems="10"
                     android:hint="Name 1"
                     android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
                     android:id="@+id/secondName"
@@ -99,7 +101,8 @@
                     android:ems="10"
                     android:hint="Name 2"
                     android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null" />
+                    android:textCursorDrawable="@null"
+                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
             </LinearLayout>
 
