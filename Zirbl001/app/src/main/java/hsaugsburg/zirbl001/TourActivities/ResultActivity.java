@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -149,6 +150,13 @@ public class ResultActivity extends AppCompatActivity {
     public void endTour(View view) {
         Intent intent = new Intent(mContext, HomeActivity.class);
         mContext.startActivity(intent);
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 
