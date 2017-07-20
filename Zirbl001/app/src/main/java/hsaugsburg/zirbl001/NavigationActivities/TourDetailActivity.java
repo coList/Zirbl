@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -115,7 +116,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         deviceToken = globalValues.getString("deviceToken", null);
 
         new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
-        new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
 
         initImageLoader();
 
@@ -370,6 +370,9 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
+
+        new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
+        Log.d("OnCreateOptionsMenu", "test");
         return true;
     }
 
