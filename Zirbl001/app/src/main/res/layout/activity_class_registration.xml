@@ -90,6 +90,7 @@
             android:hint="Schule"
             android:inputType="textCapWords|textPersonName"
             android:textCursorDrawable="@null"
+            android:singleLine="true"
             android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
         <LinearLayout
