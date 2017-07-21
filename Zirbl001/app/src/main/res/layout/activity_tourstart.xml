@@ -77,35 +77,9 @@
                     android:singleLine="true"
                     android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
-                    android:id="@+id/firstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:backgroundTint="@color/colorLine"
-                    android:cursorVisible="true"
-                    android:ems="10"
-                    android:hint="Name 1"
-                    android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null"
-                    android:singleLine="true"
-                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
+                <include layout="@layout/list_element_participant" android:id="@+id/firstName"/>
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
-                    android:id="@+id/secondName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:backgroundTint="@color/colorLine"
-                    android:cursorVisible="true"
-                    android:ems="10"
-                    android:hint="Name 2"
-                    android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null"
-                    android:singleLine="true"
-                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
+                <include layout="@layout/list_element_participant" android:id="@+id/secondName"/>
 
             </LinearLayout>
 

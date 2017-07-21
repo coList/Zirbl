@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -84,10 +85,12 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
         ViewCompat.setBackgroundTintList(teamField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+
         QuicksandRegularPrimaryEdit memberField1 = (QuicksandRegularPrimaryEdit) findViewById(R.id.firstName);
         ViewCompat.setBackgroundTintList(memberField1, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
         QuicksandRegularPrimaryEdit memberField2 = (QuicksandRegularPrimaryEdit) findViewById(R.id.secondName);
         ViewCompat.setBackgroundTintList(memberField2, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+
 
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
@@ -155,25 +158,18 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
             if (!previousParticipant.isEmpty()) {
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.userInput);
-                QuicksandRegularPrimaryEdit participantField = new QuicksandRegularPrimaryEdit(mContext);
+                LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View participantView = mInflater.inflate(R.layout.list_element_participant, null);
+                participantView.setId(count);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 float d = getResources().getDisplayMetrics().density;
 
                 params.leftMargin = (int) (24 * d);
                 params.rightMargin = (int) (24 * d);
-
-                //TODO: set textCursorDrawable
-                participantField.setId(count);
-                participantField.setHint("Name "+(count+3));
-                participantField.setHintTextColor(ContextCompat.getColor(mContext, R.color.colorTransparent30));
-                participantField.setCursorVisible(true);
-                ViewCompat.setBackgroundTintList(participantField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
-                participantField.setEms(10);
-                participantField.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-                participantField.setLayoutParams(params);
-
-                linearLayout.addView(participantField);
+                participantView.setLayoutParams(params);
+                ViewCompat.setBackgroundTintList(participantView, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
+                linearLayout.addView(participantView);
                 count++;
             } else {
                 Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
