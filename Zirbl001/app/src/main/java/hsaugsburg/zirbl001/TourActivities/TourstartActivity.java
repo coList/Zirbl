@@ -10,8 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import android.view.LayoutInflater;
@@ -21,9 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,11 +50,8 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private int count = 0;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int currentScore;
-    private long startTime;
 
     public int getSelectedTour() {
         return selectedTour;
@@ -96,7 +88,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
+        String serverName = globalValues.getString("serverName", null);
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
@@ -137,7 +129,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        topDarkActionbar.showStats(currentScore);
+        topDarkActionbar.showStats(0);
     }
     public void quitTour(View view){
         showEndTourDialog();
