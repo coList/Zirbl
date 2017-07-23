@@ -110,7 +110,9 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
 
@@ -170,10 +172,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             }
         }
 
-        if (counter == amountOfDownloadTasks) {
-            return true;
-        }
-        return false;
+        return (counter == amountOfDownloadTasks);
     }
 
     public void downloadFinished() {
