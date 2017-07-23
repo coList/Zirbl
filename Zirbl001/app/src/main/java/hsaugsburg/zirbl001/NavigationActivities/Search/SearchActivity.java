@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -31,15 +33,18 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONSearch;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.SearchSelectionAdapter;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
 import hsaugsburg.zirbl001.Interfaces.Callback;
+import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
+import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements InternetActivity {
 
     private static final String TAG = "SearchActivity";
     private static final int ACTIVITY_NUM = 1;
@@ -87,7 +92,14 @@ public class SearchActivity extends AppCompatActivity {
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-        new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
+
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
+        }
+
         mListView = (ListView) findViewById(R.id.search_list_view);
 
     }
@@ -158,6 +170,22 @@ public class SearchActivity extends AppCompatActivity {
             noConnection.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void tryConnectionAgain() {
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
+        }
     }
 
 

@@ -100,20 +100,25 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
     }
 
     public void tryConnectionAgain() {
-
-        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        String serverName = globalValues.getString("serverName", null);
-        String username = globalValues.getString("userName", null);
-
-
-        RelativeLayout relativeLayoutOwnStatistics = (RelativeLayout) findViewById(R.id.noOwnStats);
-        relativeLayoutOwnStatistics.setVisibility(View.GONE);
-        new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username).execute(serverName + "/api/selectOwnStatisticsView.php");
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+            String serverName = globalValues.getString("serverName", null);
+            String username = globalValues.getString("userName", null);
 
 
-        RelativeLayout relativeLayoutClassStatistics = (RelativeLayout) findViewById(R.id.noClassStats);
-        relativeLayoutClassStatistics.setVisibility(View.GONE);
-        new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username).execute(serverName + "/api/selectClassStatisticsView.php");
+            RelativeLayout relativeLayoutOwnStatistics = (RelativeLayout) findViewById(R.id.noOwnStats);
+            relativeLayoutOwnStatistics.setVisibility(View.GONE);
+            new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username).execute(serverName + "/api/selectOwnStatisticsView.php");
+
+
+            RelativeLayout relativeLayoutClassStatistics = (RelativeLayout) findViewById(R.id.noClassStats);
+            relativeLayoutClassStatistics.setVisibility(View.GONE);
+            new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username).execute(serverName + "/api/selectClassStatisticsView.php");
+        }
+
     }
 
     // Responsible for adding the 2 tabs: Eigene Statistik, Klassen Statistik
