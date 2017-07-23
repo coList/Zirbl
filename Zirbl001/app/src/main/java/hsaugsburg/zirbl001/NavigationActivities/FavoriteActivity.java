@@ -36,6 +36,7 @@ import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourFavorModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class FavoriteActivity extends AppCompatActivity implements Callback, InternetActivity {
 
@@ -85,6 +86,8 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
         serverName = globalValues.getString("serverName", null);
         userName = globalValues.getString("userName", null);
 
+        initImageLoader();
+
         if (!isOnline()) {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
@@ -96,6 +99,12 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
 
         setupBottomNavigationView();
     }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
+
 
 
     private void setupBottomNavigationView(){

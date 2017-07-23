@@ -35,7 +35,8 @@ public class ProfileClassFragment extends Fragment {
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
-        new JSONClassStatistics(this, username).execute(serverName + "/api/selectClassStatisticsView.php");
+        String deviceToken = globalValues.getString("deviceToken", null);
+        new JSONClassStatistics(this, username, deviceToken).execute(serverName + "/api/selectClassStatisticsView.php");
         mListView = (ListView) view.findViewById(R.id.classstatistics_list_view);
         return view;
     }

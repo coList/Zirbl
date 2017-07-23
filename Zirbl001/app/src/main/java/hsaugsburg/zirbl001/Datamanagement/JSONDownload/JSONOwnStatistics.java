@@ -24,9 +24,12 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
 
     private ProfileOwnFragment profileOwnFragment;
     private String username;
-    public JSONOwnStatistics (ProfileOwnFragment profileOwnFragment, String username) {
+    private String deviceToken;
+
+    public JSONOwnStatistics (ProfileOwnFragment profileOwnFragment, String username, String deviceToken) {
         this.profileOwnFragment = profileOwnFragment;
         this.username = username;
+        this.deviceToken = deviceToken;
     }
 
     protected List<OwnStatisticsModel> doInBackground(String... params) {
@@ -35,7 +38,7 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
 
         try {
             URL url;
-            url = new URL(params[0] + "?username=" + username);
+            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();

@@ -107,16 +107,17 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
             SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
             String serverName = globalValues.getString("serverName", null);
             String username = globalValues.getString("userName", null);
+            String deviceToken = globalValues.getString("deviceToken", null);
 
 
             RelativeLayout relativeLayoutOwnStatistics = (RelativeLayout) findViewById(R.id.noOwnStats);
             relativeLayoutOwnStatistics.setVisibility(View.GONE);
-            new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username).execute(serverName + "/api/selectOwnStatisticsView.php");
+            new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username, deviceToken).execute(serverName + "/api/selectOwnStatisticsView.php");
 
 
             RelativeLayout relativeLayoutClassStatistics = (RelativeLayout) findViewById(R.id.noClassStats);
             relativeLayoutClassStatistics.setVisibility(View.GONE);
-            new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username).execute(serverName + "/api/selectClassStatisticsView.php");
+            new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username, deviceToken).execute(serverName + "/api/selectClassStatisticsView.php");
         }
 
     }

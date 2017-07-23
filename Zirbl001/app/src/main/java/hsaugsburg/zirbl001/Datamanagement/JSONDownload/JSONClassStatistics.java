@@ -26,9 +26,12 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
 
     private ProfileClassFragment profileClassFragment;
     private String username;
-    public JSONClassStatistics (ProfileClassFragment profileClassFragment, String username) {
+    private String deviceToken;
+
+    public JSONClassStatistics (ProfileClassFragment profileClassFragment, String username, String deviceToken) {
         this.profileClassFragment = profileClassFragment;
         this.username = username;
+        this.deviceToken = deviceToken;
     }
 
     protected List<ClassesStatModel> doInBackground(String... params) {
@@ -37,7 +40,7 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
 
         try {
             URL url;
-            url = new URL(params[0] + "?username=" + username);
+            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();

@@ -114,15 +114,16 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
 
     public void tryConnectionAgain() {
 
-        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        String serverName = globalValues.getString("serverName", null);
-        String userName = globalValues.getString("userName", null);
 
         if (!isOnline()) {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONClasses((QrSavedFragment) adapter.getItem(1), userName).execute(serverName + "/api/selectClassesView.php");
+            SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+            String serverName = globalValues.getString("serverName", null);
+            String userName = globalValues.getString("userName", null);
+            String deviceToken = globalValues.getString("deviceToken", null);
+            new JSONClasses((QrSavedFragment) adapter.getItem(1), userName, deviceToken).execute(serverName + "/api/selectClassesView.php");
         }
     }
 
