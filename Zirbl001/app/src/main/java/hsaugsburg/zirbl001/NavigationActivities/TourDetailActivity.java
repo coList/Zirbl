@@ -22,6 +22,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -340,11 +341,17 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
 
         }else{
-            TextView noConnection = (TextView)findViewById(R.id.noConnection);
-            noConnection.setVisibility(View.VISIBLE);
-            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-            tryAgain.setVisibility(View.VISIBLE);
+           showNoInternetConnection();
         }
+    }
+
+    public void showNoInternetConnection() {
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
+        scrollView.setVisibility(View.INVISIBLE);
+        TextView noConnection = (TextView)findViewById(R.id.noConnection);
+        noConnection.setVisibility(View.VISIBLE);
+        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
+        tryAgain.setVisibility(View.VISIBLE);
     }
 
     public void tryConnectionAgain(View view) {
@@ -352,7 +359,10 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         noConnection.setVisibility(View.GONE);
         ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
         tryAgain.setVisibility(View.GONE);
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
+        scrollView.setVisibility(View.VISIBLE);
         new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
     }
 
     public static Spanned fromHtml(String html){
@@ -371,8 +381,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
 
-        new DownloadIsTourFavorised(this, userName, tourID).execute(serverName + "/api/selectRFavors.php");
-        Log.d("OnCreateOptionsMenu", "test");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
         return true;
     }
 

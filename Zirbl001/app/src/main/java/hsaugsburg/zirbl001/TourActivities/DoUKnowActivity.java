@@ -135,11 +135,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
             String imgPath = selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1];
-            Log.d("DoUKnow", selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1]);
             File imageFile = new File(directory, imgPath);
-            if (imageFile.exists()) {
-                Log.d("DoUKnow", "File exists");
-            }
             String decodedImgUri = Uri.fromFile(imageFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, zirblImage);
         } else {

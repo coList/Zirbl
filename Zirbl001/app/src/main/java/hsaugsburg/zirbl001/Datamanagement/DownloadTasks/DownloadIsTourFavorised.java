@@ -16,11 +16,13 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
 
     private TourDetailActivity tourDetailActivity;
     private String username;
+    private String deviceToken;
     private int tourID;
 
-    public DownloadIsTourFavorised (TourDetailActivity tourDetailActivity, String username, int tourID) {
+    public DownloadIsTourFavorised (TourDetailActivity tourDetailActivity, String username, String deviceToken, int tourID) {
         this.tourDetailActivity = tourDetailActivity;
         this.username = username;
+        this.deviceToken = deviceToken;
         this.tourID = tourID;
     }
 
@@ -30,7 +32,7 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
 
         try {
             URL url;
-            url = new URL(params[0] + "?username=" + username + "&tourid=" + tourID);
+            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken + "&tourid=" + tourID);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();
@@ -74,7 +76,11 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
     protected void onPostExecute(Boolean result){
 
         super.onPostExecute(result);
-        tourDetailActivity.setIsFavorised(result);
+        if (result != null) {
+            tourDetailActivity.setIsFavorised(result);
+        } else {
+            tourDetailActivity.showNoInternetConnection();
+        }
     }
 
 }
