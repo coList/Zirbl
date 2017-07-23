@@ -151,9 +151,11 @@ public class QuizActivity extends AppCompatActivity {
 
 
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
-            File f=new File(zirblImages , selectedTour + "taskid" + taskID + ".jpg");
-            final String uri = Uri.fromFile(f).toString();
-            ImageLoader.getInstance().displayImage(uri, questionPicture);
+            String[] parts = result.getPicturePath().split("\\.");
+            String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+            File imgFile = new File(zirblImages , imgPath);
+            String decodedImgUri = Uri.fromFile(imgFile).toString();
+            ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
 
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
