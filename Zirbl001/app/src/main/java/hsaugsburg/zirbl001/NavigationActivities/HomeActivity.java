@@ -1,5 +1,6 @@
 package hsaugsburg.zirbl001.NavigationActivities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,15 +26,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.Callback;
+import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourSelection;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.TourSelectionAdapter;
+import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
-public class HomeActivity extends AppCompatActivity implements Callback {
+public class HomeActivity extends AppCompatActivity implements Callback, InternetActivity {
 
     private static final String TAG = "HomeActivity";
     private static final int ACTIVITY_NUM = 0;
@@ -104,20 +107,18 @@ public class HomeActivity extends AppCompatActivity implements Callback {
                 }
             });
         } else{
-            TextView noConnection = (TextView)findViewById(R.id.noConnection);
-            noConnection.setVisibility(View.VISIBLE);
-            ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-            tryAgain.setVisibility(View.VISIBLE);
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
         }
     }
 
-    private void initImageLoader(){
+    private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
 
-    private void setupBottomNavigationView(){
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -128,12 +129,7 @@ public class HomeActivity extends AppCompatActivity implements Callback {
         menuItem.setChecked(true);
     }
 
-
-    public void tryConnectionAgain(View view) {
-        TextView noConnection = (TextView)findViewById(R.id.noConnection);
-        noConnection.setVisibility(View.GONE);
-        ImageView tryAgain = (ImageView) findViewById(R.id.tryAgain);
-        tryAgain.setVisibility(View.GONE);
+    public void tryConnectionAgain() {
         new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
     }
 }
