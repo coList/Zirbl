@@ -76,7 +76,7 @@
                         android:adjustViewBounds="true"
                         android:maxHeight="300dp"
                         android:minHeight="100dp"
-                        app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
+                        android:visibility="visible" />
 
                 </RelativeLayout>
 

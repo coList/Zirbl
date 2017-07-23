@@ -50,11 +50,6 @@ public class LoadDoUKnow {
                     doUKnowModel.setInfoPopupID(mJsonLObjectDoUKnow.getInt("infopopupid"));
                     doUKnowModel.setContentText(mJsonLObjectDoUKnow.getString("contenttext"));
                     doUKnowModel.setPicturePath(mJsonLObjectDoUKnow.getString("picturepath"));
-
-
-
-                    //doUKnowModel.setLatitude(mJsonLObjectDoUKnow.getDouble("latitude"));
-                    //doUKnowModel.setLongitude(mJsonLObjectDoUKnow.getDouble("longitude"));
                 }
             }
 
