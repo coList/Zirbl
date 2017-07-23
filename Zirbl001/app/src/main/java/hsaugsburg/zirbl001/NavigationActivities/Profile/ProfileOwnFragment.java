@@ -35,7 +35,8 @@ public class ProfileOwnFragment extends Fragment {
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
-        new JSONOwnStatistics(this, username).execute(serverName + "/api/selectOwnStatisticsView.php");
+        String deviceToken = globalValues.getString("deviceToken", null);
+        new JSONOwnStatistics(this, username, deviceToken).execute(serverName + "/api/selectOwnStatisticsView.php");
         mListView = (ListView) view.findViewById(R.id.ownstatistics_list_view);
         return view;
     }

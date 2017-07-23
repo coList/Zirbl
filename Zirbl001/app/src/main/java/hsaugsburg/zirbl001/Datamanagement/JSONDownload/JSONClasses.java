@@ -24,10 +24,12 @@ import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrSavedFragment;
 public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
     private QrSavedFragment qrSavedFragment;
     private String username;
+    private String deviceToken;
 
-    public JSONClasses (QrSavedFragment qrSavedFragment, String username) {
+    public JSONClasses (QrSavedFragment qrSavedFragment, String username, String deviceToken) {
         this.qrSavedFragment = qrSavedFragment;
         this.username = username;
+        this.deviceToken = deviceToken;
     }
 
     protected List<ClassesModel> doInBackground(String... params) {
@@ -36,7 +38,7 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
 
         try {
             URL url;
-            url = new URL(params[0] + "?username=" + username);
+            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();

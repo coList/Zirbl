@@ -41,8 +41,9 @@ public class QrSavedFragment extends Fragment {
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
+        String deviceToken = globalValues.getString("deviceToken", null);
 
-        new JSONClasses(this, username).execute(serverName + "/api/selectClassesView.php");
+        new JSONClasses(this, username, deviceToken).execute(serverName + "/api/selectClassesView.php");
 
         mListView = (ListView) view.findViewById(R.id.saved_qr_list_view);
 
