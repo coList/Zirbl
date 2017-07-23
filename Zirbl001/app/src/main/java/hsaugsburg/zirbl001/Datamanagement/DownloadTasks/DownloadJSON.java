@@ -115,7 +115,6 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                                     File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
                                     // Create imageDir
                                     File mypath=new File(directory, selectedTour + name + "." + parts[parts.length - 1]);
-                                    Log.d("DoUKnow", selectedTour + name + "." + parts[parts.length - 1]);
 
                                     FileOutputStream pictureFileout = null;
                                     try {

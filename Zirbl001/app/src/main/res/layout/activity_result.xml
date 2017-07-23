@@ -133,8 +133,7 @@
                         android:id="@+id/textPlacement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="4.Platz von 32" />
+                        android:layout_marginLeft="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -161,8 +160,7 @@
                         android:id="@+id/textUsedTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="1h 40min" />
+                        android:layout_marginLeft="16dp" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -2,7 +2,10 @@ package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -26,13 +29,17 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
 
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClasses;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
+import hsaugsburg.zirbl001.Interfaces.InternetActivity;
+import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileClassFragment;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileOwnFragment;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
 
-public class QrActivity extends AppCompatActivity {
+public class QrActivity extends AppCompatActivity implements InternetActivity {
 
     private static final String TAG = "QrActivity";
     private static final int ACTIVITY_NUM = 2;
@@ -40,6 +47,10 @@ public class QrActivity extends AppCompatActivity {
     private Context mContext = QrActivity.this;
 
     private int position = 0;
+
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+
+    private TabSectionPagerAdapter adapter;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -78,13 +89,41 @@ public class QrActivity extends AppCompatActivity {
             position = extras.getInt("viewpager_position");
         }
 
+
+        adapter = new TabSectionPagerAdapter(getSupportFragmentManager());
         setupViewPager();
+
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        }
 
     }
 
     public void scanBarcode (View v){
         Intent intent = new Intent(QrActivity.this, ScanBarcodeActivity.class);
         startActivityForResult(intent, 0);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void tryConnectionAgain() {
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        String serverName = globalValues.getString("serverName", null);
+        String userName = globalValues.getString("userName", null);
+
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            new JSONClasses((QrSavedFragment) adapter.getItem(1), userName).execute(serverName + "/api/selectClassesView.php");
+        }
     }
 
 
@@ -102,7 +141,6 @@ public class QrActivity extends AppCompatActivity {
 
     // Responsible for adding the 2 tabs: Scannen, Gespeicherte
     private void setupViewPager(){
-        TabSectionPagerAdapter adapter = new TabSectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new QrScanFragment());
         adapter.addFragment(new QrSavedFragment());
 

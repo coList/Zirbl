@@ -121,25 +121,13 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
         ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
-        /*
-        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
-            Log.d("DoUKnow", result.getPicturePath());
-            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
-        } else {
-            zirblImage.setImageResource(R.drawable.img_zirbl_small_qrcode_r);
-        }
-        */
 
         if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
             ContextWrapper cw = new ContextWrapper(this.getApplicationContext());
             File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
             String imgPath = selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1];
-            Log.d("DoUKnow", selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1]);
             File imageFile = new File(directory, imgPath);
-            if (imageFile.exists()) {
-                Log.d("DoUKnow", "File exists");
-            }
             String decodedImgUri = Uri.fromFile(imageFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, zirblImage);
         } else {

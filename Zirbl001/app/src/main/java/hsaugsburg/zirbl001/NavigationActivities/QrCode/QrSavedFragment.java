@@ -3,6 +3,8 @@ package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,9 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.Adapter.ClassesAdapter;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClasses;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassesModel;
+import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.R;
 
 
@@ -37,11 +41,15 @@ public class QrSavedFragment extends Fragment {
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
+
         new JSONClasses(this, username).execute(serverName + "/api/selectClassesView.php");
+
         mListView = (ListView) view.findViewById(R.id.saved_qr_list_view);
 
         return view;
     }
+
+
 
     public void processData(List<ClassesModel> result) {
         if (result != null) {

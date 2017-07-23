@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -89,7 +90,9 @@ public class InsertIntoFavors extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {}
+    protected void onPostExecute(String result) {
+        Log.d("InsertIntoFavors", result);
+    }
 
 
     private String getPostDataString(JSONObject params) throws Exception {

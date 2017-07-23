@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,12 +28,14 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoParticipates;
+import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
+import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements InternetActivity {
     private Context mContext = ResultActivity.this;
     private static final String TAG = "ResultActivity";
     private int selectedTour;
@@ -44,6 +48,14 @@ public class ResultActivity extends AppCompatActivity {
     private TopDarkActionbar topDarkActionbar;
     private int currentScore;
     private long startTime;
+
+    private long totalTime;
+    private String serverName;
+    private String userName;
+    private String deviceToken;
+    private int classID;
+    private String teamName;
+    private ArrayList<String> participants;
 
     @Override
     protected void onPause() {
@@ -61,10 +73,10 @@ public class ResultActivity extends AppCompatActivity {
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
-        int classID = Integer.parseInt(tourValues.getString("classID", null));
+        classID = Integer.parseInt(tourValues.getString("classID", null));
 
-        String teamName = tourValues.getString("teamName", null);
-        ArrayList<String> participants = new ArrayList<>();
+        teamName = tourValues.getString("teamName", null);
+        participants = new ArrayList<>();
         try {
             participants = (ArrayList<String>) ObjectSerializer.deserialize(tourValues.getString("participants", ObjectSerializer.serialize(new ArrayList<String>())));
         } catch (IOException e) {
@@ -72,7 +84,7 @@ public class ResultActivity extends AppCompatActivity {
         }
 
         startTime = Long.parseLong(tourValues.getString("startTime", null));
-        long totalTime = System.currentTimeMillis() - startTime;
+        totalTime = System.currentTimeMillis() - startTime;
 
         String time = String.format("%d h %d min",
                 TimeUnit.MILLISECONDS.toHours(totalTime),
@@ -107,14 +119,34 @@ public class ResultActivity extends AppCompatActivity {
         progressBar.setProgress(totalChronologyValue + 1);
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        String serverName = globalValues.getString("serverName", null);
-        String userName = globalValues.getString("userName", null);
-        String deviceToken = globalValues.getString("deviceToken", null);
+        serverName = globalValues.getString("serverName", null);
+        userName = globalValues.getString("userName", null);
+        deviceToken = globalValues.getString("deviceToken", null);
 
-        new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
-        deleteFiles();
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            deleteFiles();
+        }
+    }
 
+    public void tryConnectionAgain() {
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        } else {
+            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            deleteFiles();
+        }
+    }
 
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     public void setRanking(JSONObject result) {

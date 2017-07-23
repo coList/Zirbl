@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
+import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 
 public class EndTourDialog {
@@ -65,7 +66,6 @@ public class EndTourDialog {
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
         dialogButtonAgain.setText("NEIN");
         dialogButtonAgain.setTextColor(context.getResources().getColor(R.color.colorTurquoise));
-        Log.d(TAG, "showDialog: ich bin türkis");
 
         dialogButtonAgain.setTypeface(typeface1);
         dialogButtonAgain.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,7 @@ public class EndTourDialog {
         dialogButtonEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deleteFiles();
                 Intent intent = new Intent (context, HomeActivity.class);
                 context.startActivity(intent);
             }
@@ -94,8 +95,7 @@ public class EndTourDialog {
 
     }
 
-
-    public void deleteFiles() {
+    private void deleteFiles() {
         File dir = context.getFilesDir();
         ArrayList<File> files = new ArrayList<>();
         files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
@@ -106,7 +106,7 @@ public class EndTourDialog {
         files.add(new File(dir, "truefalse" + selectedTour + ".txt"));
         files.add(new File(dir, "chronology" + selectedTour + ".txt"));
         files.add(new File(dir, "nuts" + selectedTour + ".txt"));
-        files.add(new File(dir, "nuts" + selectedTour + ".txt"));
+        files.add(new File(dir, "location_infopopups" + selectedTour + ".txt"));
 
         for (File file: files) {
             if (file.exists()) {
