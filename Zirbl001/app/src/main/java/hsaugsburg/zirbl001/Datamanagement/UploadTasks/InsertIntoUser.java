@@ -17,12 +17,16 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import hsaugsburg.zirbl001.SplashScreen;
+
 public class InsertIntoUser extends AsyncTask<String, Void, String> {
     private String userName;
     private String deviceToken;
     private String serverName;
+    private SplashScreen splashScreen;
 
-    public InsertIntoUser(String userName, String deviceToken, String serverName) {
+    public InsertIntoUser(SplashScreen splashScreen, String userName, String deviceToken, String serverName) {
+        this.splashScreen = splashScreen;
         this.userName = userName;
         this.deviceToken = deviceToken;
         this.serverName = serverName;
@@ -86,7 +90,10 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {}
+    protected void onPostExecute(String result) {
+        boolean returnValue = result.equals("success");
+        splashScreen.setHasUsername(returnValue);
+    }
 
 
     private String getPostDataString(JSONObject params) throws Exception {
