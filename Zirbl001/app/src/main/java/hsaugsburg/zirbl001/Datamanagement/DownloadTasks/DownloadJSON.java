@@ -7,6 +7,8 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +93,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                             JSONObject mJSONObjectElement = mJSONArrayElement.getJSONObject(j);
 
                             if (mJSONObjectElement.has("picturepath")) {
-                                if (!mJSONObjectElement.isNull("picturepath")) {
+                                if (!mJSONObjectElement.isNull("picturepath") && !mJSONObjectElement.getString("picturepath").equals("null")) {
                                     String name = "";
 
                                     if (mJSONObjectElement.has("taskid")) {
@@ -105,18 +107,26 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
                                     Bitmap bitmap = getBitmapFromURL(serverName + mJSONObjectElement.getString("picturepath"));
 
+                                    String[] parts = mJSONObjectElement.getString("picturepath").split("\\.");
+
                                     ContextWrapper cw = new ContextWrapper(activity.getApplicationContext());
                                     // path to /data/data/yourapp/app_data/imageDir
 
                                     File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
                                     // Create imageDir
-                                    File mypath=new File(directory, selectedTour + name + ".jpg");
+                                    File mypath=new File(directory, selectedTour + name + "." + parts[parts.length - 1]);
+                                    Log.d("DoUKnow", selectedTour + name + "." + parts[parts.length - 1]);
 
                                     FileOutputStream pictureFileout = null;
                                     try {
                                         pictureFileout = new FileOutputStream(mypath);
                                         // Use the compress method on the BitMap object to write image to the OutputStream
-                                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, pictureFileout);
+                                        if (parts[parts.length - 1].equals("png")) {
+
+                                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, pictureFileout);
+                                        } else {
+                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, pictureFileout);
+                                        }
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     } finally {

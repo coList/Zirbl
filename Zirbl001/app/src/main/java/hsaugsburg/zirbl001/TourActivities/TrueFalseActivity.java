@@ -130,13 +130,14 @@ public class TrueFalseActivity extends AppCompatActivity {
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
 
-        String imageURL = result.getPicturePath();
         ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
 
         File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
-        File f=new File(zirblImages , selectedTour + "taskid" + taskID + ".jpg");
-        final String uri = Uri.fromFile(f).toString();
-        ImageLoader.getInstance().displayImage(uri, questionPicture);
+        String[] parts = result.getPicturePath().split("\\.");
+        String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+        File imgFile = new File(zirblImages , imgPath);
+        String decodedImgUri = Uri.fromFile(imgFile).toString();
+        ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
     }
 

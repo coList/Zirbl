@@ -2,7 +2,9 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
@@ -115,10 +119,34 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         doUKnow.setText(fromHtml(resultText));
         int stringLength = resultText.length();
 
-        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
-            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+
+        ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
+        /*
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
+            Log.d("DoUKnow", result.getPicturePath());
             ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
+        } else {
+            zirblImage.setImageResource(R.drawable.img_zirbl_small_qrcode_r);
         }
+        */
+
+        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
+            ContextWrapper cw = new ContextWrapper(this.getApplicationContext());
+            File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
+            String[] parts = result.getPicturePath().split("\\.");
+            String imgPath = selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1];
+            Log.d("DoUKnow", selectedTour + "infopopupid" + result.getInfoPopupID() + "." + parts[parts.length - 1]);
+            File imageFile = new File(directory, imgPath);
+            if (imageFile.exists()) {
+                Log.d("DoUKnow", "File exists");
+            }
+            String decodedImgUri = Uri.fromFile(imageFile).toString();
+            ImageLoader.getInstance().displayImage(decodedImgUri, zirblImage);
+        } else {
+            zirblImage.setImageResource(R.drawable.img_zirbl_small_qrcode_r);
+        }
+
+
         // Scroll View State Change
         RelativeLayout zirbl = (RelativeLayout) findViewById(R.id.zirbl);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
@@ -144,7 +172,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             continueArea.setLayoutParams(paramsContinue);
             zirbl.setLayoutParams(paramsZirbl);
         }
-            //
+
     }
 
 
@@ -198,18 +226,5 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     }
     public void quitTour(View view){
         showEndTourDialog();
-    }
-
-
-
-
-    public void processData(DoUKnowModel result) {
-        TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
-        doUKnow.setText(fromHtml(result.getContentText()));
-
-        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty()) {
-            ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
-            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
-        }
     }
 }
