@@ -66,7 +66,6 @@ public class EndTourDialog {
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
         dialogButtonAgain.setText("NEIN");
         dialogButtonAgain.setTextColor(context.getResources().getColor(R.color.colorTurquoise));
-        Log.d(TAG, "showDialog: ich bin türkis");
 
         dialogButtonAgain.setTypeface(typeface1);
         dialogButtonAgain.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +111,6 @@ public class EndTourDialog {
         for (File file: files) {
             if (file.exists()) {
                 file.delete();
-                Log.d("delete", "success");
             }
         }
 

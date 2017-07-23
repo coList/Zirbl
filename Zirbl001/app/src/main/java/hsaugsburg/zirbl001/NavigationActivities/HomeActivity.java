@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
                     startActivity(intent1);
                 }
             });
-        } else{
+        } else {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         }

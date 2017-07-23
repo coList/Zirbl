@@ -2,7 +2,10 @@ package hsaugsburg.zirbl001.NavigationActivities.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -16,23 +19,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
 
+import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONOwnStatistics;
+import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
+import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.ImpressumActivity;
+import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements InternetActivity {
 
     private static final String TAG = "ProfileActivity";
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext = ProfileActivity.this;
+
+    public static final String GLOBAL_VALUES = "globalValuesFile";
+
+    private TabSectionPagerAdapter adapter;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -65,15 +80,44 @@ public class ProfileActivity extends AppCompatActivity {
 
         setupBottomNavigationView();
 
+        adapter = new TabSectionPagerAdapter((getSupportFragmentManager()));
         setupViewPager();
 
+
+        if (!isOnline()) {
+            NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
+            noConnectionDialog.showDialog(this);
+        }
 
 
     }
 
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void tryConnectionAgain() {
+
+        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
+        String serverName = globalValues.getString("serverName", null);
+        String username = globalValues.getString("userName", null);
+
+
+        RelativeLayout relativeLayoutOwnStatistics = (RelativeLayout) findViewById(R.id.noOwnStats);
+        relativeLayoutOwnStatistics.setVisibility(View.GONE);
+        new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username).execute(serverName + "/api/selectOwnStatisticsView.php");
+
+
+        RelativeLayout relativeLayoutClassStatistics = (RelativeLayout) findViewById(R.id.noClassStats);
+        relativeLayoutClassStatistics.setVisibility(View.GONE);
+        new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username).execute(serverName + "/api/selectClassStatisticsView.php");
+    }
+
     // Responsible for adding the 2 tabs: Eigene Statistik, Klassen Statistik
     private void setupViewPager(){
-        TabSectionPagerAdapter adapter = new TabSectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileOwnFragment());
         adapter.addFragment(new ProfileClassFragment());
 

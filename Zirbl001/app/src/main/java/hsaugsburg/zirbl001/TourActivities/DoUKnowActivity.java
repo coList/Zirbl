@@ -121,14 +121,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
 
         ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
-        /*
-        if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
-            Log.d("DoUKnow", result.getPicturePath());
-            ImageLoader.getInstance().displayImage(serverName + result.getPicturePath(), zirblImage);
-        } else {
-            zirblImage.setImageResource(R.drawable.img_zirbl_small_qrcode_r);
-        }
-        */
 
         if (result.getPicturePath() != null && !result.getPicturePath().isEmpty() && !result.getPicturePath().equals("null")) {
             ContextWrapper cw = new ContextWrapper(this.getApplicationContext());

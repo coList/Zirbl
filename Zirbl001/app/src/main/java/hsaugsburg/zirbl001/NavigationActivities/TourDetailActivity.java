@@ -167,7 +167,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         for (File file : files) {
             if (file.exists()) {
                 counter++;
-                Log.d("tourdetail", "exists");
             }
         }
 
