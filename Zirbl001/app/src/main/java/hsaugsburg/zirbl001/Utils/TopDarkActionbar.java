@@ -29,26 +29,13 @@ public class TopDarkActionbar {
         title.setText(titleText);
     }
 
-    public void showStats(int currentScore) {
+    public void showStats(int currentScore, long startTime) {
         LinearLayout firstElement = (LinearLayout) activity.findViewById(R.id.firstRowFirstElement);
         if (firstElement.getVisibility() == View.GONE) {
             firstElement.setVisibility(View.VISIBLE);
             TextView scoreElement = (TextView) activity.findViewById(R.id.scoreElement);
             scoreElement.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
-            scoreElement.setText("Punkte: " + currentScore);
-        } else {
-            firstElement.setVisibility(View.GONE);
-        }
-
-    }
-
-    public void showStats(int currentScore, long startTime) {
-        showStats(currentScore);
-        LinearLayout secondElement = (LinearLayout) activity.findViewById(R.id.firstRowSecondElement);
-        if (secondElement.getVisibility() == View.GONE) {
-
-            secondElement.setVisibility(View.VISIBLE);
-
+            scoreElement.setText(" " + currentScore);
             long totalTime = System.currentTimeMillis() - startTime;
 
             String time = String.format("%d h %d min",
@@ -59,10 +46,11 @@ public class TopDarkActionbar {
 
             TextView timeElement = (TextView) activity.findViewById(R.id.timeElement);
             timeElement.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
-            timeElement.setText("Zeit: " + time);
+            timeElement.setText(" " + time);
         } else {
-            secondElement.setVisibility(View.GONE);
+            firstElement.setVisibility(View.GONE);
         }
+
     }
 
 
