@@ -47,7 +47,6 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="16dp"
                 android:text="Ein Projekt von Studenten der Hochschule Augsburg. Betreut von Prof. Dr. Wolfgang Kowarschick und Moritz Jacobs." />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -79,7 +78,6 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="16dp"
                 android:text="" />
         </RelativeLayout>
     </ScrollView>
