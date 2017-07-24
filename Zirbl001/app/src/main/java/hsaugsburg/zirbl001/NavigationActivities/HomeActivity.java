@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.NavigationActivities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,13 +8,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,13 +29,10 @@ import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourSelection;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.TourSelectionAdapter;
-import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class HomeActivity extends AppCompatActivity implements Callback, InternetActivity {
-
-    private static final String TAG = "HomeActivity";
     private static final int ACTIVITY_NUM = 0;
 
     private Context mContext = HomeActivity.this;
@@ -64,9 +58,8 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Touren");
 
+        TextView actionbarText;
 
-
-        TextView actionbarText = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
             f.setAccessible(true);
@@ -76,8 +69,9 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         setupBottomNavigationView();
@@ -89,6 +83,23 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
         mListView = (ListView) findViewById(R.id.home_list_view);
 
         initImageLoader();
+    }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
+
+
+    private void setupBottomNavigationView() {
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+
+        //Richtiges Icon hovern
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 
     public void processData(List<JSONModel> result) {
@@ -112,23 +123,6 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         }
-    }
-
-    private void initImageLoader() {
-        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
-        ImageLoader.getInstance().init(universalImageLoader.getConfig());
-    }
-
-
-    private void setupBottomNavigationView() {
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-
-        //Richtiges Icon hovern
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
     }
 
     public void tryConnectionAgain() {

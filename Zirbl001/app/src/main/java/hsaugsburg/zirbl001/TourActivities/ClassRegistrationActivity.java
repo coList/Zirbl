@@ -20,27 +20,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONOwnStatistics;
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoClass;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileClassFragment;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileOwnFragment;
 import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity implements InternetActivity {
-
-    private static final String TAG = "ClassRegistrationActivity";
     private Context mContext = ClassRegistrationActivity.this;
-
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
     private int tourID;
@@ -54,7 +45,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public final String[] valuesClassnumber= {"-","a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
     public final String[] valuesGrade= {"-","5", "6", "7", "8", "9", "10", "11", "12", "13"};
-
 
     //Animation beim Activity Wechsel verhindern
     @Override
@@ -77,7 +67,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
         QuicksandRegularPrimaryEdit schoolField = (QuicksandRegularPrimaryEdit) findViewById(R.id.school);
         ViewCompat.setBackgroundTintList(schoolField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
 
-
         // ActionBar Font...zz nur auf dieser Seite
         TextView actionbarText = null;
         try {
@@ -88,11 +77,11 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
             actionbarText.setAllCaps(true);
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-            } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-        catch (IllegalAccessException e) {
-        }
-        //
 
         NumberPicker npClassnumber = (NumberPicker) findViewById(R.id.classletter);
         NumberPicker npGrade = (NumberPicker) findViewById(R.id.grade);
@@ -117,11 +106,10 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     }
 
     public void generateQrCode (View view){
-
         setInput();
 
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
-        if(className != null && !className.isEmpty() && school !=null && !school.isEmpty()){
+        if(className != null && !className.isEmpty() && school != null && !school.isEmpty()) {
             qrString = generateString();
 
             SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -135,8 +123,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
             } else {
                 new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
             }
-
-
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.createButton).startAnimation(shake);
@@ -147,8 +133,7 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -160,7 +145,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
         } else {
             new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
         }
-
     }
 
     public void setQrCode(String result) {
@@ -175,19 +159,16 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
         speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class);
     }
 
-
-    public String generateString(){
+    public String generateString() {
         return "qrcodezirbl" + ";" + tourID + ";" + tourName + ";" + className + ";" + school;
     }
 
-    public void setInput(){
+    public void setInput() {
         NumberPicker npGrade = (NumberPicker)findViewById(R.id.grade);
         NumberPicker npClass = (NumberPicker)findViewById(R.id.classletter);
         EditText etSchool = (EditText) findViewById(R.id.school);
 
         className = valuesGrade[npGrade.getValue()-1] + valuesClassnumber[npClass.getValue()-1].toString();
         school = etSchool.getText().toString();
-
     }
-
 }

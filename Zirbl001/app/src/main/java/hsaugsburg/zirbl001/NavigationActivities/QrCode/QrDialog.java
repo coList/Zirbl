@@ -24,9 +24,9 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 
 public class QrDialog implements DownloadActivity {
-
     private static final String TAG = "QrDialog";
 
+    private Activity activity;
     private final Context context;
     private final boolean success;
     private final String textButtonMarked;
@@ -38,12 +38,8 @@ public class QrDialog implements DownloadActivity {
     private String serverName;
 
     private int downloadTasksCounter = 0;
-
-    private Activity activity;
-
     private boolean downloadFinished = false;
     private Button dialogButtonAgain;
-
 
     public QrDialog(Context context, boolean success, String textButtonMarked, int classID, int tourID) {
         this.context = context;
@@ -68,7 +64,6 @@ public class QrDialog implements DownloadActivity {
             dialog.setContentView(R.layout.dialog_two_buttons);
         }
 
-
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -77,7 +72,6 @@ public class QrDialog implements DownloadActivity {
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
         TextView title = (TextView) dialog.findViewById(R.id.title);
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-
 
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);
         text.setText(fromHtml(msg));
@@ -97,7 +91,6 @@ public class QrDialog implements DownloadActivity {
             title.setText("SCAN FEHLGESCHLAGEN");
             linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
         }
-
 
         dialogButtonAgain = (Button) dialog.findViewById(R.id.btn_marked);
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -130,13 +123,10 @@ public class QrDialog implements DownloadActivity {
                     buttonArea.setVisibility(View.GONE);
 
                     doDownloadAnimation(dialog);
-
-
                 } else {
                     Intent intent = new Intent(context, ScanBarcodeActivity.class);
                     context.startActivity(intent);
                 }
-
             }
         });
 
@@ -155,8 +145,6 @@ public class QrDialog implements DownloadActivity {
         }
         dialog.show();
         dialog.getWindow().setAttributes(lp);
-
-
     }
 
     private void doDownloadAnimation(Dialog dialog1) {
@@ -166,12 +154,11 @@ public class QrDialog implements DownloadActivity {
             int i = 0;
 
             public void run() {
-
                 String nameDot = "dot" + (i + 1);
                 int dotID = activity.getResources().getIdentifier(nameDot, "id", activity.getPackageName());
                 ImageView dot = (ImageView) dialog.findViewById(dotID);
                 dot.setImageResource(R.drawable.ic_loading_point_color);
-                dot.setTranslationY(0-7);
+                dot.setTranslationY(0 - 7);
 
                 int previous = i - 1;
                 if (previous < 0) {
@@ -202,7 +189,6 @@ public class QrDialog implements DownloadActivity {
 
     }
 
-
     private void downloadTour() {
         new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
@@ -213,7 +199,6 @@ public class QrDialog implements DownloadActivity {
         new DownloadJSON(activity, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
         new DownloadJSON(activity, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
-
     }
 
     public void downloadFinished() {
@@ -224,7 +209,6 @@ public class QrDialog implements DownloadActivity {
             downloadFinished = true;
             dialogButtonAgain.setText(textButtonMarked);
         }
-
     }
 
     public static Spanned fromHtml(String html) {
@@ -236,5 +220,4 @@ public class QrDialog implements DownloadActivity {
         }
         return result;
     }
-
 }

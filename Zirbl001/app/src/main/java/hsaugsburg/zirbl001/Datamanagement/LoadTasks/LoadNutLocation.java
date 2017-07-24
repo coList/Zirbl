@@ -22,6 +22,7 @@ public class LoadNutLocation {
 
     public ArrayList<NutModel> readFile() {
         ArrayList<NutModel> nuts = new ArrayList<>();
+
         try {
             FileInputStream fileIn = activity.openFileInput("nuts" + tourID + ".txt");
             InputStreamReader InputRead = new InputStreamReader(fileIn);
@@ -32,18 +33,15 @@ public class LoadNutLocation {
             int charRead;
 
             while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                // char to string conversion
                 String readstring = String.copyValueOf(inputBuffer, 0, charRead);
                 s += readstring;
-
             }
             InputRead.close();
 
-
             JSONArray jsonArray = new JSONArray(s);
 
-            for (int y = 0; y < jsonArray.length(); y++) {
-                JSONObject mJSONObjectNut = jsonArray.optJSONObject(y);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject mJSONObjectNut = jsonArray.optJSONObject(i);
                 NutModel nutModel = new NutModel();
 
                 nutModel.setTourID(mJSONObjectNut.getInt("tourid"));
@@ -53,15 +51,11 @@ public class LoadNutLocation {
                 nutModel.setScore(mJSONObjectNut.getInt("score"));
                 nutModel.setFoundText(mJSONObjectNut.getString("foundtext"));
 
-
                 nuts.add(nutModel);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return nuts;
-
     }
 }

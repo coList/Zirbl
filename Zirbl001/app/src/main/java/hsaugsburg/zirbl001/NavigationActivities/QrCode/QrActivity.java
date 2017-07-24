@@ -40,17 +40,14 @@ import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
 
 public class QrActivity extends AppCompatActivity implements InternetActivity {
-
     private static final String TAG = "QrActivity";
     private static final int ACTIVITY_NUM = 2;
 
     private Context mContext = QrActivity.this;
-
     private int position = 0;
+    private TabSectionPagerAdapter adapter;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-
-    private TabSectionPagerAdapter adapter;
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -63,12 +60,11 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
-        Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("QR-Code Scanner");
 
-        TextView actionbarText = null;
+        TextView actionbarText;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
             f.setAccessible(true);
@@ -78,8 +74,9 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         setupBottomNavigationView();
@@ -88,8 +85,6 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
         if(extras != null) {
             position = extras.getInt("viewpager_position");
         }
-
-
         adapter = new TabSectionPagerAdapter(getSupportFragmentManager());
         setupViewPager();
 
@@ -97,24 +92,20 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         }
-
     }
 
-    public void scanBarcode (View v){
+    public void scanBarcode (View v) {
         Intent intent = new Intent(QrActivity.this, ScanBarcodeActivity.class);
         startActivityForResult(intent, 0);
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     public void tryConnectionAgain() {
-
-
         if (!isOnline()) {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
@@ -127,9 +118,7 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
         }
     }
 
-
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -141,7 +130,7 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
     }
 
     // Responsible for adding the 2 tabs: Scannen, Gespeicherte
-    private void setupViewPager(){
+    private void setupViewPager() {
         adapter.addFragment(new QrScanFragment());
         adapter.addFragment(new QrSavedFragment());
 
@@ -155,11 +144,9 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
         tabLayout.getTabAt(0).setText("Scannen");
         tabLayout.getTabAt(1).setText("Gespeicherte");
         changeTabsFont();
-
     }
 
     private void changeTabsFont() {
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
 
@@ -177,7 +164,7 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
         }
     }
 
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
@@ -186,5 +173,4 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
         }
         return result;
     }
-
 }

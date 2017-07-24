@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.NavigationActivities.Profile;
 
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,19 +17,14 @@ import hsaugsburg.zirbl001.Datamanagement.Adapter.OwnStatisticsAdapter;
 import hsaugsburg.zirbl001.Models.NavigationModels.OwnStatisticsModel;
 import hsaugsburg.zirbl001.R;
 
-
 public class ProfileOwnFragment extends Fragment {
-    private static final String TAG = "ProfileOwnFragment";
     private ListView mListView;
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_own, container, false);
-
-
 
         SharedPreferences globalValues = getActivity().getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
@@ -45,8 +39,7 @@ public class ProfileOwnFragment extends Fragment {
         if (result != null) {
             OwnStatisticsAdapter adapter = new OwnStatisticsAdapter(getActivity(), result);
             mListView.setAdapter(adapter);
-
-        }else{
+        } else {
             RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noOwnStats);
             rl.setVisibility(View.VISIBLE);
         }

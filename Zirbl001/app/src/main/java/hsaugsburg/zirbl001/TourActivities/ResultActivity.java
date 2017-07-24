@@ -6,17 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -25,6 +21,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoParticipates;
@@ -37,11 +34,9 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class ResultActivity extends AppCompatActivity implements InternetActivity {
     private Context mContext = ResultActivity.this;
-    private static final String TAG = "ResultActivity";
     private int selectedTour;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
     //dot menu
@@ -86,7 +81,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         totalTime = System.currentTimeMillis() - startTime;
 
-        String time = String.format("%d h %d min",
+        String time = String.format(Locale.GERMANY, "%d h %d min",
                 TimeUnit.MILLISECONDS.toHours(totalTime),
                 TimeUnit.MILLISECONDS.toMinutes(totalTime) -
                         TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
@@ -108,11 +103,10 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
         durationView.setText(time);
 
         String titleText = "Ergebnis";
-        //dot menu
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         TextView totalScore = (TextView) findViewById(R.id.endPoints);
-        totalScore.setText(Integer.toString(currentScore));
+        totalScore.setText(String.format(Locale.GERMANY, "%d", currentScore));
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
@@ -127,7 +121,6 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            Log.d("is online", "is online");
             new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
             deleteFiles();
         }
@@ -144,8 +137,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -186,14 +178,11 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+        return (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 || (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 || super.onKeyDown(keyCode, event)));
     }
 
 
-    private void showEndTourDialog(){
+    private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
@@ -209,12 +198,12 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }
 
-
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
@@ -223,5 +212,4 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
         }
         return result;
     }
-
 }

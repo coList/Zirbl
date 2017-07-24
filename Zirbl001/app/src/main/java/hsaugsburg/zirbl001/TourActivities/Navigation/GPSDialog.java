@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.LocationManager;
 import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,13 +14,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrActivity;
-import hsaugsburg.zirbl001.NavigationActivities.QrCode.ScanBarcodeActivity;
 import hsaugsburg.zirbl001.R;
 
 public class GPSDialog {
-
-    private static final String TAG = "GPSDialog";
     private final Context context;
     private Activity activity;
 
@@ -56,7 +50,6 @@ public class GPSDialog {
         title.setText(titleText);
         linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTurquoise));
 
-
         Button dialogButtonEnable = (Button) dialog.findViewById(R.id.btn_marked);
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
         dialogButtonEnable.setText("AKTIVIEREN");
@@ -87,7 +80,5 @@ public class GPSDialog {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
-
-
     }
 }

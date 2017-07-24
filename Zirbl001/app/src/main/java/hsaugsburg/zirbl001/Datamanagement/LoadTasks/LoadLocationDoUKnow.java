@@ -54,11 +54,9 @@ public class LoadLocationDoUKnow {
 
                 doUKnowModels.add(doUKnowModel);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return doUKnowModels;
-
     }
 }

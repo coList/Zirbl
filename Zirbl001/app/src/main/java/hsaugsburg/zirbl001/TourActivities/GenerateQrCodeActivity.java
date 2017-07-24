@@ -28,14 +28,9 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
 public class GenerateQrCodeActivity extends AppCompatActivity {
-
-    private static final String TAG = "GenerateQrCodeActivity";
     private Context mContext = GenerateQrCodeActivity.this;
-
     public String qrString;
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
-
 
     //Animation beim Activity wechsel verhindern
     @Override
@@ -49,12 +44,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr_code);
         setIntentExtras();
-
-
-
-
     }
-
 
     public void setQrCode() {
         ImageView imageView = (ImageView) findViewById(R.id.qrCode);
@@ -65,9 +55,7 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
-
     }
-
 
     public void setIntentExtras(){
         Intent intent = getIntent();
@@ -87,7 +75,6 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(tourName);
 
-        // ActionBar Font...zz nur auf dieser Seite
         TextView actionbarText = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
@@ -101,11 +88,9 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
         }
         catch (IllegalAccessException e) {
         }
-        //
 
         setQrCode();
     }
-
 
     public void continueToSavedQrCodes(View view) {
         Intent intent = new Intent(this, QrActivity.class);
@@ -114,7 +99,6 @@ public class GenerateQrCodeActivity extends AppCompatActivity {
     }
 
     Bitmap encodeAsBitmap(String str) throws WriterException {
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;

@@ -12,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -37,10 +36,7 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class QuizActivity extends AppCompatActivity {
-
     private Context mContext = QuizActivity.this;
-    private static final String TAG = "QuizActivity";
-
 
     private int amountOfAnswers;
     private int selectedAnswer = -1;
@@ -48,7 +44,6 @@ public class QuizActivity extends AppCompatActivity {
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
-
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
@@ -58,11 +53,10 @@ public class QuizActivity extends AppCompatActivity {
     String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-
-    //dot menu
-    private TopDarkActionbar topDarkActionbar;
     private int currentScore;
     private long startTime;
+
+    private TopDarkActionbar topDarkActionbar;
 
     @Override
     protected void onPause() {
@@ -75,7 +69,14 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        //dot menu
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
+
+        //get global tour values
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
         stationName = getIntent().getStringExtra("stationName");
 
@@ -86,24 +87,10 @@ public class QuizActivity extends AppCompatActivity {
             titleText = "START";
         }
 
-        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-
-        //get global tour values
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
-        startTime = Long.parseLong(tourValues.getString("startTime", null));
-        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-
-
         topDarkActionbar = new TopDarkActionbar(this, titleText);
-
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
-
-
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
 
         //Selection
         Button buttonA = (Button) findViewById(R.id.answer1);
@@ -121,18 +108,13 @@ public class QuizActivity extends AppCompatActivity {
 
         initImageLoader();
         setDataView();
-
-
     }
 
     public void setDataView() {
-
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         QuizModel result = new LoadQuiz(this, selectedTour, taskID).readFile();
 
-
         TextView question = (TextView) findViewById(R.id.questionText);
-
 
         ArrayList<String> answers = new ArrayList<>();
         if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
@@ -145,11 +127,7 @@ public class QuizActivity extends AppCompatActivity {
             questionBesideImg.setText(fromHtml(result.getQuestion()));
             questionBesideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
-
-            String imageURL = result.getPicturePath();
             ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
-
-
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
             String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
@@ -157,27 +135,18 @@ public class QuizActivity extends AppCompatActivity {
             String decodedImgUri = Uri.fromFile(imgFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
-
             RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
             ImageView line4 = (ImageView) findViewById(R.id.line4);
             area4.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
             question.setVisibility(View.GONE);
 
-
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
         }
-
         amountOfAnswers = answers.size();
-
-        //put answer options into layout
-
-
         answers = shuffleArray(answers);
 
-
         for (int i = 0; i < answers.size(); i++) {
-
             String name = "answer" + (i + 1);
             int id = getResources().getIdentifier(name, "id", getPackageName());
             TextView answer = (TextView) findViewById(id);
@@ -188,7 +157,6 @@ public class QuizActivity extends AppCompatActivity {
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
-
     }
 
     private void initImageLoader(){
@@ -226,7 +194,6 @@ public class QuizActivity extends AppCompatActivity {
     //Selection
     View.OnClickListener answerA = new View.OnClickListener() {
         public void onClick(View v) {
-
             selectedAnswer = 1;
             resetAnswers();
 
@@ -241,7 +208,6 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerB = new View.OnClickListener() {
         public void onClick(View v) {
-
             selectedAnswer = 2;
             resetAnswers();
 
@@ -256,7 +222,6 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerC = new View.OnClickListener() {
         public void onClick(View v) {
-
             selectedAnswer = 3;
             resetAnswers();
 
@@ -271,7 +236,6 @@ public class QuizActivity extends AppCompatActivity {
     };
     View.OnClickListener answerD = new View.OnClickListener() {
         public void onClick(View v) {
-
             selectedAnswer = 4;
             resetAnswers();
 
@@ -321,7 +285,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    private void showEndTourDialog(){
+    private void showEndTourDialog() {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 EndTourDialog alertEnd = new EndTourDialog(mContext, selectedTour);
@@ -331,7 +295,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
             return true;
@@ -339,7 +303,7 @@ public class QuizActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
@@ -349,13 +313,14 @@ public class QuizActivity extends AppCompatActivity {
         return result;
     }
 
-
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }

@@ -22,15 +22,15 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadSlider;
 import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class SliderActivity extends AppCompatActivity {
-
     private Context mContext = SliderActivity.this;
-    private static final String TAG = "SliderActivity";
 
     private  SeekBar slider;
     private  TextView sliderCount;
@@ -57,10 +57,7 @@ public class SliderActivity extends AppCompatActivity {
     private int currentScore;
     private long startTime;
 
-
-    //dot menu
     private TopDarkActionbar topDarkActionbar;
-
 
     @Override
     protected void onPause() {
@@ -73,17 +70,6 @@ public class SliderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_slider);
-        //dot menu
-
-
-        stationName = getIntent().getStringExtra("stationName");
-        String titleText;
-
-        if (stationName != null && !stationName.isEmpty()) {
-            titleText = stationName.toUpperCase();
-        } else {
-            titleText = "START";
-        }
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
@@ -95,6 +81,14 @@ public class SliderActivity extends AppCompatActivity {
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         findViewById(R.id.slider).setPadding(40,0,40,0);
 
+        stationName = getIntent().getStringExtra("stationName");
+        String titleText;
+
+        if (stationName != null && !stationName.isEmpty()) {
+            titleText = stationName.toUpperCase();
+        } else {
+            titleText = "START";
+        }
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         slider = (SeekBar) findViewById(R.id.slider);
@@ -138,44 +132,34 @@ public class SliderActivity extends AppCompatActivity {
         } else {
             Double value = result.getMaxRange() - minValue;
             slider.setMax(value.intValue());
-            sliderCount.setText(Integer.toString(slider.getProgress() + minValue.intValue()));
+            int sliderCountValue = slider.getProgress() + minValue.intValue();
+            sliderCount.setText(String.format(Locale.GERMANY, "%d", sliderCountValue));
 
-            startCount.setText(Integer.toString(minValue.intValue()));
+            startCount.setText(String.format(Locale.GERMANY, "%d", minValue.intValue()));
 
             Double maxValue = result.getMaxRange();
-            endCount.setText(Integer.toString(maxValue.intValue()));
+            endCount.setText(String.format(Locale.GERMANY, "%d", maxValue.intValue()));
         }
-
-
 
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
                 if (!isInteger) {
-                    //Double value = getConvertedDoubleValue(progress) + minValue;
-                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
                     sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
                 } else {
-                    //Integer value = progress + minValue.intValue();
-                    //sliderCount.setText(String.format(Locale.GERMAN, "%,d", value));
-                    sliderCount.setText(Integer.toString(progress + minValue.intValue()));
-
+                    sliderCount.setText(String.format(Locale.GERMANY, "%d", progress + minValue.intValue()));
                 }
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-
 
         rightAnswer = Double.toString(result.getRightNumber());
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
-
     }
 
     public void continueToNextView(View view) {
@@ -207,10 +191,7 @@ public class SliderActivity extends AppCompatActivity {
             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibe.vibrate(100);
         }
-
     }
-
-
 
     //Convert double value to int by multiplying it (every value is 100 times its value!)
     private int getConvertedIntValue(double value) {
@@ -231,7 +212,7 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
             return true;
@@ -239,7 +220,7 @@ public class SliderActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
@@ -252,9 +233,11 @@ public class SliderActivity extends AppCompatActivity {
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }
