@@ -23,12 +23,11 @@ import hsaugsburg.zirbl001.Models.NavigationModels.ClassesStatModel;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileClassFragment;
 
 public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesStatModel>> {
-
     private ProfileClassFragment profileClassFragment;
     private String username;
     private String deviceToken;
 
-    public JSONClassStatistics (ProfileClassFragment profileClassFragment, String username, String deviceToken) {
+    public JSONClassStatistics(ProfileClassFragment profileClassFragment, String username, String deviceToken) {
         this.profileClassFragment = profileClassFragment;
         this.username = username;
         this.deviceToken = deviceToken;
@@ -56,21 +55,16 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
 
             String finalJson = buffer.toString();
 
-
             try {
                 JSONArray parentArray = new JSONArray(finalJson);
                 ArrayList<ClassesStatModel> classesStatModelList = new ArrayList<>();
 
-
                 for (int i = 0; i < parentArray.length(); i++) {
                     ClassesStatModel classesStatModel = new ClassesStatModel();
-                    ArrayList<ClassStatisticsModel> classStatisticsModelList = new ArrayList<>();
                     JSONArray childArray = parentArray.getJSONArray(i);
                     ArrayList<ClassStatisticsModel> classStatistics = new ArrayList<>();
                     for (int j = 0; j < childArray.length(); j++) {
-
                         JSONObject mJsonLObjectClassStatistic = childArray.getJSONObject(j);
-
                         ClassStatisticsModel classStatisticsModel = new ClassStatisticsModel();
 
                         classStatisticsModel.setClassID(mJsonLObjectClassStatistic.getInt("classid"));
@@ -97,20 +91,15 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
                                 e.printStackTrace();
                             }
                         }
-
                         classStatisticsModel.setParticipants(participants);
-
-
                         classStatistics.add(classStatisticsModel);
                     }
                     classesStatModel.setClassStatisticsModels(classStatistics);
                     classesStatModelList.add(classesStatModel);
                 }
-
                 return classesStatModelList;
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,8 +108,8 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
-        } finally{
+            e.printStackTrace();
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
@@ -134,10 +123,9 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
         }
         return null;
     }
-    protected void onPostExecute(List<ClassesStatModel> result){
 
+    protected void onPostExecute(List<ClassesStatModel> result) {
         super.onPostExecute(result);
         profileClassFragment.processData(result);
     }
-
 }

@@ -11,20 +11,18 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.Models.NavigationModels.OwnStatisticsModel;
 import hsaugsburg.zirbl001.R;
 
-
 public class OwnStatisticsAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<OwnStatisticsModel> mDataSource;
-
 
     public OwnStatisticsAdapter(Context context, List<OwnStatisticsModel> items) {
         mContext = context;
@@ -32,28 +30,23 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    //1
     @Override
     public int getCount() {
         return mDataSource.size();
     }
 
-    //2
     @Override
     public Object getItem(int position) {
         return mDataSource.get(position);
     }
 
-    //3
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    //4
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get view for row item
         View rowView = mInflater.inflate(R.layout.list_item_own_statistic, parent, false);
         TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
         tourName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
@@ -70,21 +63,22 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         tourName.setText(ownStatisticsModel.getTourName());
 
         String strCurrentDate = ownStatisticsModel.getParticipationDate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String date = "";
+
         try {
 
             Date newDate = format.parse(strCurrentDate);
-            Calendar cal = Calendar.getInstance();
-            format = new SimpleDateFormat("dd. MMMM yyyy");
+            format = new SimpleDateFormat("dd. MMMM yyyy", Locale.GERMANY);
             date = format.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         participationDate.setText(date);
 
         int totalTime = ownStatisticsModel.getDuration();
-        String time = String.format("%d h %d min",
+        String time = String.format(Locale.GERMANY, "%d h %d min",
                 TimeUnit.MILLISECONDS.toHours(totalTime),
                 TimeUnit.MILLISECONDS.toMinutes(totalTime) -
                         TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
@@ -92,7 +86,7 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         duration.setText(time);
         String rankingText = ownStatisticsModel.getRank() + ". Platz von " + ownStatisticsModel.getTotalParticipations();
         ranking.setText(rankingText);
-        teamname.setText(ownStatisticsModel.getGroupName() + ":");
+        teamname.setText(String.format(Locale.GERMANY, "%s:", ownStatisticsModel.getGroupName()));
 
         String participantsViewText = "";
         for (String participant: ownStatisticsModel.getParticipants()) {
@@ -101,9 +95,8 @@ public class OwnStatisticsAdapter extends BaseAdapter {
         participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
         participants.setText(participantsViewText);
 
-        score.setText(Integer.toString(ownStatisticsModel.getScore()));
+        score.setText(String.format(Locale.GERMANY, "%d", ownStatisticsModel.getScore()));
 
         return rowView;
-
     }
 }

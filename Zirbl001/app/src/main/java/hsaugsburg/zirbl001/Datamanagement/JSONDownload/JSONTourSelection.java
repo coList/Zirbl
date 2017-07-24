@@ -20,9 +20,7 @@ import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 
-
 public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>> {
-
     private Callback callback;
 
     public JSONTourSelection (Callback callback) {
@@ -47,7 +45,6 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-
             String finalJson = buffer.toString();
 
             try {
@@ -57,7 +54,6 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
                 JSONArray mJsonArrayTourSelections = parentObject.getJSONArray("tourselection");
 
                 List<JSONModel> tourSelectionModelList = new ArrayList<>();
-
 
                 for (int i = 0; i < mJsonArrayTourSelections.length(); i++) {
                     JSONObject mJsonLObjectTourSelection = mJsonArrayTourSelections.getJSONObject(i);
@@ -72,11 +68,9 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
                     tourSelectionModel.setDuration(mJsonLObjectTourSelection.getInt("duration"));
                     tourSelectionModel.setDistance(mJsonLObjectTourSelection.getInt("distance"));
                     tourSelectionModel.setMainpicture(mJsonLObjectTourSelection.getString("mainpicture"));
-                    // adding the final object in the list
 
                     tourSelectionModelList.add(tourSelectionModel);
                 }
-
                 return tourSelectionModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -86,8 +80,8 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
-        } finally{
+            e.printStackTrace();
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
@@ -101,12 +95,9 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
         }
         return null;
     }
-    protected void onPostExecute(List<JSONModel> result){
 
+    protected void onPostExecute(List<JSONModel> result) {
         super.onPostExecute(result);
         callback.processData(result);
-
-
     }
-
 }

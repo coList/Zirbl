@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,10 +109,10 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
                 return sb.toString();
 
             } else {
-                return new String("false : " + responseCode);
+                return "false : " + responseCode;
             }
         } catch (Exception e) {
-            return new String("Exception: " + e.getMessage());
+            return "Exception: " + e.getMessage();
         }
 
     }
@@ -119,7 +120,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-
             JSONObject json = new JSONObject(result);
             resultActivity.setRanking(json);
         } catch (JSONException e) {

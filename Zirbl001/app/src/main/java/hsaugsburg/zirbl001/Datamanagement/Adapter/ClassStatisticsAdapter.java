@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassStatisticsModel;
@@ -29,36 +28,29 @@ public class ClassStatisticsAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<ClassesStatModel> mDataSource;
 
-
-
     public ClassStatisticsAdapter(Context context, List<ClassesStatModel> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    //1
     @Override
     public int getCount() {
         return mDataSource.size();
     }
 
-    //2
     @Override
     public Object getItem(int position) {
         return mDataSource.get(position);
     }
 
-    //3
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    //4
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get view for row item
         final View rowView = mInflater.inflate(R.layout.list_item_class_statistic, parent, false);
         final TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
         rowView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +67,6 @@ public class ClassStatisticsAdapter extends BaseAdapter {
                         arrow.setImageResource(R.drawable.btn_arrow_down);
                         tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
                     }
-
             }
         });
 
@@ -91,27 +82,25 @@ public class ClassStatisticsAdapter extends BaseAdapter {
         tourName.setText(firstClassStatisticModel.getTourName());
 
         String strCurrentDate = firstClassStatisticModel.getParticipationDate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String date = "";
+
         try {
 
             Date newDate = format.parse(strCurrentDate);
-            Calendar cal = Calendar.getInstance();
-            format = new SimpleDateFormat("dd. MMMM yyyy");
+            format = new SimpleDateFormat("dd. MMMM yyyy", Locale.GERMANY);
             date = format.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         participationDate.setText(date);
 
         String schoolText = "Klasse " + firstClassStatisticModel.getClassName() + ", " + firstClassStatisticModel.getSchoolName();
         school.setText(schoolText);
 
-
-
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.gonePart);
         for (int i = 0; i < classesStatModel.getClassStatisticsModels().size(); i++) {
-
             ClassStatisticsModel classStatisticsModel = classesStatModel.getClassStatisticsModels().get(i);
 
             View teamStatistic = mInflater.inflate(R.layout.list_element_team_statistic, null);
@@ -133,24 +122,20 @@ public class ClassStatisticsAdapter extends BaseAdapter {
             participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
             participants.setText(participantsViewText);
 
-            ranking.setText(classStatisticsModel.getClassRanking() + ". Platz");
+            ranking.setText(String.format(Locale.GERMANY, "%d. Platz", classStatisticsModel.getClassRanking()));
 
             int totalTime = classStatisticsModel.getDuration();
-            String time = String.format("%d h %d min",
+            String time = String.format(Locale.GERMANY, "%d h %d min",
                     TimeUnit.MILLISECONDS.toHours(totalTime),
                     TimeUnit.MILLISECONDS.toMinutes(totalTime) -
                             TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
             );
             duration.setText(time);
 
-            score.setText(Integer.toString(classStatisticsModel.getScore()));
-
+            score.setText(String.format(Locale.GERMANY, "%d", classStatisticsModel.getScore()));
 
             layout.addView(teamStatistic);
-
-
         }
         return rowView;
-
     }
 }

@@ -13,7 +13,6 @@ import java.net.URL;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 
 public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> {
-
     private TourDetailActivity tourDetailActivity;
     private String username;
     private String deviceToken;
@@ -51,15 +50,13 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
             Boolean isFavorised = "1".equals(isFavorisedString);
 
             return isFavorised;
-
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
-        } finally{
+            e.printStackTrace();
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
@@ -73,8 +70,8 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
         }
         return null;
     }
-    protected void onPostExecute(Boolean result){
 
+    protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
         if (result != null) {
             tourDetailActivity.setIsFavorised(result);
@@ -82,5 +79,4 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
             tourDetailActivity.showNoInternetConnection();
         }
     }
-
 }
