@@ -1,12 +1,19 @@
 package hsaugsburg.zirbl001.NavigationActivities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -35,8 +42,10 @@ public class ImpressumActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Impressum");
         setupBottomNavigationView();
 
-        TextView zirbl = (TextView) findViewById(R.id.impTitle);
-        zirbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
+
+        setActivityText();
+
     }
 
     private void setupBottomNavigationView() {
@@ -48,5 +57,52 @@ public class ImpressumActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+    }
+
+    public void setActivityText(){
+
+        TextView zirbl = (TextView) findViewById(R.id.impTitle);
+        zirbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+
+        TextView team = (TextView) findViewById(R.id.impTeam);
+        team.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+
+        TextView teamMembers = (TextView) findViewById(R.id.imp4);
+        teamMembers.setText(fromHtml("Corinna List <br />" +
+                "Tobias Schäll <br />" +
+                "Moritz Preisinger <br />" +
+                "Melanie Behrens <br /> <br />" +
+                "Melis Kahveci  <br />" +
+                "Larissa Jost  <br />" +
+                "Verena Gehrig  <br />  <br />" +
+                "Kerstin Paukstat  <br />" +
+                "Tim Reinelt  <br />" +
+                "Simon Albrecht"));
+
+        TextView impLink = (TextView) findViewById(R.id.impLink);
+        impLink.setText(fromHtml("Impressum der Hochschule Augsburg"));
+        impLink.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
+
+
+    }
+
+    public void goToHs (View view) {
+        goToUrl ( "https://www.hs-augsburg.de/Service/Impressum.html");
+    }
+
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+    }
+
+    public static Spanned fromHtml(String html) {
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }

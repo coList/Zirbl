@@ -1,84 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.NavigationActivities.ImpressumActivity">
 
     <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
+        <include layout="@layout/layout_top_standard_actionbar" />
 
-        <!-- top actionbar -->
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relLayoutActionBar"
+        android:layout_marginBottom="?actionBarSize">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/relLayoutActionBar">
+            android:orientation="vertical">
 
-            <include layout="@layout/layout_top_standard_actionbar" />
-
-        </RelativeLayout>
-
-        <!-- Middle section (body) -->
-        <RelativeLayout
-            android:id="@+id/relLayoutSite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relLayoutActionBar"
-            android:layout_marginBottom="?actionBarSize"
-            android:background="@color/colorAccent">
-
-
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/impTitle"
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/impLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/imp4"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Zirbl" />
+                android:layout_marginTop="24dp"
+                android:onClick="goToHs"
+                android:text="" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/imp2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/impTitle"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
-                android:text="#" />
+                android:text="Ein Projekt von Studenten der Hochschule Augsburg. Betreut von Prof. Dr. Wolfgang Kowarschick und Moritz Jacobs." />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/impSubtitle"
+                android:id="@+id/impTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imp2"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="24dp"
+                android:text="Das Team" />
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                android:id="@+id/impTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
-                android:text="#" />
+                android:text="Zirbl" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/imp4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/impSubtitle"
+                android:layout_below="@+id/impTeam"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
-                android:text="#" />
-
+                android:text="" />
         </RelativeLayout>
+    </ScrollView>
 
-        <!-- bottom navigation -->
-        <include layout="@layout/layout_bottom_navigation_view" />
-
-
-    </RelativeLayout>
+    <include
+        layout="@layout/layout_bottom_navigation_view"/>
 
 
-
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
