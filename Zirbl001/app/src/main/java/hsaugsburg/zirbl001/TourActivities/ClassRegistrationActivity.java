@@ -52,8 +52,8 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     private String serverName;
     private String deviceToken;
 
-    public final String[] valuesClassnumber= {"a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
-    public final String[] valuesGrade= {"5", "6", "7", "8", "9", "10", "11", "12", "13"};
+    public final String[] valuesClassnumber= {"-","a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+    public final String[] valuesGrade= {"-","5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
 
     //Animation beim Activity Wechsel verhindern

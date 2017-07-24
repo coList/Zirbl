@@ -40,21 +40,14 @@
 
     <ImageButton
         android:id="@+id/arrow"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/lineBelow"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="24dp"
+        android:layout_alignTop="@+id/savedSchool"
         android:layout_marginRight="24dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/_map_arrow" />
-
-    <ImageView
-        android:id="@+id/lineBelow"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/savedDate"
-        app:srcCompat="@color/colorLine" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/btn_arrow_right" />
 
 </RelativeLayout>

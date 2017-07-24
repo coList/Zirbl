@@ -12,6 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/arrowUpDown"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/titleOfStatistic"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/btn_arrow_down" />
+
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
             android:id="@+id/titleOfStatistic"
             android:layout_width="match_parent"
@@ -52,12 +64,5 @@
         android:visibility="gone">
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/lineBelow"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/teamName"
-        app:srcCompat="@color/colorLine" />
 
 </LinearLayout>

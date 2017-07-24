@@ -1,4 +1,5 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -64,8 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tabbar"
-        android:background="@color/colorPrimaryDark"
->
+        android:background="@color/colorPrimaryDark">
 
         <LinearLayout
             android:id="@+id/lineOne"
@@ -101,40 +101,58 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_below="@+id/firstRow"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:visibility="gone">
 
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/scoreElement"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
-                android:gravity="center_vertical"
-                android:text="Score"
-                android:textColor="@color/colorAccent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/firstRowSecondElement"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_below="@+id/firstRowFirstElement"
-            android:visibility="gone">
+            <ImageView
+                android:id="@+id/timeImg"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:adjustViewBounds="true"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                app:srcCompat="@drawable/ic_time" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/timeElement"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Time"
                 android:textColor="@color/colorAccent" />
+
+            <ImageView
+                android:id="@+id/scoreImg"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:adjustViewBounds="true"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                app:srcCompat="@drawable/ic_zirbl" />
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                android:id="@+id/scoreElement"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Score"
+                android:textColor="@color/colorAccent" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/lineTwo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/firstRowSecondElement">
+            android:layout_below="@+id/firstRowFirstElement">
 
             <ImageView
                 android:layout_width="match_parent"

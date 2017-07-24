@@ -23,7 +23,7 @@
             android:id="@+id/imagePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/membersOfTeam"
+            android:layout_above="@+id/teamName"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="24dp"
@@ -133,12 +133,5 @@
             app:textAllCaps="false" />
 
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/lineBelow"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/teamName"
-        app:srcCompat="@color/colorLine" />
 
 </LinearLayout>
