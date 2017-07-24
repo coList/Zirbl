@@ -103,15 +103,19 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|center_vertical">
 
-            <Button
+            <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
                 android:id="@+id/nextTourItem"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="3dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/code_cheat_button"
                 android:onClick="continueToNextView"
+                android:paddingBottom="7dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="7dp"
                 android:text="überspringen" />
 
         </RelativeLayout>
