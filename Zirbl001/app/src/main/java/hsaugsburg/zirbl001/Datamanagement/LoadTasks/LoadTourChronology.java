@@ -44,14 +44,12 @@ public class LoadTourChronology {
 
             int READ_BLOCK_SIZE = 100;
             char[] inputBuffer = new char[READ_BLOCK_SIZE];
-            String s="";
+            String s = "";
             int charRead;
 
             while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
-
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
             }
             InputRead.close();
 
@@ -60,10 +58,8 @@ public class LoadTourChronology {
             for (int j = 0; j < jsonArray.length(); j++) {
                 JSONObject mJsonLObjectChronologyItems = jsonArray.getJSONObject(j);
                 if (j == chronologyNumber + 1) {
-
                     nextChronologyItem.setTourID(mJsonLObjectChronologyItems.getInt("tourid"));
                     nextChronologyItem.setChronologyNumber(mJsonLObjectChronologyItems.getInt("chronologynumber"));
-
 
                     //check which value is not null
                     if (!(mJsonLObjectChronologyItems.isNull("infopopupid"))) {
@@ -74,12 +70,9 @@ public class LoadTourChronology {
                         nextChronologyItem.setTaskID(mJsonLObjectChronologyItems.getInt("taskid"));
                         nextChronologyItem.setTaskClassName(mJsonLObjectChronologyItems.getString("tableoid"));
                     }
-
                 }
             }
-
             lastChronologyValue = jsonArray.length() - 1;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +84,6 @@ public class LoadTourChronology {
     }
 
     public void continueToNextView() {
-
         Intent intent = new Intent();
 
         if (nextChronologyItem.getChronologyNumber() == null) {
@@ -116,14 +108,12 @@ public class LoadTourChronology {
                     intent = new Intent(activity, TrueFalseActivity.class);
                 }
                 intent.putExtra("taskid", Integer.toString(nextChronologyItem.getTaskID()));
-
             }
-
         }
+
         int nextchronologyNumber = chronologyNumber + 1;
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
         intent.putExtra("stationName", tourActivity.getStationName());
         activity.startActivity(intent);
-
     }
 }

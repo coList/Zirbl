@@ -24,22 +24,19 @@ public class LoadSlider {
     public SliderModel readFile() {
         SliderModel sliderModel = new SliderModel();
         try {
-            FileInputStream fileIn=activity.openFileInput("guessthenumber" + tourID + ".txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
+            FileInputStream fileIn = activity.openFileInput("guessthenumber" + tourID + ".txt");
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
 
             int READ_BLOCK_SIZE = 100;
-            char[] inputBuffer= new char[READ_BLOCK_SIZE];
-            String s="";
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
             int charRead;
 
-            while ((charRead=InputRead.read(inputBuffer))>0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
-
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
             }
             InputRead.close();
-
 
             JSONArray jsonArray = new JSONArray(s);
 
@@ -66,11 +63,9 @@ public class LoadSlider {
                     sliderModel.setToleranceRange(mJsonLObjectSlider.getInt("tolerancerange"));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return sliderModel;
-
     }
 }

@@ -25,21 +25,19 @@ public class LoadTrueFalse {
         TrueFalseModel trueFalseModel = new TrueFalseModel();
         try {
             FileInputStream fileIn = activity.openFileInput("truefalse" + tourID + ".txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
 
             int READ_BLOCK_SIZE = 100;
-            char[] inputBuffer= new char[READ_BLOCK_SIZE];
-            String s="";
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
             int charRead;
 
             while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
 
             }
             InputRead.close();
-
 
             JSONArray jsonArray = new JSONArray(s);
 
@@ -64,11 +62,9 @@ public class LoadTrueFalse {
                     trueFalseModel.setIsTrue(mJsonLObjectTrueFalse.getBoolean("istrue"));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return trueFalseModel;
-
     }
 }
