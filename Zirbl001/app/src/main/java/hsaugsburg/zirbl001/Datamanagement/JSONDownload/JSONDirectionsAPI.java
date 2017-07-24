@@ -23,14 +23,11 @@ import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 
 
 public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
-    private static final String TAG = "Jsondirec1";
     private NavigationActivity activity;
 
     public JSONDirectionsAPI (NavigationActivity activity) {
         this.activity = activity;
-
     }
-
 
     protected List<Route> doInBackground(String... params) {
         HttpURLConnection connection;
@@ -58,25 +55,17 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
                 JSONObject parentJSON = new JSONObject(finalJson);
                 JSONArray routesJSON = parentJSON.getJSONArray("routes");
 
-                for (int i = 0; i < routesJSON.length(); i++){
+                for (int i = 0; i < routesJSON.length(); i++) {
                     JSONObject routeJSON = routesJSON.getJSONObject(i);
                     Route route = new Route();
                     JSONObject overviewPolylineJSON = routeJSON.getJSONObject("overview_polyline");
-
                     route.setPoints(decodePolyLine(overviewPolylineJSON.getString("points")));
-
                     routes.add(route);
                 }
-
                 return routes;
-
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -84,7 +73,8 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
         }
         return null;
     }
-    protected void onPostExecute(List<Route> result){
+
+    protected void onPostExecute(List<Route> result) {
         super.onPostExecute(result);
         try {
             activity.processDirectionData(result);
@@ -92,8 +82,6 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
             e.printStackTrace();
         }
     }
-
-
 
     private List<LatLng> decodePolyLine(final String poly) {
         int len = poly.length();
@@ -128,8 +116,6 @@ public class JSONDirectionsAPI extends AsyncTask<String, String, List<Route>> {
                     lat / 100000d, lng / 100000d
             ));
         }
-
         return decoded;
     }
-
 }

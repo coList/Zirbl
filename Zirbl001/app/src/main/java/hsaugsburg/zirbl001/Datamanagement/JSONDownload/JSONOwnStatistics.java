@@ -21,7 +21,6 @@ import hsaugsburg.zirbl001.Models.NavigationModels.OwnStatisticsModel;
 import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileOwnFragment;
 
 public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatisticsModel>> {
-
     private ProfileOwnFragment profileOwnFragment;
     private String username;
     private String deviceToken;
@@ -51,14 +50,11 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-
             String finalJson = buffer.toString();
 
             try {
-
                 JSONArray parentArray = new JSONArray(finalJson);
                 ArrayList<OwnStatisticsModel> ownStatisticsModelList = new ArrayList<>();
-
 
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject mJsonLObjectOwnStatistic = parentArray.getJSONObject(i);
@@ -70,11 +66,9 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
                     ownStatisticsModel.setGroupName(mJsonLObjectOwnStatistic.getString("groupname"));
                     ownStatisticsModel.setDuration(mJsonLObjectOwnStatistic.getInt("duration"));
                     ownStatisticsModel.setParticipationDate(mJsonLObjectOwnStatistic.getString("participationdate"));
-
                     ownStatisticsModel.setScore(mJsonLObjectOwnStatistic.getInt("score"));
                     ownStatisticsModel.setRank(mJsonLObjectOwnStatistic.getInt("worldranking"));
                     ownStatisticsModel.setTotalParticipations(mJsonLObjectOwnStatistic.getInt("totalparticipations"));
-
 
                     JSONObject participantsObject = mJsonLObjectOwnStatistic.getJSONObject("participants");
                     ArrayList<String> participants = new ArrayList<>();
@@ -89,20 +83,10 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
                             e.printStackTrace();
                         }
                     }
-
                     ownStatisticsModel.setParticipants(participants);
-
-
-
                     ownStatisticsModelList.add(ownStatisticsModel);
-
                 }
-
-
                 return ownStatisticsModelList;
-
-            //} catch (JSONException e) {
-           //     e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,7 +96,7 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
@@ -126,10 +110,9 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
         }
         return null;
     }
-    protected void onPostExecute(List<OwnStatisticsModel> result){
 
+    protected void onPostExecute(List<OwnStatisticsModel> result) {
         super.onPostExecute(result);
         profileOwnFragment.processData(result);
     }
-
 }

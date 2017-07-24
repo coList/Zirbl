@@ -94,7 +94,7 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
         }
         return null;
     }
-    
+
     protected void onPostExecute(List<ClassesModel> result){
         super.onPostExecute(result);
         qrSavedFragment.processData(result);

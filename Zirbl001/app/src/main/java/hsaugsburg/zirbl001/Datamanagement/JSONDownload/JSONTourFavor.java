@@ -20,9 +20,7 @@ import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourFavorModel;
 
-
 public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
-
     private Callback callback;
 
     public JSONTourFavor(Callback callback) {
@@ -47,14 +45,11 @@ public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-
             String finalJson = buffer.toString();
 
             try {
                 JSONArray parentArray = new JSONArray(finalJson);
-
                 List<JSONModel> tourFavorModelList = new ArrayList<>();
-
 
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject mJsonLObjectTourFavor = parentArray.getJSONObject(i);
@@ -68,11 +63,9 @@ public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
                     tourFavorModel.setDuration(mJsonLObjectTourFavor.getInt("duration"));
                     tourFavorModel.setDistance(mJsonLObjectTourFavor.getInt("distance"));
                     tourFavorModel.setMainpicture(mJsonLObjectTourFavor.getString("mainpicture"));
-                    // adding the final object in the list
 
                     tourFavorModelList.add(tourFavorModel);
                 }
-
                 return tourFavorModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -82,8 +75,8 @@ public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
-        } finally{
+            e.printStackTrace();
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
@@ -97,12 +90,9 @@ public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
         }
         return null;
     }
-    protected void onPostExecute(List<JSONModel> result){
 
+    protected void onPostExecute(List<JSONModel> result) {
         super.onPostExecute(result);
         callback.processData(result);
-
-
     }
-
 }
