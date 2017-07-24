@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -34,9 +33,7 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class TrueFalseActivity extends AppCompatActivity {
-
     private Context mContext = TrueFalseActivity.this;
-    private static final String TAG = "TrueFalseActivity";
 
     private boolean answerSelected = false;
     private boolean trueSelected;
@@ -47,9 +44,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
-
-    public static final String GLOBAL_VALUES = "globalValuesFile";
-    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int currentScore;
@@ -71,8 +65,13 @@ public class TrueFalseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_true_false);
 
-        //dot menu
+        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
+        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
+        startTime = Long.parseLong(tourValues.getString("startTime", null));
+        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
         stationName = getIntent().getStringExtra("stationName");
         String titleText;
@@ -81,24 +80,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         } else {
             titleText = "START";
         }
-
-
-        chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        //selectedTour = Integer.parseInt(getIntent().getStringExtra("selectedTour"));
-
-        SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
-        int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
-        startTime = Long.parseLong(tourValues.getString("startTime", null));
-        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-
-
-
         topDarkActionbar = new TopDarkActionbar(this, titleText);
-
-
-        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
 
         //Selection
         Button buttonTruth = (Button) findViewById(R.id.truth);
@@ -116,7 +98,6 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         TrueFalseModel result = new LoadTrueFalse(this, selectedTour, taskID).readFile();
 
@@ -138,7 +119,6 @@ public class TrueFalseActivity extends AppCompatActivity {
         File imgFile = new File(zirblImages , imgPath);
         String decodedImgUri = Uri.fromFile(imgFile).toString();
         ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
-
     }
 
     private void initImageLoader(){
@@ -174,10 +154,8 @@ public class TrueFalseActivity extends AppCompatActivity {
             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibe.vibrate(100);
         }
-
     }
 
-    //Selection
     View.OnClickListener answerTruth = new View.OnClickListener() {
         public void onClick(View v) {
             answerSelected = true;
@@ -203,6 +181,7 @@ public class TrueFalseActivity extends AppCompatActivity {
             btA.setTextColor(Color.WHITE);
         }
     };
+
     View.OnClickListener answerLie = new View.OnClickListener() {
         public void onClick(View v) {
             answerSelected = true;
@@ -227,8 +206,6 @@ public class TrueFalseActivity extends AppCompatActivity {
             btA.setTextColor(Color.WHITE);
         }
     };
-    //
-
 
     private void showEndTourDialog(){
         this.runOnUiThread(new Runnable() {
@@ -240,7 +217,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
             return true;
@@ -248,7 +225,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
@@ -265,6 +242,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }

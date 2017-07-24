@@ -34,14 +34,8 @@ import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class TourstartActivity extends AppCompatActivity implements TourActivity{
-
-    private static final String TAG = "TourstartActivity";
-    private int maxAmountOfParticipants = 10;
-
     private int selectedTour;
-    private int classID;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
-    private int chronologyNumber = -1;
     private LoadTourChronology loadTourChronology;
     private String stationName = "Anmeldung";
 
@@ -50,12 +44,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     private int count = 0;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-
     public static final String TOUR_VALUES = "tourValuesFile";
-
-    public int getSelectedTour() {
-        return selectedTour;
-    }
 
     private TopDarkActionbar topDarkActionbar;
 
@@ -72,8 +61,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourstart);
-        String titleText = "Anmeldung";
-
+        int classID;
 
         QuicksandRegularPrimaryEdit teamField = (QuicksandRegularPrimaryEdit) findViewById(R.id.teamname);
         ViewCompat.setBackgroundTintList(teamField, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
@@ -83,13 +71,12 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         QuicksandRegularPrimaryEdit memberField2 = (QuicksandRegularPrimaryEdit) findViewById(R.id.secondName);
         ViewCompat.setBackgroundTintList(memberField2, ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorLine)));
 
-
         selectedTour = Integer.parseInt(getIntent().getStringExtra("tourID"));
         classID = Integer.parseInt(getIntent().getStringExtra("classID"));
 
+        int chronologyNumber = -1;
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         String serverName = globalValues.getString("serverName", null);
-
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
@@ -101,7 +88,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         editor.putString("nutsCollected", Integer.toString(0));
         editor.putString("totalChronology", Integer.toString(loadTourChronology.getLastChronologyValue()));
 
-
+        String titleText = "Anmeldung";
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
@@ -128,17 +115,26 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(0, 0);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
+    }
+
+    public int getSelectedTour() {
+        return selectedTour;
     }
 
 
     public void addParticipant(View view) {
         EditText firstParticipantText = (EditText)findViewById(R.id.firstName);
         EditText secondParticipantText = (EditText)findViewById(R.id.secondName);
+        int maxAmountOfParticipants = 10;
+
+
         if (count < maxAmountOfParticipants - 1 && !firstParticipantText.getText().toString().isEmpty() && !secondParticipantText.getText().toString().isEmpty()) {
             EditText previousParticipantText = new EditText(this);
             if (count > 0) {
@@ -169,7 +165,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibe.vibrate(100);
             }
-
         } else {
             Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
             findViewById(R.id.plusButton).startAnimation(shake);
@@ -208,7 +203,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
 
         editor.commit();
 
-
         ImageView speechBubble = (ImageView) findViewById(R.id.registrationWelcome);
         setInput();
 
@@ -224,7 +218,6 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
             vibe.vibrate(100);
             speechBubble.setImageResource(R.drawable.img_zirbl_speech_bubble_class_fail);
         }
-
     }
 
     public String getStationName() {

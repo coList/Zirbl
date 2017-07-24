@@ -7,11 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TabSectionPagerAdapter extends FragmentPagerAdapter {
-
-    private static final String TAG = "TabSectionPagerAdapter";
-
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
     public TabSectionPagerAdapter(FragmentManager fm) {
@@ -22,7 +18,6 @@ public class TabSectionPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
     }
-
 
     @Override
     public int getCount() {

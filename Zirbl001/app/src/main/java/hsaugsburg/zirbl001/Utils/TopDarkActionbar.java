@@ -8,8 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Line;
-
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.R;
@@ -35,10 +34,10 @@ public class TopDarkActionbar {
             firstElement.setVisibility(View.VISIBLE);
             TextView scoreElement = (TextView) activity.findViewById(R.id.scoreElement);
             scoreElement.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
-            scoreElement.setText(" " + currentScore);
+            scoreElement.setText(String.format(Locale.GERMANY, "%d", currentScore));
             long totalTime = System.currentTimeMillis() - startTime;
 
-            String time = String.format("%d h %d min",
+            String time = String.format(Locale.GERMANY, "%d h %d min",
                     TimeUnit.MILLISECONDS.toHours(totalTime),
                     TimeUnit.MILLISECONDS.toMinutes(totalTime) -
                             TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
@@ -46,13 +45,11 @@ public class TopDarkActionbar {
 
             TextView timeElement = (TextView) activity.findViewById(R.id.timeElement);
             timeElement.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
-            timeElement.setText(" " + time);
+            timeElement.setText(time);
         } else {
             firstElement.setVisibility(View.GONE);
         }
-
     }
-
 
     public void showMenu(){
         ImageView dotIcon = (ImageView) activity.findViewById(R.id.dotIcon);

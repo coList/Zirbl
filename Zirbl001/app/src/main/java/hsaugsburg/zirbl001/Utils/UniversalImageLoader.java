@@ -19,7 +19,6 @@ import hsaugsburg.zirbl001.R;
 
 
 public class UniversalImageLoader {
-
     private static final int defaultImage = R.drawable.img_start_screen;
     private Context mContext;
 
@@ -34,7 +33,6 @@ public class UniversalImageLoader {
                 .considerExifParams(true)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED) //filled width
                 .build();
-
 
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(mContext)
                 .threadPoolSize(1)
