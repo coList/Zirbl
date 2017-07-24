@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -67,6 +68,8 @@ import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
+
+import static java.security.AccessController.getContext;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -159,6 +162,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         Button cheatButton = (Button) findViewById(R.id.nextTourItem);
         cheatButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         cheatButton.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        cheatButton.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
         //
 
         googleApiClient = new GoogleApiClient.Builder(this)
