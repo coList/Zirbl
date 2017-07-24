@@ -119,7 +119,7 @@ public class JSONClassStatistics extends AsyncTask<String, String, List<ClassesS
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
+            e.printStackTrace();
         } finally{
             if (connection != null) {
                 connection.disconnect();

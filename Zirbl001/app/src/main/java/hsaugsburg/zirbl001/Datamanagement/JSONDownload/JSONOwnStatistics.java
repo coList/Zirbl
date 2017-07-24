@@ -111,7 +111,7 @@ public class JSONOwnStatistics extends AsyncTask<String, String, List<OwnStatist
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
+            e.printStackTrace();
         } finally{
             if (connection != null) {
                 connection.disconnect();

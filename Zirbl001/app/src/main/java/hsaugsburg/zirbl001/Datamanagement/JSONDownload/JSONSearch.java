@@ -18,10 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Interfaces.Callback;
-import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
-import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
 
 

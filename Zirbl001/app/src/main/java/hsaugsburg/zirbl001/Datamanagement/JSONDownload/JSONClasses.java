@@ -1,7 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.JSONDownload;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassesModel;
 import hsaugsburg.zirbl001.NavigationActivities.QrCode.QrSavedFragment;
-
 
 public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
     private QrSavedFragment qrSavedFragment;
@@ -58,7 +56,6 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
 
                 List<ClassesModel> classesModelList = new ArrayList<>();
 
-
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject mJsonLObjectClasses = parentArray.getJSONObject(i);
 
@@ -73,7 +70,6 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
 
                     classesModelList.add(classesModel);
                 }
-
                 return classesModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -83,7 +79,7 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
+            e.printStackTrace();
         } finally{
             if (connection != null) {
                 connection.disconnect();
@@ -98,12 +94,9 @@ public class JSONClasses extends AsyncTask<String, String, List<ClassesModel>> {
         }
         return null;
     }
+    
     protected void onPostExecute(List<ClassesModel> result){
-
         super.onPostExecute(result);
         qrSavedFragment.processData(result);
-
-
     }
-
 }

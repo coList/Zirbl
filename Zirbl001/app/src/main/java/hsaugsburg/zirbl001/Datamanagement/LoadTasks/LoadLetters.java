@@ -24,19 +24,17 @@ public class LoadLetters {
     public LettersModel readFile() {
         LettersModel lettersModel = new LettersModel();
         try {
-            FileInputStream fileIn=activity.openFileInput("letters" + tourID + ".txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
+            FileInputStream fileIn = activity.openFileInput("letters" + tourID + ".txt");
+            InputStreamReader InputRead = new InputStreamReader(fileIn);
 
             int READ_BLOCK_SIZE = 100;
             char[] inputBuffer= new char[READ_BLOCK_SIZE];
             String s="";
             int charRead;
 
-            while ((charRead=InputRead.read(inputBuffer))>0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
-
+            while ((charRead = InputRead.read(inputBuffer)) > 0) {
+                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readstring;
             }
             InputRead.close();
 
@@ -62,11 +60,9 @@ public class LoadLetters {
                     lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return lettersModel;
-
     }
 }

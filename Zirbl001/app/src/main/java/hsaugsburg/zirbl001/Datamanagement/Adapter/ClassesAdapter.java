@@ -24,35 +24,29 @@ public class ClassesAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<ClassesModel> mDataSource;
 
-
     public ClassesAdapter(Context context, List<ClassesModel> items) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    //1
     @Override
     public int getCount() {
         return mDataSource.size();
     }
 
-    //2
     @Override
     public Object getItem(int position) {
         return mDataSource.get(position);
     }
 
-    //3
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    //4
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get view for row item
         View rowView = mInflater.inflate(R.layout.list_item_saved_qrcode, parent, false);
 
         TextView className = (TextView) rowView.findViewById(R.id.savedClass);
@@ -80,6 +74,7 @@ public class ClassesAdapter extends BaseAdapter {
         String strCurrentDate = classesModel.getCreationDate();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String date = "";
+
         try {
 
             Date newDate = format.parse(strCurrentDate);
@@ -88,6 +83,7 @@ public class ClassesAdapter extends BaseAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         creationDate.setText(date);
 
         return rowView;

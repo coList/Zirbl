@@ -7,7 +7,6 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 
@@ -71,8 +69,8 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
                 JSONArray mJsonArrayTourElement = parentObject.getJSONArray(outerName);
 
-                FileOutputStream fileout= activity.openFileOutput(innerName + selectedTour + ".txt", activity.MODE_PRIVATE);
-                OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+                FileOutputStream fileout = activity.openFileOutput(innerName + selectedTour + ".txt", activity.MODE_PRIVATE);
+                OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
 
                 for (int i = 0; i < mJsonArrayTourElement.length(); i++) {
                     JSONObject mJsonLObjectTourElement = mJsonArrayTourElement.getJSONObject(i);
@@ -110,16 +108,13 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                                     String[] parts = mJSONObjectElement.getString("picturepath").split("\\.");
 
                                     ContextWrapper cw = new ContextWrapper(activity.getApplicationContext());
-                                    // path to /data/data/yourapp/app_data/imageDir
-
                                     File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
-                                    // Create imageDir
+
                                     File mypath=new File(directory, selectedTour + name + "." + parts[parts.length - 1]);
 
                                     FileOutputStream pictureFileout = null;
                                     try {
                                         pictureFileout = new FileOutputStream(mypath);
-                                        // Use the compress method on the BitMap object to write image to the OutputStream
                                         if (parts[parts.length - 1].equals("png")) {
 
                                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, pictureFileout);
@@ -139,13 +134,10 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
                             }
                         }
-
                         outputWriter.write(mJSONArrayElement.toString());
                     }
                 }
-
                 outputWriter.close();
-
                 return "Download finished";
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -168,14 +160,12 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
         }
         return null;
     }
-    protected void onPostExecute(String result){
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
         File file = new File(innerName + selectedTour + ".txt");
         file.deleteOnExit();
         downloadActivity.downloadFinished();
     }
-
-
 
     private static Bitmap getBitmapFromURL(String src) {
         try {
@@ -187,11 +177,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
         } catch (IOException e) {
-            // Log exception
             return null;
         }
     }
-
-
-
 }

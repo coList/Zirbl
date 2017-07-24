@@ -86,7 +86,7 @@ public class JSONTourSelection extends AsyncTask<String, String, List<JSONModel>
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
-            e.toString();
+            e.printStackTrace();
         } finally{
             if (connection != null) {
                 connection.disconnect();
