@@ -18,12 +18,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Interfaces.Callback;
-import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
-import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.Search.SearchActivity;
-
 
 public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
     private SearchActivity searchActivity;
@@ -31,6 +27,7 @@ public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
     public JSONSearch(SearchActivity searchActivity) {
         this.searchActivity = searchActivity;
     }
+
     protected List<SearchModel> doInBackground(String... params) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -49,20 +46,17 @@ public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
             while ((line = reader.readLine()) != null) {
                 buffer.append(line);
             }
-
             String finalJson = buffer.toString();
 
             try {
                 JSONArray parentArray = new JSONArray(finalJson);
                 JSONObject parentObject = parentArray.getJSONObject(0);
-
                 JSONArray mJsonArrayTourDetails = parentObject.getJSONArray("searchdetails");
 
                 List<SearchModel> searchModelList = new ArrayList<>();
 
                 for (int i = 0; i < mJsonArrayTourDetails.length(); i++) {
                     JSONObject mJsonLObjectTourDetails = mJsonArrayTourDetails.getJSONObject(i);
-
                     SearchModel searchModel = new SearchModel();
 
                     searchModel.setTourName(mJsonLObjectTourDetails.getString("tourname"));
@@ -73,10 +67,8 @@ public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
                     searchModel.setDuration(mJsonLObjectTourDetails.getInt("duration"));
                     searchModel.setShortDescription(mJsonLObjectTourDetails.getString("shortdescription"));
 
-                    // adding the final object in the list
                     searchModelList.add(searchModel);
                 }
-
                 return searchModelList;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -99,10 +91,9 @@ public class JSONSearch extends AsyncTask<String, String, List<SearchModel>> {
         }
         return null;
     }
-    protected void onPostExecute(List<SearchModel> result){
-        super.onPostExecute(result);
 
+    protected void onPostExecute(List<SearchModel> result) {
+        super.onPostExecute(result);
         searchActivity.processData(result);
     }
-
 }

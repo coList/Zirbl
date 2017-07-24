@@ -105,12 +105,12 @@
 
             <Button
                 android:id="@+id/nextTourItem"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="3dp"
-                android:background="@android:color/transparent"
+                android:background="#7fffffff"
                 android:onClick="continueToNextView" />
 
         </RelativeLayout>

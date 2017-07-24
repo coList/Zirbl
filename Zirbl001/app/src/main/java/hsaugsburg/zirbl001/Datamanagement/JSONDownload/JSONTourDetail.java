@@ -19,11 +19,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Interfaces.Callback;
-import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
-
 
 public class JSONTourDetail extends AsyncTask<String, String, TourDetailModel> {
     private TourDetailActivity tourDetailActivity;
@@ -38,7 +35,6 @@ public class JSONTourDetail extends AsyncTask<String, String, TourDetailModel> {
         BufferedReader reader = null;
 
         try {
-
             URL url;
             url = new URL(params[0] + "?tourid=" + tourID);
             Log.d("JSONTourDetail", Integer.toString(tourID));
@@ -86,10 +82,8 @@ public class JSONTourDetail extends AsyncTask<String, String, TourDetailModel> {
                             String picturesPath = mJsonLObjectTourDetails.getJSONArray("picturespath").getString(j);
                             picturesPathList.add(picturesPath);
                         }
-
                         tourDetailModel.setPicturesPath(picturesPathList);
                     }
-
                 return tourDetailModel;
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -112,10 +106,9 @@ public class JSONTourDetail extends AsyncTask<String, String, TourDetailModel> {
         }
         return null;
     }
-    protected void onPostExecute(TourDetailModel result){
-        super.onPostExecute(result);
 
+    protected void onPostExecute(TourDetailModel result) {
+        super.onPostExecute(result);
         tourDetailActivity.processData(result);
     }
-
 }

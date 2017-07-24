@@ -33,10 +33,8 @@ public class LoadLocationDoUKnow {
             int charRead;
 
             while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                // char to string conversion
                 String readstring = String.copyValueOf(inputBuffer, 0, charRead);
                 s += readstring;
-
             }
             InputRead.close();
 
