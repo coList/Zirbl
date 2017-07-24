@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourFavorModel;
@@ -71,9 +74,11 @@ public class TourFavorAdapter extends BaseAdapter {
 
         TourFavorModel tourSelection = (TourFavorModel) getItem(position);
         tourName.setText(tourSelection.getTourName());
-        duration.setText(Integer.toString(tourSelection.getDuration()) + " min");
+        duration.setText(String.format(Locale.GERMANY, "%d min", tourSelection.getDuration()));
         double dist = tourSelection.getDistance() / 1000.0;
-        distance.setText(Double.toString(dist) + " km");
+        NumberFormat nf = new DecimalFormat("##.##");
+        nf.format(dist);
+        distance.setText(dist + " km");
         difficultyName.setText(tourSelection.getDifficultyName());
 
         //new DownloadImageTask((ImageView) rowView.findViewById(R.id.imageView)).execute(tourSelection.getMainpicture());

@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassStatisticsModel;
@@ -91,13 +90,12 @@ public class ClassStatisticsAdapter extends BaseAdapter {
         tourName.setText(firstClassStatisticModel.getTourName());
 
         String strCurrentDate = firstClassStatisticModel.getParticipationDate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String date = "";
         try {
 
             Date newDate = format.parse(strCurrentDate);
-            Calendar cal = Calendar.getInstance();
-            format = new SimpleDateFormat("dd. MMMM yyyy");
+            format = new SimpleDateFormat("dd. MMMM yyyy", Locale.GERMANY);
             date = format.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -133,17 +131,18 @@ public class ClassStatisticsAdapter extends BaseAdapter {
             participantsViewText = participantsViewText.substring(0, participantsViewText.length() - 2);
             participants.setText(participantsViewText);
 
-            ranking.setText(classStatisticsModel.getClassRanking() + ". Platz");
+            ranking.setText(String.format(Locale.GERMANY, "%d. Platz", classStatisticsModel.getClassRanking()));
+
 
             int totalTime = classStatisticsModel.getDuration();
-            String time = String.format("%d h %d min",
+            String time = String.format(Locale.GERMANY, "%d h %d min",
                     TimeUnit.MILLISECONDS.toHours(totalTime),
                     TimeUnit.MILLISECONDS.toMinutes(totalTime) -
                             TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
             );
             duration.setText(time);
 
-            score.setText(Integer.toString(classStatisticsModel.getScore()));
+            score.setText(String.format(Locale.GERMANY, "%d", classStatisticsModel.getScore()));
 
 
             layout.addView(teamStatistic);

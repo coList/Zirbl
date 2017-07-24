@@ -2,7 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,9 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassesModel;
 import hsaugsburg.zirbl001.R;
@@ -61,7 +60,6 @@ public class ClassesAdapter extends BaseAdapter {
         TextView creationDate = (TextView) rowView.findViewById(R.id.savedDate);
 
         final ClassesModel classesModel = (ClassesModel) getItem(position);
-        Log.d("ClassesAdapter", classesModel.toString());
 
         rowView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -75,19 +73,17 @@ public class ClassesAdapter extends BaseAdapter {
             }
         });
 
-
         String classNameText = "Klasse " + classesModel.getClassname();
         className.setText(classNameText);
         schoolName.setText(classesModel.getSchoolname());
 
         String strCurrentDate = classesModel.getCreationDate();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMANY);
         String date = "";
         try {
 
             Date newDate = format.parse(strCurrentDate);
-            Calendar cal = Calendar.getInstance();
-            format = new SimpleDateFormat("dd. MMMM yyyy");
+            format = new SimpleDateFormat("dd. MMMM yyyy", Locale.GERMANY);
             date = format.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -95,6 +91,5 @@ public class ClassesAdapter extends BaseAdapter {
         creationDate.setText(date);
 
         return rowView;
-
     }
 }
