@@ -15,8 +15,6 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
 public class ImpressumActivity extends AppCompatActivity {
-
-    private static final String TAG = "ImpressumActivity";
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext = ImpressumActivity.this;
@@ -41,7 +39,7 @@ public class ImpressumActivity extends AppCompatActivity {
         zirbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
     }
 
-    private void setupBottomNavigationView(){
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);

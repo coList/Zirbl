@@ -13,16 +13,13 @@ import android.os.Vibrator;
 import android.text.Html;
 import android.text.Spanned;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -67,15 +64,6 @@ public class LettersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_letters);
 
-        //dot menu
-        stationName = getIntent().getStringExtra("stationName");
-        String titleText;
-        if (stationName != null && !stationName.isEmpty()) {
-            titleText = stationName.toUpperCase();
-        } else {
-            titleText = "START";
-        }
-
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         //get global tour values
@@ -85,9 +73,16 @@ public class LettersActivity extends AppCompatActivity {
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
+        //dot menu
+        stationName = getIntent().getStringExtra("stationName");
+        String titleText;
+        if (stationName != null && !stationName.isEmpty()) {
+            titleText = stationName.toUpperCase();
+        } else {
+            titleText = "START";
+        }
 
         topDarkActionbar = new TopDarkActionbar(this, titleText);
-
 
         TextView besideImg = (TextView) findViewById(R.id.besideImgQuestion);
         besideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
@@ -103,10 +98,8 @@ public class LettersActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         LettersModel result = new LoadLetters(this, selectedTour, taskID).readFile();
-
 
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(fromHtml(result.getQuestion()));
@@ -128,7 +121,6 @@ public class LettersActivity extends AppCompatActivity {
             button.setId(i);
             float d = getResources().getDisplayMetrics().density;
             TableRow.LayoutParams params = new TableRow.LayoutParams((int)(30*d), TableRow.LayoutParams.WRAP_CONTENT);
-            //params.weight = 1;
             params.leftMargin = (int) (3 * d);
             params.rightMargin = (int) (3 * d);
             Context context = button.getContext();
@@ -139,15 +131,12 @@ public class LettersActivity extends AppCompatActivity {
             button.setTextColor(colorId);
             button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
-
             //user wants to remove the old letter
             //empty the button text
             //set used letter visible again
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-
                     boolean foundText = false;
-
                     for (int i = 0; i < letters.length(); i++) {
                         if (!foundText) {
                             String name = "letter" + (i + 1);
@@ -160,17 +149,13 @@ public class LettersActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                 }
             });
-
 
             button.setText("");
             button.setLayoutParams(params);
             tableRow.addView(button);
-
         }
-
 
         //set letters
         for (int i = 0; i < letters.length(); i++) {
@@ -183,7 +168,6 @@ public class LettersActivity extends AppCompatActivity {
             letter.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     String letterText = letter.getText().toString();
-
                     boolean foundButton = false;
                     for (int i = 0; i < solutionLength; i++) {
                         if (!foundButton) {
@@ -231,8 +215,6 @@ public class LettersActivity extends AppCompatActivity {
             Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibe.vibrate(100);
         }
-
-
     }
 
     private StringBuilder shuffleLetters(StringBuilder stringBuilder) {
@@ -279,9 +261,11 @@ public class LettersActivity extends AppCompatActivity {
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }

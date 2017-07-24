@@ -2,16 +2,13 @@ package hsaugsburg.zirbl001.TourActivities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,17 +17,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
-import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class PointsActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = PointsActivity.this;
-    private static final String TAG = "PointsActivity";
-
 
     private int chronologyNumber;
     private int currentScore;
@@ -42,11 +38,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private long startTime;
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
-
     private LoadTourChronology loadTourChronology;
 
-
-    //dot menu
     private TopDarkActionbar topDarkActionbar;
 
     @Override
@@ -59,7 +52,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_points);
-
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
@@ -102,7 +94,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
-                scoreText.setText(Integer.toString(score));
+                scoreText.setText(String.format(Locale.GERMANY, "%d", score));
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
@@ -116,9 +108,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 gif.setImageResource(R.drawable.confetti_right);
                 currentScore += score;
-                scoreText.setText(Integer.toString(score));
+                scoreText.setText(String.format(Locale.GERMANY, "%d", score));
                 titleText = correct;
-
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
@@ -126,9 +117,6 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 titleText = wrong;
             }
         }
-
-
-        //dot menu
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         //Scroll View State Change
@@ -140,7 +128,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
-        if(((double)stringLengthC)/height <= 0.16 || ((double)stringLengthW)/height <= 0.16) {
+        if (((double)stringLengthC)/height <= 0.16 || ((double)stringLengthW)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.BELOW, 0);
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
@@ -165,11 +153,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             pointsArea.setLayoutParams(paramsPoints);
             answerText.setLayoutParams(paramsText);
         }
-        //
-
-
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
-
         loadTourChronology.readChronologyFile();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -179,16 +163,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("currentScore", Integer.toString(currentScore));
         editor.commit();
-
     }
 
     public void continueToNextView(View view) {
         loadTourChronology.continueToNextView();
-    }
-
-    public void backToNavigationActivity(View view) {
-        Intent intent = new Intent(mContext, NavigationActivity.class);
-        startActivity(intent);
     }
 
     private void showEndTourDialog(){
@@ -226,9 +204,11 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }
