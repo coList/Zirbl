@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|center_vertical">
 
-            <hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton
+            <Button
                 android:id="@+id/nextTourItem"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"

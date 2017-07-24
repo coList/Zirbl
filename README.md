@@ -1,13 +1,13 @@
 # Zirbl
 
+Team Zirbl gestaltet interaktive Wandertage in Augsburg. 
+Dafür wurde eine App entwickelt, die in themenbasierten Rätseltouren den Schulunterricht ergänzt. 
+In kleinen Teams werden die Schüler von Aufgabe zu Aufgabe durch die Stadt geführt. 
+Dabei werden Inhalte des Lehrplans und Teamfähigkeit spielerisch vermittelt. 
 
-<<<<<<< HEAD
-Interaktiver Wandertag fuer Schueler
-=======
-Interaktiver Wandertag f�r Sch�ler
+Team Zirbl
+6. Semester
+Interaktive Medien 
+Hochschule Augsburg
 
-Interaktive Medien 6. Semester
-
-
-tobi
->>>>>>> origin/master
+Betreuung: Moritz Jacobs, Wolfgang Kowarschick

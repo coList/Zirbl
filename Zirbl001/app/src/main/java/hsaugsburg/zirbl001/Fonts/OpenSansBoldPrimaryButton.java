@@ -36,7 +36,6 @@ public class OpenSansBoldPrimaryButton extends android.support.v7.widget.AppComp
     }
 
     private void init() {
-        Typeface font=Typeface.createFromAsset(getContext().getAssets(), "fonts/Quicksand-Regular.ttf");
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf"));
         this.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
