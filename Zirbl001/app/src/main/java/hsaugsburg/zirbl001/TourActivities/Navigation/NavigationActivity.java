@@ -18,8 +18,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -153,6 +155,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        //
+        Button cheatButton = (Button) findViewById(R.id.nextTourItem);
+        cheatButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        cheatButton.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        //
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
