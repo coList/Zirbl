@@ -45,7 +45,6 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
 public class SearchActivity extends AppCompatActivity implements InternetActivity {
-
     private static final String TAG = "SearchActivity";
     private static final int ACTIVITY_NUM = 1;
 
@@ -69,7 +68,6 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Log.d(TAG, "onCreate: starting");
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("SUCHE");
@@ -84,8 +82,10 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
         }
         catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         setupBottomNavigationView();
@@ -107,7 +107,6 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(iConnection) {
-
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.search_view_menu_item, menu);
             MenuItem searchViewItem = menu.findItem(R.id.action_search);
@@ -121,19 +120,14 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-
                     //Hier muss die Liste gefiltert werden
                     adapter.getFilter().filter(newText);
-
                     return false;
                 }
             });
-
         }
         return super.onCreateOptionsMenu(menu);
-
     }
-
 
     private void setupBottomNavigationView(){
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
@@ -163,18 +157,15 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
                     startActivity(intent1);
                 }
             });
-        }
-            else{
+        } else{
             iConnection = false;
             TextView noConnection = (TextView)findViewById(R.id.noConnection);
             noConnection.setVisibility(View.VISIBLE);
         }
-
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -188,8 +179,7 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
         }
     }
 
-
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
