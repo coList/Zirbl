@@ -64,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Touren");
 
+
+
         TextView actionbarText = null;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");

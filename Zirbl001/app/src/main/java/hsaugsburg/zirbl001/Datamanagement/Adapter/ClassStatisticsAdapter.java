@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -58,21 +59,27 @@ public class ClassStatisticsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get view for row item
         final View rowView = mInflater.inflate(R.layout.list_item_class_statistic, parent, false);
+        final TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
         rowView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     LinearLayout gonePart = (LinearLayout) rowView.findViewById(R.id.gonePart);
+                    ImageButton arrow = (ImageButton) rowView.findViewById(R.id.arrowUpDown);
 
                     if (gonePart.getVisibility() == View.GONE) {
                         gonePart.setVisibility(View.VISIBLE);
+                        arrow.setImageResource(R.drawable.btn_arrow_up);
+                        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
                     } else {
                         gonePart.setVisibility(View.GONE);
+                        arrow.setImageResource(R.drawable.btn_arrow_down);
+                        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
                     }
 
             }
         });
-        TextView tourName = (TextView) rowView.findViewById(R.id.titleOfStatistic);
+
         tourName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+
         TextView participationDate = (TextView) rowView.findViewById(R.id.dateOfTour);
         TextView school = (TextView) rowView.findViewById(R.id.school);
 
