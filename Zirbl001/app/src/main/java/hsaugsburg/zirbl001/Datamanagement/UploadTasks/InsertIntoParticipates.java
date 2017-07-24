@@ -2,7 +2,6 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +50,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     }
 
     protected String doInBackground(String... arg0) {
-
         try {
             URL url = new URL(serverName + "/api/insertIntoParticipates.php");
 
@@ -60,7 +58,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             postDataParams.put("devicetoken", deviceToken);
             postDataParams.put("tourid", tourID);
             if (classID > 0) {
-                postDataParams.put("classid", classID);  //nicht setzen, wenn keine Klasse vorhanden!
+                postDataParams.put("classid", classID);  //don't set without class
             } 
             postDataParams.put("groupname", teamname);
             postDataParams.put("score", score);
@@ -70,7 +68,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             for (int i = 0; i < participants.size(); i++) {
                 JSONParticipants.put("participant" + i, participants.get(i));
             }
-            postDataParams.put("participants", JSONParticipants); //JSON objekt?
+            postDataParams.put("participants", JSONParticipants);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
@@ -91,7 +89,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(
                         conn.getInputStream()));
@@ -107,14 +104,12 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
                 in.close();
                 return sb.toString();
-
             } else {
                 return "false : " + responseCode;
             }
         } catch (Exception e) {
             return "Exception: " + e.getMessage();
         }
-
     }
 
     @Override
@@ -127,16 +122,13 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
         }
     }
 
-
     private String getPostDataString(JSONObject params) throws Exception {
-
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
         Iterator<String> itr = params.keys();
 
         while (itr.hasNext()) {
-
             String key = itr.next();
             Object value = params.get(key);
 
@@ -148,7 +140,6 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
             result.append(URLEncoder.encode(key, "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
         }
         return result.toString();
     }

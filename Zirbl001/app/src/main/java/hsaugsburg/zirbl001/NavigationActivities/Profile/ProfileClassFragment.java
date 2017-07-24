@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.NavigationActivities.Profile;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,12 +18,8 @@ import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
 import hsaugsburg.zirbl001.Models.NavigationModels.ClassesStatModel;
 import hsaugsburg.zirbl001.R;
 
-
 public class ProfileClassFragment extends Fragment {
-    private static final String TAG = "ProfileClassFragment";
-
     private ListView mListView;
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
     @Nullable
@@ -45,7 +40,7 @@ public class ProfileClassFragment extends Fragment {
         if (result != null) {
            ClassStatisticsAdapter adapter = new ClassStatisticsAdapter((Context)getActivity(), result);
            mListView.setAdapter(adapter);
-        }else{
+        } else {
             RelativeLayout rl = (RelativeLayout) getActivity().findViewById(R.id.noClassStats);
             rl.setVisibility(View.VISIBLE);
         }

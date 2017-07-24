@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,17 +19,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
-
-import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClassStatistics;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONOwnStatistics;
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
 import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.ImpressumActivity;
 import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
@@ -39,14 +34,10 @@ import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
 
 public class ProfileActivity extends AppCompatActivity implements InternetActivity {
-
     private static final String TAG = "ProfileActivity";
     private static final int ACTIVITY_NUM = 4;
-
     private Context mContext = ProfileActivity.this;
-
     public static final String GLOBAL_VALUES = "globalValuesFile";
-
     private TabSectionPagerAdapter adapter;
 
     //Animation beim Activity wechsel verhindern
@@ -64,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Mein Bereich");
 
-        TextView actionbarText = null;
+        TextView actionbarText;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
             f.setAccessible(true);
@@ -74,8 +65,9 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         setupBottomNavigationView();
@@ -83,18 +75,14 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
         adapter = new TabSectionPagerAdapter((getSupportFragmentManager()));
         setupViewPager();
 
-
         if (!isOnline()) {
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         }
-
-
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -109,21 +97,18 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
             String username = globalValues.getString("userName", null);
             String deviceToken = globalValues.getString("deviceToken", null);
 
-
             RelativeLayout relativeLayoutOwnStatistics = (RelativeLayout) findViewById(R.id.noOwnStats);
             relativeLayoutOwnStatistics.setVisibility(View.GONE);
             new JSONOwnStatistics((ProfileOwnFragment) adapter.getItem(0), username, deviceToken).execute(serverName + "/api/selectOwnStatisticsView.php");
-
 
             RelativeLayout relativeLayoutClassStatistics = (RelativeLayout) findViewById(R.id.noClassStats);
             relativeLayoutClassStatistics.setVisibility(View.GONE);
             new JSONClassStatistics((ProfileClassFragment)adapter.getItem(1), username, deviceToken).execute(serverName + "/api/selectClassStatisticsView.php");
         }
-
     }
 
     // Responsible for adding the 2 tabs: Eigene Statistik, Klassen Statistik
-    private void setupViewPager(){
+    private void setupViewPager() {
         adapter.addFragment(new ProfileOwnFragment());
         adapter.addFragment(new ProfileClassFragment());
 
@@ -136,11 +121,9 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
         tabLayout.getTabAt(0).setText("Eigene Statistik");
         tabLayout.getTabAt(1).setText("Klassenstatistik");
         changeTabsFont();
-
     }
 
     private void changeTabsFont() {
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf");
 
@@ -158,9 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements InternetActivi
         }
     }
 
-
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
