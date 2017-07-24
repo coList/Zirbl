@@ -50,11 +50,4 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/btn_arrow_right" />
 
-    <ImageView
-        android:id="@+id/lineBelow"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/savedDate"
-        app:srcCompat="@color/colorLine" />
-
 </RelativeLayout>
