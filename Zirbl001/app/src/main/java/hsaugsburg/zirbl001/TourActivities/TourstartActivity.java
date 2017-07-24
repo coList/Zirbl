@@ -129,7 +129,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         topDarkActionbar.showMenu();
     }
     public void showStats(View view){
-        topDarkActionbar.showStats(0);
+        topDarkActionbar.showStats(0, 0);
     }
     public void quitTour(View view){
         showEndTourDialog();
