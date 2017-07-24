@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -63,7 +64,7 @@ public class ClassStatisticsAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                     LinearLayout gonePart = (LinearLayout) rowView.findViewById(R.id.gonePart);
-                    ImageButton arrow = (ImageButton) rowView.findViewById(R.id.arrowUpDown);
+                    ImageView arrow = (ImageView) rowView.findViewById(R.id.arrowUpDown);
 
                     if (gonePart.getVisibility() == View.GONE) {
                         gonePart.setVisibility(View.VISIBLE);
@@ -82,6 +83,7 @@ public class ClassStatisticsAdapter extends BaseAdapter {
 
         TextView participationDate = (TextView) rowView.findViewById(R.id.dateOfTour);
         TextView school = (TextView) rowView.findViewById(R.id.school);
+        tourName.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
 
         ClassesStatModel classesStatModel = (ClassesStatModel) getItem(position);
 
