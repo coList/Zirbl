@@ -28,19 +28,6 @@
             android:orientation="vertical">
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                android:id="@+id/impLink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imp4"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="24dp"
-                android:clickable="true"
-                android:onClick="goToHs"
-                android:text="" />
-
-            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/imp2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -75,20 +75,6 @@ public class ImpressumActivity extends AppCompatActivity {
                 "Kerstin Paukstat  <br />" +
                 "Tim Reinelt  <br />" +
                 "Simon Albrecht"));
-
-        TextView impLink = (TextView) findViewById(R.id.impLink);
-        impLink.setText(fromHtml("Impressum der Hochschule Augsburg"));
-        impLink.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-    }
-
-    public void goToHs(View view) {
-        goToUrl( "https://www.hs-augsburg.de/Service/Impressum.html");
-    }
-
-    private void goToUrl(String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
     }
 
     public static Spanned fromHtml(String html) {
