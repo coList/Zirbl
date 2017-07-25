@@ -42,8 +42,6 @@ public class ImpressumActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Impressum");
         setupBottomNavigationView();
 
-
-
         setActivityText();
 
     }
@@ -60,7 +58,6 @@ public class ImpressumActivity extends AppCompatActivity {
     }
 
     public void setActivityText(){
-
         TextView zirbl = (TextView) findViewById(R.id.impTitle);
         zirbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
 
@@ -82,15 +79,13 @@ public class ImpressumActivity extends AppCompatActivity {
         TextView impLink = (TextView) findViewById(R.id.impLink);
         impLink.setText(fromHtml("Impressum der Hochschule Augsburg"));
         impLink.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-
-
     }
 
-    public void goToHs (View view) {
-        goToUrl ( "https://www.hs-augsburg.de/Service/Impressum.html");
+    public void goToHs(View view) {
+        goToUrl( "https://www.hs-augsburg.de/Service/Impressum.html");
     }
 
-    private void goToUrl (String url) {
+    private void goToUrl(String url) {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
