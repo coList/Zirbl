@@ -149,12 +149,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        //
+
         Button cheatButton = (Button) findViewById(R.id.nextTourItem);
         cheatButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         cheatButton.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         cheatButton.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-        //
+
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
