@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
 
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
+        new JSONTourSelection(this).execute(serverName + "/api2/selectTourSelectionView.php");
         mListView = (ListView) findViewById(R.id.home_list_view);
 
         initImageLoader();
@@ -104,6 +104,14 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
 
     public void processData(List<JSONModel> result) {
         if (result != null) {
+
+
+            /*
+            //Entferne Fuggertour aus der Liste
+            result.remove(0);
+            */
+
+
             TourSelectionAdapter adapter = new TourSelectionAdapter(this, result, imageLoader);
             mListView.setAdapter(adapter);
             final List<JSONModel> tourSelectionItems = result;
@@ -126,6 +134,6 @@ public class HomeActivity extends AppCompatActivity implements Callback, Interne
     }
 
     public void tryConnectionAgain() {
-        new JSONTourSelection(this).execute(serverName + "/api/selectTourSelectionView.php");
+        new JSONTourSelection(this).execute(serverName + "/api2/selectTourSelectionView.php");
     }
 }

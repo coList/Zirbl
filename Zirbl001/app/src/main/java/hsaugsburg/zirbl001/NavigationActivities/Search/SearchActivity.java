@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
+            new JSONSearch(this).execute(serverName + "/api2/selectSearchDetailsView.php");
         }
 
         mListView = (ListView) findViewById(R.id.search_list_view);
@@ -142,6 +142,14 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
 
     public void processData(List<SearchModel> result) {
         if (result != null) {
+
+            /*
+            //Entferne Fugger-Tour aus der Liste
+            result.remove(0);
+
+            */
+
+
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
 
@@ -175,7 +183,7 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONSearch(this).execute(serverName + "/api/selectSearchDetailsView.php");
+            new JSONSearch(this).execute(serverName + "/api2/selectSearchDetailsView.php");
         }
     }
 

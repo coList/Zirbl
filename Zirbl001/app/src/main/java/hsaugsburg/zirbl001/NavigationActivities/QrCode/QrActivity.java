@@ -114,7 +114,7 @@ public class QrActivity extends AppCompatActivity implements InternetActivity {
             String serverName = globalValues.getString("serverName", null);
             String userName = globalValues.getString("userName", null);
             String deviceToken = globalValues.getString("deviceToken", null);
-            new JSONClasses((QrSavedFragment) adapter.getItem(1), userName, deviceToken).execute(serverName + "/api/selectClassesView.php");
+            new JSONClasses((QrSavedFragment) adapter.getItem(1), userName, deviceToken).execute(serverName + "/api2/selectClassesView.php");
         }
     }
 

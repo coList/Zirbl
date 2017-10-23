@@ -89,7 +89,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONTourFavor(this).execute(serverName + "/api/selectFavoritesView.php?username="+userName);
+            new JSONTourFavor(this).execute(serverName + "/api2/selectFavoritesView.php?username="+userName);
         }
 
         mListView = (ListView) findViewById(R.id.home_list_view);
@@ -148,7 +148,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
         NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
         noConnectionDialog.showDialog(this);
         } else {
-            new JSONTourFavor(this).execute(serverName + "/api/selectFavoritesView.php?username="+userName);
+            new JSONTourFavor(this).execute(serverName + "/api2/selectFavoritesView.php?username="+userName);
         }
     }
 }

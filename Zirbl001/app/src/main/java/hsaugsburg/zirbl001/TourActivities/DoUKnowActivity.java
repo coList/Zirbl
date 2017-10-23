@@ -38,6 +38,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
+    private String teamName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private LoadTourChronology loadTourChronology;
@@ -47,6 +48,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private long startTime;
 
     private TopDarkActionbar topDarkActionbar;
+
+    private String changeIntoTeamname = "TEAMNAME";
 
     @Override
     protected void onPause() {
@@ -67,7 +70,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-
+        teamName = tourValues.getString("teamName", null);
 
         //dot menu
         String knowledge = "Wissen";
@@ -100,7 +103,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         String resultText = result.getContentText();
-        doUKnow.setText(fromHtml(resultText));
+        String newResultText = resultText.replaceAll(changeIntoTeamname, teamName);
+        doUKnow.setText(fromHtml(newResultText));
         int stringLength = resultText.length();
 
         ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);

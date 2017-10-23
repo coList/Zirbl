@@ -31,7 +31,7 @@ public class ProfileClassFragment extends Fragment {
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
         String deviceToken = globalValues.getString("deviceToken", null);
-        new JSONClassStatistics(this, username, deviceToken).execute(serverName + "/api/selectClassStatisticsView.php");
+        new JSONClassStatistics(this, username, deviceToken).execute(serverName + "/api2/selectClassStatisticsView.php");
         mListView = (ListView) view.findViewById(R.id.classstatistics_list_view);
         return view;
     }

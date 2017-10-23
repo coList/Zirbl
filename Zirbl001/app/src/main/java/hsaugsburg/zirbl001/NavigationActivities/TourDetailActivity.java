@@ -116,7 +116,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         userName = globalValues.getString("userName", null);
         deviceToken = globalValues.getString("deviceToken", null);
 
-        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
 
         initImageLoader();
     }
@@ -132,15 +132,15 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     }
 
     public void downloadTour() {
-        new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
-        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
-        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
-        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
+        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api2/selectSingleChoiceView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api2/selectGuessTheNumberView.php");
+        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api2/selectStationLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api2/selectTrueFalseView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api2/selectChronologyView.php");
+        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api2/selectNutLocationsView.php");
     }
 
     private boolean downloadSuccessfull() {
@@ -346,8 +346,8 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     public void tryConnectionAgain() {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         scrollView.setVisibility(View.VISIBLE);
-        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
     }
 
     public static Spanned fromHtml(String html) {
@@ -366,7 +366,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
 
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
         return true;
     }
 

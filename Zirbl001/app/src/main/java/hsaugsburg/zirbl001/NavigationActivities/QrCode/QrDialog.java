@@ -190,15 +190,15 @@ public class QrDialog implements DownloadActivity {
     }
 
     private void downloadTour() {
-        new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
-        new DownloadJSON(activity, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api2/selectSingleChoiceView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api2/selectGuessTheNumberView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api2/selectStationLocationsView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api2/selectTrueFalseView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api2/selectChronologyView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api2/selectNutLocationsView.php");
+        new DownloadJSON(activity, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
     }
 
     public void downloadFinished() {

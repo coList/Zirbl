@@ -30,7 +30,7 @@ public class ProfileOwnFragment extends Fragment {
         String serverName = globalValues.getString("serverName", null);
         String username = globalValues.getString("userName", null);
         String deviceToken = globalValues.getString("deviceToken", null);
-        new JSONOwnStatistics(this, username, deviceToken).execute(serverName + "/api/selectOwnStatisticsView.php");
+        new JSONOwnStatistics(this, username, deviceToken).execute(serverName + "/api2/selectOwnStatisticsView.php");
         mListView = (ListView) view.findViewById(R.id.ownstatistics_list_view);
         return view;
     }

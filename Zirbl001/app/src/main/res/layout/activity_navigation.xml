@@ -116,7 +116,8 @@
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:paddingTop="7dp"
-                android:text="überspringen" />
+                android:text="überspringen"
+                android:visibility="visible" />
 
         </RelativeLayout>
     </RelativeLayout>
