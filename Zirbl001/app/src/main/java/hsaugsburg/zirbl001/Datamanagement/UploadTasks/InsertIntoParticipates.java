@@ -51,7 +51,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... arg0) {
         try {
-            URL url = new URL(serverName + "/api/insertIntoParticipates.php");
+            URL url = new URL(serverName + "/api2/insertIntoParticipates.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);

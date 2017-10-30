@@ -379,6 +379,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
                 SharedPreferences.Editor editor = tourValues.edit();
                 editor.putString("nutsCollected", Integer.toString(nutsCollected));
+                Log.d("GoldenActivity - nutsCollected", Integer.toString(nutsCollected));
                 try {
                     editor.remove("listIsNutCollected");
                     editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));

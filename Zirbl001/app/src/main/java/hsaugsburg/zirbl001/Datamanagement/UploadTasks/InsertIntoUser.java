@@ -37,7 +37,7 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... arg0) {
         try {
-            URL url = new URL(serverName + "/api/insertIntoUser.php");
+            URL url = new URL(serverName + "/api2/insertIntoUser.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);

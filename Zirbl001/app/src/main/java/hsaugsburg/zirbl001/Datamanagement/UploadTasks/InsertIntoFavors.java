@@ -36,7 +36,7 @@ public class InsertIntoFavors extends AsyncTask<String, Void, String> {
 
     protected String doInBackground(String... arg0) {
         try {
-            URL url = new URL(serverName + "/api/insertIntoFavors.php");
+            URL url = new URL(serverName + "/api2/insertIntoFavors.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
