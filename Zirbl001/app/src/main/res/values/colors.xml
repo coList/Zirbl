@@ -12,5 +12,6 @@
     <color name="colorGold">#c9961a</color>
     <color name="colorBrown">#653c35</color>
     <color name="colorLine">#d0d0d0</color>
+    <color name="colorWhitetransparent">#c8ffffff</color>
 </resources>
 
