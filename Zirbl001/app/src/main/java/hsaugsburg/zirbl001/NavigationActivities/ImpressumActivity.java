@@ -22,8 +22,6 @@ import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 
 public class ImpressumActivity extends AppCompatActivity {
-
-    private static final String TAG = "ImpressumActivity";
     private static final int ACTIVITY_NUM = 4;
 
     private Context mContext = ImpressumActivity.this;
@@ -44,13 +42,11 @@ public class ImpressumActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Impressum");
         setupBottomNavigationView();
 
-
-
         setActivityText();
 
     }
 
-    private void setupBottomNavigationView(){
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -62,7 +58,6 @@ public class ImpressumActivity extends AppCompatActivity {
     }
 
     public void setActivityText(){
-
         TextView zirbl = (TextView) findViewById(R.id.impTitle);
         zirbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
 
@@ -80,22 +75,6 @@ public class ImpressumActivity extends AppCompatActivity {
                 "Kerstin Paukstat  <br />" +
                 "Tim Reinelt  <br />" +
                 "Simon Albrecht"));
-
-        TextView impLink = (TextView) findViewById(R.id.impLink);
-        impLink.setText(fromHtml("Impressum der Hochschule Augsburg"));
-        impLink.setTextColor(ContextCompat.getColor(mContext, R.color.colorTurquoise));
-
-
-    }
-
-    public void goToHs (View view) {
-        goToUrl ( "https://www.hs-augsburg.de/Service/Impressum.html");
-    }
-
-    private void goToUrl (String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
     }
 
     public static Spanned fromHtml(String html) {

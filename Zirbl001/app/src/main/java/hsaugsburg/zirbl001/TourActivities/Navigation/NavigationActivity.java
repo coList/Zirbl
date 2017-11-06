@@ -72,44 +72,38 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import static java.security.AccessController.getContext;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
     private Context mContext = NavigationActivity.this;
     private NavigationActivity activity = this;
-    private static final String TAG = "NavigationActivity";
 
     private int selectedTour;
     private int stationID;
-
     private String stationName;
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
-
     private LoadTourChronology loadTourChronology;
-
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
     SharedPreferences tourValues;
     public static final String TOUR_VALUES = "tourValuesFile";
+    private long startTime;
+    private int currentScore;
     ArrayList<Boolean> listIsNutCollected;
     ArrayList<Boolean> listDoUKnowRead;
 
     private GoogleMap mMap;
     private double latTarget;
     private double lngTarget;
-
     private LatLng latLngMyTarget;
     private LatLng latLngMyPos;
 
     private ArrayList<NutModel> nuts;
     private int nutsCollected = 0;
-
     private ArrayList<DoUKnowModel> doUKnowModels;
 
     private Marker myPosition;
     private boolean positionMarkerWasSet = false;
-
 
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
@@ -122,8 +116,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     private PolylineOptions polylineOptions;
     private List<Polyline> polylinePaths;
 
-    private long startTime;
-    private int currentScore;
+    private List<Marker> nutMarker = new ArrayList<Marker>();
+    private boolean firstCall = true;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -133,37 +128,33 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
     @Override
     protected void onStop() {
         super.onStop();
-
         googleApiClient.disconnect();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
         overridePendingTransition(0, 0);
     }
 
     public void onResume() {
         super.onResume();
-
         if (googleApiClient.isConnected()) {
             requestLocationUpdates();
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        //
+
         Button cheatButton = (Button) findViewById(R.id.nextTourItem);
         cheatButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         cheatButton.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         cheatButton.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
-        //
+
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -178,11 +169,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         locationRequest.setFastestInterval(locationUpdateIntervallMsec);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        //dot menu
-
-        String titleText = "Navigation";
-
-
         int chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
         stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
 
@@ -193,6 +179,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
 
+        String titleText = "Navigation";
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         listIsNutCollected = new ArrayList<>();
@@ -232,8 +219,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             showDialogGPS();
         }
-    } // ends onCreate
-
+    }
 
     public void setDataView() {
         StationModel result = new LoadStationLocation(this, selectedTour, stationID).readFile();
@@ -247,11 +233,9 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         mapInstruction.setText(result.getMapInstruction());
     }
 
-
     private String createURL(String origin, String destination) {
         String directionsAPIJson = "https://maps.googleapis.com/maps/api/directions/json?";
         String apiKey = "AIzaSyAZKY3-8A2pA2VHyEjXcCuV5aqA1mhB_Q0";
-
         return directionsAPIJson
                 + "origin=" + origin
                 + "&destination=" + destination
@@ -259,17 +243,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 + "&key=" + apiKey;
     }
 
-
     private void drawPolyline(List<Route> route) {
         if (polylinePaths != null){
-
             for (int i = 0; i < polylinePaths.size(); i++) {
-
                 polylinePaths.get(i).remove();
             }
-
-            //polylinePaths.clear();
-
         }
         polylinePaths = new ArrayList<>();
         polylineOptions = new PolylineOptions().
@@ -277,28 +255,21 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 color(ContextCompat.getColor(mContext, R.color.colorTurquoise)).
                 width(15);
 
-
         for (Route routes : route) {
-
             if (route.size() != 0) {
                 for (int i = 0; i < routes.getPoints().size(); i++)
                     polylineOptions.add(routes.getPoints().get(i));
                 polylinePaths.add(mMap.addPolyline(polylineOptions));
-
             }
         }
 
-    } // ends createurl
-
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        //mMap.clear();
         LatLng latLngAugsburg = new LatLng(48.3652377, 10.8971683); // Start in Augsburg, damit man nicht die Weltkarte am Anfang sieht
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngAugsburg, 12));
-
 
         /* =========================================
                         Get & Set Station
@@ -322,8 +293,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-    } // ends onmapready
-
+    }
 
     //click on station name to hide or show the mapinstruction
     public void onClick(View view) {
@@ -337,7 +307,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             mapInstruction.setVisibility(View.VISIBLE);
             arrow.setScaleY(1);
         }
-    } // onclick
+    }
 
     public void continueToNextView(View view) {
         mMap.clear();
@@ -367,13 +337,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         return stationName;
     }
 
-
     public void showMenu(View view) {
         topDarkActionbar.showMenu();
     } // ends showmenu
 
     public void showStats(View view) {
-
         topDarkActionbar.showStats(currentScore, startTime);
     }
 
@@ -381,26 +349,17 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         showEndTourDialog();
     }
 
-    private boolean firstCall = true;
-
     public void setRoute() {
         if (firstCall) {
-
             firstCall = false;
             String origin = "" + latLngMyPos.latitude + "," + latLngMyPos.longitude;
             String destination = "" + latTarget + "," + lngTarget;
-
             String url = createURL(origin, destination);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
-
             new JSONDirectionsAPI(activity).execute(url);
         }
-    } // ends setroute
-
-
-    private List<Marker> nutMarker = new ArrayList<Marker>();
-
+    }
 
     public void setNuts() {
         for (int h = 0; h < nuts.size(); h++) {
@@ -416,11 +375,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                         nutMarker.get(i).remove();
                     }
                 }
-
                 listIsNutCollected.set(h, true);
 
                 SharedPreferences.Editor editor = tourValues.edit();
                 editor.putString("nutsCollected", Integer.toString(nutsCollected));
+                Log.d("GoldenActivity - nutsCollected", Integer.toString(nutsCollected));
                 try {
                     editor.remove("listIsNutCollected");
                     editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
@@ -428,7 +387,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                     e.printStackTrace();
                 }
                 editor.commit();
-
 
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibe.vibrate(100);
@@ -454,7 +412,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_gold_zirbl))
                     ));
                 }
-
             } else if (!listIsNutCollected.get(h)) {
                 for (Marker marker : nutMarker) {
                     if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
@@ -463,15 +420,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 }
             }
         }
-    } // ends setNuts
-
+    }
 
     public void processDirectionData(List<Route> routes) throws JSONException {
         directionRoute = routes;
-        //mMap.clear();
         drawPolyline(routes);
     }
-
 
     @Override
     public void onLowMemory() {
@@ -479,8 +433,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         System.gc();
     }
 
-
     //return distance in kilometers
+    //reference: https://stackoverflow.com/questions/6981916/how-to-calculate-distance-between-two-locations-using-their-longitude-and-latitu (Aufruf: 05.07.2017)
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1))
@@ -502,14 +456,13 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         return (rad * 180.0 / Math.PI);
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
-
         Double latMyPos = location.getLatitude();
         Double lngMyPos = location.getLongitude();
         latLngMyPos = new LatLng(latMyPos, lngMyPos);
         Geocoder geocoder = new Geocoder(getApplicationContext());
+
         try {
             List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
             String strMyPosMarker = adressList.get(0).getAddressLine(0);
@@ -531,10 +484,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             String destination = "" + latTarget + "," + lngTarget;
 
             String url = createURL(origin, destination);
-
-
-                new JSONDirectionsAPI(this).execute(url);
-
+            new JSONDirectionsAPI(this).execute(url);
 
             //check for infopopup
             for (int i = 0; i < doUKnowModels.size(); i++) {
@@ -550,7 +500,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                             e.printStackTrace();
                         }
                         editor.commit();
-
 
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
@@ -572,8 +521,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } // ends onlocationchanged
-
+    }
 
     public void showDialogGPS() {
         this.runOnUiThread(new Runnable() {
@@ -584,14 +532,12 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         });
     }
 
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         requestLocationUpdates();
     }
 
     private void requestLocationUpdates() {
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -604,19 +550,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
         }
         // check if network provider is enabled
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-    } // ends requestLocationUpdates
-
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
     }
 
+    @Override
+    public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-
-} // NavigationActivity end
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+}

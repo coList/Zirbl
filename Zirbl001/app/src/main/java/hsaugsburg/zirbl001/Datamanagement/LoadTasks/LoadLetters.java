@@ -28,8 +28,8 @@ public class LoadLetters {
             InputStreamReader InputRead = new InputStreamReader(fileIn);
 
             int READ_BLOCK_SIZE = 100;
-            char[] inputBuffer= new char[READ_BLOCK_SIZE];
-            String s="";
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
             int charRead;
 
             while ((charRead = InputRead.read(inputBuffer)) > 0) {

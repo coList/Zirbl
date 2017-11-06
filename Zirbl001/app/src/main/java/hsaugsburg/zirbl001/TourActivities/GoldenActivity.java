@@ -9,28 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class GoldenActivity extends AppCompatActivity {
-
-
     private Context mContext = GoldenActivity.this;
-    private static final String TAG = "GoldenActivity";
-
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int selectedTour;
     private int currentScore;
     private long startTime;
 
-    //dot menu
     private TopDarkActionbar topDarkActionbar;
 
     @Override
@@ -53,8 +46,6 @@ public class GoldenActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.goldenText);
         text.setText(fromHtml(intent.getStringExtra("foundText")));
 
-
-
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int nutsCollected = Integer.parseInt(tourValues.getString("nutsCollected", null));
@@ -62,12 +53,9 @@ public class GoldenActivity extends AppCompatActivity {
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
 
-        //change currentScore preference value
-
         SharedPreferences.Editor editor = tourValues.edit();
         editor.putString("currentScore", Integer.toString(currentScore));
         editor.commit();
-
 
         String titleText = "Glückwunsch";
         topDarkActionbar = new TopDarkActionbar(this, titleText);
@@ -75,7 +63,6 @@ public class GoldenActivity extends AppCompatActivity {
         int totalAmountsOfNuts = Integer.parseInt(intent.getStringExtra("totalAmountOfNuts"));
 
         int allNuts = 4;
-
 
         for (int i = 0; i < allNuts; i++) {
             String nameImageView = "nut" + (i + 1);
@@ -86,20 +73,15 @@ public class GoldenActivity extends AppCompatActivity {
             }
         }
 
-
         for (int i = 0; i < nutsCollected; i++) {
             String nameImageView = "nut" + (i + 1);
             int imageViewID = getResources().getIdentifier(nameImageView, "id", getPackageName());
             ImageView nutsImages = (ImageView) findViewById(imageViewID);
             nutsImages.setImageResource(R.drawable.ic_zirblnut_golden);
         }
-
-
-
     }
 
     public void backToNavigation(View view) {
-
         this.finish();
     }
 
@@ -115,15 +97,16 @@ public class GoldenActivity extends AppCompatActivity {
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
+
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }
 
-
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);

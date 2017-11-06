@@ -1,6 +1,5 @@
 package hsaugsburg.zirbl001.NavigationActivities.QrCode;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,10 +12,7 @@ import android.widget.TextView;
 
 import hsaugsburg.zirbl001.R;
 
-
 public class QrScanFragment extends Fragment {
-    private static final String TAG = "ProfileOwnFragment";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,7 +20,6 @@ public class QrScanFragment extends Fragment {
 
         TextView noScans =  (TextView) view.findViewById(R.id.scanText);
         noScans.setText(fromHtml("<b>Scanne</b> den QR-Code deiner Lehrerin oder deines Lehrers ab."));
-
         return view;
     }
 
@@ -37,5 +32,4 @@ public class QrScanFragment extends Fragment {
         }
         return result;
     }
-
 }

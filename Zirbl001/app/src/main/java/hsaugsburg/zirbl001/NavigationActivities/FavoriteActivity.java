@@ -26,8 +26,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
 import hsaugsburg.zirbl001.Datamanagement.Adapter.TourFavorAdapter;
 import hsaugsburg.zirbl001.Interfaces.Callback;
@@ -39,8 +37,6 @@ import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class FavoriteActivity extends AppCompatActivity implements Callback, InternetActivity {
-
-    private static final String TAG = "FavoriteActivity";
     private static final int ACTIVITY_NUM = 3;
 
     private Context mContext = FavoriteActivity.this;
@@ -68,7 +64,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Favoriten");
 
-        TextView actionbarText = null;
+        TextView actionbarText;
         try {
             Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
             f.setAccessible(true);
@@ -78,8 +74,9 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
             actionbarText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             actionbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         } catch (NoSuchFieldException e) {
-        }
-        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -92,7 +89,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONTourFavor(this).execute(serverName + "/api/selectFavoritesView.php?username="+userName);
+            new JSONTourFavor(this).execute(serverName + "/api2/selectFavoritesView.php?username="+userName);
         }
 
         mListView = (ListView) findViewById(R.id.home_list_view);
@@ -105,9 +102,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
-
-
-    private void setupBottomNavigationView(){
+    private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
@@ -121,7 +116,6 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
     @Override
     public void processData(List<JSONModel> result) {
         if (result != null) {
-
             adapter = new TourFavorAdapter(this, result, imageLoader);
             mListView.setAdapter(adapter);
 
@@ -137,16 +131,14 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
                     startActivity(intent1);
                 }
             });
-
-        }else {
+        } else {
             RelativeLayout rl = (RelativeLayout) this.findViewById(R.id.noFavs);
             rl.setVisibility(View.VISIBLE);
         }
     }
 
     public boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
@@ -156,7 +148,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
         NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
         noConnectionDialog.showDialog(this);
         } else {
-            new JSONTourFavor(this).execute(serverName + "/api/selectFavoritesView.php?username="+userName);
+            new JSONTourFavor(this).execute(serverName + "/api2/selectFavoritesView.php?username="+userName);
         }
     }
 }

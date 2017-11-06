@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,25 +35,21 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = DoUKnowActivity.this;
 
-    private static final String TAG = "DoUKnowActivity";
-
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
+    private String teamName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
 
     private LoadTourChronology loadTourChronology;
-
-    public static final String GLOBAL_VALUES = "globalValuesFile";
-    private String serverName;
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int currentScore;
     private long startTime;
 
-
-    //dot menu
     private TopDarkActionbar topDarkActionbar;
+
+    private String changeIntoTeamname = "TEAMNAME";
 
     @Override
     protected void onPause() {
@@ -68,7 +62,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_do_uknow);
 
-
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         //get global tour values
@@ -77,16 +70,13 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-
+        teamName = tourValues.getString("teamName", null);
 
         //dot menu
         String knowledge = "Wissen";
         topDarkActionbar = new TopDarkActionbar(this, knowledge);
 
         stationName = getIntent().getStringExtra("stationName");
-
-        SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
-        serverName = globalValues.getString("serverName", null);
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
@@ -100,7 +90,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         initImageLoader();
         setDataView();
-
     }
 
     private void initImageLoader(){
@@ -109,16 +98,14 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void setDataView() {
-
         int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
         DoUKnowModel result = new LoadDoUKnow(this, selectedTour, infoPopupID).readFile();
 
-
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         String resultText = result.getContentText();
-        doUKnow.setText(fromHtml(resultText));
+        String newResultText = resultText.replaceAll(changeIntoTeamname, teamName);
+        doUKnow.setText(fromHtml(newResultText));
         int stringLength = resultText.length();
-
 
         ImageView zirblImage = (ImageView) findViewById(R.id.themeZirbl);
 
@@ -134,7 +121,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             zirblImage.setImageResource(R.drawable.img_zirbl_small_qrcode_r);
         }
 
-
         // Scroll View State Change
         RelativeLayout zirbl = (RelativeLayout) findViewById(R.id.zirbl);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
@@ -143,7 +129,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
-        if(((double)stringLength)/height <= 0.16) {
+        if (((double)stringLength)/height <= 0.16) {
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             paramsContinue.addRule(RelativeLayout.BELOW, 0);
 
@@ -160,9 +146,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             continueArea.setLayoutParams(paramsContinue);
             zirbl.setLayoutParams(paramsZirbl);
         }
-
     }
-
 
     public void continueToNextView(View view) {
         if (chronologyNumber < 0) {
@@ -204,7 +188,6 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
         return stationName;
     }
 
-
     public void showMenu(View view){
         topDarkActionbar.showMenu();
     }
@@ -212,6 +195,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     public void showStats(View view){
         topDarkActionbar.showStats(currentScore, startTime);
     }
+
     public void quitTour(View view){
         showEndTourDialog();
     }

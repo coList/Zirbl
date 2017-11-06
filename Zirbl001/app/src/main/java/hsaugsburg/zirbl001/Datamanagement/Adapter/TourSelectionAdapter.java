@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,22 +62,21 @@ public class TourSelectionAdapter extends BaseAdapter {
         View rowView = mInflater.inflate(R.layout.list_item_tourselection, parent, false);
         TextView tourName = (TextView) rowView.findViewById(R.id.title);
 
-        TextView duration = (TextView) rowView.findViewById(R.id.durationText);
-        TextView distance = (TextView) rowView.findViewById(R.id.distanceText);
-        TextView difficultyName = (TextView) rowView.findViewById(R.id.difficultyText);
+            TextView duration = (TextView) rowView.findViewById(R.id.durationText);
+            TextView distance = (TextView) rowView.findViewById(R.id.distanceText);
+            TextView difficultyName = (TextView) rowView.findViewById(R.id.difficultyText);
 
-        TourSelectionModel tourSelection = (TourSelectionModel) getItem(position);
-        tourName.setText(tourSelection.getTourName());
-        duration.setText(String.format(Locale.GERMANY, "%d min", tourSelection.getDuration()));
-        double dist = tourSelection.getDistance() / 1000.0;
-        NumberFormat nf = new DecimalFormat("##.##");
-        nf.format(dist);
-        distance.setText(dist + " km");
-        difficultyName.setText(tourSelection.getDifficultyName());
+            TourSelectionModel tourSelection = (TourSelectionModel) getItem(position);
+            tourName.setText(tourSelection.getTourName());
+            duration.setText(String.format(Locale.GERMANY, "%d min", tourSelection.getDuration()));
+            double dist = tourSelection.getDistance() / 1000.0;
+            NumberFormat nf = new DecimalFormat("##.##");
+            nf.format(dist);
+            distance.setText(dist + " km");
+            difficultyName.setText(tourSelection.getDifficultyName());
 
-        ImageView mainPicture = (ImageView)rowView.findViewById(R.id.imageView);
-        ImageLoader.getInstance().displayImage(serverName + tourSelection.getMainpicture(), mainPicture);
+            ImageView mainPicture = (ImageView) rowView.findViewById(R.id.imageView);
+            ImageLoader.getInstance().displayImage(serverName + tourSelection.getMainpicture(), mainPicture);
         return rowView;
-
     }
 }

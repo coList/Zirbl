@@ -1,8 +1,6 @@
 package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
-
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -44,9 +42,8 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
     }
 
     protected String doInBackground(String... arg0) {
-
         try {
-            URL url = new URL(serverName + "/api/insertIntoClass.php");
+            URL url = new URL(serverName + "/api2/insertIntoClass.php");
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
@@ -75,7 +72,6 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-
                 BufferedReader in = new BufferedReader(new
                         InputStreamReader(
                         conn.getInputStream()));
@@ -84,19 +80,17 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
                 String line = "";
 
                 while ((line = in.readLine()) != null) {
-
                     sb.append(line);
                     break;
                 }
 
                 in.close();
                 return sb.toString();
-
             } else {
-                return new String("false : " + responseCode);
+                return "false : " + responseCode;
             }
         } catch (Exception e) {
-            return new String("Exception: " + e.getMessage());
+            return "Exception: " + e.getMessage();
         }
 
     }
@@ -106,16 +100,13 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
         activity.setQrCode(result);
     }
 
-
     private String getPostDataString(JSONObject params) throws Exception {
-
         StringBuilder result = new StringBuilder();
         boolean first = true;
 
         Iterator<String> itr = params.keys();
 
         while (itr.hasNext()) {
-
             String key = itr.next();
             Object value = params.get(key);
 
@@ -127,7 +118,6 @@ public class InsertIntoClass extends AsyncTask<String, Void, String> {
             result.append(URLEncoder.encode(key, "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
         }
         return result.toString();
     }

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,18 +16,14 @@ import java.io.File;
 import java.util.ArrayList;
 
 import hsaugsburg.zirbl001.NavigationActivities.HomeActivity;
-import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 
 public class EndTourDialog {
-
-    private static final String TAG = "EndTourDialog";
     private static final String MSG = "Möchstest du die Tour wirklich beenden?";
     private static final String MSG2 = "Dein Spielstand wird dabei nicht gespeichert.";
 
     private final Context context;
     private int selectedTour;
-
 
     public EndTourDialog(Context context, int selectedTour){
         this.context = context;
@@ -41,7 +36,6 @@ public class EndTourDialog {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_two_buttons);
 
-
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -50,17 +44,14 @@ public class EndTourDialog {
         LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.title_container);
         linearLayout.setVisibility(View.GONE);
 
-
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog_top);
         text.setText(MSG);
         TextView text2 = (TextView) dialog.findViewById(R.id.text_dialog_bottom);
         text2.setText(MSG2);
 
-
         TextView title = (TextView) dialog.findViewById(R.id.title);
         title.setText("SCAN ERFOLGREICH");
         linearLayout.setBackgroundColor(context.getResources().getColor(R.color.colorTurquoise));
-
 
         Button dialogButtonAgain = (Button) dialog.findViewById(R.id.btn_marked);
         Typeface typeface1 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -74,7 +65,6 @@ public class EndTourDialog {
                 dialog.dismiss();
             }
         });
-
 
         Button dialogButtonEnd = (Button) dialog.findViewById(R.id.btn_end);
         Typeface typeface2 = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
@@ -91,8 +81,6 @@ public class EndTourDialog {
 
         dialog.show();
         dialog.getWindow().setAttributes(lp);
-
-
     }
 
     private void deleteFiles() {
@@ -113,8 +101,6 @@ public class EndTourDialog {
                 file.delete();
             }
         }
-
-
     }
 
 }

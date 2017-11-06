@@ -23,9 +23,6 @@ import java.io.IOException;
 import hsaugsburg.zirbl001.R;
 
 public class ScanBarcodeActivity extends AppCompatActivity{
-
-    private static final String TAG = "ScanBarcodeActivity";
-
     SurfaceView cameraPreview;
     private Context mContext = ScanBarcodeActivity.this;
     private String errorMessage = "Das Scannen des QR-Codes hat leider nicht funktioniert.";
@@ -52,11 +49,9 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
         cameraPreview = (SurfaceView) findViewById(R.id.camera_preview);
         createCameraSource();
-
     }
 
     public void saveScanInfos(String scanValue){
-
         String[] splited = scanValue.split(";");
 
         zirblIdent = splited[0];
@@ -71,13 +66,11 @@ public class ScanBarcodeActivity extends AppCompatActivity{
     }
 
     private void generateSuccessMessage(){
-
         successMessage = "Willkommen bei der ";
         successMessage += tourName;
         successMessage += "-Tour: <br />";
         successMessage += "<b>Klasse " + klasse + ", ";
         successMessage += school +"</b>";
-
     }
 
     private void showScanDialogSuccess(){
@@ -92,7 +85,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
     }
 
     private void showScanDialogFail(){
-
         this.runOnUiThread(new Runnable() {
             public void run() {
                 QrDialog alertFail = new QrDialog(mContext,false,"NOCHMAL", klassenID, tourID);
@@ -103,7 +95,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
 
 
     private void createCameraSource() {
-
         final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).build();
         final CameraSource cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setAutoFocusEnabled(true)
@@ -122,12 +113,10 @@ public class ScanBarcodeActivity extends AppCompatActivity{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
             }
 
             @Override
@@ -139,7 +128,6 @@ public class ScanBarcodeActivity extends AppCompatActivity{
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-
             }
 
             @Override
@@ -165,6 +153,5 @@ public class ScanBarcodeActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
 }

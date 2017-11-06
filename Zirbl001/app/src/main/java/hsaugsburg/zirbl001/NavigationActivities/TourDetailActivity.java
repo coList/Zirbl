@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,13 +32,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
@@ -60,8 +57,6 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 
 public class TourDetailActivity extends AppCompatActivity implements DownloadActivity, InternetActivity {
-
-    private static final String TAG = "TourDetailActivity";
     private static final int ACTIVITY_NUM = 0;
     private Context mContext = TourDetailActivity.this;
 
@@ -69,9 +64,9 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private String tourName;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
-    String serverName;
-    String userName;
-    String deviceToken;
+    private String serverName;
+    private String userName;
+    private String deviceToken;
 
     private int downloadTasksCounter = 0;
     private int amountOfDownloadTasks = 9;
@@ -80,7 +75,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private boolean firstClickOnGo = true;
 
     private MenuItem favIconMenu;
-
     private boolean isFilled;
 
     @Override
@@ -115,7 +109,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             e.printStackTrace();
         }
 
-
         setupBottomNavigationView();
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
@@ -123,10 +116,9 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         userName = globalValues.getString("userName", null);
         deviceToken = globalValues.getString("deviceToken", null);
 
-        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
 
         initImageLoader();
-
     }
 
     public void setIsFavorised(Boolean isFavorised) {
@@ -140,15 +132,15 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     }
 
     public void downloadTour() {
-        new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api/selectLocationInfoPopupView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api/selectInfoPopupView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api/selectHangmanView.php");
-        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api/selectSingleChoiceView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api/selectGuessTheNumberView.php");
-        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api/selectStationLocationsView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api/selectTrueFalseView.php");
-        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api/selectChronologyView.php");
-        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api/selectNutLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
+        new DownloadJSON(this, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api2/selectSingleChoiceView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourguessthenumber", "guessthenumber").execute(serverName + "/api2/selectGuessTheNumberView.php");
+        new DownloadJSON(this, this, serverName, tourID, "stationlocations", "stations").execute(serverName + "/api2/selectStationLocationsView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourtruefalse", "truefalse").execute(serverName + "/api2/selectTrueFalseView.php");
+        new DownloadJSON(this, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api2/selectChronologyView.php");
+        new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api2/selectNutLocationsView.php");
     }
 
     private boolean downloadSuccessfull() {
@@ -171,7 +163,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                 counter++;
             }
         }
-
         return (counter == amountOfDownloadTasks);
     }
 
@@ -181,7 +172,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         if (downloadTasksCounter >= amountOfDownloadTasks) {
             downloadFinished = true;
         }
-
     }
 
     public void setIntentExtras() {
@@ -239,7 +229,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                     secondCounter++;
                 }
 
-
                 if (!downloadFinished || secondCounter < 2) {
                     handler.postDelayed(this, 500);
                 } else {
@@ -262,7 +251,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                         progressBarDownload.setProgress(0);
                         progressBarDownload.setVisibility(View.INVISIBLE);
                     }
-
                 }
             }
         };
@@ -275,7 +263,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         intent.putExtra("tourName", tourName);
         startActivity(intent);
     }
-
 
     private void setupBottomNavigationView() {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
@@ -297,11 +284,13 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         if (result != null) {
 
             TextView duration = (TextView) findViewById(R.id.durationText);
-            duration.setText(Integer.toString(result.getDuration()) + " min");
+            duration.setText(String.format(Locale.GERMANY, "%d min", result.getDuration()));
 
             TextView distance = (TextView) findViewById(R.id.distanceText);
             double dist = result.getDistance() / 1000.0;
-            distance.setText(Double.toString(dist) + " km");
+            NumberFormat nf = new DecimalFormat("##.##");
+            nf.format(dist);
+            distance.setText(dist + " km");
 
             TextView difficultyName = (TextView) findViewById(R.id.difficultyText);
             difficultyName.setText(result.getDifficultyName());
@@ -313,24 +302,12 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             startEnd.setText(fromHtml("<b>Tourstart:</b> " + result.getStartLocation() + "<br />" +
                     "<b>Tourende:</b> " + result.getEndLocation()));
 
-            boolean hasOpeningHours = false;
-
-            if (hasOpeningHours) {
-                TextView openingHours = (TextView) findViewById(R.id.openingHours);
-                TextView openingHoursTitle = (TextView) findViewById(R.id.openingHoursTitle);
-
-                openingHours.setVisibility(View.VISIBLE);
-                openingHours.setVisibility(View.VISIBLE);
-            }
-
             String costsText = result.getCosts();
             if (costsText != null && !costsText.isEmpty() && !costsText.equals("null")) {
                 TextView costsTitle = (TextView) findViewById(R.id.costsTitle);
                 TextView costs = (TextView) findViewById(R.id.costs);
-
                 costsTitle.setVisibility(View.VISIBLE);
                 costs.setVisibility(View.VISIBLE);
-
                 costs.setText(fromHtml(costsText));
             }
 
@@ -338,7 +315,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                 TextView warnings = (TextView) findViewById(R.id.warnings);
                 TextView warningsTitle = (TextView) findViewById(R.id.warningsTitle);
                 warnings.setText(fromHtml(result.getWarnings()));
-
                 warnings.setVisibility(View.VISIBLE);
                 warningsTitle.setVisibility(View.VISIBLE);
             }
@@ -359,8 +335,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             } else {
                 ImageLoader.getInstance().displayImage(serverName + mapPictureURL, mapPicture);
             }
-
-
         }
     }
 
@@ -369,12 +343,11 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         noConnectionDialog.showDialog(this);
     }
 
-
     public void tryConnectionAgain() {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         scrollView.setVisibility(View.VISIBLE);
-        new JSONTourDetail(this, tourID).execute(serverName + "/api/selectTourDetailsView.php");
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
+        new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
     }
 
     public static Spanned fromHtml(String html) {
@@ -393,7 +366,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
 
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api/selectRFavors.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
         return true;
     }
 
@@ -412,7 +385,6 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                     isFilled = true;
                     favIconMenu.setIcon(R.drawable.ic_star_filled);
                 }
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
