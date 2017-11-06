@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <receiver
+    <!--<receiver
         android:name=".PassiveLocationChangedReceiver"
-        android:enabled="true" />
+        android:enabled="true" />-->
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
