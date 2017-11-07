@@ -5,29 +5,39 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-    <receiver android:name=".PassiveLocationChangedReceiver" android:enabled="true"/>
+    <!--<receiver
+        android:name=".PassiveLocationChangedReceiver"
+        android:enabled="true" />-->
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.VIBRATE" />
-     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+     
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+     
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
 
-    <!-- API lvl 21 or higher-->
+    <!-- API lvl 21 or higher -->
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
@@ -44,7 +54,7 @@
         <activity
             android:name=".TourActivities.TourstartActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NavigationActivities.HomeActivity"
             android:launchMode="singleTask"
@@ -71,7 +81,7 @@
         <activity
             android:name=".TourActivities.ClassRegistrationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".TourActivities.GenerateQrCodeActivity"
             android:screenOrientation="portrait" />
@@ -113,6 +123,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <activity android:name=".TourActivities.PictureCountdownActivity" />
+        <activity android:name=".TourActivities.IdentifySoundActivity"></activity>
     </application>
 
 </manifest>

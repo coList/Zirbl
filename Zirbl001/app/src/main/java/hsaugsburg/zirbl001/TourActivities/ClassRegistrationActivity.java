@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import hsaugsburg.zirbl001.R;
 
 import java.lang.reflect.Field;
 
@@ -28,7 +29,6 @@ import hsaugsburg.zirbl001.Datamanagement.UploadTasks.InsertIntoClass;
 import hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit;
 import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
-import hsaugsburg.zirbl001.R;
 
 public class ClassRegistrationActivity extends AppCompatActivity implements InternetActivity {
     private Context mContext = ClassRegistrationActivity.this;
