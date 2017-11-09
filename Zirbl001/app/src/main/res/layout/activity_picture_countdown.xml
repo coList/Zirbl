@@ -36,9 +36,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+
+            <ImageView
+                android:id="@+id/lineAbove"
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="1dp"
+                android:visibility="visible"
+                app:srcCompat="@color/colorLine" />
+
+            <RelativeLayout
+                android:id="@+id/questionImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:visibility="visible">
+
 
                 <ImageView
                     android:id="@+id/pic"
@@ -62,36 +73,13 @@
                     android:layout_height="match_parent"
                     android:layout_alignBottom="@+id/pic"
                     android:orientation="vertical">
-
                 </LinearLayout>
-
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/lineAbove"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:visibility="visible"
-                app:srcCompat="@color/colorLine" />
-
-            <RelativeLayout
-                android:id="@+id/questionImage"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/behindQuestionImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:visibility="visible" />
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                     android:id="@+id/besideImgQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/behindQuestionImage"
+                    android:layout_alignBottom="@+id/pic"
                     android:background="@color/colorTransparent80"
                     android:gravity="bottom"
                     android:paddingBottom="24dp"
