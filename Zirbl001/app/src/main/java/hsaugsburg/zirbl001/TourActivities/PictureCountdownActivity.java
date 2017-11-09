@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Vibrator;
@@ -15,15 +16,20 @@ import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.utils.L;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -106,8 +112,80 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
         initImageLoader();
         setDataView();
+
+        final ImageButton startCountdown = (ImageButton) findViewById(R.id.startCountdown);
+        startCountdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView whiteTransparent = (ImageView) findViewById(R.id.whiteTransparent);
+                whiteTransparent.setVisibility(View.GONE);
+                startCountdown.setVisibility(View.GONE);
+                pixelatePicture(6);
+            }
+        });
     }
 
+    public void pixelatePicture(int pixelLines){
+        ImageView image = (ImageView) findViewById(R.id.imgPixel);
+        image.setDrawingCacheEnabled(true);
+        image.buildDrawingCache(true);
+
+        Bitmap bit = image.getDrawingCache();
+        int heightBitmap = bit.getHeight();
+        int widthBitmap = bit.getWidth();
+
+        int n = pixelLines;
+        int m = widthBitmap/(heightBitmap/n);
+
+        TableRow[] rowPixels = new TableRow[n];
+        ImageView [][] colorField = new ImageView[n][m];
+        int [] xCoordinate = new int[m];
+        int [] yCoordinate = new int[n];
+        int [][] pixel = new int[n][m];
+        int [][] r = new int[n][m];
+        int [][] g = new int[n][m];
+        int [][] b = new int[n][m];
+
+        LinearLayout pixelMap = (LinearLayout) findViewById(R.id.pixelMap);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        rowParams.weight = 1;
+        TableRow.LayoutParams pixelParams = new TableRow.LayoutParams(
+                0, ViewGroup.LayoutParams.MATCH_PARENT);
+        pixelParams.weight = 1;
+
+        for(int i = 0; i<n; i++){
+            rowPixels[i] = new TableRow((getApplicationContext()));
+            pixelMap.addView(rowPixels[i], rowParams);
+            for(int k = 0; k<m; k++){
+                colorField[i][k] = new ImageView(getApplicationContext());
+                rowPixels[i].addView(colorField[i][k], pixelParams);
+            }
+        }
+
+        int denom = 1;
+        for(int i = 0; i<n; i++){
+            yCoordinate[i] = (heightBitmap/(n*2))*denom;
+            denom += 2;
+        }
+
+        denom = 1;
+        for(int i = 0; i<m; i++){
+            xCoordinate[i] = (widthBitmap/(m*2))*denom;
+            denom += 2;
+        }
+
+        for(int i = 0; i<n; i++){
+            for(int k = 0; k<m; k++){
+                pixel[i][k] = bit.getPixel(xCoordinate[k], yCoordinate[i]);
+                r[i][k] = Color.red((pixel[i][k]));
+                g[i][k] = Color.green((pixel[i][k]));
+                b[i][k] = Color.blue((pixel[i][k]));
+                colorField[i][k].setBackgroundColor(Color.rgb(r[i][k],g[i][k],b[i][k]));
+            }
+        }
+
+    }
 
     public void setDataView() {
         int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
@@ -117,7 +195,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
 
 
-            ImageView questionPicture = (ImageView)findViewById(R.id.pic);
+            ImageView questionPicture = (ImageView)findViewById(R.id.imgPixel);
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
             String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
