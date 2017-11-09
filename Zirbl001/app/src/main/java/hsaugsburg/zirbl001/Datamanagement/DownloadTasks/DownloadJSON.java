@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,6 +121,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, pictureFileout);
                                         } else {
                                             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, pictureFileout);
+                                            Log.d("DownloadJSON", parts[0] + " foundImage");
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace();

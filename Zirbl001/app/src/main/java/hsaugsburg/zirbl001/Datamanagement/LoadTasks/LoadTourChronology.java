@@ -15,6 +15,7 @@ import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
+import hsaugsburg.zirbl001.TourActivities.PictureCountdownActivity;
 import hsaugsburg.zirbl001.TourActivities.QuizActivity;
 import hsaugsburg.zirbl001.TourActivities.ResultActivity;
 import hsaugsburg.zirbl001.TourActivities.SliderActivity;
@@ -106,6 +107,8 @@ public class LoadTourChronology {
                     intent = new Intent(activity, SliderActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("e_truefalsetask")) {
                     intent = new Intent(activity, TrueFalseActivity.class);
+                } else if (nextChronologyItem.getTaskClassName().equals("e_guesstheimagetask")) {
+                    intent = new Intent(activity, PictureCountdownActivity.class);
                 }
                 intent.putExtra("taskid", Integer.toString(nextChronologyItem.getTaskID()));
             }
