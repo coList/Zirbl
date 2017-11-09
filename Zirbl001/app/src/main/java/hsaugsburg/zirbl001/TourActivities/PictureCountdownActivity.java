@@ -126,9 +126,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
             ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
 
-        TextView questionBesideImg = (TextView) findViewById(R.id.besideImgQuestion);
-        questionBesideImg.setText(fromHtml(result.getQuestion()));
-        questionBesideImg.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        TextView questionText = (TextView) findViewById(R.id.questionText);
+        questionText.setText(fromHtml(result.getQuestion()));
+        //questionText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
 
