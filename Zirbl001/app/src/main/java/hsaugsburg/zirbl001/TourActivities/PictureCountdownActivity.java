@@ -34,6 +34,7 @@ import com.nostra13.universalimageloader.utils.L;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadPictureCountdown;
@@ -125,7 +126,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
         });
     }
 
-    public void pixelatePicture(int pixelLines){
+    public void pixelatePicture(int pixelLines) {
         ImageView image = (ImageView) findViewById(R.id.imgPixel);
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache(true);
@@ -135,16 +136,16 @@ public class PictureCountdownActivity extends AppCompatActivity {
         int widthBitmap = bit.getWidth();
 
         int n = pixelLines;
-        int m = widthBitmap/(heightBitmap/n);
+        int m = widthBitmap / (heightBitmap / n);
 
         TableRow[] rowPixels = new TableRow[n];
-        ImageView [][] colorField = new ImageView[n][m];
-        int [] xCoordinate = new int[m];
-        int [] yCoordinate = new int[n];
-        int [][] pixel = new int[n][m];
-        int [][] r = new int[n][m];
-        int [][] g = new int[n][m];
-        int [][] b = new int[n][m];
+        ImageView[][] colorField = new ImageView[n][m];
+        int[] xCoordinate = new int[m];
+        int[] yCoordinate = new int[n];
+        int[][] pixel = new int[n][m];
+        int[][] r = new int[n][m];
+        int[][] g = new int[n][m];
+        int[][] b = new int[n][m];
 
         LinearLayout pixelMap = (LinearLayout) findViewById(R.id.pixelMap);
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
@@ -154,34 +155,34 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 0, ViewGroup.LayoutParams.MATCH_PARENT);
         pixelParams.weight = 1;
 
-        for(int i = 0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             rowPixels[i] = new TableRow((getApplicationContext()));
             pixelMap.addView(rowPixels[i], rowParams);
-            for(int k = 0; k<m; k++){
+            for (int k = 0; k < m; k++) {
                 colorField[i][k] = new ImageView(getApplicationContext());
                 rowPixels[i].addView(colorField[i][k], pixelParams);
             }
         }
 
         int denom = 1;
-        for(int i = 0; i<n; i++){
-            yCoordinate[i] = (heightBitmap/(n*2))*denom;
+        for (int i = 0; i < n; i++) {
+            yCoordinate[i] = (heightBitmap / (n * 2)) * denom;
             denom += 2;
         }
 
         denom = 1;
-        for(int i = 0; i<m; i++){
-            xCoordinate[i] = (widthBitmap/(m*2))*denom;
+        for (int i = 0; i < m; i++) {
+            xCoordinate[i] = (widthBitmap / (m * 2)) * denom;
             denom += 2;
         }
 
-        for(int i = 0; i<n; i++){
-            for(int k = 0; k<m; k++){
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < m; k++) {
                 pixel[i][k] = bit.getPixel(xCoordinate[k], yCoordinate[i]);
                 r[i][k] = Color.red((pixel[i][k]));
                 g[i][k] = Color.green((pixel[i][k]));
                 b[i][k] = Color.blue((pixel[i][k]));
-                colorField[i][k].setBackgroundColor(Color.rgb(r[i][k],g[i][k],b[i][k]));
+                colorField[i][k].setBackgroundColor(Color.rgb(r[i][k], g[i][k], b[i][k]));
             }
         }
 
@@ -194,21 +195,26 @@ public class PictureCountdownActivity extends AppCompatActivity {
         ArrayList<String> answers = new ArrayList<>();
 
 
-
-            ImageView questionPicture = (ImageView)findViewById(R.id.imgPixel);
-            File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
-            String[] parts = result.getPicturePath().split("\\.");
-            String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
-            File imgFile = new File(zirblImages , imgPath);
-            String decodedImgUri = Uri.fromFile(imgFile).toString();
-            ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
+        ImageView questionPicture = (ImageView) findViewById(R.id.imgPixel);
+        File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
+        String[] parts = result.getPicturePath().split("\\.");
+        String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+        File imgFile = new File(zirblImages, imgPath);
+        String decodedImgUri = Uri.fromFile(imgFile).toString();
+        ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
 
         TextView questionText = (TextView) findViewById(R.id.questionText);
         questionText.setText(fromHtml(result.getQuestion()));
         //questionText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
-            answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
+
+        score = result.getScore();
+        String points = " Punkte";
+        TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
+        scoreText.setText(String.format(Locale.GERMANY, "%d", score) + points);
+
+        answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
 
         amountOfAnswers = answers.size();
         answers = shuffleArray(answers);
@@ -223,11 +229,10 @@ public class PictureCountdownActivity extends AppCompatActivity {
         rightAnswer = result.getRightAnswer();
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
-        score = result.getScore();
 
     }
 
-    private void initImageLoader(){
+    private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
@@ -265,10 +270,10 @@ public class PictureCountdownActivity extends AppCompatActivity {
             selectedAnswer = 1;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area1);
+            RelativeLayout selected = (RelativeLayout) findViewById(R.id.area1);
             selected.setBackgroundResource(R.color.colorTurquoise);
 
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter1);
+            ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter1);
             invertedImg.setImageResource(R.drawable.ic_1_active);
             Button btA = (Button) findViewById(R.id.answer1);
             btA.setTextColor(Color.WHITE);
@@ -279,9 +284,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
             selectedAnswer = 2;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area2);
+            RelativeLayout selected = (RelativeLayout) findViewById(R.id.area2);
             selected.setBackgroundResource(R.color.colorTurquoise);
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter2);
+            ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter2);
             invertedImg.setImageResource(R.drawable.ic_2_active);
             Button btA = (Button) findViewById(R.id.answer2);
             btA.setTextColor(Color.WHITE);
@@ -293,10 +298,10 @@ public class PictureCountdownActivity extends AppCompatActivity {
             selectedAnswer = 3;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area3);
+            RelativeLayout selected = (RelativeLayout) findViewById(R.id.area3);
             selected.setBackgroundResource(R.color.colorTurquoise);
 
-            ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter3);
+            ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter3);
             invertedImg.setImageResource(R.drawable.ic_3_active);
             Button btA = (Button) findViewById(R.id.answer3);
             btA.setTextColor(Color.WHITE);
@@ -306,7 +311,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
     public ArrayList<String> shuffleArray(ArrayList<String> list) {
         Random random = new Random();
 
-        for (int i = list.size()-1; i > 1; i--) {
+        for (int i = list.size() - 1; i > 1; i--) {
             int numberToSwapWith = random.nextInt(i);
             String tmp = list.get(numberToSwapWith);
             list.set(numberToSwapWith, list.get(i));
@@ -321,12 +326,12 @@ public class PictureCountdownActivity extends AppCompatActivity {
         for (int i = 0; i < amountOfAnswers; i++) {
             String nameRelativeLayout = "area" + (i + 1);
             int relativeLayoutID = getResources().getIdentifier(nameRelativeLayout, "id", getPackageName());
-            RelativeLayout relativeLayout = (RelativeLayout)findViewById(relativeLayoutID);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(relativeLayoutID);
             relativeLayout.setBackgroundResource(0);
 
             String nameImageView = "imgLetter" + (i + 1);
             int imageViewID = getResources().getIdentifier(nameImageView, "id", getPackageName());
-            ImageView imageView = (ImageView)findViewById(imageViewID);
+            ImageView imageView = (ImageView) findViewById(imageViewID);
             String nameDrawable = "ic_" + (i + 1) + "_normal";
             int imageDrawable = getResources().getIdentifier(nameDrawable, "drawable", getPackageName());
             imageView.setImageResource(imageDrawable);
@@ -360,22 +365,22 @@ public class PictureCountdownActivity extends AppCompatActivity {
     public static Spanned fromHtml(String html) {
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(html);
         }
         return result;
     }
 
-    public void showMenu(View view){
+    public void showMenu(View view) {
         topDarkActionbar.showMenu();
     }
 
-    public void showStats(View view){
+    public void showStats(View view) {
         topDarkActionbar.showStats(currentScore, startTime);
     }
 
-    public void quitTour(View view){
+    public void quitTour(View view) {
         showEndTourDialog();
     }
 }
