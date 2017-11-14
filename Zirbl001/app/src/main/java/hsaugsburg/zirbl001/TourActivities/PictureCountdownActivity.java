@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,8 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class PictureCountdownActivity extends AppCompatActivity {
+
+    private int param = 4;
 
     private Context mContext = PictureCountdownActivity.this;
 
@@ -121,12 +124,24 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 ImageView whiteTransparent = (ImageView) findViewById(R.id.whiteTransparent);
                 whiteTransparent.setVisibility(View.GONE);
                 startCountdown.setVisibility(View.GONE);
-                pixelatePicture(6);
+                pixelatePicture(param);
+                param++;
+                final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pixelatePicture(param);
+                            param++;
+                        }
+                    }, 7000);
             }
         });
     }
 
     public void pixelatePicture(int pixelLines) {
+        if(((LinearLayout) findViewById(R.id.pixelMap)).getChildCount() > 0){
+            ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
+        }
         ImageView image = (ImageView) findViewById(R.id.imgPixel);
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache(true);
