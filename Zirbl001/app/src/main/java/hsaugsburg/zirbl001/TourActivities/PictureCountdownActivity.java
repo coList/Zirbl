@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,13 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class PictureCountdownActivity extends AppCompatActivity {
 
+    // Parameter für Pixel Rätsel
+    private int timeBetweenPixelChange = 5000; //3sec
+    private int linesOfPixel = 2;
+    private int maxLines = 8;
+    private int pixelSteps = 2;
+    // Parameter für Pixel Rätsel
+
     private Context mContext = PictureCountdownActivity.this;
 
     private int amountOfAnswers;
@@ -68,6 +76,22 @@ public class PictureCountdownActivity extends AppCompatActivity {
     private long startTime;
 
     private TopDarkActionbar topDarkActionbar;
+
+    // Timer Durchlauf
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(linesOfPixel>maxLines){
+                timerHandler.removeCallbacks(timerRunnable);
+            } else {
+                pixelatePicture(linesOfPixel);
+                timerHandler.postDelayed(this, timeBetweenPixelChange);
+            }
+            linesOfPixel+=pixelSteps;
+        }
+    };
+    // Timer Durchlauf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,19 +138,25 @@ public class PictureCountdownActivity extends AppCompatActivity {
         initImageLoader();
         setDataView();
 
-        final ImageButton startCountdown = (ImageButton) findViewById(R.id.startCountdown);
+        //
+        final ImageButton startCountdown = (ImageButton) findViewById(R.id.whiteTransparent);
         startCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView whiteTransparent = (ImageView) findViewById(R.id.whiteTransparent);
-                whiteTransparent.setVisibility(View.GONE);
+                ImageButton play = (ImageButton) findViewById(R.id.startCountdown);
+                timerHandler.postDelayed(timerRunnable, 0);
+                play.setVisibility(View.GONE);
                 startCountdown.setVisibility(View.GONE);
-                pixelatePicture(6);
             }
         });
+
+
     }
 
     public void pixelatePicture(int pixelLines) {
+        if(((LinearLayout) findViewById(R.id.pixelMap)).getChildCount() > 0){
+            ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
+        }
         ImageView image = (ImageView) findViewById(R.id.imgPixel);
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache(true);
