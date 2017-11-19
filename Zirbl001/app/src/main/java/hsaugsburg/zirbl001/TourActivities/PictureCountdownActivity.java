@@ -49,10 +49,11 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class PictureCountdownActivity extends AppCompatActivity {
 
     // Parameter für Pixel Rätsel
-    private int timeBetweenPixelChange = 5000; //3sec
+    private int timeBetweenPixelChange = 8000; //8sec
     private int linesOfPixel = 2;
-    private int maxLines = 8;
-    private int pixelSteps = 2;
+    private int maxLines = 32;
+    private int pixelSteps = 2;//4;8;16;32
+    private int timeLoosingPoint = 1000;
     // Parameter für Pixel Rätsel
 
     private Context mContext = PictureCountdownActivity.this;
@@ -84,11 +85,28 @@ public class PictureCountdownActivity extends AppCompatActivity {
         public void run() {
             if(linesOfPixel>maxLines){
                 timerHandler.removeCallbacks(timerRunnable);
+                ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
             } else {
                 pixelatePicture(linesOfPixel);
                 timerHandler.postDelayed(this, timeBetweenPixelChange);
             }
+            pixelSteps=pixelSteps+pixelSteps;
             linesOfPixel+=pixelSteps;
+        }
+    };
+    Runnable scoreRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(score < 0) {
+                timerHandler.removeCallbacks(scoreRunnable);
+                score = 0;
+            } else {
+                TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
+                scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
+                score--;
+                timerHandler.postDelayed(this, timeLoosingPoint);
+                timeLoosingPoint-=5;
+            }
         }
     };
     // Timer Durchlauf
@@ -145,6 +163,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ImageButton play = (ImageButton) findViewById(R.id.startCountdown);
                 timerHandler.postDelayed(timerRunnable, 0);
+                timerHandler.postDelayed(scoreRunnable, 0);
                 play.setVisibility(View.GONE);
                 startCountdown.setVisibility(View.GONE);
             }
@@ -242,7 +261,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
         score = result.getScore();
         String points = " Punkte";
         TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
-        scoreText.setText(String.format(Locale.GERMANY, "%d", score) + points);
+        scoreText.setText(String.format(Locale.GERMANY, "%d", score)+points);
 
         answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3()));
 
