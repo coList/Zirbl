@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
+import hsaugsburg.zirbl001.TourActivities.IdentifySoundActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 import hsaugsburg.zirbl001.TourActivities.PictureCountdownActivity;
@@ -109,6 +110,8 @@ public class LoadTourChronology {
                     intent = new Intent(activity, TrueFalseActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("e_guesstheimagetask")) {
                     intent = new Intent(activity, PictureCountdownActivity.class);
+                } else if (nextChronologyItem.getTaskClassName().equals("e_identifysoundtask")) {
+                    intent = new Intent(activity, IdentifySoundActivity.class);
                 }
                 intent.putExtra("taskid", Integer.toString(nextChronologyItem.getTaskID()));
             }
