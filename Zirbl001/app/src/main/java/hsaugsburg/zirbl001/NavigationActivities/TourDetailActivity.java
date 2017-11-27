@@ -69,7 +69,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private String deviceToken;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 10;
+    private int amountOfDownloadTasks = 11;
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
@@ -143,6 +143,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         new DownloadJSON(this, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api2/selectNutLocationsView.php");
 
         new DownloadJSON(this, this, serverName, tourID, "tourpicturecountdown", "picturecountdown").execute(serverName + "/api2/selectPictureCountdownView.php");
+        new DownloadJSON(this, this, serverName, tourID, "touridentifysound", "identifysound").execute(serverName + "/api2/selectIdentifySoundView.php");
     }
 
     private boolean downloadSuccessfull() {
@@ -161,6 +162,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         files.add(new File(dir, "location_infopopups" + tourID + ".txt"));
 
         files.add(new File(dir, "picturecountdown" + tourID + ".txt"));
+        files.add(new File(dir, "identifysound" + tourID + ".txt"));
 
         for (File file : files) {
             if (file.exists()) {

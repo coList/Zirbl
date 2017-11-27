@@ -165,6 +165,10 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
         files.add(new File(dir, "nuts" + selectedTour + ".txt"));
         files.add(new File(dir, "nuts" + selectedTour + ".txt"));
 
+
+        files.add(new File(dir, "picturecountdown" + selectedTour + ".txt"));
+        files.add(new File(dir, "identifysound" + selectedTour + ".txt"));
+
         for (File file: files) {
             if (file.exists()) {
                 file.delete();

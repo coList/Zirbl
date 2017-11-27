@@ -44,4 +44,8 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
     testCompile 'junit:junit:4.12'
 
+    compile 'com.contentful.java:java-sdk:7.4.0'
+    compile 'io.reactivex:rxandroid:0.23.0'
+
+
 }
