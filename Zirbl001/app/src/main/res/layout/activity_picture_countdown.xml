@@ -42,16 +42,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:text="87 Punkte" />
 
             <RelativeLayout
                 android:id="@+id/questionImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="240dp"
                 android:visibility="visible">
 
 
@@ -60,7 +60,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:background="@color/colorTurquoise"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop" />
 
@@ -72,23 +71,19 @@
                     android:orientation="vertical"></LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/whiteTransparent"
+                    android:id="@+id/startCountdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignBottom="@+id/imgPixel"
-                    android:background="@color/colorTurquoise"
+                    android:background="@color/colorWhitetransparent"
                     android:contentDescription="@string/app_name" />
 
-                <ImageButton
-                    android:id="@+id/startCountdown"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <ImageView
+                    android:id="@+id/greyplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/play_deletelater" />
+                    app:srcCompat="@drawable/btn_greyplay" />
 
             </RelativeLayout>
 

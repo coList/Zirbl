@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -30,7 +32,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.utils.L;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,14 +49,6 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class PictureCountdownActivity extends AppCompatActivity {
 
-    // Parameter für Pixel Rätsel
-    private int timeBetweenPixelChange = 1000;
-    private int linesOfPixel = 2;
-    private int maxLines = 20;
-    private int pixelSteps = 1;
-    private int timeLoosingPoint = 1000;
-    // Parameter für Pixel Rätsel
-
     private Context mContext = PictureCountdownActivity.this;
 
     private int amountOfAnswers;
@@ -67,7 +60,6 @@ public class PictureCountdownActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
-    private int score;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -78,42 +70,54 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     private TopDarkActionbar topDarkActionbar;
 
+    // Parameter Pixel Rätsel
+    public int timeBetweenPixelChange = 500;
+    private int linesOfPixel = 9;
+    public int maxLines = 200;
+    private int score = 150;
+
+    TableRow[] rowPixels;
+    LinearLayout[][] colorField;
+    int[][] r;
+    int[][] g;
+    int[][] b;
+
+    LinearLayout mContainerView;
+    Bitmap originalBitmap;
+
     // Timer Durchlauf
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
+            linesOfPixel+=1;
+            if(score < 0) {
+                score = 0;
+            }
             if(linesOfPixel>maxLines){
                 timerHandler.removeCallbacks(timerRunnable);
                 ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
             } else {
-                pixelatePicture(linesOfPixel);
-                timerHandler.postDelayed(this, timeBetweenPixelChange);
-            }
-            //pixelSteps=pixelSteps+pixelSteps;
-            linesOfPixel+=pixelSteps;
-        }
-    };
-    Runnable scoreRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if(score < 0) {
-                timerHandler.removeCallbacks(scoreRunnable);
-                score = 0;
-            } else {
                 TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
                 scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
-                score--;
-                timerHandler.postDelayed(this, timeLoosingPoint);
-                timeLoosingPoint--;
+                int n = new Random().nextInt(rowPixels.length);
+                int m = new Random().nextInt(colorField[n].length);
+                if(colorField[n][m].getVisibility() != View.INVISIBLE){
+                    colorField[n][m].startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fadeout));
+                    colorField[n][m].setVisibility(View.INVISIBLE);
+                    score--;
+                }
+                timerHandler.postDelayed(this, timeBetweenPixelChange);
             }
         }
     };
-    // Timer Durchlauf
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_picture_countdown);
 
 
@@ -156,14 +160,14 @@ public class PictureCountdownActivity extends AppCompatActivity {
         initImageLoader();
         setDataView();
 
-        //
-        final ImageButton startCountdown = (ImageButton) findViewById(R.id.whiteTransparent);
+        final ImageButton startCountdown = (ImageButton) findViewById(R.id.startCountdown);
         startCountdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageButton play = (ImageButton) findViewById(R.id.startCountdown);
                 timerHandler.postDelayed(timerRunnable, 0);
-                timerHandler.postDelayed(scoreRunnable, 0);
+                int linearLayout = getResources().getIdentifier("pixelMap", "id", getPackageName());
+                pixelatePicture(linesOfPixel, linearLayout);
+                ImageView play = (ImageView) findViewById(R.id.greyplay);
                 play.setVisibility(View.GONE);
                 startCountdown.setVisibility(View.GONE);
             }
@@ -172,31 +176,32 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     }
 
-    public void pixelatePicture(int pixelLines) {
-        if(((LinearLayout) findViewById(R.id.pixelMap)).getChildCount() > 0){
-            ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
+    public void pixelatePicture(int n ,int linearLayout) {
+        if (((LinearLayout) findViewById(linearLayout)).getChildCount() > 0) {
+            ((LinearLayout) findViewById(linearLayout)).removeAllViews();
         }
         ImageView image = (ImageView) findViewById(R.id.imgPixel);
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache(true);
 
         Bitmap bit = image.getDrawingCache();
-        int heightBitmap = bit.getHeight();
-        int widthBitmap = bit.getWidth();
+        int heightLayout = bit.getHeight();
+        int widthLayout = bit.getWidth();
+        Log.d("C","height"+heightLayout+"width"+widthLayout);
 
-        int n = pixelLines;
-        int m = widthBitmap / (heightBitmap / n);
+        int m = widthLayout / (heightLayout / n);
 
-        TableRow[] rowPixels = new TableRow[n];
-        ImageView[][] colorField = new ImageView[n][m];
+        rowPixels = new TableRow[n];
+        colorField = new LinearLayout[n][m];
+
         int[] xCoordinate = new int[m];
         int[] yCoordinate = new int[n];
         int[][] pixel = new int[n][m];
-        int[][] r = new int[n][m];
-        int[][] g = new int[n][m];
-        int[][] b = new int[n][m];
+        r = new int[n][m];
+        g = new int[n][m];
+        b = new int[n][m];
 
-        LinearLayout pixelMap = (LinearLayout) findViewById(R.id.pixelMap);
+        LinearLayout pixelMap = (LinearLayout) findViewById(linearLayout);
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 0);
         rowParams.weight = 1;
@@ -208,20 +213,20 @@ public class PictureCountdownActivity extends AppCompatActivity {
             rowPixels[i] = new TableRow((getApplicationContext()));
             pixelMap.addView(rowPixels[i], rowParams);
             for (int k = 0; k < m; k++) {
-                colorField[i][k] = new ImageView(getApplicationContext());
+                colorField[i][k] = new LinearLayout(getApplicationContext());
                 rowPixels[i].addView(colorField[i][k], pixelParams);
             }
         }
 
         int denom = 1;
         for (int i = 0; i < n; i++) {
-            yCoordinate[i] = (heightBitmap / (n * 2)) * denom;
+            yCoordinate[i] = ((heightLayout / (n * 2)) * denom);
             denom += 2;
         }
 
         denom = 1;
         for (int i = 0; i < m; i++) {
-            xCoordinate[i] = (widthBitmap / (m * 2)) * denom;
+            xCoordinate[i] = ((widthLayout / (m * 2)) * denom);
             denom += 2;
         }
 
@@ -251,6 +256,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
         File imgFile = new File(zirblImages, imgPath);
         String decodedImgUri = Uri.fromFile(imgFile).toString();
         ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
+        //int linearLayout = getResources().getIdentifier("pixelMap", "id", getPackageName());
+        //pixelatePicture(linesOfPixel, linearLayout);
 
 
         TextView questionText = (TextView) findViewById(R.id.questionText);
