@@ -7,22 +7,26 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 
@@ -134,6 +138,46 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                                     }
                                 }
 
+                            }
+
+                            if (mJSONObjectElement.has("audio")) {
+                                int count;
+                                try {
+                                    URL audioURL = new URL(serverName + mJSONObjectElement.getString("audio"));
+                                    URLConnection audioURLConnection = audioURL.openConnection();
+                                    audioURLConnection.connect();
+
+                                    // download the file
+                                    InputStream input = new BufferedInputStream(audioURL.openStream());
+
+                                    ContextWrapper cw = new ContextWrapper(activity.getApplicationContext());
+                                    File directory = cw.getDir("zirblAudio", Context.MODE_PRIVATE);
+
+                                    File audioPath=new File(directory, selectedTour + "taskid" + mJSONObjectElement.getInt("taskid") + ".mp3");
+
+                                    FileOutputStream audioFileout = null;
+                                    audioFileout = new FileOutputStream(audioPath);
+
+                                    //OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/zirbl/audio/" + selectedTour + "taskid" + mJSONObjectElement.getInt("taskid") + ".mp3");
+
+                                    byte data[] = new byte[1024];
+
+                                    long total = 0;
+
+                                    while ((count = input.read(data)) != -1) {
+                                        total += count;
+                                        audioFileout.write(data, 0, count);
+                                    }
+
+                                    Log.d("DownloadJSON", audioFileout.toString());
+
+                                    audioFileout.flush();
+                                    audioFileout.close();
+                                    input.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Log.d("DownloadJSON", "Download failed");
+                                }
                             }
                         }
                         outputWriter.write(mJSONArrayElement.toString());
