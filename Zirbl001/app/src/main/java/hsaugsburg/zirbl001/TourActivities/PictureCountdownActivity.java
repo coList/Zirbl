@@ -49,10 +49,10 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 public class PictureCountdownActivity extends AppCompatActivity {
 
     // Parameter für Pixel Rätsel
-    private int timeBetweenPixelChange = 8000; //8sec
+    private int timeBetweenPixelChange = 1000;
     private int linesOfPixel = 2;
-    private int maxLines = 32;
-    private int pixelSteps = 2;//4;8;16;32
+    private int maxLines = 20;
+    private int pixelSteps = 1;
     private int timeLoosingPoint = 1000;
     // Parameter für Pixel Rätsel
 
@@ -90,7 +90,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 pixelatePicture(linesOfPixel);
                 timerHandler.postDelayed(this, timeBetweenPixelChange);
             }
-            pixelSteps=pixelSteps+pixelSteps;
+            //pixelSteps=pixelSteps+pixelSteps;
             linesOfPixel+=pixelSteps;
         }
     };
@@ -105,7 +105,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
                 score--;
                 timerHandler.postDelayed(this, timeLoosingPoint);
-                timeLoosingPoint-=5;
+                timeLoosingPoint--;
             }
         }
     };
