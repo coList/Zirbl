@@ -207,7 +207,8 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
             */
 
-
+            ImageButton greyplay = (ImageButton) findViewById(R.id.playSound);
+            greyplay.setImageResource(R.drawable.btn_greypause);
             MediaPlayer player = new MediaPlayer();
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             Log.d("IdentifySoundActivity", serverName + audioUrl);
@@ -219,12 +220,6 @@ public class IdentifySoundActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-
-
-
-
         }
     };
 
