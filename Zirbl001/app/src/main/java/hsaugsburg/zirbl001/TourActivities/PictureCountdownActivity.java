@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -73,8 +74,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
     // Parameter Pixel Rätsel
     public int timeBetweenPixelChange = 500;
     private int linesOfPixel = 9;
-    public int maxLines = 200;
-    private int score = 150;
+    private int score = 0;
 
     TableRow[] rowPixels;
     LinearLayout[][] colorField;
@@ -90,11 +90,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            linesOfPixel+=1;
-            if(score < 0) {
-                score = 0;
-            }
-            if(linesOfPixel>maxLines){
+            if(score<10){
+                score = 10;
                 timerHandler.removeCallbacks(timerRunnable);
                 ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
             } else {
@@ -106,8 +103,11 @@ public class PictureCountdownActivity extends AppCompatActivity {
                     colorField[n][m].startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fadeout));
                     colorField[n][m].setVisibility(View.INVISIBLE);
                     score--;
+                    timerHandler.postDelayed(this, timeBetweenPixelChange);
+                } else {
+                    timerHandler.postDelayed(this, 0);
                 }
-                timerHandler.postDelayed(this, timeBetweenPixelChange);
+
             }
         }
     };
@@ -240,6 +240,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
             }
         }
 
+        score = (m * n)+10;
+
     }
 
     public void setDataView() {
@@ -265,7 +267,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
         //questionText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
 
-        score = result.getScore();
+        //score = result.getScore();
         String points = " Punkte";
         TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
         scoreText.setText(String.format(Locale.GERMANY, "%d", score)+points);
