@@ -50,6 +50,15 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class PictureCountdownActivity extends AppCompatActivity {
 
+/*
+    // Parameter für Pixel Rätsel
+    private int timeBetweenPixelChange = 5000; //3sec
+    private int linesOfPixel = 2;
+    private int maxLines = 32;
+    private int pixelSteps = 2;
+    // Parameter für Pixel Rätsel
+*/
+
     private Context mContext = PictureCountdownActivity.this;
 
     private int amountOfAnswers;

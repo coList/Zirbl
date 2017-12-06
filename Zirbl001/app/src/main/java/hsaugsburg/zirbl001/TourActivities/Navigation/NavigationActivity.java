@@ -557,4 +557,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+
+
 }
