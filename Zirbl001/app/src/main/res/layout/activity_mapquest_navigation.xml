@@ -1,16 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.Navigation.MapQuestNavigationActivity">
 
-    <com.mapquest.mapping.maps.MapView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mapquestMapView"
-        app:mapquest_app_key="sevLhXPducYAw9qYGLmAdAWQLHNjDOfh"
-        />
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+        <include layout="@layout/layout_top_dark_actionbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_progressbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutSite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.mapquest.mapping.maps.MapView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mapquestMapView"
+            app:mapquest_app_key="sevLhXPducYAw9qYGLmAdAWQLHNjDOfh"
+            />
+
+        <RelativeLayout
+            android:id="@+id/stationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/stationInfo"
+            android:background="@color/colorTransparent80"
+            android:clickable="true"
+            android:onClick="onClick">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                android:id="@+id/navigationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="24dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/_map_arrow" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/stationInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent80"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/navigationInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/continueArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center_vertical">
+
+            <Button
+                android:id="@+id/nextTourItem"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/code_cheat_button"
+                android:onClick="continueToNextView"
+                android:paddingBottom="7dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="7dp"
+                android:text="überspringen"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

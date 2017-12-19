@@ -27,7 +27,7 @@ public class JSONUpdateRoad extends AsyncTask<Object, Void, List<LatLng>> {
         @SuppressWarnings("unchecked")
         ArrayList<GeoPoint> waypoints = (ArrayList<GeoPoint>)params[0];
         Log.d(TAG, "Startpoint: " + waypoints.get(0) + "  -  Endpoint: " + waypoints.get(1));
-        RoadManager roadManager = new MapQuestRoadManager("sevLhXPducYAw9qYGLmAdAWQLHNjDOfh");
+        RoadManager roadManager = new MapQuestRoadManager("iZOc26RPSvNP2EGtBxvJ0XGbqU1R6A3N");
         roadManager.addRequestOption("routeType=pedestrian");
 
         List<GeoPoint> overleyGeoPoints = new ArrayList<>();
