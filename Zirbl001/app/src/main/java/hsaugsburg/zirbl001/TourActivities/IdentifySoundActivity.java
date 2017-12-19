@@ -115,6 +115,9 @@ public class IdentifySoundActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         initImageLoader();
         setDataView();
     }
