@@ -100,6 +100,7 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
                 listIsNutCollected.add(false);
             }
 
+
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 listDoUKnowRead.add(false);
             }

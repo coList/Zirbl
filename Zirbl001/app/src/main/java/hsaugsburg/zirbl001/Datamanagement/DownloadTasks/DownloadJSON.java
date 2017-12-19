@@ -181,6 +181,7 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
                             }
                         }
                         outputWriter.write(mJSONArrayElement.toString());
+                        Log.d("DownloadJSON", mJSONArrayElement.toString());
                     }
                 }
                 outputWriter.close();
