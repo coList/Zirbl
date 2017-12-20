@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement.LoadTasks;
 
 import android.app.Activity;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ public class LoadStationLocation {
             InputRead.close();
 
 
+
             JSONArray jsonArray = new JSONArray(s);
 
                     for(int y=0; y<jsonArray.length(); y++){
@@ -54,6 +56,8 @@ public class LoadStationLocation {
                             stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
                             stationModel.setStationName(mJSONObjectStation.getString("stationname"));
                             stationModel.setMapInstruction(mJSONObjectStation.getString("mapinstruction"));
+                            stationModel.setWayPoints(mJSONObjectStation.getJSONObject("waypoints"));
+
                         }
                     }
 

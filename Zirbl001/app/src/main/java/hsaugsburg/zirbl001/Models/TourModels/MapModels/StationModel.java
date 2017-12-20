@@ -1,5 +1,7 @@
 package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
+import org.json.JSONObject;
+
 public class StationModel {
     private int tourID;
     private int chronologyNumber;
@@ -8,6 +10,7 @@ public class StationModel {
     private String mapInstruction;
     private Double latitude;
     private Double longitude;
+    private JSONObject wayPoints;
 
     public int getTourID() {
         return tourID;
@@ -63,5 +66,13 @@ public class StationModel {
 
     public void setStationID(int stationID) {
         this.stationID = stationID;
+    }
+
+    public JSONObject getWayPoints() {
+        return wayPoints;
+    }
+
+    public void setWayPoints(JSONObject wayPoints) {
+        this.wayPoints = wayPoints;
     }
 }

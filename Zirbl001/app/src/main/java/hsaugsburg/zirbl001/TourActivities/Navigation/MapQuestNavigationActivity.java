@@ -47,6 +47,8 @@ import com.mapquest.mapping.maps.MapboxMap;
 import com.mapquest.mapping.maps.MapView;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.osmdroid.util.GeoPoint;
 
 
@@ -112,6 +114,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private Polyline polyline;
     private PolylineOptions mPolyline = new PolylineOptions();
     private boolean firstStart = true;
+
+    private  List<LatLng> shapePoints = new ArrayList<>();
 
     //dot menu
     private TopDarkActionbar topDarkActionbar;
@@ -208,7 +212,12 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 waypoints.add(new GeoPoint(userLat, userLng));
                 waypoints.add(new GeoPoint(latTarget, lngTarget));
 
-                new JSONUpdateRoad(MapQuestNavigationActivity.this).execute(waypoints);
+                //new JSONUpdateRoad(MapQuestNavigationActivity.this).execute(waypoints);
+
+                polyline = mMapboxMap.addPolyline(new PolylineOptions()
+                        .addAll(shapePoints)
+                        .color(getResources().getColor(R.color.colorTurquoise))
+                        .width(5));
 
                 //Zielflagge setzen
                 addOwnMarker(new LatLng(latTarget, lngTarget),
@@ -228,11 +237,32 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         mapInstruction.setText(result.getMapInstruction());
+
+        JSONArray waypoints = new JSONArray();
+
+        try {
+            waypoints = result.getWayPoints().getJSONArray("waypoints");
+            Log.d("MapQuest", result.getWayPoints().getJSONArray("waypoints").toString());
+
+
+            for (int i = 0; i < waypoints.length(); i+=2) {
+                LatLng waypoint = new LatLng(waypoints.getDouble(i), waypoints.getDouble(i+1));
+
+                shapePoints.add(waypoint);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+       Log.d("MapQuestNavigationshape", shapePoints.toString());
+        //drawPolyline(shapePoints);
+
+
     }
 
     public void getAllLatLngPoints(List<LatLng> points)  {
 
-        drawPolyline(points);
+        //drawPolyline(points);
     }
 
     private void drawPolyline(List<LatLng> coordinates) {
@@ -462,6 +492,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
         //setNuts();
 
+        /*
         try {
             List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
 
@@ -472,6 +503,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
 
