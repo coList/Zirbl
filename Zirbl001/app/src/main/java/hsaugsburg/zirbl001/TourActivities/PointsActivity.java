@@ -131,7 +131,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
-                gif.setImageResource(0);
+                gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
@@ -149,7 +149,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
-                gif.setImageResource(0);
+                gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
