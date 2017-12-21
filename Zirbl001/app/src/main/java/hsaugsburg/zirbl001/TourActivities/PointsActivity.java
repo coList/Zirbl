@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
@@ -30,6 +35,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
     private int chronologyNumber;
     private int currentScore;
+    private int scoreBefore;
+    private int score;
     private int selectedTour;
     private String stationName;
 
@@ -41,6 +48,24 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private LoadTourChronology loadTourChronology;
 
     private TopDarkActionbar topDarkActionbar;
+
+    Animation animPoints;
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            scoreBefore++;
+            score--;
+            QuicksandBoldPrimaryView total = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
+            total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
+            if(score==0){
+                timerHandler.removeCallbacks(timerRunnable);
+            } else {
+                timerHandler.postDelayed(this, 20);
+            }
+
+        }
+    };
 
     @Override
     protected void onPause() {
@@ -57,26 +82,30 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
+
         selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
+        scoreBefore = currentScore;
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
-        currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
-
         stationName = getIntent().getStringExtra("stationName");
+
+        animPoints =AnimationUtils.loadAnimation(mContext,R.anim.points);
 
         String solution = getIntent().getStringExtra("solution");
         String userAnswer = getIntent().getStringExtra("userAnswer");
         String answerCorrect = getIntent().getStringExtra("answerCorrect");
         String answerWrong = getIntent().getStringExtra("answerWrong");
+
         int stringLengthC = answerCorrect.length();
         int stringLengthW = answerWrong.length();
-        int score = Integer.parseInt(getIntent().getStringExtra("score"));
+        score = Integer.parseInt(getIntent().getStringExtra("score"));
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
         TextView scoreText = (TextView) findViewById(R.id.points);
         ImageView gif = (ImageView) findViewById(R.id.gifConfetti);
+        QuicksandBoldPrimaryView total = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
 
         String correct = "RICHTIG";
         String wrong = "FALSCH";
@@ -93,13 +122,17 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 gif.setImageResource(R.drawable.confetti_right);
+                total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
-                scoreText.setText(String.format(Locale.GERMANY, "%d", score));
+                scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
+                scoreText.startAnimation(animPoints);
+                timerHandler.postDelayed(timerRunnable, 1200);
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
-                gif.setImageResource(R.drawable.confetti_wrong);
+                gif.setImageResource(0);
+                total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
         } else { //if not:
@@ -107,20 +140,24 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerText.setText(fromHtml(answerCorrect));
                 answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 gif.setImageResource(R.drawable.confetti_right);
+                total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
-                scoreText.setText(String.format(Locale.GERMANY, "%d", score));
+                scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
+                scoreText.startAnimation(animPoints);
+                timerHandler.postDelayed(timerRunnable, 1200);
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
-                gif.setImageResource(R.drawable.confetti_wrong);
+                gif.setImageResource(0);
+                total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
         }
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         //Scroll View State Change
-        ConstraintLayout pointsArea = (ConstraintLayout) findViewById(R.id.pointsArea);
+        RelativeLayout pointsArea = (RelativeLayout) findViewById(R.id.pointsArea);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
         RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
         RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
