@@ -29,7 +29,6 @@
         android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relLayoutActionBar"
         android:background="@color/colorAccent">
 
 
@@ -61,6 +60,7 @@
                     android:id="@+id/behindQuestionImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     android:visibility="visible" />
 
@@ -274,6 +274,7 @@
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="continueToNextView"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_continue" />

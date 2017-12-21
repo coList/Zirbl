@@ -9,7 +9,7 @@
         android:backgroundTint="@color/colorLine"
         android:cursorVisible="true"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="textCapWords|textPersonName"
         android:textCursorDrawable="@null"
         android:singleLine="true"

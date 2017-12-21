@@ -13,14 +13,15 @@
         android:background="@color/colorRed">
 
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="SCAN FEHLGESCHLAGEN"
-            android:id="@+id/title"
             android:layout_margin="24dp"
-            android:textSize="18sp"
+            android:contentDescription="@string/app_name"
+            android:gravity="center_vertical"
+            android:text="@string/scan_missed"
             android:textColor="@color/colorAccent"
-            android:gravity="center_vertical" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -74,6 +75,7 @@
             android:id="@+id/lineTop"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@color/colorLine" />
 
     </LinearLayout>
@@ -87,55 +89,39 @@
         android:orientation="horizontal"
         android:weightSum="2" >
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_marked"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:weightSum="2">
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|center_horizontal"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text=""
-                android:id="@+id/btn_marked"
-                android:gravity="center_vertical|center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="?android:attr/selectableItemBackground"
-                android:textSize="18sp"
-                android:layout_weight="1"
-                />
-            </LinearLayout>
+        <ImageView
+            android:id="@+id/lineMiddle"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:weightSum="2"
+            app:srcCompat="@color/colorLine" />
 
-
-            <ImageView
-                android:id="@+id/lineMiddle"
-                android:layout_width="2dp"
-                android:weightSum="2"
-                android:layout_height="match_parent"
-                app:srcCompat="@color/colorLine" />
-
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_end"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_margin="10dp"
-                android:id="@+id/btn_end"
-                android:gravity="center_vertical|center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="?android:attr/selectableItemBackground"
-                android:textSize="18sp"
-                android:layout_weight="1"/>
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical|center_horizontal"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
-        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

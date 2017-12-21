@@ -26,10 +26,11 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relLayoutSite"
+    <ScrollView
+        android:id="@+id/scrollLayoutSite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,6 +48,7 @@
                 android:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/soundArea"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -68,7 +70,7 @@
                 <ProgressBar
                     android:id="@+id/soundBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="24dp"
@@ -85,6 +87,34 @@
                 android:contentDescription="@string/app_name"
                 android:visibility="visible"
                 app:srcCompat="@color/colorLine" />
+
+            <RelativeLayout
+                android:id="@+id/questionImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/behindQuestionImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:visibility="visible" />
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                    android:id="@+id/besideImgQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/behindQuestionImage"
+                    android:background="@color/colorTransparent80"
+                    android:gravity="bottom"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="24dp"
+                    android:textColor="@color/colorAccent" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/area1"
@@ -210,7 +240,6 @@
                     android:layout_alignParentBottom="true"
                     android:contentDescription="@string/app_name"
                     app:srcCompat="@color/colorLine" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -275,6 +304,6 @@
                     android:src="@drawable/btn_continue" />
             </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>

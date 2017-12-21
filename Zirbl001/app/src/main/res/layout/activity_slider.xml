@@ -30,7 +30,6 @@
         android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relLayoutActionBar"
         android:background="@color/colorAccent">
 
 
@@ -99,6 +98,7 @@
                     android:id="@+id/endCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true" />
             </RelativeLayout>
 
@@ -119,6 +119,7 @@
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="continueToNextView"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_continue" />

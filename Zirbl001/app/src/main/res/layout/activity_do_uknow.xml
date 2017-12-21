@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity"
-    android:orientation="vertical">
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity">
 
     <RelativeLayout
         android:id="@+id/relLayoutActionBar"
@@ -25,99 +26,96 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
+    <ScrollView
+        android:id="@+id/scrollLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:fillViewport="true">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/DoUKnow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/DoUKnow"
+            <RelativeLayout
+                android:id="@+id/zirbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DoUKnow"
+                android:background="@color/colorAccent"
+                android:minHeight="100dp">
+
+                <ImageView
+                    android:id="@+id/speechOpen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/img_speech_bubble_open" />
+
+                <ImageView
+                    android:id="@+id/themeZirbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="24dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:maxHeight="300dp"
+                    android:minHeight="100dp"
+                    android:visibility="visible" />
 
-                <RelativeLayout
-                    android:id="@+id/zirbl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/DoUKnow"
-                    android:background="@color/colorAccent"
-                    android:minHeight="100dp">
-
-                    <ImageView
-                        android:id="@+id/speechOpen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/DoUKnow"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/img_speech_bubble_open" />
-
-                    <ImageView
-                        android:id="@+id/themeZirbl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginTop="24dp"
-                        android:adjustViewBounds="true"
-                        android:maxHeight="300dp"
-                        android:minHeight="100dp"
-                        android:visibility="visible" />
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/continueArea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="false"
-                    android:layout_below="@+id/zirbl"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="16dp">
-
-                    <ImageButton
-                        android:id="@+id/endButton"
-                        android:layout_width="200dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:onClick="showEndTourDialog"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/btn_continue"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/btn_end" />
-
-                    <ImageButton
-                        android:id="@+id/continueButton"
-                        android:layout_width="200dp"
-                        android:layout_height="48dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:onClick="continueToNextView"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/btn_continue"
-                        android:visibility="visible"
-                        app:srcCompat="@drawable/btn_continue" />
-                </LinearLayout>
             </RelativeLayout>
-        </ScrollView>
-    </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/continueArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_below="@+id/zirbl"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/endButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="continueToNextView"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_continue"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/btn_end" />
+
+                <ImageButton
+                    android:id="@+id/continueButton"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="continueToNextView"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_continue"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/btn_continue" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>

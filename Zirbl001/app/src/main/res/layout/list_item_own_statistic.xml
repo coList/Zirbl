@@ -1,137 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relLayoutItem"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/relLayoutItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+        android:id="@+id/statPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imagePoints"
+        android:layout_alignEnd="@+id/imagePoints"
+        android:layout_alignStart="@+id/imagePoints"
+        android:layout_marginBottom="25dp"
+        android:textAlignment="center"
+        android:textSize="30sp" />
 
-        <LinearLayout
-            android:id="@+id/placeholderPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/teamName"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"/>
+    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+        android:id="@+id/teamName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/placementOfAllArea"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:textAllCaps="false" />
+
+    <LinearLayout
+        android:id="@+id/placementOfAllArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usedTimeArea"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imagePoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/teamName"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_toRightOf="@+id/placeholderPoints"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/img_statisticnut"
-            tools:layout_editor_absoluteY="8dp" />
-
-        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-            android:id="@+id/statPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imagePoints"
-            android:layout_alignEnd="@+id/imagePoints"
-            android:layout_alignStart="@+id/imagePoints"
-            android:layout_marginBottom="25dp"
-            android:text="000"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-
-        <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
-            android:id="@+id/titleOfStatistic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:text=""
-            app:textAllCaps="false" />
-
-        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titleOfStatistic"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
-            android:text=""
-            app:textAllCaps="false" />
-
-        <LinearLayout
-            android:id="@+id/usedTimeArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/date"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageUsedTime"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@drawable/ic_time" />
-
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/textUsedTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text=""
-                app:textAllCaps="false" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/placementOfAllArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/usedTimeArea"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="24dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imagePlacement"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:srcCompat="@drawable/ic_cup" />
-
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/textPlacement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text=""
-                app:textAllCaps="false" />
-        </LinearLayout>
+            android:id="@+id/imagePlacement"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/ic_cup" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-            android:id="@+id/teamName"
-            android:layout_width="match_parent"
+            android:id="@+id/textPlacement"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/placementOfAllArea"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text=""
             app:textAllCaps="false" />
+    </LinearLayout>
 
-        <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-            android:id="@+id/membersOfTeam"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/usedTimeArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageUsedTime"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/ic_time" />
+
+        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+            android:id="@+id/textUsedTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/teamName"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="24dp"
             android:text=""
             app:textAllCaps="false" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
+        android:id="@+id/titleOfStatistic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:textAllCaps="false" />
 
-</LinearLayout>
+    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+        android:id="@+id/membersOfTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamName"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:textAllCaps="false" />
+
+    <LinearLayout
+        android:id="@+id/placeholderPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/teamName"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" />
+
+    <ImageView
+        android:id="@+id/imagePoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/teamName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_toEndOf="@+id/placeholderPoints"
+        android:layout_toRightOf="@+id/placeholderPoints"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/img_statisticnut"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleOfStatistic"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:text=""
+        app:textAllCaps="false" />
+
+</RelativeLayout>
