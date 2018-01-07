@@ -50,85 +50,32 @@ import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
 
 public class PictureCountdownActivity extends AppCompatActivity {
 
-/*
-    // Parameter für Pixel Rätsel
-    private int timeBetweenPixelChange = 5000; //3sec
-    private int linesOfPixel = 2;
-    private int maxLines = 32;
-    private int pixelSteps = 2;
-    // Parameter für Pixel Rätsel
-*/
-
     private Context mContext = PictureCountdownActivity.this;
 
     private int amountOfAnswers;
     private int selectedAnswer = -1;
-
     private int chronologyNumber;
     private int selectedTour;
+    private int score;
+    private int currentScore;
+
+    private long startTime;
+
     private String stationName;
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
-
-    public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
 
+    public static final String GLOBAL_VALUES = "globalValuesFile";
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int currentScore;
-    private long startTime;
 
     private TopDarkActionbar topDarkActionbar;
-
-    // Parameter Pixel Rätsel
-    public int timeBetweenPixelChange = 500;
-    private int linesOfPixel = 9;
-    private int score = 0;
-
-    TableRow[] rowPixels;
-    LinearLayout[][] colorField;
-    int[][] r;
-    int[][] g;
-    int[][] b;
-
-    LinearLayout mContainerView;
-    Bitmap originalBitmap;
-
-    // Timer Durchlauf
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if(score<10){
-                score = 10;
-                timerHandler.removeCallbacks(timerRunnable);
-                ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
-            } else {
-                TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
-                scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
-                int n = new Random().nextInt(rowPixels.length);
-                int m = new Random().nextInt(colorField[n].length);
-                if(colorField[n][m].getVisibility() != View.INVISIBLE){
-                    colorField[n][m].startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fadeout));
-                    colorField[n][m].setVisibility(View.INVISIBLE);
-                    score--;
-                    timerHandler.postDelayed(this, timeBetweenPixelChange);
-                } else {
-                    timerHandler.postDelayed(this, 0);
-                }
-
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_picture_countdown);
-
 
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
@@ -168,89 +115,6 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
         initImageLoader();
         setDataView();
-
-        final ImageButton startCountdown = (ImageButton) findViewById(R.id.startCountdown);
-        startCountdown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timerHandler.postDelayed(timerRunnable, 0);
-                int linearLayout = getResources().getIdentifier("pixelMap", "id", getPackageName());
-                pixelatePicture(linesOfPixel, linearLayout);
-                ImageView play = (ImageView) findViewById(R.id.greyplay);
-                play.setVisibility(View.GONE);
-                startCountdown.setVisibility(View.GONE);
-            }
-        });
-
-
-    }
-
-    public void pixelatePicture(int n ,int linearLayout) {
-        if (((LinearLayout) findViewById(linearLayout)).getChildCount() > 0) {
-            ((LinearLayout) findViewById(linearLayout)).removeAllViews();
-        }
-        ImageView image = (ImageView) findViewById(R.id.imgPixel);
-        image.setDrawingCacheEnabled(true);
-        image.buildDrawingCache(true);
-
-        Bitmap bit = image.getDrawingCache();
-        int heightLayout = bit.getHeight();
-        int widthLayout = bit.getWidth();
-        Log.d("C","height"+heightLayout+"width"+widthLayout);
-
-        int m = widthLayout / (heightLayout / n);
-
-        rowPixels = new TableRow[n];
-        colorField = new LinearLayout[n][m];
-
-        int[] xCoordinate = new int[m];
-        int[] yCoordinate = new int[n];
-        int[][] pixel = new int[n][m];
-        r = new int[n][m];
-        g = new int[n][m];
-        b = new int[n][m];
-
-        LinearLayout pixelMap = (LinearLayout) findViewById(linearLayout);
-        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, 0);
-        rowParams.weight = 1;
-        TableRow.LayoutParams pixelParams = new TableRow.LayoutParams(
-                0, ViewGroup.LayoutParams.MATCH_PARENT);
-        pixelParams.weight = 1;
-
-        for (int i = 0; i < n; i++) {
-            rowPixels[i] = new TableRow((getApplicationContext()));
-            pixelMap.addView(rowPixels[i], rowParams);
-            for (int k = 0; k < m; k++) {
-                colorField[i][k] = new LinearLayout(getApplicationContext());
-                rowPixels[i].addView(colorField[i][k], pixelParams);
-            }
-        }
-
-        int denom = 1;
-        for (int i = 0; i < n; i++) {
-            yCoordinate[i] = ((heightLayout / (n * 2)) * denom);
-            denom += 2;
-        }
-
-        denom = 1;
-        for (int i = 0; i < m; i++) {
-            xCoordinate[i] = ((widthLayout / (m * 2)) * denom);
-            denom += 2;
-        }
-
-        for (int i = 0; i < n; i++) {
-            for (int k = 0; k < m; k++) {
-                pixel[i][k] = bit.getPixel(xCoordinate[k], yCoordinate[i]);
-                r[i][k] = Color.red((pixel[i][k]));
-                g[i][k] = Color.green((pixel[i][k]));
-                b[i][k] = Color.blue((pixel[i][k]));
-                colorField[i][k].setBackgroundColor(Color.rgb(r[i][k], g[i][k], b[i][k]));
-            }
-        }
-
-        score = (m * n)+10;
-
     }
 
     public void setDataView() {
@@ -267,16 +131,13 @@ public class PictureCountdownActivity extends AppCompatActivity {
         File imgFile = new File(zirblImages, imgPath);
         String decodedImgUri = Uri.fromFile(imgFile).toString();
         ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
-        //int linearLayout = getResources().getIdentifier("pixelMap", "id", getPackageName());
-        //pixelatePicture(linesOfPixel, linearLayout);
 
 
         TextView questionText = (TextView) findViewById(R.id.questionText);
         questionText.setText(fromHtml(result.getQuestion()));
-        //questionText.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 
 
-        //score = result.getScore();
+        score = result.getScore();
         String points = " Punkte";
         TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
         scoreText.setText(String.format(Locale.GERMANY, "%d", score)+points);
@@ -336,10 +197,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
         public void onClick(View v) {
             selectedAnswer = 1;
             resetAnswers();
-
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.area1);
             selected.setBackgroundResource(R.color.colorTurquoise);
-
             ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter1);
             invertedImg.setImageResource(R.drawable.ic_1_active);
             Button btA = (Button) findViewById(R.id.answer1);
@@ -350,7 +209,6 @@ public class PictureCountdownActivity extends AppCompatActivity {
         public void onClick(View v) {
             selectedAnswer = 2;
             resetAnswers();
-
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.area2);
             selected.setBackgroundResource(R.color.colorTurquoise);
             ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter2);
@@ -364,10 +222,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
         public void onClick(View v) {
             selectedAnswer = 3;
             resetAnswers();
-
             RelativeLayout selected = (RelativeLayout) findViewById(R.id.area3);
             selected.setBackgroundResource(R.color.colorTurquoise);
-
             ImageView invertedImg = (ImageView) findViewById(R.id.imgLetter3);
             invertedImg.setImageResource(R.drawable.ic_3_active);
             Button btA = (Button) findViewById(R.id.answer3);
@@ -384,11 +240,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
             list.set(numberToSwapWith, list.get(i));
             list.set(i, tmp);
         }
-
         return list;
     }
 
-    //unselect all answers
     private void resetAnswers() {
         for (int i = 0; i < amountOfAnswers; i++) {
             String nameRelativeLayout = "area" + (i + 1);
@@ -420,7 +274,6 @@ public class PictureCountdownActivity extends AppCompatActivity {
         });
     }
 
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             showEndTourDialog();
