@@ -14,13 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -41,9 +37,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadPictureCountdown;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadQuiz;
 import hsaugsburg.zirbl001.Models.TourModels.PictureCountdownModel;
-import hsaugsburg.zirbl001.Models.TourModels.QuizModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
@@ -71,6 +65,32 @@ public class PictureCountdownActivity extends AppCompatActivity {
     public static final String TOUR_VALUES = "tourValuesFile";
 
     private TopDarkActionbar topDarkActionbar;
+
+    private ImageView[] fields = new ImageView[88];
+    private int[] sequence = new int[]{
+            81,12,53,33,87,19,67,4,10,68,84,16,32,47,43,77,23,54,56,64,72,0,14,74,39,79,20,69,7,1,31,76,44,6,13,45,80,73,42,8,82,
+            75,18,2,86,70,55,21,3,11,65,51,24,78,49,62,83,17,36,63,15,27,58,34,85,57,66,50,25,71,37,60,5,48,22,30,9,52,46,40,29,
+            61,35,28,59,38,41,26};
+    private int n = 0;
+
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if(n >= 88){
+                timerHandler.removeCallbacks(timerRunnable);
+                ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
+            } else {
+                TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
+                scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
+                fields[sequence[n]].startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fadeout));
+                fields[sequence[n]].setVisibility(View.INVISIBLE);
+                n++;
+                score--;
+                timerHandler.postDelayed(this, 500);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +121,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
 
         //Selection
+        ImageButton playBtn = (ImageButton) findViewById(R.id.startCountdown);
+        playBtn.setOnClickListener(playPixelQuiz);
         Button buttonA = (Button) findViewById(R.id.answer1);
         buttonA.setOnClickListener(answerA);
         Button buttonB = (Button) findViewById(R.id.answer2);
@@ -160,6 +182,75 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     }
 
+    public void pixelatePicture(ImageView image) {
+        int rowsOfPixel = 8;
+        int columnsOfPixel =11;
+        //Image in Bitmap umwandeln
+        image.setDrawingCacheEnabled(true);
+        image.buildDrawingCache(true);
+        Bitmap bit = image.getDrawingCache();
+        int heightLayout = bit.getHeight();
+        int widthLayout = bit.getWidth();
+
+        //Initialisierung Arrays
+        TableRow[] rowPixels = new TableRow[rowsOfPixel];
+        ImageView[][] colorField = new ImageView[rowsOfPixel][columnsOfPixel];
+
+        int[] yCoordinate = new int[rowsOfPixel];
+        int[] xCoordinate = new int[columnsOfPixel];
+
+        int[][] pixel = new int[rowsOfPixel][columnsOfPixel];
+        int[][] r = new int[rowsOfPixel][columnsOfPixel];
+        int[][] g = new int[rowsOfPixel][columnsOfPixel];
+        int[][] b = new int[rowsOfPixel][columnsOfPixel];
+
+        //Layout Params
+        LinearLayout pixelMap = (LinearLayout) findViewById(R.id.pixelMap);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        rowParams.weight = 1;
+        TableRow.LayoutParams pixelParams = new TableRow.LayoutParams(
+                0, ViewGroup.LayoutParams.MATCH_PARENT);
+        pixelParams.weight = 1;
+
+        //Gitterlayout erstellen
+        for (int i = 0; i < rowsOfPixel; i++) {
+            rowPixels[i] = new TableRow(mContext);
+            pixelMap.addView(rowPixels[i], rowParams);
+            for (int k = 0; k < columnsOfPixel; k++) {
+                colorField[i][k] = new ImageView(mContext);
+                rowPixels[i].addView(colorField[i][k], pixelParams);
+            }
+        }
+
+        //Pixel Koordinaten finden
+        int denom = 1;
+        for (int i = 0; i < rowsOfPixel; i++) {
+            yCoordinate[i] = ((heightLayout / (rowsOfPixel * 2)) * denom);
+            denom += 2;
+        }
+
+        denom = 1;
+        for (int i = 0; i < columnsOfPixel; i++) {
+            xCoordinate[i] = ((widthLayout / (columnsOfPixel * 2)) * denom);
+            denom += 2;
+        }
+
+        //Farben zuordnen
+        int n = 0;
+        for (int i = 0; i < rowsOfPixel; i++) {
+            for (int k = 0; k < columnsOfPixel; k++) {
+                pixel[i][k] = bit.getPixel(xCoordinate[k], yCoordinate[i]);
+                r[i][k] = Color.red((pixel[i][k]));
+                g[i][k] = Color.green((pixel[i][k]));
+                b[i][k] = Color.blue((pixel[i][k]));
+                colorField[i][k].setBackgroundColor(Color.rgb(r[i][k], g[i][k], b[i][k]));
+                fields[n] = colorField[i][k];
+                n++;
+            }
+        }
+    }
+
     private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
@@ -193,6 +284,18 @@ public class PictureCountdownActivity extends AppCompatActivity {
     }
 
     //Selection
+    View.OnClickListener playPixelQuiz = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            timerHandler.postDelayed(timerRunnable, 0);
+            ImageView play = (ImageView) findViewById(R.id.greyplay);
+            ImageView image = (ImageView)findViewById(R.id.imgPixel);
+            ImageButton startCountdown = (ImageButton) findViewById(R.id.startCountdown);
+            pixelatePicture(image);
+            play.setVisibility(View.GONE);
+            startCountdown.setVisibility(View.GONE);
+        }
+    };
     View.OnClickListener answerA = new View.OnClickListener() {
         public void onClick(View v) {
             selectedAnswer = 1;
