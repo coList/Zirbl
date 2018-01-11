@@ -66,7 +66,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     private TopDarkActionbar topDarkActionbar;
 
-    /*private ImageView[] fields = new ImageView[88];
+    private ImageView[] fields = new ImageView[88];
     private int[] sequence = new int[]{
             81,12,53,33,87,19,67,4,10,68,84,16,32,47,43,77,23,54,56,64,72,0,14,74,39,79,20,69,7,1,31,76,44,6,13,45,80,73,42,8,82,
             75,18,2,86,70,55,21,3,11,65,51,24,78,49,62,83,17,36,63,15,27,58,34,85,57,66,50,25,71,37,60,5,48,22,30,9,52,46,40,29,
@@ -90,7 +90,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 timerHandler.postDelayed(this, 500);
             }
         }
-    };*/
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +121,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
         serverName = globalValues.getString("serverName", null);
 
         //Selection
-        //ImageButton playBtn = (ImageButton) findViewById(R.id.startCountdown);
-        //playBtn.setOnClickListener(playPixelQuiz);
+        ImageButton playBtn = (ImageButton) findViewById(R.id.startCountdown);
+        playBtn.setOnClickListener(playPixelQuiz);
         Button buttonA = (Button) findViewById(R.id.answer1);
         buttonA.setOnClickListener(answerA);
         Button buttonB = (Button) findViewById(R.id.answer2);
@@ -181,7 +181,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     }
 
-    /*public void pixelatePicture(ImageView image) {
+    public void pixelatePicture(ImageView image) {
         int rowsOfPixel = 8;
         int columnsOfPixel =11;
         //Image in Bitmap umwandeln
@@ -248,7 +248,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 n++;
             }
         }
-    }*/
+
+        score = 97;
+    }
 
     private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
@@ -283,7 +285,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
     }
 
     //Selection
-    /*View.OnClickListener playPixelQuiz = new View.OnClickListener() {
+    View.OnClickListener playPixelQuiz = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             timerHandler.postDelayed(timerRunnable, 0);
@@ -294,7 +296,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
             play.setVisibility(View.GONE);
             startCountdown.setVisibility(View.GONE);
         }
-    };*/
+    };
 
     View.OnClickListener answerA = new View.OnClickListener() {
         public void onClick(View v) {
