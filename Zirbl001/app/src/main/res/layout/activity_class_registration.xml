@@ -17,6 +17,12 @@
 
         <include layout="@layout/layout_top_standard_actionbar" />
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 
@@ -115,6 +121,7 @@
                 android:onClick="generateQrCode"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_create" />
+
         </LinearLayout>
 
     </RelativeLayout>

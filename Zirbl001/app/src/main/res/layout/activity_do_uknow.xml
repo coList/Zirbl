@@ -115,6 +115,7 @@
                     android:visibility="visible"
                     app:srcCompat="@drawable/btn_continue" />
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 
