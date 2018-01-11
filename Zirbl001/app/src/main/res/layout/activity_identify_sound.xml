@@ -50,7 +50,7 @@
             <LinearLayout
                 android:id="@+id/soundArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -87,34 +87,6 @@
                 android:contentDescription="@string/app_name"
                 android:visibility="visible"
                 app:srcCompat="@color/colorLine" />
-
-            <RelativeLayout
-                android:id="@+id/questionImage"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/behindQuestionImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop"
-                    android:visibility="visible" />
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/besideImgQuestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/behindQuestionImage"
-                    android:background="@color/colorTransparent80"
-                    android:gravity="bottom"
-                    android:paddingBottom="24dp"
-                    android:paddingLeft="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingTop="24dp"
-                    android:textColor="@color/colorAccent" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/area1"

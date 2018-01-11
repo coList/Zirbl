@@ -28,18 +28,18 @@
     <ScrollView
         android:id="@+id/scrollLayoutSite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/questionArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -63,6 +63,7 @@
                         android:id="@+id/behindQuestionImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         android:visibility="visible" />
 
@@ -86,9 +87,7 @@
             <TableRow
                 android:id="@+id/inputArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/answerArea"
-                android:layout_below="@+id/questionArea"
+                android:layout_height="70dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
@@ -101,8 +100,8 @@
             <TableLayout
                 android:id="@+id/answerArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/continueArea"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp">
@@ -275,6 +274,7 @@
                     android:layout_height="48dp"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
                     android:onClick="continueToNextView"
                     android:scaleType="fitCenter"
                     android:src="@drawable/btn_continue" />
