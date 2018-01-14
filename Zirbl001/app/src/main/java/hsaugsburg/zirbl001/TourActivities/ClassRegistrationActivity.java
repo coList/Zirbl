@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -21,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.VideoView;
+
 import hsaugsburg.zirbl001.R;
 
 import java.lang.reflect.Field;
@@ -57,6 +61,16 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
+
+        //
+        getWindow().setFormat(PixelFormat.UNKNOWN);
+        VideoView mVideoView2 = (VideoView)findViewById(R.id.videoView);
+        String uriPath2 = "android.resource://"+getPackageName()+"/"+R.raw.testvideo01;
+        Uri uri2 = Uri.parse(uriPath2);
+        mVideoView2.setVideoURI(uri2);
+        mVideoView2.requestFocus();
+        mVideoView2.start();
+        //
 
         setIntentExtras();
 

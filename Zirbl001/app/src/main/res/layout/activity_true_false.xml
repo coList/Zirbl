@@ -29,7 +29,6 @@
         android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relLayoutActionBar"
         android:background="@color/colorAccent">
 
 
@@ -46,6 +45,7 @@
                 android:id="@+id/behindQuestionImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
                 app:srcCompat="@color/colorAccent" />
 
@@ -77,7 +77,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal" android:baselineAligned="false">
 
                 <RelativeLayout
                     android:id="@+id/truthArea"
@@ -92,7 +92,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:paddingTop="65dp"
-                        android:text="wahr"
+                        android:text="@string/truth"
                         android:textAllCaps="false" />
 
                     <ImageView
@@ -101,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:paddingBottom="20dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_truth_normal" />
@@ -120,7 +121,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:paddingTop="65dp"
-                        android:text="gelogen"
+                        android:text="@string/lie"
                         android:textAllCaps="false" />
 
                     <ImageView
@@ -129,6 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:paddingBottom="20dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_lie_normal" />
@@ -140,6 +142,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
+                android:contentDescription="@string/app_name"
                 android:visibility="visible"
                 app:srcCompat="@color/colorLine" />
 
@@ -148,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
                 android:visibility="visible"
                 app:srcCompat="@color/colorLine" />
 
@@ -168,9 +171,9 @@
                 android:id="@+id/continueButton"
                 android:layout_width="200dp"
                 android:layout_height="48dp"
-                android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="continueToNextView"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_continue" />

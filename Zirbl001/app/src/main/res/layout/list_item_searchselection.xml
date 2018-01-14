@@ -10,11 +10,10 @@
         android:id="@+id/titleArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/transparent"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
@@ -30,20 +29,18 @@
         android:id="@+id/descriptionArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/transparent"
+        android:layout_below="@+id/titleArea"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/titleArea">
+        android:orientation="horizontal">
 
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:id="@+id/descriptionShort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/iconArea"
-            android:text="Erkundet mit Zirbl den Augsburger Zoo." />
+            android:layout_above="@+id/iconArea" />
 
     </LinearLayout>
 
@@ -51,20 +48,21 @@
         android:id="@+id/iconArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/transparent"
+        android:layout_below="@+id/descriptionArea"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/descriptionArea">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_time" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -72,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
 
@@ -80,8 +79,10 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_route" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -89,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
 
@@ -97,8 +99,10 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_level" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -106,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
 

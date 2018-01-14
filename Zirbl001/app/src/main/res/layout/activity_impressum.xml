@@ -36,7 +36,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Ein Projekt von Studenten der Hochschule Augsburg. Betreut von Prof. Dr. Wolfgang Kowarschick und Moritz Jacobs." />
+                android:text="@string/impressum" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/impTeam"
@@ -47,7 +47,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="24dp"
-                android:text="Das Team" />
+                android:text="@string/team" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/impTitle"
@@ -57,7 +57,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Zirbl" />
+                android:text="@string/appname" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                 android:id="@+id/imp4"

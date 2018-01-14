@@ -8,7 +8,6 @@
         android:id="@+id/bottomNavViewBar"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         app:itemIconTint="@drawable/code_tabbar_hover"
         app:itemTextColor="@drawable/code_tabbar_hover"

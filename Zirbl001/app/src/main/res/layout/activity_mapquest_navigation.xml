@@ -44,7 +44,7 @@
             android:layout_above="@+id/stationInfo"
             android:background="@color/colorTransparent80"
             android:clickable="true"
-            android:onClick="onClick">
+            android:onClick="onClick" android:focusable="true">
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                 android:id="@+id/navigationTitle"
@@ -59,9 +59,12 @@
                 android:id="@+id/arrow"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
+                android:contentDescription="@string/app_name"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/_map_arrow" />
         </RelativeLayout>
@@ -95,15 +98,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/code_cheat_button"
                 android:onClick="continueToNextView"
                 android:paddingBottom="7dp"
+                android:paddingEnd="24dp"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
+                android:paddingStart="24dp"
                 android:paddingTop="7dp"
-                android:text="überspringen"
+                android:text="@android:string/ok"
                 android:visibility="visible" />
 
         </RelativeLayout>

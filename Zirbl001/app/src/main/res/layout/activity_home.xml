@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Keine Internetverbindung"
+                android:text="@string/no_connection"
                 android:visibility="gone" />
 
             <ImageButton
@@ -51,7 +51,7 @@
                 android:layout_marginBottom="141dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:onClick="tryConnectionAgain"
+                android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
                 android:visibility="gone"
                 app:srcCompat="@drawable/btn_go" />

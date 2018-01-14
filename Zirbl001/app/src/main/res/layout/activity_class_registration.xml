@@ -17,6 +17,12 @@
 
         <include layout="@layout/layout_top_standard_actionbar" />
 
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 
@@ -34,6 +40,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@drawable/img_zirbl_speech_bubble_class" />
 
@@ -52,13 +59,14 @@
                 android:id="@+id/classEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Klasse" />
+                android:text="@string/classes" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryPicker
                 android:id="@+id/grade"
                 android:layout_width="50dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -69,6 +77,7 @@
                 android:layout_width="50dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -87,7 +96,7 @@
             android:backgroundTint="@color/colorLine"
             android:cursorVisible="true"
             android:ems="10"
-            android:hint="Schule"
+            android:hint="@string/school"
             android:inputType="textCapWords|textPersonName"
             android:textCursorDrawable="@null"
             android:singleLine="true"
@@ -108,9 +117,11 @@
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="generateQrCode"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_create" />
+
         </LinearLayout>
 
     </RelativeLayout>

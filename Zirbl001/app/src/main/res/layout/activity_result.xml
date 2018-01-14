@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.ResultActivity">
 
@@ -25,171 +26,159 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
+    <ScrollView
+        android:id="@+id/scrollLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:fillViewport="true">
-
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/pointsArea"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/pointsArea"
-                    android:layout_width="match_parent"
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gifConfetti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/confetti_right"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <ImageView
+                    android:id="@+id/pointsImage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginRight="8dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:srcCompat="@drawable/img_right_without_confetti" />
 
-                    <pl.droidsonroids.gif.GifImageView
-                        android:id="@+id/gifConfetti"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/confetti_right"
-                        app:layout_constraintLeft_toLeftOf="@+id/parent"
-                        app:layout_constraintRight_toRightOf="@+id/parent" />
-
-                    <ImageView
-                        android:id="@+id/pointsImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:adjustViewBounds="true"
-                        app:layout_constraintLeft_toLeftOf="@+id/parent"
-                        app:layout_constraintRight_toRightOf="@+id/parent"
-                        app:srcCompat="@drawable/img_right_without_confetti" />
-
-                    <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-                        android:id="@+id/endPoints"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:textSize="60sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
-                        app:layout_constraintLeft_toLeftOf="@+id/pointsImage"
-                        app:layout_constraintRight_toRightOf="@+id/pointsImage"
-                        app:layout_constraintTop_toTopOf="@+id/pointsImage"
-                        app:layout_constraintVertical_bias="0.76" />
-
-                </android.support.constraint.ConstraintLayout>
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/resultTeam"
-                    android:layout_width="match_parent"
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+                    android:id="@+id/endPoints"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/resultMembers"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:text="Team:"
-                    tools:layout_editor_absoluteX="32dp"
-                    tools:layout_editor_absoluteY="81dp" />
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textSize="60sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+                    app:layout_constraintLeft_toLeftOf="@+id/pointsImage"
+                    app:layout_constraintRight_toRightOf="@+id/pointsImage"
+                    app:layout_constraintTop_toTopOf="@+id/pointsImage"
+                    app:layout_constraintVertical_bias="0.76" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                    android:id="@+id/resultMembers"
-                    android:layout_width="match_parent"
+            </android.support.constraint.ConstraintLayout>
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/resultTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:text="@string/team"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                android:id="@+id/resultMembers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:text="@string/members"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="81dp" />
+
+            <LinearLayout
+                android:id="@+id/placementOfAllArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="89dp">
+
+                <ImageView
+                    android:id="@+id/imagePlacement"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_cup" />
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                    android:id="@+id/textPlacement"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/placementOfAllArea"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:text="Teilnehmer:"
-                    tools:layout_editor_absoluteX="32dp"
-                    tools:layout_editor_absoluteY="81dp" />
-
-                <LinearLayout
-                    android:id="@+id/placementOfAllArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/usedTimeArea"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="89dp">
-
-                    <ImageView
-                        android:id="@+id/imagePlacement"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/ic_cup" />
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                        android:id="@+id/textPlacement"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/usedTimeArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    tools:layout_editor_absoluteX="32dp"
-                    tools:layout_editor_absoluteY="89dp">
-
-                    <ImageView
-                        android:id="@+id/imageUsedTime"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/ic_time" />
-
-                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                        android:id="@+id/textUsedTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/continueArea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal">
-
-                    <ImageButton
-                        android:id="@+id/endButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:onClick="endTour"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/btn_end" />
-                </LinearLayout>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp" />
             </LinearLayout>
-        </ScrollView>
-        <![CDATA[
 
-        >
+            <LinearLayout
+                android:id="@+id/usedTimeArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="89dp">
 
+                <ImageView
+                    android:id="@+id/imageUsedTime"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_time" />
 
-    ]]>
-    </RelativeLayout>
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                    android:id="@+id/textUsedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/continueArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal">
+
+                <ImageButton
+                    android:id="@+id/endButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="endTour"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/btn_end" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

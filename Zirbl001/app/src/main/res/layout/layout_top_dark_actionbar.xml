@@ -45,9 +45,11 @@
                         android:id="@+id/dotIcon"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"
+                        android:contentDescription="@string/app_name"
                         android:onClick="showMenu"
                         android:src="@drawable/ic_top_dots" />
 
@@ -76,6 +78,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@color/colorLine" />
 
         </LinearLayout>
@@ -93,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
                 android:gravity="center_vertical"
-                android:text="STATISTIK"
+                android:text="@string/statistic"
                 android:textColor="@color/colorAccent" />
         </LinearLayout>
 
@@ -112,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="?actionBarSize"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 app:srcCompat="@drawable/ic_time" />
@@ -122,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Time"
@@ -132,6 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="?actionBarSize"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 app:srcCompat="@drawable/ic_zirbl" />
@@ -142,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Score"
@@ -158,6 +165,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@color/colorLine" />
 
         </LinearLayout>
@@ -173,6 +181,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@color/colorLine" />
 
         </LinearLayout>
@@ -182,7 +191,7 @@
             android:layout_height="?actionBarSize"
             android:layout_below="@+id/lineThree"
             android:clickable="true"
-            android:onClick="quitTour">
+            android:onClick="quitTour" android:focusable="true">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuQuit"
@@ -191,7 +200,7 @@
                 android:layout_marginStart="24dp"
                 android:gravity="center_vertical"
                 android:onClick="quitTour"
-                android:text="TOUR BEENDEN"
+                android:text="@string/end_tour"
                 android:textColor="@color/colorAccent" />
 
         </LinearLayout>
