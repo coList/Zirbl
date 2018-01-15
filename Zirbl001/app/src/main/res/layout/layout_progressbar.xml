@@ -5,7 +5,8 @@
         android:id="@+id/tourProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relLayoutActionBar">
+        android:layout_below="@+id/relLayoutActionBar"
+        android:layout_marginTop="?actionBarSize">
 
         <ProgressBar
             android:id="@+id/progressBar"
