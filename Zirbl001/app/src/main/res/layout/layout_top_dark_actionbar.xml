@@ -67,6 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tabbar"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:background="@color/colorPrimaryDark"
         android:visibility="visible">
 
@@ -191,7 +193,8 @@
             android:layout_height="?actionBarSize"
             android:layout_below="@+id/lineThree"
             android:clickable="true"
-            android:onClick="quitTour" android:focusable="true">
+            android:focusable="true"
+            android:onClick="quitTour">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuQuit"

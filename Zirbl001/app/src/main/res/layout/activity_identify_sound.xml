@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,274 @@
     android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.QuizActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/relLayoutProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_progressbar" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/scrollLayoutSite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
+                    android:id="@+id/questionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/soundArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/playSound"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/btn_greyplay" />
+
+                    <ProgressBar
+                        android:id="@+id/soundBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
+                        android:layout_weight="1"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/code_soundprogress" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/lineAbove"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="visible"
+                    app:srcCompat="@color/colorLine" />
+
+                <RelativeLayout
+                    android:id="@+id/area1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:minHeight="58dp">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/answer1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
+                        android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
+                        android:paddingStart="90dp"
+                        android:textAlignment="textStart" />
+
+                    <ImageView
+                        android:id="@+id/imgLetter1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_1_normal" />
+
+                    <ImageView
+                        android:id="@+id/line1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@color/colorLine" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/area2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:minHeight="58dp">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/answer2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
+                        android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
+                        android:paddingStart="90dp"
+                        android:textAlignment="textStart" />
+
+                    <ImageView
+                        android:id="@+id/imgLetter2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_2_normal" />
+
+                    <ImageView
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@color/colorLine" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/area3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:minHeight="58dp">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/answer3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
+                        android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
+                        android:paddingStart="90dp"
+                        android:textAlignment="textStart" />
+
+                    <ImageView
+                        android:id="@+id/imgLetter3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_3_normal" />
+
+                    <ImageView
+                        android:id="@+id/line3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@color/colorLine" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/area4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:minHeight="58dp">
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
+                        android:id="@+id/answer4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
+                        android:paddingLeft="90dp"
+                        android:paddingRight="24dp"
+                        android:paddingStart="90dp"
+                        android:textAlignment="textStart" />
+
+                    <ImageView
+                        android:id="@+id/imgLetter4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_4_normal" />
+
+                    <ImageView
+                        android:id="@+id/line4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@color/colorLine" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/continueArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="16dp">
+
+                    <ImageButton
+                        android:id="@+id/continueButton"
+                        android:layout_width="200dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
+                        android:onClick="continueToNextView"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/btn_continue" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relLayoutActionBar"
@@ -17,265 +285,4 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/scrollLayoutSite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
-                android:id="@+id/questionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="16dp"
-                android:visibility="visible" />
-
-            <LinearLayout
-                android:id="@+id/soundArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/playSound"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/btn_greyplay" />
-
-                <ProgressBar
-                    android:id="@+id/soundBar"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="24dp"
-                    android:layout_weight="1"
-                    android:progress="50"
-                    android:progressDrawable="@drawable/code_soundprogress" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/lineAbove"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:contentDescription="@string/app_name"
-                android:visibility="visible"
-                app:srcCompat="@color/colorLine" />
-
-            <RelativeLayout
-                android:id="@+id/area1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:minHeight="58dp">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                    android:id="@+id/answer1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_vertical"
-                    android:paddingEnd="24dp"
-                    android:paddingLeft="90dp"
-                    android:paddingRight="24dp"
-                    android:paddingStart="90dp"
-                    android:textAlignment="textStart" />
-
-                <ImageView
-                    android:id="@+id/imgLetter1"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="5dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_1_normal" />
-
-                <ImageView
-                    android:id="@+id/line1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@color/colorLine" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/area2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:minHeight="58dp">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                    android:id="@+id/answer2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_vertical"
-                    android:paddingEnd="24dp"
-                    android:paddingLeft="90dp"
-                    android:paddingRight="24dp"
-                    android:paddingStart="90dp"
-                    android:textAlignment="textStart" />
-
-                <ImageView
-                    android:id="@+id/imgLetter2"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="5dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_2_normal" />
-
-                <ImageView
-                    android:id="@+id/line2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@color/colorLine" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/area3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:minHeight="58dp">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                    android:id="@+id/answer3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_vertical"
-                    android:paddingEnd="24dp"
-                    android:paddingLeft="90dp"
-                    android:paddingRight="24dp"
-                    android:paddingStart="90dp"
-                    android:textAlignment="textStart" />
-
-                <ImageView
-                    android:id="@+id/imgLetter3"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="5dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_3_normal" />
-
-                <ImageView
-                    android:id="@+id/line3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@color/colorLine" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/area4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:minHeight="58dp">
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
-                    android:id="@+id/answer4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_vertical"
-                    android:paddingEnd="24dp"
-                    android:paddingLeft="90dp"
-                    android:paddingRight="24dp"
-                    android:paddingStart="90dp"
-                    android:textAlignment="textStart" />
-
-                <ImageView
-                    android:id="@+id/imgLetter4"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="5dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_name"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_4_normal" />
-
-                <ImageView
-                    android:id="@+id/line4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@color/colorLine" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/continueArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="16dp">
-
-                <ImageButton
-                    android:id="@+id/continueButton"
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/app_name"
-                    android:onClick="continueToNextView"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/btn_continue" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</FrameLayout>
