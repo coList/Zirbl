@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.PixelFormat;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,12 +16,16 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -50,6 +55,8 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     public final String[] valuesClassnumber= {"-","a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
     public final String[] valuesGrade= {"-","5", "6", "7", "8", "9", "10", "11", "12", "13"};
 
+    String TAG = "com.ebookfrenzy.videoplayer";
+
     //Animation beim Activity Wechsel verhindern
     @Override
     protected void onPause() {
@@ -63,13 +70,16 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
         setContentView(R.layout.activity_class_registration);
 
         //
-        getWindow().setFormat(PixelFormat.UNKNOWN);
-        VideoView mVideoView2 = (VideoView)findViewById(R.id.videoView);
-        String uriPath2 = "android.resource://"+getPackageName()+"/"+R.raw.testvideo01;
-        Uri uri2 = Uri.parse(uriPath2);
-        mVideoView2.setVideoURI(uri2);
-        mVideoView2.requestFocus();
-        mVideoView2.start();
+        final VideoView videoView = (VideoView) findViewById(R.id.videoView);
+        videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.testvideo01));
+        videoView.setZOrderOnTop(true);
+        videoView.start();
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                videoView.start();
+            }
+        });
         //
 
         setIntentExtras();
