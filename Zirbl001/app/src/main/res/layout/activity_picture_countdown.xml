@@ -70,8 +70,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/imgPixel"
-                        android:background="@android:color/white"
-                        android:contentDescription="@string/app_name" />
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/pixel"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/greyplay"

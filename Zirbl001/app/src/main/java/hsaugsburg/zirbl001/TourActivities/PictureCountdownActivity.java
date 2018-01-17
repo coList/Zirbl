@@ -66,27 +66,28 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
     private TopDarkActionbar topDarkActionbar;
 
-    private ImageView[] fields = new ImageView[88];
+    private ImageView[] fields = new ImageView[100];
     private int[] sequence = new int[]{
-            81,12,53,33,87,19,67,4,10,68,84,16,32,47,43,77,23,54,56,64,72,0,14,74,39,79,20,69,7,1,31,76,44,6,13,45,80,73,42,8,82,
-            75,18,2,86,70,55,21,3,11,65,51,24,78,49,62,83,17,36,63,15,27,58,34,85,57,66,50,25,71,37,60,5,48,22,30,9,52,46,40,29,
-            61,35,28,59,38,41,26};
+            82,19,40,85,5,79,30,83,9,0,81,78,87,39,60,16,2,59,13,88,20,72,3,84,29,58,49,80,
+            21,89,50,75,28,70,7,73,69,41,86,15,6,61,1,8,68,10,4,51,42,48,74,63,71,18,12,38,
+            37,11,76,22,52,17,77,31,66,14,57,24,62,64,27,23,56,65,32,47,67,25,43,26,54,36,
+            53,33,46,55,34,44,35,45};
     private int n = 0;
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            if(n >= 88){
+            if(n == 90){
                 timerHandler.removeCallbacks(timerRunnable);
                 ((LinearLayout) findViewById(R.id.pixelMap)).removeAllViews();
             } else {
+                score--;
                 TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
                 scoreText.setText(String.format(Locale.GERMANY, "%d", score)+" Punkte");
                 fields[sequence[n]].startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fadeout));
                 fields[sequence[n]].setVisibility(View.INVISIBLE);
                 n++;
-                score--;
                 timerHandler.postDelayed(this, 500);
             }
         }
@@ -158,7 +159,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
         questionText.setText(fromHtml(result.getQuestion()));
 
 
-        score = result.getScore();
+        score = 100;
         String points = " Punkte";
         TextView scoreText = (TextView) findViewById(R.id.fallingPoints);
         scoreText.setText(String.format(Locale.GERMANY, "%d", score)+points);
@@ -178,12 +179,11 @@ public class PictureCountdownActivity extends AppCompatActivity {
         rightAnswer = result.getRightAnswer();
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
-
     }
 
     public void pixelatePicture(ImageView image) {
-        int rowsOfPixel = 8;
-        int columnsOfPixel =11;
+        int rowsOfPixel = 9;
+        int columnsOfPixel =10;
         //Image in Bitmap umwandeln
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache(true);
@@ -247,9 +247,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
                 fields[n] = colorField[i][k];
                 n++;
             }
-        }
-
-        score = 97;
+        };
     }
 
     private void initImageLoader() {
