@@ -50,6 +50,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private TopDarkActionbar topDarkActionbar;
 
     Animation animPoints;
+
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
