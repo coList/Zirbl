@@ -3,210 +3,171 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-        android:id="@+id/tabbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_alignParentTop="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/standard_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:weightSum="1"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp"
-                app:titleTextAppearance="@style/NewActionBarTitle">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
-                        android:id="@+id/titleActionbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="24dp"
-                        android:text=""
-                        android:textColor="@color/colorAccent" />
-
-                    <ImageView
-                        android:id="@+id/dotIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:contentDescription="@string/app_name"
-                        android:onClick="showMenu"
-                        android:src="@drawable/ic_top_dots" />
-
-                </RelativeLayout>
-
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.AppBarLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/dotMenu"
+        android:id="@+id/menuArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tabbar"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:background="@color/colorPrimaryDark"
-        android:visibility="visible">
+        android:orientation="vertical">
+
 
         <LinearLayout
-            android:id="@+id/lineOne"
+            android:id="@+id/dotMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabbar"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="showStats"
+            android:orientation="vertical"
+            android:translationY="-125dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_weight="1"
                 android:contentDescription="@string/app_name"
                 app:srcCompat="@color/colorLine" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/firstRow"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_below="@+id/lineOne"
-            android:onClick="showStats">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuStats"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="59dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
                 android:gravity="center_vertical"
                 android:text="@string/statistic"
                 android:textColor="@color/colorAccent" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/firstRowFirstElement"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_below="@+id/firstRow"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:visibility="gone">
+            <LinearLayout
+                android:id="@+id/firstRowFirstElement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/timeImg"
-                android:layout_width="wrap_content"
-                android:layout_height="?actionBarSize"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                app:srcCompat="@drawable/ic_time" />
+                <ImageView
+                    android:id="@+id/timeImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    app:srcCompat="@drawable/ic_time" />
 
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/timeElement"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Time"
-                android:textColor="@color/colorAccent" />
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                    android:id="@+id/timeElement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent" />
 
-            <ImageView
-                android:id="@+id/scoreImg"
-                android:layout_width="wrap_content"
-                android:layout_height="?actionBarSize"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                app:srcCompat="@drawable/ic_zirbl" />
+                <ImageView
+                    android:id="@+id/scoreImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    app:srcCompat="@drawable/ic_zirbl" />
 
-            <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                android:id="@+id/scoreElement"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Score"
-                android:textColor="@color/colorAccent" />
+                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                    android:id="@+id/scoreElement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorAccent" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lineTwo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/firstRowFirstElement">
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_weight="1"
                 android:contentDescription="@string/app_name"
                 app:srcCompat="@color/colorLine" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/lineThree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lineTwo"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:contentDescription="@string/app_name"
-                app:srcCompat="@color/colorLine" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_below="@+id/lineThree"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="quitTour">
 
             <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
                 android:id="@+id/menuQuit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="59dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:onClick="quitTour"
                 android:text="@string/end_tour"
                 android:textColor="@color/colorAccent" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/tabbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/standard_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:contentInsetEnd="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    android:weightSum="1"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:titleTextAppearance="@style/NewActionBarTitle">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
+                            android:id="@+id/titleActionbar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="24dp"
+                            android:text=""
+                            android:textColor="@color/colorAccent" />
+
+                        <ImageView
+                            android:id="@+id/dotIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="20dp"
+                            android:contentDescription="@string/app_name"
+                            android:onClick="showMenu"
+                            android:src="@drawable/ic_top_dots" />
+
+                    </RelativeLayout>
+
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.AppBarLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
