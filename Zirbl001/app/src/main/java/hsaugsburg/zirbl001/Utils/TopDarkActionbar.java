@@ -40,12 +40,14 @@ public class TopDarkActionbar {
             TextView timeElement = (TextView) activity.findViewById(R.id.timeElement);
             timeElement.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
             long totalTime = System.currentTimeMillis() - startTime;
-            String time = String.format(
-                    Locale.GERMANY,
-                    "%d h %d min",
-                    TimeUnit.MILLISECONDS.toHours(totalTime),
-                    TimeUnit.MILLISECONDS.toMinutes(totalTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
-            );
+            String time ="0 h 0 min";
+            if(startTime != 0) {
+                time = String.format(Locale.GERMANY, "%d h %d min",
+                        TimeUnit.MILLISECONDS.toHours(totalTime),
+                        TimeUnit.MILLISECONDS.toMinutes(totalTime) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))
+                );
+            }
             scoreElement.setText(String.format(Locale.GERMANY, "%d", currentScore));
             timeElement.setText(time);
             timeAndScoreOpen = true;
