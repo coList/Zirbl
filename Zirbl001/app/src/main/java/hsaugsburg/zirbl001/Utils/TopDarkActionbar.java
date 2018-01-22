@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +22,8 @@ public class TopDarkActionbar {
     LinearLayout firstRow;
     private Activity activity;
     private TextView title;
+    private TextView menuStats;
+    private TextView menuQuit;
     private boolean dotMenuOpen = false;
     private boolean timeAndScoreOpen = false;
 
@@ -28,9 +32,13 @@ public class TopDarkActionbar {
         timeAndScore = (LinearLayout) activity.findViewById(R.id.firstRowFirstElement);
         statistics = (LinearLayout) activity.findViewById(R.id.statistics);
         firstRow = (LinearLayout) activity.findViewById(R.id.firstRow);
+        menuStats = (TextView) activity.findViewById(R.id.menuStats);
+        menuQuit = (TextView) activity.findViewById(R.id.menuQuit);
         this.activity = activity;
         title = (TextView) activity.findViewById(R.id.titleActionbar);
         title.setText(titleText);
+        menuStats.setTextSize(18);
+        menuQuit.setTextSize(18);
     }
 
     public void showStats(int currentScore, long startTime) {
