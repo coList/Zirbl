@@ -25,13 +25,13 @@ import hsaugsburg.zirbl001.R;
 public class TourSelectionAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<JSONModel> mDataSource;
+    private List<TourSelectionModel> mDataSource;
     private ImageLoader imageLoader;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     private String serverName;
 
-    public TourSelectionAdapter(Context context, List<JSONModel> items, ImageLoader imageLoader) {
+    public TourSelectionAdapter(Context context, List<TourSelectionModel> items, ImageLoader imageLoader) {
         mContext = context;
         mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -76,7 +76,7 @@ public class TourSelectionAdapter extends BaseAdapter {
             difficultyName.setText(tourSelection.getDifficultyName());
 
             ImageView mainPicture = (ImageView) rowView.findViewById(R.id.imageView);
-            ImageLoader.getInstance().displayImage(serverName + tourSelection.getMainpicture(), mainPicture);
+            ImageLoader.getInstance().displayImage(tourSelection.getMainpicture(), mainPicture);
         return rowView;
     }
 }
