@@ -9,12 +9,21 @@ public class TourSelectionModel implements JSONModel {
     private int categoryID;
     private String categoryName;
     private int tourID;
+    private String contentfulID;
     private String tourName;
     private String difficultyName;
     private int duration;
     private int distance;
     private String mainpicture;
     private Bitmap mainPictureBitmap;
+
+    public String getContentfulID() {
+        return contentfulID;
+    }
+
+    public void setContentfulID(String contentfulID) {
+        this.contentfulID = contentfulID;
+    }
 
     public int getCategoryID() {
         return categoryID;

@@ -123,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements InternetActivity 
                             CDAAsset mainPictureAsset = (CDAAsset) item.getField("mainPicture");
 
                             TourSelectionModel tourSelectionModel = new TourSelectionModel();
+                            tourSelectionModel.setContentfulID(item.id());
                             tourSelectionModel.setTourName(item.getField("tourname").toString());
                             tourSelectionModel.setCategoryName(categoryEntry.getField("categoryname").toString());
                             tourSelectionModel.setDifficultyName(difficultyEntry.getField("difficultyname").toString());
@@ -192,6 +193,7 @@ public class HomeActivity extends AppCompatActivity implements InternetActivity 
                     JSONModel selectedTour = tourSelectionItems.get(position);
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(((TourSelectionModel) selectedTour).getTourID()));
+                    intent1.putExtra("contentfulID", ((TourSelectionModel)selectedTour).getContentfulID());
                     intent1.putExtra("tourName", ((TourSelectionModel) selectedTour).getTourName());
                     startActivity(intent1);
                 }
