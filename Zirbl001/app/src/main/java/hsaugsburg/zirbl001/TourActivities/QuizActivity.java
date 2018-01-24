@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -47,6 +48,8 @@ public class QuizActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
+    private  int taskID;
+    private String answerPicture = "";
     private int score;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -111,12 +114,16 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         QuizModel result = new LoadQuiz(this, selectedTour, taskID).readFile();
 
         TextView question = (TextView) findViewById(R.id.questionText);
 
         ArrayList<String> answers = new ArrayList<>();
+
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
         if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
@@ -181,6 +188,8 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
+            intent.putExtra("answerPicture", answerPicture);
+            intent.putExtra("taskID", Integer.toString(taskID));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);

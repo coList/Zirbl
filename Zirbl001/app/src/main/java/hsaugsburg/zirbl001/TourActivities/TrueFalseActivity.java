@@ -40,10 +40,12 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
+    private int taskID;
     private int score;
     private int chronologyNumber;
     private int selectedTour;
     private String stationName;
+    private String answerPicture = "";
 
     public static final String TOUR_VALUES = "tourValuesFile";
     private int currentScore;
@@ -98,9 +100,13 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         TrueFalseModel result = new LoadTrueFalse(this, selectedTour, taskID).readFile();
 
+
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
 
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(fromHtml(result.getQuestion()));
@@ -146,6 +152,9 @@ public class TrueFalseActivity extends AppCompatActivity {
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("selectedTour", Integer.toString(selectedTour));
             intent.putExtra("stationName", stationName);
+
+            intent.putExtra("answerPicture", answerPicture);
+            intent.putExtra("taskID", Integer.toString(taskID));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);

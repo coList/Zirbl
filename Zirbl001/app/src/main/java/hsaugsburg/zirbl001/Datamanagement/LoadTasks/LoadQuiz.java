@@ -59,6 +59,7 @@ public class LoadQuiz {
                     quizModel.setAnswerCorrect(mJsonLObjectQuiz.getString("answercorrect"));
                     quizModel.setAnswerWrong(mJsonLObjectQuiz.getString("answerwrong"));
                     quizModel.setPicturePath(mJsonLObjectQuiz.getString("picturepath"));
+                    quizModel.setAnswerPicture(mJsonLObjectQuiz.getString("answerpicture"));
                     quizModel.setRightAnswer(mJsonLObjectQuiz.getString("rightanswer"));
                     quizModel.setOption2(mJsonLObjectQuiz.getString("option2"));
                     quizModel.setOption3(mJsonLObjectQuiz.getString("option3"));
