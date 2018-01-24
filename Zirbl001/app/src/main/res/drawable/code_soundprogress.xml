@@ -8,6 +8,7 @@
         android:top="0dp"
         android:bottom="0dp">
         <shape>
+            <corners android:radius="8dp"/>
             <solid android:color="@android:color/white"/>
             <stroke android:width="1dp" android:color="@color/colorTurquoise" />
         </shape>
@@ -20,7 +21,7 @@
                 <solid android:color="@color/colorPrimaryDark"/>
 
                 <corners
-                    android:radius="0dp"/>
+                    android:radius="8dp"/>
             </shape>
         </clip>
     </item>
