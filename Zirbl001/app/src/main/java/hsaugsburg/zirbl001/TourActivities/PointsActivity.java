@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,6 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
@@ -97,6 +102,11 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String userAnswer = getIntent().getStringExtra("userAnswer");
         String answerCorrect = getIntent().getStringExtra("answerCorrect");
         String answerWrong = getIntent().getStringExtra("answerWrong");
+        int taskID = Integer.parseInt(getIntent().getStringExtra("taskID"));
+
+        String answerPicture = getIntent().getStringExtra("answerPicture");
+        Log.d("PointsActivity", answerPicture);
+
 
         int stringLengthC = answerCorrect.length();
         int stringLengthW = answerWrong.length();
@@ -112,6 +122,16 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String wrong = "FALSCH";
         String titleText;
 
+        boolean hasAnswerPicture = !answerPicture.equals("null") && !answerPicture.isEmpty() && !answerPicture.equals("");
+        if (hasAnswerPicture) {
+            File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
+            String[] parts = answerPicture.split("\\.");
+            String imgPath = selectedTour + "taskid" + taskID + "answerpicture" + "." + parts[parts.length - 1];
+            File imgFile = new File(zirblImages , imgPath);
+            String decodedImgUri = Uri.fromFile(imgFile).toString();
+            ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+        }
+
         if (getIntent().getStringExtra("isSlider").equals("true")) {  //was the task a slider-Task?
             double userInput = Double.valueOf(userAnswer);
             double rightAnswer = Double.valueOf(solution);
@@ -121,7 +141,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userInput >= rightAnswer - (toleranceRange/100.0) * range &&
                     userInput <= rightAnswer + (toleranceRange/100.0) * range) {
                 answerText.setText(fromHtml(answerCorrect));
-                answerImage.setImageResource(R.drawable.img_right_without_confetti);
+
+                if (!hasAnswerPicture) {
+                    answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                }
                 gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
@@ -131,7 +154,9 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
-                answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                if (!hasAnswerPicture) {
+                    answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                }
                 gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
@@ -139,7 +164,9 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         } else { //if not:
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
-                answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                if (!hasAnswerPicture) {
+                    answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                }
                 gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
@@ -149,12 +176,16 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
-                answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                if (!hasAnswerPicture) {
+                    answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                }
                 gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
         }
+
+
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
         //Scroll View State Change

@@ -9,6 +9,7 @@ public class QuizModel {
     private String answerCorrect;
     private String answerWrong;
     private String picturePath;
+    private String answerPicture;
     private String rightAnswer;
     private String option2;
     private String option3;
@@ -76,6 +77,14 @@ public class QuizModel {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public String getAnswerPicture() {
+        return answerPicture;
+    }
+
+    public void setAnswerPicture(String answerPicture) {
+        this.answerPicture = answerPicture;
     }
 
     public String getRightAnswer() {
