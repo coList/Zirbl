@@ -15,6 +15,7 @@ import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.IdentifySoundActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
+import hsaugsburg.zirbl001.TourActivities.Navigation.MapQuestNavigationActivity;
 import hsaugsburg.zirbl001.TourActivities.Navigation.NavigationActivity;
 import hsaugsburg.zirbl001.TourActivities.PictureCountdownActivity;
 import hsaugsburg.zirbl001.TourActivities.QuizActivity;
@@ -96,7 +97,7 @@ public class LoadTourChronology {
                 intent.putExtra("infopopupid", Integer.toString(nextChronologyItem.getInfoPopupID()));
 
             } else if (nextChronologyItem.getStationID() != null) {
-                intent = new Intent(activity, NavigationActivity.class);
+                intent = new Intent(activity, MapQuestNavigationActivity.class);
                 intent.putExtra("stationID", Integer.toString(nextChronologyItem.getStationID()));
 
             } else if (nextChronologyItem.getTaskID() != null) {

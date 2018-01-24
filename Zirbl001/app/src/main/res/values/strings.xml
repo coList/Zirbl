@@ -10,5 +10,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
+    <string name="no_connection">Keine Internetverbindung</string>
+    <string name="members">Teilnehmer:</string>
+    <string name="team">Team:</string>
+    <string name="name">Name</string>
+    <string name="end_tour">TOUR BEENDEN</string>
+    <string name="statistic">STATISTIK</string>
+    <string name="classes">Klasse</string>
+    <string name="school">Schule</string>
+    <string name="info_fav">Du hast noch keine Touren zu deinen Favoriten hinzugefügt.</string>
+    <string name="info_qr">Diesen QR Code müssen die Schüler abscannen, um an der Tour teilnehmen zu können.</string>
+    <string name="impressum">Ein Projekt von Studenten der Hochschule Augsburg. Betreut von Prof. Dr. Wolfgang Kowarschick und Moritz Jacobs.</string>
+    <string name="appname">Zirbl</string>
+    <string name="teamname">Teamname</string>
+    <string name="lie">gelogen</string>
+    <string name="truth">wahr</string>
+    <string name="scan_missed">SCAN FEHLGESCHLAGEN</string>
+    <string name="info_stat">Es sind noch keine Statistiken vorhanden.</string>
+    <string name="info_qr2">Du hast noch keine QR-Codes gespeichert.</string>
+    <string name="scanne_qrcode">Scanne den QR-Code deiner Lehrerin oder deines Lehrers ab.</string>
 
 </resources>

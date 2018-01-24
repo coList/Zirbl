@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.NumberFormat;
+import android.os.Build;
 import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class SliderActivity extends AppCompatActivity {
     private Context mContext = SliderActivity.this;
 
@@ -58,6 +62,8 @@ public class SliderActivity extends AppCompatActivity {
     private long startTime;
 
     private TopDarkActionbar topDarkActionbar;
+
+    private NumberFormat formatter = NumberFormat.getNumberInstance();
 
     @Override
     protected void onPause() {
@@ -103,6 +109,9 @@ public class SliderActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
+
         setDataView();
     }
 
@@ -145,7 +154,7 @@ public class SliderActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
                 if (!isInteger) {
-                    sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+                    sliderCount.setText(formatter.format(getConvertedDoubleValue(progress) + minValue));
                 } else {
                     sliderCount.setText(String.format(Locale.GERMANY, "%d", progress + minValue.intValue()));
                 }

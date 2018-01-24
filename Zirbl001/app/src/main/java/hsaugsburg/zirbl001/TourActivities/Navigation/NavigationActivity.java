@@ -231,6 +231,8 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         mapInstruction.setText(result.getMapInstruction());
+
+
     }
 
     private String createURL(String origin, String destination) {
@@ -557,4 +559,6 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+
+
 }

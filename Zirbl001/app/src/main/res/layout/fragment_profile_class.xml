@@ -28,7 +28,7 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:text="Es sind noch keine Statistiken vorhanden." />
+            android:text="@string/info_stat" />
 
         <ImageView
             android:id="@+id/speechbubble"
@@ -36,19 +36,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/scanText"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/img_speech_bubble_open" />
 
         <ImageView
             android:id="@+id/zirblfigur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/continueArea"
             android:layout_below="@+id/scanText"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/img_zirbl_small_qrcode_r"
-            android:layout_marginBottom="30dp"/>
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/img_zirbl_small_qrcode_r" />
 
     </RelativeLayout>
 

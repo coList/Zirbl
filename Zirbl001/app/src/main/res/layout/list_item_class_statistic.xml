@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:onClick="showOrHideTeams"
-    android:orientation="vertical">
+    android:orientation="vertical" android:focusable="true">
 
     <RelativeLayout
         android:id="@+id/visiblePart"
@@ -17,10 +17,13 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignBottom="@+id/titleOfStatistic"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/btn_arrow_down" />
 
@@ -30,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Zoo"
             app:textAllCaps="false" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -40,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/titleOfStatistic"
             android:layout_marginLeft="24dp"
-            android:text="25. September 2017"
+            android:layout_marginStart="24dp"
             app:textAllCaps="false" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -50,7 +53,7 @@
             android:layout_below="@+id/dateOfTour"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="24dp"
-            android:text="Jakob-Fugger Gymnasium"
+            android:layout_marginStart="24dp"
             app:textAllCaps="false" />
 
     </RelativeLayout>

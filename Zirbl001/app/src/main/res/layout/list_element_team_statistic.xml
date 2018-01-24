@@ -18,17 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:text="Die Namenlosen:"
+            android:layout_marginStart="24dp"
             app:textAllCaps="false" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
             android:id="@+id/membersOfTeam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/teamName"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="24dp"
-            android:text="Meli, Tobi, Coco, Vreni, Lari, Simon, Tim, Dini, Moe, Melis"
+            android:layout_marginStart="24dp"
             app:textAllCaps="false" />
 
     </LinearLayout>
@@ -37,10 +36,10 @@
         android:id="@+id/iconArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/membersOfTeam"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -55,6 +54,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/ic_cup" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="8dp"
-                android:text="#"
+                android:layout_marginStart="8dp"
                 app:textAllCaps="false" />
         </LinearLayout>
 
@@ -79,6 +79,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/ic_time" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="8dp"
-                android:text="#"
+                android:layout_marginStart="8dp"
                 app:textAllCaps="false" />
         </LinearLayout>
 
@@ -103,6 +104,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginBottom="3dp"
+                android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/ic_zirbl" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -111,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="8dp"
-                android:text="#"
+                android:layout_marginStart="8dp"
                 app:textAllCaps="false" />
         </LinearLayout>
     </LinearLayout>

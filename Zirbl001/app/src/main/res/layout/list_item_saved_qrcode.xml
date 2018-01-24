@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:onClick="showOrHideTeams"
-    android:orientation="vertical">
+    android:orientation="vertical" android:focusable="true">
 
     <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
         android:id="@+id/savedClass"
@@ -14,7 +14,6 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="24dp"
-        android:text="8 a"
         app:textAllCaps="false" />
 
     <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -24,7 +23,6 @@
         android:layout_below="@+id/savedClass"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:text="Jakob-Fugger Gymnasium"
         app:textAllCaps="false" />
 
     <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
@@ -35,18 +33,20 @@
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:text="23. September 2017"
         app:textAllCaps="false" />
 
     <ImageButton
         android:id="@+id/arrow"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/savedSchool"
+        android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/btn_arrow_right" />
 

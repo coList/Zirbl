@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity"
-    android:orientation="vertical">
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    tools:context="hsaugsburg.zirbl001.TourActivities.DoUKnowActivity">
 
-    <RelativeLayout
-        android:id="@+id/relLayoutActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_top_dark_actionbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/relLayoutProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_progressbar" />
+
+        </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/scrollLayoutSite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -62,8 +54,8 @@
                         android:id="@+id/speechOpen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/DoUKnow"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@drawable/img_speech_bubble_open" />
 
                     <ImageView
@@ -74,6 +66,7 @@
                         android:layout_marginRight="24dp"
                         android:layout_marginTop="24dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:maxHeight="300dp"
                         android:minHeight="100dp"
                         android:visibility="visible" />
@@ -93,12 +86,13 @@
 
                     <ImageButton
                         android:id="@+id/endButton"
-                        android:layout_width="200dp"
+                        android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
-                        android:onClick="showEndTourDialog"
+                        android:contentDescription="@string/app_name"
+                        android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
                         android:src="@drawable/btn_continue"
                         android:visibility="gone"
@@ -110,14 +104,25 @@
                         android:layout_height="48dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
                         android:src="@drawable/btn_continue"
                         android:visibility="visible"
                         app:srcCompat="@drawable/btn_continue" />
                 </LinearLayout>
+
             </RelativeLayout>
         </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_top_dark_actionbar" />
+
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerCrop" />
 
     <ImageView
@@ -21,6 +22,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/app_name"
         app:srcCompat="@drawable/code_pressed_route" />
 
     <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
@@ -48,8 +50,10 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_time" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -57,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
 
@@ -65,8 +70,10 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_route" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -74,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
 
@@ -82,8 +90,10 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/ic_level" />
 
         <hsaugsburg.zirbl001.Fonts.QuicksandBoldTurquoiseView
@@ -91,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:textAlignment="textEnd" />
     </LinearLayout>
