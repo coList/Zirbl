@@ -67,7 +67,6 @@
                         android:id="@+id/soundBar"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:progressTint="@color/colorTurquoise"
-                        android:background="@drawable/code_soundprogress_bg_stroke"
                         android:layout_width="0dp"
                         android:layout_height="10dp"
                         android:layout_gravity="center_vertical"
