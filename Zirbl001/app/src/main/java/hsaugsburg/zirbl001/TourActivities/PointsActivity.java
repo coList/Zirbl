@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -114,6 +115,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
+        VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
         TextView scoreText = (TextView) findViewById(R.id.points);
         ImageView gif = (ImageView) findViewById(R.id.gifConfetti);
         QuicksandBoldPrimaryView total = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
@@ -145,7 +147,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 if (!hasAnswerPicture) {
                     answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 }
-                gif.setImageResource(R.drawable.confetti_right);
+                //gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
                 scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
@@ -157,7 +159,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 if (!hasAnswerPicture) {
                     answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 }
-                gif.setImageResource(R.drawable.confetti_wrong);
+                //gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
@@ -167,7 +169,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 if (!hasAnswerPicture) {
                     answerImage.setImageResource(R.drawable.img_right_without_confetti);
                 }
-                gif.setImageResource(R.drawable.confetti_right);
+                //gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
                 scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
@@ -179,7 +181,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 if (!hasAnswerPicture) {
                     answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 }
-                gif.setImageResource(R.drawable.confetti_wrong);
+                //gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 titleText = wrong;
             }
