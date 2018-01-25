@@ -3,6 +3,7 @@ package hsaugsburg.zirbl001.TourActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -115,10 +116,18 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView)findViewById(R.id.pointsImage);
-        VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
+        final VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
         TextView scoreText = (TextView) findViewById(R.id.points);
         ImageView gif = (ImageView) findViewById(R.id.gifConfetti);
         QuicksandBoldPrimaryView total = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
+
+        answerVideo.setZOrderOnTop(true);
+        answerVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                answerVideo.start();
+            }
+        });
 
         String correct = "RICHTIG";
         String wrong = "FALSCH";
