@@ -154,19 +154,23 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
                 answerText.setText(fromHtml(answerCorrect));
 
                 if (!hasAnswerPicture) {
-                    answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                    //answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                    //
+                    answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.testvideo01));
+                    answerVideo.start();
+                    //
                 }
                 //gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
                 scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
-                scoreText.startAnimation(animPoints);
+                //scoreText.startAnimation(animPoints);
                 timerHandler.postDelayed(timerRunnable, 1200);
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 if (!hasAnswerPicture) {
-                    answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                    //answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 }
                 //gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
@@ -176,19 +180,23 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
                 if (!hasAnswerPicture) {
-                    answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                    //answerImage.setImageResource(R.drawable.img_right_without_confetti);
+                    //
+                    answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.testvideo01));
+                    answerVideo.start();
+                    //
                 }
                 //gif.setImageResource(R.drawable.confetti_right);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 currentScore += score;
                 scoreText.setText("+"+String.format(Locale.GERMANY, "%d", score));
-                scoreText.startAnimation(animPoints);
+                //scoreText.startAnimation(animPoints);
                 timerHandler.postDelayed(timerRunnable, 1200);
                 titleText = correct;
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 if (!hasAnswerPicture) {
-                    answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
+                    //answerImage.setImageResource(R.drawable.img_wrong_without_confetti);
                 }
                 //gif.setImageResource(R.drawable.confetti_wrong);
                 total.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
