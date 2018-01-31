@@ -69,19 +69,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_registration);
 
-        //
-        final VideoView videoView = (VideoView) findViewById(R.id.videoView);
-        videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.testvideo01));
-        videoView.setZOrderOnTop(true);
-        videoView.start();
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                videoView.start();
-            }
-        });
-        //
-
         setIntentExtras();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);

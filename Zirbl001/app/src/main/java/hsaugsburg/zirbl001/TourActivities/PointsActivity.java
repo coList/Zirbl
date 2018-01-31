@@ -176,7 +176,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
 
-        if (((double)stringLengthC)/height <= 0.16 || ((double)stringLengthW)/height <= 0.16) {
+        /*if (((double)stringLengthC)/height <= 0.10 || ((double)stringLengthW)/height <= 0.10) {
             paramsContinue.addRule(RelativeLayout.BELOW, 0);
             paramsContinue.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             paramsText.addRule(RelativeLayout.BELOW, 0);
@@ -194,7 +194,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             continueArea.setLayoutParams(paramsContinue);
             pointsArea.setLayoutParams(paramsPoints);
             answerText.setLayoutParams(paramsText);
-        }
+        }*/
 
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
