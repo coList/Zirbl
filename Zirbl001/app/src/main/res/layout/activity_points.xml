@@ -38,13 +38,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/answerText"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_alignParentTop="true">
 
                     <LinearLayout
                         android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginEnd="24dp"
                         android:layout_marginTop="16dp"
@@ -56,6 +56,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
                             android:adjustViewBounds="true"
+                            android:contentDescription="@string/app_name"
                             app:srcCompat="@drawable/ic_zirbl" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -64,6 +65,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:gravity="center_vertical"
                             android:text="3456"
                             android:textColor="@color/colorAccent" />
