@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,10 @@ public class IdentifySoundActivity extends AppCompatActivity {
     private int taskID;
     private String audioUrl;
 
+    private MediaPlayer player;
+    private Runnable runnable;
+    private Handler handler;
+    private ProgressBar soundBar;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     String serverName;
@@ -117,6 +122,8 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        handler = new Handler();
+        soundBar = (ProgressBar) findViewById(R.id.soundBar);
 
         initImageLoader();
         setDataView();
@@ -151,6 +158,30 @@ public class IdentifySoundActivity extends AppCompatActivity {
         taskID = result.getTaskID();
         audioUrl = result.getAudio();
 
+
+        player = new MediaPlayer();
+        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        Log.d("IdentifySoundActivity", serverName + audioUrl);
+        try {
+            player.setDataSource(serverName + audioUrl);
+            player.prepare();
+            soundBar.setProgress(0);
+            soundBar.setMax(player.getDuration());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                ImageButton playButton = (ImageButton) findViewById(R.id.playSound);
+                playButton.setImageResource((R.drawable.btn_play));
+            }
+
+        });
+
     }
 
 
@@ -167,6 +198,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
             String userAnswer = selectedButton.getText().toString();
 
             finish();
+            player.stop();
             Intent intent = new Intent(mContext, PointsActivity.class);
             intent.putExtra("isSlider", "false");
             intent.putExtra("userAnswer", userAnswer);
@@ -190,41 +222,39 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
     View.OnClickListener mediaPlayer = new View.OnClickListener() {
         public void onClick(View v) {
-            //MediaPlayer mp = MediaPlayer.create(IdentifySoundActivity.this, R.raw.testtour01);
-            //mp.start();
+            final ImageButton playButton = (ImageButton) findViewById(R.id.playSound);
+            if (!player.isPlaying()) {
 
-
-            /*
-            File zirblAudio = getDir("zirblAudio", Context.MODE_PRIVATE);
-            String audioPath = selectedTour + "taskid" + taskID + ".mp3";
-            File audioFile = new File(zirblAudio , audioPath);
-            String decodedImgUri = Uri.fromFile(audioFile).toString();
-            MediaPlayer mp = new MediaPlayer();
-            try {
-                mp.setDataSource(decodedImgUri);
-                mp.prepare();
-                mp.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            */
-
-            ImageButton greyplay = (ImageButton) findViewById(R.id.playSound);
-            greyplay.setImageResource(R.drawable.btn_greypause);
-            MediaPlayer player = new MediaPlayer();
-            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            Log.d("IdentifySoundActivity", serverName + audioUrl);
-
-            try {
-                player.setDataSource(serverName + audioUrl);
-                player.prepare();
+                playButton.setImageResource(R.drawable.btn_pause);
                 player.start();
-            } catch (IOException e) {
-                e.printStackTrace();
+                playCycle();
+
+
+            } else {
+                player.pause();
+                playButton.setImageResource(R.drawable.btn_play);
             }
         }
     };
+
+    public void playCycle() {
+        soundBar.setProgress(player.getCurrentPosition());
+
+        if (player.isPlaying()) {
+            runnable = new Runnable() {
+                public void run() {
+                    playCycle();
+                }
+            };
+            handler.postDelayed(runnable, 200);
+        }
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        player.release();
+        handler.removeCallbacks(runnable);
+    }
 
 
     //Selection

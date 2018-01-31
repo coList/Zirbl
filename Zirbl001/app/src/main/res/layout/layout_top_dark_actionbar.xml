@@ -10,106 +10,123 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/dotMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tabbar"
-            android:background="@color/colorPrimaryDark"
             android:onClick="showStats"
             android:orientation="vertical"
             android:translationY="-125dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/app_name"
-                app:srcCompat="@color/colorLine" />
-
-            <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
-                android:id="@+id/menuStats"
-                android:layout_width="match_parent"
-                android:layout_height="59dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
-                android:gravity="center_vertical"
-                android:text="@string/statistic"
-                android:textColor="@color/colorAccent" />
-
             <LinearLayout
-                android:id="@+id/firstRowFirstElement"
+                android:id="@+id/statistics"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:visibility="gone">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstRow"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical"
+                android:translationY="-56dp">
+
+                <LinearLayout
+                    android:id="@+id/firstRowFirstElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/timeImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?actionBarSize"
+                        android:layout_marginStart="24dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        app:srcCompat="@drawable/ic_time" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                        android:id="@+id/timeElement"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorAccent" />
+
+                    <ImageView
+                        android:id="@+id/scoreImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?actionBarSize"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        app:srcCompat="@drawable/ic_zirbl" />
+
+                    <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                        android:id="@+id/scoreElement"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorAccent" />
+
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/timeImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="?actionBarSize"
-                    android:adjustViewBounds="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_weight="1"
                     android:contentDescription="@string/app_name"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    app:srcCompat="@drawable/ic_time" />
+                    app:srcCompat="@color/colorLine" />
 
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                    android:id="@+id/timeElement"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
+                    android:id="@+id/menuQuit"
+                    android:layout_width="match_parent"
+                    android:layout_height="59dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="24dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:textColor="@color/colorAccent" />
-
-                <ImageView
-                    android:id="@+id/scoreImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="?actionBarSize"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/app_name"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    app:srcCompat="@drawable/ic_zirbl" />
-
-                <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                    android:id="@+id/scoreElement"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
+                    android:onClick="quitTour"
+                    android:text="@string/end_tour"
                     android:textColor="@color/colorAccent" />
 
             </LinearLayout>
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/firstRow"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/app_name"
-                app:srcCompat="@color/colorLine" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical">
 
-            <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
-                android:id="@+id/menuQuit"
-                android:layout_width="match_parent"
-                android:layout_height="59dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="24dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:onClick="quitTour"
-                android:text="@string/end_tour"
-                android:textColor="@color/colorAccent" />
+                <ImageView
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@color/colorLine" />
 
-        </LinearLayout>
+                <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentToolbar
+                    android:id="@+id/menuStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="59dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/statistic"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/tabbar"
