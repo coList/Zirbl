@@ -60,6 +60,7 @@ public class LoadTrueFalse {
                     trueFalseModel.setAnswerWrong(mJsonLObjectTrueFalse.getString("answerwrong"));
                     trueFalseModel.setPicturePath(mJsonLObjectTrueFalse.getString("picturepath"));
                     trueFalseModel.setIsTrue(mJsonLObjectTrueFalse.getBoolean("istrue"));
+                    trueFalseModel.setAnswerPicture(mJsonLObjectTrueFalse.getString("answerpicture"));
                 }
             }
         } catch (Exception e) {

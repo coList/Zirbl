@@ -52,6 +52,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
     private int selectedTour;
     private int score;
     private int currentScore;
+    private int taskID;
 
     private long startTime;
 
@@ -59,6 +60,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
+    private String answerPicture = "";
     String serverName;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -140,11 +142,15 @@ public class PictureCountdownActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         PictureCountdownModel result = new LoadPictureCountdown(this, selectedTour, taskID).readFile();
 
         ArrayList<String> answers = new ArrayList<>();
 
+
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
 
         ImageView questionPicture = (ImageView) findViewById(R.id.imgPixel);
         File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
@@ -272,6 +278,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
+
+            intent.putExtra("answerPicture", answerPicture);
+            intent.putExtra("taskID", Integer.toString(taskID));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(PictureCountdownActivity.this, R.anim.shake);

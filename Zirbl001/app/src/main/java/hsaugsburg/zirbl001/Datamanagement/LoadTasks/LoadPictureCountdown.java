@@ -63,6 +63,8 @@ public class LoadPictureCountdown {
                     pictureCountdownModel.setRightAnswer(mJsonLObjectPictureCoundown.getString("rightanswer"));
                     pictureCountdownModel.setOption2(mJsonLObjectPictureCoundown.getString("option2"));
                     pictureCountdownModel.setOption3(mJsonLObjectPictureCoundown.getString("option3"));
+
+                    pictureCountdownModel.setAnswerPicture(mJsonLObjectPictureCoundown.getString("answerpicture"));
                 }
             }
         } catch (Exception e) {

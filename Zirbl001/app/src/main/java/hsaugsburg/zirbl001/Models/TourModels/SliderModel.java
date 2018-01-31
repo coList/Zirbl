@@ -9,6 +9,7 @@ public class SliderModel {
     private String answerCorrect;
     private String answerWrong;
     private String picturePath;
+    private String answerPicture;
     private double rightNumber;
     private double minRange;
     private double maxRange;
@@ -77,6 +78,14 @@ public class SliderModel {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public String getAnswerPicture() {
+        return answerPicture;
+    }
+
+    public void setAnswerPicture(String answerPicture) {
+        this.answerPicture = answerPicture;
     }
 
     public double getRightNumber() {

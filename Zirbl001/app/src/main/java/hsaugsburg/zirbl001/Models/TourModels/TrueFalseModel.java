@@ -9,6 +9,7 @@ public class TrueFalseModel {
     private String answerCorrect;
     private String answerWrong;
     private String picturePath;
+    private String answerPicture;
     private boolean isTrue;
 
     public int getTaskID() {
@@ -73,6 +74,14 @@ public class TrueFalseModel {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public String getAnswerPicture() {
+        return answerPicture;
+    }
+
+    public void setAnswerPicture(String answerPicture) {
+        this.answerPicture = answerPicture;
     }
 
     public boolean isTrue() {

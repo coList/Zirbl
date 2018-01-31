@@ -57,6 +57,8 @@ public class IdentifySoundActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
+
+    private String answerPicture = "";
     private int score;
     private int taskID;
     private String audioUrl;
@@ -130,10 +132,12 @@ public class IdentifySoundActivity extends AppCompatActivity {
     }
 
     private void setDataView() {
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         IdentifySoundModel result = new LoadIdentifySound(this, selectedTour, taskID).readFile();
 
-        Log.d("IdentifySound", result.getQuestion().toString());
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
 
         TextView question = (TextView) findViewById(R.id.questionText);
 
@@ -208,6 +212,9 @@ public class IdentifySoundActivity extends AppCompatActivity {
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
+
+            intent.putExtra("answerPicture", answerPicture);
+            intent.putExtra("taskID", Integer.toString(taskID));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(IdentifySoundActivity.this, R.anim.shake);

@@ -58,6 +58,8 @@ public class LoadLetters {
                     lettersModel.setAnswerWrong(mJsonLObjectLetters.getString("answerwrong"));
                     lettersModel.setPicturePath(mJsonLObjectLetters.getString("picturepath"));
                     lettersModel.setOtherLetters(mJsonLObjectLetters.getString("randomletters"));
+
+                    lettersModel.setAnswerPicture(mJsonLObjectLetters.getString("answerpicture"));
                 }
             }
         } catch (Exception e) {

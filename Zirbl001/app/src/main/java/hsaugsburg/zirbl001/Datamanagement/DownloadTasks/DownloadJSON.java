@@ -140,6 +140,45 @@ public class DownloadJSON extends AsyncTask<String, String, String> {
 
                             }
 
+                            if (mJSONObjectElement.has("answerpicture")) {
+                                if (!mJSONObjectElement.isNull("answerpicture") && !mJSONObjectElement.getString("answerpicture").equals("null")) {
+                                    String name = "";
+
+
+                                        name = "taskid" + mJSONObjectElement.getInt("taskid") + "answerpicture";
+
+
+                                    Bitmap bitmap = getBitmapFromURL(serverName + mJSONObjectElement.getString("answerpicture"));
+
+                                    String[] parts = mJSONObjectElement.getString("answerpicture").split("\\.");
+
+                                    ContextWrapper cw = new ContextWrapper(activity.getApplicationContext());
+                                    File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
+
+                                    File mypath=new File(directory, selectedTour + name + "." + parts[parts.length - 1]);
+
+                                    FileOutputStream pictureFileout = null;
+                                    try {
+                                        pictureFileout = new FileOutputStream(mypath);
+                                        if (parts[parts.length - 1].equals("png")) {
+
+                                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, pictureFileout);
+                                        } else {
+                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, pictureFileout);
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    } finally {
+                                        try {
+                                            pictureFileout.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+
+                            }
+
                             if (mJSONObjectElement.has("audio")) {
                                 int count;
                                 try {
