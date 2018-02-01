@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.NumberFormat;
+import java.text.NumberFormat;
 import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
@@ -65,7 +65,8 @@ public class SliderActivity extends AppCompatActivity {
 
     private TopDarkActionbar topDarkActionbar;
 
-    private NumberFormat formatter = NumberFormat.getNumberInstance();
+    private NumberFormat formatterOne = NumberFormat.getNumberInstance();
+    private NumberFormat formatterTwo = NumberFormat.getNumberInstance();
 
     @Override
     protected void onPause() {
@@ -111,8 +112,11 @@ public class SliderActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
-        formatter.setMinimumFractionDigits(2);
-        formatter.setMaximumFractionDigits(2);
+
+        formatterOne.setMinimumFractionDigits(1);
+        formatterOne.setMaximumFractionDigits(1);
+        formatterTwo.setMinimumFractionDigits(2);
+        formatterTwo.setMaximumFractionDigits(2);
 
         setDataView();
     }
@@ -141,9 +145,9 @@ public class SliderActivity extends AppCompatActivity {
 
         if (!isInteger) {
             slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
-            sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
-            startCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(minValue))));
-            endCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
+            sliderCount.setText(formatterTwo.format(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+            startCount.setText(formatterOne.format(getConvertedDoubleValue(getConvertedIntValue(minValue))));
+            endCount.setText(formatterOne.format(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
         } else {
             Double value = result.getMaxRange() - minValue;
             slider.setMax(value.intValue());
@@ -160,7 +164,7 @@ public class SliderActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
                 if (!isInteger) {
-                    sliderCount.setText(formatter.format(getConvertedDoubleValue(progress) + minValue));
+                    sliderCount.setText(formatterTwo.format(getConvertedDoubleValue(progress) + minValue));
                 } else {
                     sliderCount.setText(String.format(Locale.GERMANY, "%d", progress + minValue.intValue()));
                 }

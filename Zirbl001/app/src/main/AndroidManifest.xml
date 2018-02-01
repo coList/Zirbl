@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="hsaugsburg.zirbl001.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="hsaugsburg.zirbl001..permission.C2D_MESSAGE" />
 
     <!--<receiver
         android:name=".PassiveLocationChangedReceiver"
@@ -29,6 +33,10 @@
 
     <!-- API lvl 21 or higher -->
     <uses-feature android:name="android.hardware.location.gps" />
+
+
+
+
 
     <application
         android:allowBackup="true"
@@ -129,6 +137,8 @@
 
         <activity android:name=".TourActivities.PictureCountdownActivity" />
         <activity android:name=".TourActivities.IdentifySoundActivity"></activity>
+
+
     </application>
 
 </manifest>
