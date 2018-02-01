@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Models.NavigationModels;
 
 public class SearchModel {
     private String tourName;
+    private String contentfulID;
     private int tourID;
     private String categoryName;
     private String difficultyName;
@@ -15,6 +16,14 @@ public class SearchModel {
 
     public void setTourName(String tourName) {
         this.tourName = tourName;
+    }
+
+    public String getContentfulID() {
+        return contentfulID;
+    }
+
+    public void setContentfulID(String contentfulID) {
+        this.contentfulID = contentfulID;
     }
 
     public int getTourID() {
