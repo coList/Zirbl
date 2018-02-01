@@ -38,25 +38,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/answerText"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:id="@+id/gifConfetti"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/confetti_right" />
+                    android:layout_alignParentTop="true">
 
                     <LinearLayout
                         android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginTop="16dp">
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/totalImg"
@@ -64,6 +56,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
                             android:adjustViewBounds="true"
+                            android:contentDescription="@string/app_name"
                             app:srcCompat="@drawable/ic_zirbl" />
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
@@ -72,31 +65,18 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:gravity="center_vertical"
-                            android:text="3456"
                             android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/pointsImage"
+                    <VideoView
+                        android:id="@+id/pointsVideo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/app_name"
-                        app:layout_constraintBaseline_toBaselineOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:srcCompat="@drawable/img_right_without_confetti" />
-
-                    <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-                        android:id="@+id/points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/pointsImage"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="100dp" />
+                        android:minHeight="300dp" />
 
                 </RelativeLayout>
 
@@ -104,10 +84,23 @@
                     android:id="@+id/answerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
+                    android:layout_above="@+id/answerImage"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
+
+                <ImageView
+                    android:id="@+id/answerImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/continueArea"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone"
+                    app:srcCompat="@color/colorTransparent30" />
 
                 <LinearLayout
                     android:id="@+id/continueArea"

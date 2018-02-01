@@ -54,15 +54,14 @@
         <activity
             android:name=".TourActivities.TourstartActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".NavigationActivities.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.Search.SearchActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.QrCode.QrActivity"
             android:screenOrientation="portrait" />
@@ -81,10 +80,10 @@
         <activity
             android:name=".TourActivities.ClassRegistrationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".TourActivities.GenerateQrCodeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TourActivities.Navigation.NavigationActivity"
             android:screenOrientation="portrait" />

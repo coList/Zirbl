@@ -71,7 +71,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignBottom="@+id/imgPixel"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/pixel"
+                        android:background="@color/colorAccent"
                         android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop" />
 
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:contentDescription="@string/app_name"
-                        app:srcCompat="@drawable/btn_greyplay" />
+                        app:srcCompat="@drawable/btn_play" />
 
                 </RelativeLayout>
 
