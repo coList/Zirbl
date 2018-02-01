@@ -90,7 +90,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TourActivities.Navigation.MapQuestNavigationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
+        <service android:name=".Models.TourModels.MapModels.GeofenceService" android:exported="true" android:enabled="true"/>
         <activity
             android:name=".TourActivities.LettersActivity"
             android:screenOrientation="portrait" />
