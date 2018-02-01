@@ -17,7 +17,8 @@
             android:layout_below="@+id/tabbar"
             android:onClick="showStats"
             android:orientation="vertical"
-            android:translationY="-125dp">
+            android:translationY="-125dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/statistics"

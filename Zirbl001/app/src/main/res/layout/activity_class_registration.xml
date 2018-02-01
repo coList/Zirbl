@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context="hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity">
 
     <!-- top actionbar -->
@@ -17,13 +18,6 @@
 
         <include layout="@layout/layout_top_standard_actionbar" />
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorAccent" />
-
     </RelativeLayout>
 
 
@@ -31,6 +25,7 @@
         android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/relLayoutActionBar"
         android:orientation="vertical">
 
         <ImageView
@@ -96,12 +91,12 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorLine"
             android:cursorVisible="true"
+            android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"
             android:ems="10"
             android:hint="@string/school"
             android:inputType="textCapWords|textPersonName"
-            android:textCursorDrawable="@null"
             android:singleLine="true"
-            android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
+            android:textCursorDrawable="@null" />
 
         <LinearLayout
             android:id="@+id/continueArea"
@@ -127,4 +122,4 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
