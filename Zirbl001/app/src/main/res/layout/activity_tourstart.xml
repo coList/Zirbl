@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hsaugsburg.zirbl001.TourActivities.TourstartActivity"
-    android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:id="@+id/relLayoutActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_top_dark_actionbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:layout_below="@+id/relLayoutProgressBar"
+        android:background="@color/colorAccent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -50,6 +34,7 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="10dp"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
                     android:scaleType="fitStart"
                     app:srcCompat="@drawable/img_zirbl_speech_bubble_team" />
             </LinearLayout>
@@ -57,7 +42,7 @@
             <LinearLayout
                 android:id="@+id/userInput"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryEdit
@@ -70,16 +55,20 @@
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/colorLine"
                     android:cursorVisible="true"
+                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"
                     android:ems="10"
-                    android:hint="Teamname"
+                    android:hint="@string/teamname"
                     android:inputType="textCapWords|textPersonName"
-                    android:textCursorDrawable="@null"
                     android:singleLine="true"
-                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
+                    android:textCursorDrawable="@null" />
 
-                <include layout="@layout/list_element_participant" android:id="@+id/firstName"/>
+                <include
+                    android:id="@+id/firstName"
+                    layout="@layout/list_element_participant" />
 
-                <include layout="@layout/list_element_participant" android:id="@+id/secondName"/>
+                <include
+                    android:id="@+id/secondName"
+                    layout="@layout/list_element_participant" />
 
             </LinearLayout>
 
@@ -87,11 +76,13 @@
                 android:id="@+id/plusButton"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
+                android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="16dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="addParticipant"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/btn_plus" />
@@ -101,6 +92,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="16dp"
+                android:gravity="bottom"
                 android:orientation="vertical">
 
                 <ImageButton
@@ -110,6 +102,7 @@
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
                     android:onClick="goIntoTour"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/btn_continue" />
@@ -118,5 +111,23 @@
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/relLayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <include layout="@layout/layout_progressbar" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_top_dark_actionbar" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

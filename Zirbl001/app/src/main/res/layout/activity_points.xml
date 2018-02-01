@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,97 +7,100 @@
     tools:context="hsaugsburg.zirbl001.TourActivities.PointsActivity"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/relLayoutActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_top_dark_actionbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:visibility="visible">
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/relLayoutProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_progressbar" />
+
+        </RelativeLayout>
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:id="@+id/scrollLayoutSite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
             android:fillViewport="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.constraint.ConstraintLayout
+                <RelativeLayout
                     android:id="@+id/pointsArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/answerText"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_alignParentTop="true">
 
-                    <pl.droidsonroids.gif.GifImageView
-                        android:id="@+id/gifConfetti"
+                    <LinearLayout
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/totalImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/app_name"
+                            app:srcCompat="@drawable/ic_zirbl" />
+
+                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
+                            android:id="@+id/totalPoints"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/colorAccent" />
+
+                    </LinearLayout>
+
+                    <VideoView
+                        android:id="@+id/pointsVideo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/confetti_right"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:layout_centerHorizontal="true"
+                        android:minHeight="300dp" />
 
-                    <ImageView
-                        android:id="@+id/pointsImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:adjustViewBounds="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:srcCompat="@drawable/img_right_without_confetti"
-                        tools:layout_editor_absoluteY="0dp" />
-
-                    <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
-                        android:id="@+id/points"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:textSize="60sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/pointsImage"
-                        app:layout_constraintVertical_bias="0.8" />
-
-                </android.support.constraint.ConstraintLayout>
+                </RelativeLayout>
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                     android:id="@+id/answerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
+                    android:layout_above="@+id/answerImage"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
+
+                <ImageView
+                    android:id="@+id/answerImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/continueArea"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone"
+                    app:srcCompat="@color/colorTransparent30" />
 
                 <LinearLayout
                     android:id="@+id/continueArea"
@@ -114,18 +117,23 @@
                         android:layout_height="48dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
                         android:src="@drawable/btn_continue" />
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
-        <![CDATA[
 
-        >
+    </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    ]]>
+        <include layout="@layout/layout_top_dark_actionbar" />
+
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

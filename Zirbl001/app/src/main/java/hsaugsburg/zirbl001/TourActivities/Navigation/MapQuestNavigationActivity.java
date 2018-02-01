@@ -24,9 +24,13 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -129,6 +133,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
     //dot menu
     private TopDarkActionbar topDarkActionbar;
+
+    private boolean visibleInfo = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -525,15 +531,18 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
     //click on station name to hide or show the mapinstruction
     public void onClick(View view) {
-        TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         ImageView arrow = (ImageView) findViewById(R.id.arrow);
+        RelativeLayout info = (RelativeLayout) findViewById(R.id.stationInfo);
+        LinearLayout infoArea = (LinearLayout) findViewById(R.id.infoArea);
 
-        if (mapInstruction.getVisibility() == View.VISIBLE) {
-            mapInstruction.setVisibility(View.GONE);
-            arrow.setScaleY(-1);
+        if (visibleInfo) {
+            arrow.animate().rotation(-180);
+            infoArea.animate().translationY(info.getHeight());
+            visibleInfo = false;
         } else {
-            mapInstruction.setVisibility(View.VISIBLE);
-            arrow.setScaleY(1);
+            arrow.animate().rotation(0);
+            infoArea.animate().translationY(0);
+            visibleInfo = true;
         }
     }
 

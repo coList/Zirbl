@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="hsaugsburg.zirbl001.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="hsaugsburg.zirbl001..permission.C2D_MESSAGE" />
 
     <!--<receiver
         android:name=".PassiveLocationChangedReceiver"
@@ -30,6 +34,10 @@
     <!-- API lvl 21 or higher -->
     <uses-feature android:name="android.hardware.location.gps" />
 
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -54,15 +62,14 @@
         <activity
             android:name=".TourActivities.TourstartActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".NavigationActivities.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.Search.SearchActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivities.QrCode.QrActivity"
             android:screenOrientation="portrait" />
@@ -81,10 +88,10 @@
         <activity
             android:name=".TourActivities.ClassRegistrationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".TourActivities.GenerateQrCodeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TourActivities.Navigation.NavigationActivity"
             android:screenOrientation="portrait" />
@@ -131,6 +138,8 @@
 
         <activity android:name=".TourActivities.PictureCountdownActivity" />
         <activity android:name=".TourActivities.IdentifySoundActivity"></activity>
+
+
     </application>
 
 </manifest>

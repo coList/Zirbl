@@ -9,6 +9,7 @@ public class LettersModel {
     private String answerCorrect;
     private String answerWrong;
     private String picturePath;
+    private String answerPicture;
     private String solution;
     private String otherLetters;
 
@@ -74,6 +75,14 @@ public class LettersModel {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public String getAnswerPicture() {
+        return answerPicture;
+    }
+
+    public void setAnswerPicture(String answerPicture) {
+        this.answerPicture = answerPicture;
     }
 
     public String getSolution() {

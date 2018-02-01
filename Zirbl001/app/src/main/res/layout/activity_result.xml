@@ -1,45 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.ResultActivity">
 
-    <RelativeLayout
-        android:id="@+id/relLayoutActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_top_dark_actionbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent">
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/relLayoutProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_progressbar" />
+
+        </RelativeLayout>
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:id="@+id/scrollLayoutSite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
@@ -56,8 +47,8 @@
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
                         android:src="@drawable/confetti_right"
-                        app:layout_constraintLeft_toLeftOf="@+id/parent"
-                        app:layout_constraintRight_toRightOf="@+id/parent" />
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent" />
 
                     <ImageView
                         android:id="@+id/pointsImage"
@@ -66,8 +57,9 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:adjustViewBounds="true"
-                        app:layout_constraintLeft_toLeftOf="@+id/parent"
-                        app:layout_constraintRight_toRightOf="@+id/parent"
+                        android:contentDescription="@string/app_name"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:srcCompat="@drawable/img_right_without_confetti" />
 
                     <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
@@ -91,10 +83,9 @@
                     android:id="@+id/resultTeam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/resultMembers"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    android:text="Team:"
+                    android:text="@string/team"
                     tools:layout_editor_absoluteX="32dp"
                     tools:layout_editor_absoluteY="81dp" />
 
@@ -102,10 +93,9 @@
                     android:id="@+id/resultMembers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/placementOfAllArea"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    android:text="Teilnehmer:"
+                    android:text="@string/members"
                     tools:layout_editor_absoluteX="32dp"
                     tools:layout_editor_absoluteY="81dp" />
 
@@ -113,7 +103,6 @@
                     android:id="@+id/placementOfAllArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/usedTimeArea"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp"
@@ -127,20 +116,21 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@drawable/ic_cup" />
 
                     <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                         android:id="@+id/textPlacement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/usedTimeArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp"
@@ -154,20 +144,21 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@drawable/ic_time" />
 
                     <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
                         android:id="@+id/textUsedTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp" />
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/continueArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="16dp"
                     android:gravity="center_horizontal">
@@ -178,18 +169,23 @@
                         android:layout_height="48dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
                         android:onClick="endTour"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/btn_end" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-        <![CDATA[
 
-        >
+    </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    ]]>
+        <include layout="@layout/layout_top_dark_actionbar" />
+
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

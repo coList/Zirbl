@@ -15,7 +15,7 @@
         <hsaugsburg.zirbl001.Fonts.OpenSansBoldAccentView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="SCAN FEHLGESCHLAGEN"
+            android:text="@string/scan_missed"
             android:id="@+id/title"
             android:layout_margin="24dp"
             android:textSize="18sp"
@@ -99,6 +99,7 @@
             android:id="@+id/lineTop"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@color/colorLine" />
 
     </LinearLayout>
@@ -123,6 +124,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:padding="7dp"
             app:srcCompat="@drawable/ic_loading_point_black" />
 
@@ -134,6 +136,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:padding="7dp"
             app:srcCompat="@drawable/ic_loading_point_black" />
 
@@ -144,6 +147,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:padding="7dp"
             app:srcCompat="@drawable/ic_loading_point_black" />
     </LinearLayout>
@@ -165,8 +169,6 @@
             android:text=""
             android:id="@+id/btn_marked"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
             android:textColor="@color/colorPrimaryDark"
             android:background="?android:attr/selectableItemBackground"
             android:textSize="18sp"/>

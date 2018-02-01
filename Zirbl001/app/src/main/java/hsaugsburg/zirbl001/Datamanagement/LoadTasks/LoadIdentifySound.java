@@ -65,6 +65,7 @@ public class LoadIdentifySound {
                     identifySoundModel.setOption3(mJsonLObjectSound.getString("option3"));
                     identifySoundModel.setOption4(mJsonLObjectSound.getString("option4"));
                     identifySoundModel.setAudio(mJsonLObjectSound.getString("audio"));
+                    identifySoundModel.setAnswerPicture(mJsonLObjectSound.getString("answerpicture"));
                 }
             }
         } catch (Exception e) {

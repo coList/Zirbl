@@ -4,23 +4,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.PixelFormat;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.VideoView;
+
 import hsaugsburg.zirbl001.R;
 
 import java.lang.reflect.Field;
@@ -45,6 +54,8 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public final String[] valuesClassnumber= {"-","a","b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
     public final String[] valuesGrade= {"-","5", "6", "7", "8", "9", "10", "11", "12", "13"};
+
+    String TAG = "com.ebookfrenzy.videoplayer";
 
     //Animation beim Activity Wechsel verhindern
     @Override

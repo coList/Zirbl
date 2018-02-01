@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import java.text.NumberFormat;
+import android.os.Build;
 import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class SliderActivity extends AppCompatActivity {
     private Context mContext = SliderActivity.this;
 
@@ -48,7 +52,9 @@ public class SliderActivity extends AppCompatActivity {
     private String answerCorrect;
     private String answerWrong;
     private int score;
+    private int taskID;
     private int toleranceRange;
+    private String answerPicture = "";
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
     private String serverName;
@@ -58,6 +64,9 @@ public class SliderActivity extends AppCompatActivity {
     private long startTime;
 
     private TopDarkActionbar topDarkActionbar;
+
+    private NumberFormat formatterOne = NumberFormat.getNumberInstance();
+    private NumberFormat formatterTwo = NumberFormat.getNumberInstance();
 
     @Override
     protected void onPause() {
@@ -103,12 +112,22 @@ public class SliderActivity extends AppCompatActivity {
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
 
+
+        formatterOne.setMinimumFractionDigits(1);
+        formatterOne.setMaximumFractionDigits(1);
+        formatterTwo.setMinimumFractionDigits(2);
+        formatterTwo.setMaximumFractionDigits(2);
+
         setDataView();
     }
 
     public void setDataView() {
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
+        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
         SliderModel result = new LoadSlider(this, selectedTour, taskID).readFile();
+
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
 
         TextView question = (TextView) findViewById(R.id.questionText);
         question.setText(fromHtml(result.getQuestion()));
@@ -126,9 +145,9 @@ public class SliderActivity extends AppCompatActivity {
 
         if (!isInteger) {
             slider.setMax(getConvertedIntValue(result.getMaxRange() - minValue));
-            sliderCount.setText(Double.toString(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
-            startCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(minValue))));
-            endCount.setText(Double.toString(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
+            sliderCount.setText(formatterTwo.format(getConvertedDoubleValue(slider.getProgress() + getConvertedIntValue(minValue))));
+            startCount.setText(formatterOne.format(getConvertedDoubleValue(getConvertedIntValue(minValue))));
+            endCount.setText(formatterOne.format(getConvertedDoubleValue(getConvertedIntValue(result.getMaxRange()))));
         } else {
             Double value = result.getMaxRange() - minValue;
             slider.setMax(value.intValue());
@@ -145,7 +164,7 @@ public class SliderActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 answerSelected = true;
                 if (!isInteger) {
-                    sliderCount.setText(Double.toString(getConvertedDoubleValue(progress) + minValue));
+                    sliderCount.setText(formatterTwo.format(getConvertedDoubleValue(progress) + minValue));
                 } else {
                     sliderCount.setText(String.format(Locale.GERMANY, "%d", progress + minValue.intValue()));
                 }
@@ -183,6 +202,10 @@ public class SliderActivity extends AppCompatActivity {
             intent.putExtra("toleranceRange", Integer.toString(toleranceRange));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
+
+            intent.putExtra("answerPicture", answerPicture);
+
+            intent.putExtra("taskID", Integer.toString(taskID));
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(SliderActivity.this, R.anim.shake);

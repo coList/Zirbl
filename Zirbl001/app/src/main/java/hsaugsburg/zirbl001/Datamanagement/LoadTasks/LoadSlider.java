@@ -61,6 +61,9 @@ public class LoadSlider {
                     sliderModel.setRightNumber(mJsonLObjectSlider.getDouble("rightnumber"));
                     sliderModel.setIsInteger(mJsonLObjectSlider.getBoolean("isinteger"));
                     sliderModel.setToleranceRange(mJsonLObjectSlider.getInt("tolerancerange"));
+
+
+                    sliderModel.setAnswerPicture(mJsonLObjectSlider.getString("answerpicture"));
                 }
             }
         } catch (Exception e) {

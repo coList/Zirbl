@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,30 +8,22 @@
     android:orientation="vertical"
     tools:context="hsaugsburg.zirbl001.TourActivities.QuizActivity">
 
-    <RelativeLayout
-        android:id="@+id/relLayoutActionBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <include layout="@layout/layout_top_dark_actionbar" />
+        <RelativeLayout
+            android:id="@+id/relLayoutProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <include layout="@layout/layout_progressbar" />
 
-    <RelativeLayout
-        android:id="@+id/relLayoutProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_progressbar" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayoutScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/scrollLayoutSite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -55,6 +47,7 @@
                     android:id="@+id/lineAbove"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:contentDescription="@string/app_name"
                     android:visibility="visible"
                     app:srcCompat="@color/colorLine" />
 
@@ -68,6 +61,7 @@
                         android:id="@+id/behindQuestionImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         android:visibility="visible" />
 
@@ -98,8 +92,10 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
                         android:paddingLeft="90dp"
                         android:paddingRight="24dp"
+                        android:paddingStart="90dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -109,8 +105,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_1_normal" />
 
@@ -119,6 +117,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@color/colorLine" />
                 </RelativeLayout>
 
@@ -135,8 +134,10 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
                         android:paddingLeft="90dp"
                         android:paddingRight="24dp"
+                        android:paddingStart="90dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -146,8 +147,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_2_normal" />
 
@@ -156,6 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@color/colorLine" />
                 </RelativeLayout>
 
@@ -172,8 +176,10 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
                         android:paddingLeft="90dp"
                         android:paddingRight="24dp"
+                        android:paddingStart="90dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -183,8 +189,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_3_normal" />
 
@@ -193,6 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@color/colorLine" />
                 </RelativeLayout>
 
@@ -209,8 +218,10 @@
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:gravity="center_vertical"
+                        android:paddingEnd="24dp"
                         android:paddingLeft="90dp"
                         android:paddingRight="24dp"
+                        android:paddingStart="90dp"
                         android:textAlignment="textStart" />
 
                     <ImageView
@@ -220,8 +231,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="5dp"
                         android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_4_normal" />
 
@@ -230,6 +243,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
+                        android:contentDescription="@string/app_name"
                         app:srcCompat="@color/colorLine" />
                 </RelativeLayout>
 
@@ -247,13 +261,22 @@
                         android:layout_height="48dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
                         android:onClick="continueToNextView"
                         android:scaleType="fitCenter"
                         android:src="@drawable/btn_continue" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_top_dark_actionbar" />
 
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context="hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity">
 
     <!-- top actionbar -->
@@ -24,6 +25,7 @@
         android:id="@+id/relLayoutSite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/relLayoutActionBar"
         android:orientation="vertical">
 
         <ImageView
@@ -34,6 +36,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@drawable/img_zirbl_speech_bubble_class" />
 
@@ -52,13 +55,14 @@
                 android:id="@+id/classEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Klasse" />
+                android:text="@string/classes" />
 
             <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryPicker
                 android:id="@+id/grade"
                 android:layout_width="50dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -69,6 +73,7 @@
                 android:layout_width="50dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 app:npBackgroundColor="@color/colorAccent"
                 app:npSeparatorColor="@android:color/transparent"
                 app:npTextColor="@color/colorPrimaryDark"
@@ -86,12 +91,12 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorLine"
             android:cursorVisible="true"
+            android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"
             android:ems="10"
-            android:hint="Schule"
+            android:hint="@string/school"
             android:inputType="textCapWords|textPersonName"
-            android:textCursorDrawable="@null"
             android:singleLine="true"
-            android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789ÄäÜüÖö -"/>
+            android:textCursorDrawable="@null" />
 
         <LinearLayout
             android:id="@+id/continueArea"
@@ -108,11 +113,13 @@
                 android:layout_height="48dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
                 android:onClick="generateQrCode"
                 android:scaleType="fitCenter"
                 android:src="@drawable/btn_create" />
+
         </LinearLayout>
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

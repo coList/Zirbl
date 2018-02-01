@@ -6,6 +6,7 @@ public class IdentifySoundModel {
     private int stationID;
     private int tourID;
     private int score;
+    private String answerPicture;
     private String question;
     private String answerCorrect;
     private String answerWrong;
@@ -45,6 +46,14 @@ public class IdentifySoundModel {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String getAnswerPicture() {
+        return answerPicture;
+    }
+
+    public void setAnswerPicture(String answerPicture) {
+        this.answerPicture = answerPicture;
     }
 
     public String getQuestion() {
