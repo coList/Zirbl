@@ -39,13 +39,14 @@ dependencies {
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.1.8'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.google.android.gms:play-services-vision:11.0.1'
+    compile 'com.google.android.gms:play-services-vision:11.0.2'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.google.zxing:core:3.2.1'
     compile 'biz.kasual:materialnumberpicker:1.2.1'
-    compile 'com.google.android.gms:play-services-maps:11.0.1'
+    compile 'com.google.android.gms:play-services-maps:11.0.2'
     compile 'com.google.android.gms:play-services-location:11.0.2'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    compile 'com.google.android.gms:play-services-gcm:11.0.2'
     testCompile 'junit:junit:4.12'
 
     compile 'com.contentful.java:java-sdk:7.4.0'
@@ -56,5 +57,9 @@ dependencies {
         transitive = true
     }
     compile 'com.github.MKergall:osmbonuspack:6.4'
+
+    apply plugin: 'com.google.gms.google-services'
+
+
 
 }

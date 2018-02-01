@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "140251432040",
+    "project_id": "firebase-zirbl"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140251432040:android:851ec949cc721eae",
+        "android_client_info": {
+          "package_name": "hsaugsburg.zirbl001"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140251432040-j2ke96jrp1voo2g3t18nd00mm05o3ftk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbJ-lL8j5q7XCXdnq3bZw_2ncudG9wCxM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
