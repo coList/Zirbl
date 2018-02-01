@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -98,14 +99,16 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         Log.d("PointsActivity", answerPicture);
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
+        ImageView answerImage = (ImageView) findViewById(R.id.answerImage);
         totalPoints = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
 
         final VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
-        answerVideo.setZOrderOnTop(true);
+        //answerVideo.setZOrderOnTop(true);
         answerVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 answerVideo.start();
+                mediaPlayer.setVolume(0f, 0f);
             }
         });
 
@@ -116,7 +119,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             String imgPath = selectedTour + "taskid" + taskID + "answerpicture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
             String decodedImgUri = Uri.fromFile(imgFile).toString();
-            //ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            answerImage.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
         }
 
         //Wenn SliderActivity, dann...

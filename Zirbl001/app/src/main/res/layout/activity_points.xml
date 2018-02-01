@@ -67,7 +67,6 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginStart="8dp"
                             android:gravity="center_vertical"
-                            android:text="3456"
                             android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
@@ -76,7 +75,8 @@
                         android:id="@+id/pointsVideo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true" />
+                        android:layout_centerHorizontal="true"
+                        android:minHeight="300dp" />
 
                 </RelativeLayout>
 
@@ -84,10 +84,23 @@
                     android:id="@+id/answerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
+                    android:layout_above="@+id/answerImage"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
+
+                <ImageView
+                    android:id="@+id/answerImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/continueArea"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="48dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone"
+                    app:srcCompat="@color/colorTransparent30" />
 
                 <LinearLayout
                     android:id="@+id/continueArea"
