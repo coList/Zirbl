@@ -112,7 +112,6 @@ public class HomeActivity extends AppCompatActivity implements InternetActivity 
 
                     @Override
                     public void onCompleted() {
-                        Log.d("Contentful", Integer.toString(result.total()));
                         for (CDAResource entry: result.items()) {
                             CDAEntry item = (CDAEntry) entry;
 
@@ -130,8 +129,6 @@ public class HomeActivity extends AppCompatActivity implements InternetActivity 
                             tourSelectionModel.setDuration(Double.valueOf(item.getField("duration").toString()).intValue());
                             tourSelectionModel.setDistance(Double.valueOf(item.getField("distance").toString()).intValue());
                             tourSelectionModel.setMainpicture("https:" + mainPictureAsset.url());
-
-                            Log.d("contentful", item.getField("tourname").toString());
 
                             tourSelectionModelArrayList.add(tourSelectionModel);
 

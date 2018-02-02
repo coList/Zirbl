@@ -149,6 +149,8 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
                         CDAEntry difficultyEntry = (CDAEntry) result.getField("difficultyId");
                         CDAEntry categoryEntry = (CDAEntry) result.getField("categoryId");
+                        CDAEntry startLocation = (CDAEntry) result.getField("startlocation");
+                        CDAEntry endLocation = (CDAEntry) result.getField("endlocation");
 
 
                         CDAAsset mapPictureAsset = (CDAAsset) result.getField("mapPicture");
@@ -180,12 +182,10 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                         }
 
                         tourDetailModel.setShortDescription(result.getField("shortdescription").toString());
+                        tourDetailModel.setStartLocation(startLocation.getField("stationname").toString());
+                        tourDetailModel.setEndLocation(endLocation.getField("stationname").toString());
 
-
-                        tourDetailModel.setStartLocation("fehlt");
-                        tourDetailModel.setEndLocation("fehlt auch");
                         processData(tourDetailModel);
-                        Log.d("Contentful", tourDetailModel.toString());
                     }
 
                     @Override public void onError(Throwable error) {

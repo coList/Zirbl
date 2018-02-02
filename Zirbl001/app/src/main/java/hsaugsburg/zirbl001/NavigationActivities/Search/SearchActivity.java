@@ -206,14 +206,6 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
 
     public void processData(List<SearchModel> result) {
         if (result != null) {
-
-            /*
-            //Entferne Fugger-Tour aus der Liste
-            result.remove(0);
-
-            */
-
-
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
 
@@ -226,6 +218,7 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(selectedTour.getTourID()));
                     intent1.putExtra("tourName", selectedTour.getTourName());
+                    intent1.putExtra("contentfulID", ((SearchModel)selectedTour).getContentfulID());
                     startActivity(intent1);
                 }
             });
