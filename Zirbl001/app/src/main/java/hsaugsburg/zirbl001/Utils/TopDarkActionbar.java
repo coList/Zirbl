@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Utils;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ public class TopDarkActionbar {
     private TextView menuQuit;
     private boolean dotMenuOpen = false;
     private boolean timeAndScoreOpen = false;
+    private boolean firstTimeClick = true;
 
     public TopDarkActionbar(Activity activity, String titleText) {
         dotMenuLayout = (RelativeLayout)activity.findViewById(R.id.dotMenu);
@@ -39,6 +41,7 @@ public class TopDarkActionbar {
         title.setText(titleText);
         menuStats.setTextSize(18);
         menuQuit.setTextSize(18);
+
     }
 
     public void showStats(int currentScore, long startTime) {
@@ -67,19 +70,23 @@ public class TopDarkActionbar {
     }
 
     public void showMenu(){
-        ImageView dotIcon = (ImageView) activity.findViewById(R.id.dotIcon);
-        if(dotMenuOpen){
-            dotMenuLayout.animate().translationY(-1*dotMenuLayout.getHeight());
-            statistics.animate().translationY(-1*firstRow.getHeight()+20);
-            title.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
-            dotIcon.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent));
-            dotMenuOpen = false;
-            timeAndScoreOpen = false;
-        } else {
-            dotMenuLayout.animate().translationY(0);
-            title.setTextColor(ContextCompat.getColor(activity, R.color.colorTurquoise));
-            dotIcon.setColorFilter(ContextCompat.getColor(activity, R.color.colorTurquoise));
-            dotMenuOpen = true;
+        if(firstTimeClick){
+            dotMenuLayout.setVisibility(View.VISIBLE);
+            firstTimeClick = false;
         }
+            ImageView dotIcon = (ImageView) activity.findViewById(R.id.dotIcon);
+            if (dotMenuOpen) {
+                dotMenuLayout.animate().translationY(-1 * dotMenuLayout.getHeight());
+                statistics.animate().translationY(-1 * firstRow.getHeight() + 20);
+                title.setTextColor(ContextCompat.getColor(activity, R.color.colorAccent));
+                dotIcon.setColorFilter(ContextCompat.getColor(activity, R.color.colorAccent));
+                dotMenuOpen = false;
+                timeAndScoreOpen = false;
+            } else {
+                dotMenuLayout.animate().translationY(0);
+                title.setTextColor(ContextCompat.getColor(activity, R.color.colorTurquoise));
+                dotIcon.setColorFilter(ContextCompat.getColor(activity, R.color.colorTurquoise));
+                dotMenuOpen = true;
+            }
     }
 }

@@ -6,16 +6,14 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,18 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONClasses;
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourFavor;
 import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileClassFragment;
-import hsaugsburg.zirbl001.NavigationActivities.Profile.ProfileOwnFragment;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.TabSectionPagerAdapter;
