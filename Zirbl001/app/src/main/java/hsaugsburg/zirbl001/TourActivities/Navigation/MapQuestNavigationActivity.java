@@ -2,23 +2,26 @@ package hsaugsburg.zirbl001.TourActivities.Navigation;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,11 +35,14 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -45,22 +51,20 @@ import com.mapbox.mapboxsdk.annotations.MarkerView;
 import com.mapbox.mapboxsdk.annotations.Polyline;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapquest.mapping.MapQuestAccountManager;
-import com.mapquest.mapping.maps.OnMapReadyCallback;
-import com.mapquest.mapping.maps.MapboxMap;
-import com.mapquest.mapping.maps.MapView;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapquest.mapping.MapQuestAccountManager;
+import com.mapquest.mapping.maps.MapView;
+import com.mapquest.mapping.maps.MapboxMap;
+import com.mapquest.mapping.maps.OnMapReadyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.osmdroid.util.GeoPoint;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONUpdateRoad;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadNutLocation;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadStationLocation;
@@ -68,9 +72,11 @@ import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
+import hsaugsburg.zirbl001.Models.TourModels.MapModels.GeofenceService;
 import hsaugsburg.zirbl001.Models.TourModels.MapModels.NutModel;
 import hsaugsburg.zirbl001.Models.TourModels.MapModels.StationModel;
 import hsaugsburg.zirbl001.R;
+import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
@@ -99,6 +105,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     ArrayList<Boolean> listIsNutCollected;
     ArrayList<Boolean> listDoUKnowRead;
 
+    private com.google.android.gms.maps.model.Marker myPosition;
+    private boolean positionMarkerWasSet = false;
 
     private ArrayList<NutModel> nuts;
     private int nutsCollected = 0;
@@ -118,7 +126,9 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private Polyline polyline;
     private PolylineOptions mPolyline = new PolylineOptions();
     private boolean firstStart = true;
-
+    private boolean firstCall = true;
+    private String GEOFENCE_ID = "myGeofenceid";
+    private Integer zoomLevel;
     private  List<LatLng> shapePoints = new ArrayList<>();
 
     //dot menu
@@ -174,6 +184,10 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
             e.printStackTrace();
         }
 
+        startLocationMonitoring();
+        startGeofenceMonitoring();
+
+
         loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
         loadTourChronology.readChronologyFile();
 
@@ -206,7 +220,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 Double userLat = mapboxMap.getMyLocation().getLatitude();
                 Double userLng = mapboxMap.getMyLocation().getLongitude();
                 LatLng userLocation = new LatLng(userLat, userLng);
-                mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 18));
+                mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
 
                 //Zirbl Marker für aktuelle Postition setzen
                 mMapboxMap.getMyLocationViewSettings().setForegroundDrawable(getResources().getDrawable(R.drawable._map_zirbl),getResources().getDrawable(R.drawable._map_zirbl));
@@ -357,6 +371,15 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         return (rad * 180.0 / Math.PI);
     }
 
+    public void setRoute() {
+        if (firstCall) {
+            firstCall = false;
+            String origin = "" + latLngMyPos.getLatitude() + "," + latLngMyPos.getLongitude();
+            String destination = "" + latTarget + "," + lngTarget;
+
+            //mMapboxMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(latLngMyPos, 19)); // 19er Zoom ws am besten
+        }
+    }
 
     public void setNuts() {
 
@@ -418,25 +441,64 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                         }
                     }
                 }
-
-
-                /*
-                if (!alreadyExists) {
-                    nutMarker.add(mMap.addMarker(new com.google.android.gms.maps.model.MarkerOptions()
-                            .position(latLngNut)
-                            .title("Eine goldene Nuss: " + nutID)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable._map_gold_zirbl))
-                    ));
-                }
-                } else if (!listIsNutCollected.get(h)) {
-                    for (Marker marker : nutMarker) {
-                        if (marker.getPosition().latitude == latNut && marker.getPosition().longitude == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf invisible
-                            marker.setVisible(false);
-                        }
-                }
-                */
             }
         }
+    }
+
+    public int zoomFactor(){
+        Double userLat = mMapboxMap.getMyLocation().getLatitude();
+        Double userLng = mMapboxMap.getMyLocation().getLongitude();
+        Double distanceUserTarget = distance(userLat,userLng,latTarget,lngTarget);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int displayWidth = size.x;
+        int displayHeight = size.y;
+
+
+
+/*       Formel für Zoomlevel (OSM)  S = C*cos(y) / 2^(z + 8) ; Z = log(2)[C*cos(y) / S] - 8
+         S: Die Strecke für einen Pixel
+         C: Umfang der Erde am Äquator
+         z: Zoom-Level
+         y: Breite des interessierenden Ortes       */
+
+        // C = 40.074.000 m, y = 10.897790 im falle augsburg,
+        Double earthCircumferenceLength = 39351305.71; // C*cos(y)
+
+    Double distPerPx = displayWidth / distanceUserTarget; // S
+        Log.d(TAG, "zoomFactor: displayWidth" + displayWidth);
+        Log.d(TAG, "zoomFactor: distanceusrtarget " + distanceUserTarget);
+        Integer partsOfDistOnEarth = (int)(earthCircumferenceLength / distPerPx); // C*cos(y) / S
+
+        //Log.d(TAG, "zoomFactor: partsofdistonearth: " + partsOfDistOnEarth);
+        zoomLevel = (int)(Math.log10(partsOfDistOnEarth) / Math.log10(2)) - 3; // zoomlevel = Log(2)[partsOfDistOnEarth]
+
+        //            log[10]x
+        // log[2]x = ----------
+        //            log[10]2
+
+        Log.d(TAG, "zoomFactor: " + zoomLevel);
+
+        return zoomLevel;
+
+
+    }
+    public LatLng getMiddlePointUserTarget (){
+        Double userLat = mMapboxMap.getMyLocation().getLatitude();
+        Double userLng = mMapboxMap.getMyLocation().getLongitude();
+
+        Double middleLat = (userLat + latTarget)/2;
+        Double middleLng = (userLng + lngTarget)/2;
+        // Wegbeschreibungskasten liegt über der Karte, daher diesen abziehen für neuen mittelpunkt
+
+        //Log.d(TAG, "zoomFactor3: "+ middleLat);
+        //Log.d(TAG, "zoomFactor4: "+ middleLng);
+
+
+        LatLng middleLatLng = new LatLng(middleLat, middleLng);
+        return middleLatLng;
     }
 
 
@@ -454,7 +516,10 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     public void onPause()
     { super.onPause();
         mMapView.onPause();
-        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);}
+        if (googleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
+    }
 
     @Override
     protected void onDestroy()
@@ -499,20 +564,59 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         waypoints.add(new GeoPoint(latMyPos, lngMyPos));
         waypoints.add(new GeoPoint(latTarget,lngTarget));
 
-        //setNuts();
-
-        /*
         try {
             List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
+            String strMyPosMarker = adressList.get(0).getAddressLine(0);
 
-            mMapboxMap.updatePolyline(mPolyline.getPolyline());
-            new JSONUpdateRoad(this).execute(waypoints);
 
+            // bisherige position
+            setRoute();
+            setNuts();
+
+            String origin = "" + latLngMyPos.getLatitude() + "," + latLngMyPos.getLongitude();
+            String destination = "" + latTarget + "," + lngTarget;
+
+
+
+
+            //check for infopopup
+            for (int i = 0; i < doUKnowModels.size(); i++) {
+                if (!listDoUKnowRead.get(i)) {
+                    if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
+                        listDoUKnowRead.set(i, true);
+
+                        SharedPreferences.Editor editor = tourValues.edit();
+                        try {
+                            editor.remove("listDoUKnowRead");
+                            editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        editor.commit();
+
+                        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        Intent intent = new Intent(mContext, DoUKnowActivity.class);
+                        intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
+                        intent.putExtra("chronologyNumber", Integer.toString(-1));
+                        intent.putExtra("stationName", getStationName());
+                        startActivity(intent);
+                    }
+                }
+            }
+
+            if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), latTarget, lngTarget) <= 0.01) {
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(100);
+                loadTourChronology.continueToNextView();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
+
+
     }
 
 
@@ -542,4 +646,53 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
+    public void startLocationMonitoring() {
+        Log.d(TAG, "startLocation called");
+        try {
+            LocationRequest locationRequest = LocationRequest.create()
+                    .setInterval(10000)
+                    .setFastestInterval(5000)
+                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        } catch (SecurityException e) {
+            Log.d(TAG, "SecurityExeption - " + e.getMessage());
+        }
+    }
+
+    public void startGeofenceMonitoring () {
+        try {
+            Geofence geofence = new Geofence.Builder()
+                    .setRequestId(GEOFENCE_ID)
+                    .setCircularRegion( 10.894446, 48.366512, 10000)
+                    .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                    .setNotificationResponsiveness(1000)
+                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                    .build();
+
+            GeofencingRequest geofencingRequest = new GeofencingRequest.Builder()
+                    .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                    .addGeofence(geofence).build();
+
+            Intent intent = new Intent(this, GeofenceService.class);
+            PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            if(!googleApiClient.isConnected()) {
+                Log.d(TAG, "GoogleApiClient Is not connected");
+            } else {
+                LocationServices.GeofencingApi.addGeofences(googleApiClient, geofencingRequest, pendingIntent)
+                        .setResultCallback(new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                if (status.isSuccess()) {
+                                    Log.d(TAG, "Successfully added geofence");
+                                } else {
+                                    Log.d(TAG, "Failed to add geofence - " + status.getStatus());
+                                }
+                            }
+                        });
+                    }
+            } catch (SecurityException e){
+            Log.d(TAG, "SecurityException - " + e.getMessage());
+        }
+    }
 }
+
