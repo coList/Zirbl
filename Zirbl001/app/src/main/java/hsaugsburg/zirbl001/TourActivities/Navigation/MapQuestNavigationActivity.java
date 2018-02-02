@@ -24,8 +24,6 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -117,7 +115,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private MapView mMapView;
     private final GeoPoint ENDPOINT = new GeoPoint(48.36117, 10.90954);
     private String TAG = "main";
-    private GoogleApiClient googleApiClient;
+    private GoogleApiClient googleApiClient = null;
     private LocationRequest locationRequest;
     private FusedLocationProviderApi locationProviderApi = LocationServices.FusedLocationApi;
     private double latTarget;
@@ -150,9 +148,26 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                        Log.d(TAG, "onConnected: Connected to GoogleApiClient");
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+                        Log.d(TAG, "onConnectionSuspended: Suspended connection to GoogleApiClient");
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Log.d(TAG, "onConnectionFailed: Failded to connect to GoogleApiClient - " + connectionResult.getErrorMessage());
+                    }
+                })
                 .build();
+
+
 
         locationRequest = new LocationRequest();
         locationRequest.setInterval(100);
@@ -695,4 +710,3 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         }
     }
 }
-

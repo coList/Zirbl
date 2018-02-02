@@ -9,9 +9,6 @@ import com.google.android.gms.location.GeofencingEvent;
 
 import java.util.List;
 
-/**
- * Created by Mowie on 01.02.18.
- */
 
 public class GeofenceService extends IntentService {
 
