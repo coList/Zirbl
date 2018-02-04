@@ -133,7 +133,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userInput >= rightAnswer - (toleranceRange/100.0) * range && userInput <= rightAnswer + (toleranceRange/100.0) * range) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.right)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -142,7 +142,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrong)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
@@ -152,7 +152,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.right)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -161,7 +161,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrong)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
@@ -172,10 +172,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         RelativeLayout pointsArea = (RelativeLayout) findViewById(R.id.pointsArea);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
 
-        RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
-        RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
-        RelativeLayout.LayoutParams paramsText = (RelativeLayout.LayoutParams) answerText.getLayoutParams();
-        RelativeLayout.LayoutParams paramsImage = (RelativeLayout.LayoutParams) answerImage.getLayoutParams();
+        LinearLayout.LayoutParams paramsContinue = (LinearLayout.LayoutParams) continueArea.getLayoutParams();
+        LinearLayout.LayoutParams paramsPoints = (LinearLayout.LayoutParams) pointsArea.getLayoutParams();
+        LinearLayout.LayoutParams paramsText = (LinearLayout.LayoutParams) answerText.getLayoutParams();
+        LinearLayout.LayoutParams paramsImage = (LinearLayout.LayoutParams) answerImage.getLayoutParams();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
