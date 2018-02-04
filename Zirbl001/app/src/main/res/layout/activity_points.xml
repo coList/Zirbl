@@ -37,37 +37,7 @@
                     android:id="@+id/pointsArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/answerText">
-
-                    <LinearLayout
-                        android:id="@+id/total"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginTop="16dp">
-
-                        <ImageView
-                            android:id="@+id/totalImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_vertical"
-                            android:adjustViewBounds="true"
-                            android:contentDescription="@string/app_name"
-                            app:srcCompat="@drawable/ic_zirbl" />
-
-                        <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView
-                            android:id="@+id/totalPoints"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/colorAccent" />
-
-                    </LinearLayout>
+                    >
 
                     <VideoView
                         android:id="@+id/pointsVideo"
@@ -75,13 +45,40 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true" />
 
+                    <LinearLayout
+                        android:id="@+id/total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="bottom">
+
+                        <hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints
+                            android:id="@+id/totalPoints"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:text="100" />
+
+                        <ImageView
+                            android:id="@+id/pointsImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/app_name"
+                            android:paddingBottom="4dp"
+                            app:srcCompat="@drawable/img_nuss_small" />
+
+                    </LinearLayout>
+
                 </RelativeLayout>
 
                 <hsaugsburg.zirbl001.Fonts.QuicksandRegularPrimaryView
                     android:id="@+id/answerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/answerImage"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="16dp" />
@@ -90,8 +87,6 @@
                     android:id="@+id/answerImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/continueArea"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginEnd="48dp"
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="16dp"

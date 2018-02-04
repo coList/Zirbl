@@ -27,6 +27,7 @@ import java.io.File;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
@@ -51,7 +52,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private ChronologyModel nextChronologyItem = new ChronologyModel();
     private LoadTourChronology loadTourChronology;
     private TopDarkActionbar topDarkActionbar;
-    private QuicksandBoldPrimaryView totalPoints;
+    private OpenSansBoldPoints totalPoints;
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -100,7 +101,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView) findViewById(R.id.answerImage);
-        totalPoints = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
+        totalPoints = (OpenSansBoldPoints) findViewById(R.id.totalPoints);
 
         final VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
         //answerVideo.setZOrderOnTop(true);
