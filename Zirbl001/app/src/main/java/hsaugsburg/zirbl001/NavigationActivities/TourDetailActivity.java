@@ -44,6 +44,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import hsaugsburg.zirbl001.CMS.DownloadData;
+import hsaugsburg.zirbl001.CMS.DownloadNuts;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
@@ -86,6 +88,8 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
     private MenuItem favIconMenu;
     private boolean isFilled;
+
+    private DownloadData downloadData;
 
     @Override
     protected void onPause() {
@@ -209,6 +213,10 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     }
 
     public void downloadTour() {
+        //new DownloadTourStations(this, contentfulID).downloadData();
+        new DownloadData(this, contentfulID).downloadData();
+        new DownloadNuts(contentfulID).downloadData();
+        /*
         new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
@@ -221,6 +229,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
         new DownloadJSON(this, this, serverName, tourID, "tourpicturecountdown", "picturecountdown").execute(serverName + "/api2/selectPictureCountdownView.php");
         new DownloadJSON(this, this, serverName, tourID, "touridentifysound", "identifysound").execute(serverName + "/api2/selectIdentifySoundView.php");
+       */
     }
 
     private boolean downloadSuccessfull() {

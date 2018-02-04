@@ -1,15 +1,36 @@
 package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONObject;
 
 public class StationModel {
     private int tourID;
+
+
+    @SerializedName("tourContentfulID")
+    private String tourContentfulID;
+
+    @SerializedName("chronologyNumber")
     private int chronologyNumber;
     private int stationID;
+
+    @SerializedName("contentfulID")
+    private String contentfulID;
+
+    @SerializedName("stationName")
     private String stationName;
+
+    @SerializedName("mapInstruction")
     private String mapInstruction;
+
+    @SerializedName("latitude")
     private Double latitude;
+
+    @SerializedName("longitude")
     private Double longitude;
+
+    @SerializedName("wayPoints")
     private JSONObject wayPoints;
 
     public int getTourID() {
@@ -19,6 +40,15 @@ public class StationModel {
     public void setTourID(int tourID) {
         this.tourID = tourID;
     }
+
+    public String getTourContentfulID() {
+        return tourContentfulID;
+    }
+
+    public void setTourContentfulID(String contentfulID) {
+        this.tourContentfulID = contentfulID;
+    }
+
 
     public int getChronologyNumber() {
         return chronologyNumber;
@@ -66,6 +96,14 @@ public class StationModel {
 
     public void setStationID(int stationID) {
         this.stationID = stationID;
+    }
+
+    public String getContentfulID() {
+        return contentfulID;
+    }
+
+    public void setContentfulID(String contentfulID) {
+        this.contentfulID = contentfulID;
     }
 
     public JSONObject getWayPoints() {

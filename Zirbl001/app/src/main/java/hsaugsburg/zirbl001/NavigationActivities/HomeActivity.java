@@ -29,7 +29,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import hsaugsburg.zirbl001.CMS.GetTourSelection;
 import hsaugsburg.zirbl001.Interfaces.Callback;
 import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
@@ -147,7 +146,6 @@ public class HomeActivity extends AppCompatActivity implements InternetActivity 
                     }
                 });
 
-        //new GetTourSelection(this).execute();
 
 
     }

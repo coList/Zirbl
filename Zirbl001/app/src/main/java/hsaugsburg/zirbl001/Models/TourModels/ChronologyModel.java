@@ -2,10 +2,14 @@ package hsaugsburg.zirbl001.Models.TourModels;
 
 public class ChronologyModel {
     private int tourID;
+    private String tourContentfulID;
     private Integer chronologyNumber;
     private Integer infoPopupID;
+    private String infoPopupContentfulID;
     private Integer stationID;
+    private String stationContentfulID;
     private Integer taskID;
+    private String taskContentfulID;
     private String taskClassName;
 
     public int getTourID() {
@@ -14,6 +18,14 @@ public class ChronologyModel {
 
     public void setTourID(int tourID) {
         this.tourID = tourID;
+    }
+
+    public String getTourContentfulID() {
+        return tourContentfulID;
+    }
+
+    public void setTourContentfulID(String tourContentfulID) {
+        this.tourContentfulID = tourContentfulID;
     }
 
     public Integer getChronologyNumber() {
@@ -46,6 +58,30 @@ public class ChronologyModel {
 
     public void setTaskID(Integer taskID) {
         this.taskID = taskID;
+    }
+
+    public String getInfoPopupContentfulID() {
+        return infoPopupContentfulID;
+    }
+
+    public void setInfoPopupContentfulID(String infoPopupContentfulID) {
+        this.infoPopupContentfulID = infoPopupContentfulID;
+    }
+
+    public String getStationContentfulID() {
+        return stationContentfulID;
+    }
+
+    public void setStationContentfulID(String stationContentfulID) {
+        this.stationContentfulID = stationContentfulID;
+    }
+
+    public String getTaskContentfulID() {
+        return taskContentfulID;
+    }
+
+    public void setTaskContentfulID(String taskContentfulID) {
+        this.taskContentfulID = taskContentfulID;
     }
 
     public String getTaskClassName() {
