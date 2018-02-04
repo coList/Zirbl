@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadPictureCountdown;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadPictureCountdown;
 import hsaugsburg.zirbl001.Models.TourModels.PictureCountdownModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
@@ -49,10 +49,10 @@ public class PictureCountdownActivity extends AppCompatActivity {
     private int amountOfAnswers;
     private int selectedAnswer = -1;
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private int score;
     private int currentScore;
-    private int taskID;
+    private String taskID;
 
     private long startTime;
 
@@ -104,7 +104,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -142,8 +142,8 @@ public class PictureCountdownActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        PictureCountdownModel result = new LoadPictureCountdown(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        PictureCountdownModel result = new LoadPictureCountdown(taskID, selectedTour).loadData();
 
         ArrayList<String> answers = new ArrayList<>();
 
@@ -280,7 +280,7 @@ public class PictureCountdownActivity extends AppCompatActivity {
             intent.putExtra("stationName", stationName);
 
             intent.putExtra("answerPicture", answerPicture);
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID", taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(PictureCountdownActivity.this, R.anim.shake);

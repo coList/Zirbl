@@ -20,7 +20,7 @@ public class GoldenActivity extends AppCompatActivity {
     private Context mContext = GoldenActivity.this;
 
     public static final String TOUR_VALUES = "tourValuesFile";
-    private int selectedTour;
+    private String selectedTour;
     private int currentScore;
     private long startTime;
 
@@ -50,7 +50,7 @@ public class GoldenActivity extends AppCompatActivity {
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int nutsCollected = Integer.parseInt(tourValues.getString("nutsCollected", null));
         currentScore += Integer.parseInt(intent.getStringExtra("score"));
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         startTime = Long.parseLong(tourValues.getString("startTime", null));
 
         SharedPreferences.Editor editor = tourValues.edit();

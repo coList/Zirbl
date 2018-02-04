@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
 import hsaugsburg.zirbl001.Models.TourModels.MapModels.NutModel;
 import rx.Subscriber;
@@ -24,9 +25,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class DownloadNuts {
+    private DownloadActivity downloadActivity;
     private String selectedTour;
 
-    public DownloadNuts(String selectedTour) {
+    public DownloadNuts(DownloadActivity downloadActivity, String selectedTour) {
+        this.downloadActivity = downloadActivity;
         this.selectedTour = selectedTour;
     }
 
@@ -69,19 +72,7 @@ public class DownloadNuts {
                         storeDataInStorage(root + "nuts" + selectedTour + ".json", nutModels);
 
 
-                        Gson gson = new Gson();
-                        try {
-                            BufferedReader br = new BufferedReader(new FileReader(root + "nuts" + selectedTour + ".json"));
-                            ArrayList<NutModel> data = gson.fromJson(br.readLine(), new TypeToken<List<NutModel>>(){}.getType());
-
-                            Log.d("Contentful List", Integer.toString(data.size()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-
-
-                        }
+                        downloadActivity.downloadFinished();
 
                     }
 

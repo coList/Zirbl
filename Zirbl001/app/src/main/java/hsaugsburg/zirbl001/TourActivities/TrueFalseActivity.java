@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTrueFalse;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTrueFalse;
 import hsaugsburg.zirbl001.Models.TourModels.TrueFalseModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
@@ -40,10 +40,10 @@ public class TrueFalseActivity extends AppCompatActivity {
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
-    private int taskID;
+    private String taskID;
     private int score;
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
     private String answerPicture = "";
 
@@ -70,7 +70,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
 
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -100,8 +100,8 @@ public class TrueFalseActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        TrueFalseModel result = new LoadTrueFalse(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        TrueFalseModel result = new LoadTrueFalse(taskID, selectedTour).loadData();
 
 
         if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
@@ -150,11 +150,11 @@ public class TrueFalseActivity extends AppCompatActivity {
             intent.putExtra("answerWrong", answerWrong);
             intent.putExtra("score", Integer.toString(score));
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
-            intent.putExtra("selectedTour", Integer.toString(selectedTour));
+            intent.putExtra("selectedTour", selectedTour);
             intent.putExtra("stationName", stationName);
 
             intent.putExtra("answerPicture", answerPicture);
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID", taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(TrueFalseActivity.this, R.anim.shake);

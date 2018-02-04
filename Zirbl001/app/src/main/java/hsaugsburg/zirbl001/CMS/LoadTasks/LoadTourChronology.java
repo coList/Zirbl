@@ -15,6 +15,7 @@ import java.util.List;
 
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
+import hsaugsburg.zirbl001.Models.TourModels.PictureCountdownModel;
 import hsaugsburg.zirbl001.TourActivities.DoUKnowActivity;
 import hsaugsburg.zirbl001.TourActivities.IdentifySoundActivity;
 import hsaugsburg.zirbl001.TourActivities.LettersActivity;
@@ -52,6 +53,8 @@ public class LoadTourChronology {
             for (ChronologyModel chronologyModel: data) {
                 Log.d("Contentful model", Integer.toString(chronologyModel.getChronologyNumber()));
                 if (chronologyModel.getChronologyNumber() == chronologyNumber + 1) {
+                    nextChronologyItem = chronologyModel;
+                    Log.d("ChronologyItem", Integer.toString(nextChronologyItem.getChronologyNumber()));
                     return chronologyModel;
                 }
             }
@@ -79,15 +82,16 @@ public class LoadTourChronology {
         if (nextChronologyItem.getChronologyNumber() == null) {
             intent = new Intent(activity, ResultActivity.class);
         } else {
-            if (nextChronologyItem.getInfoPopupID() != null) {
+            if (nextChronologyItem.getInfoPopupContentfulID() != null) {
                 intent = new Intent(activity, DoUKnowActivity.class);
                 intent.putExtra("infoPopupContentfulID", nextChronologyItem.getInfoPopupContentfulID());
 
-            } else if (nextChronologyItem.getStationID() != null) {
+            } else if (nextChronologyItem.getStationContentfulID() != null) {
                 intent = new Intent(activity, MapQuestNavigationActivity.class);
                 intent.putExtra("stationContentfulID", nextChronologyItem.getStationContentfulID());
 
-            } else if (nextChronologyItem.getTaskID() != null) {
+            } else if (nextChronologyItem.getTaskContentfulID() != null) {
+                Log.d("Contentful", nextChronologyItem.getTaskClassName());
                 if (nextChronologyItem.getTaskClassName().equals("eSingleChoiceTask")) {
                     intent = new Intent(activity, QuizActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("eLettersTask")) {
@@ -100,6 +104,8 @@ public class LoadTourChronology {
                     intent = new Intent(activity, PictureCountdownActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("eIdentifySoundTask")) {
                     intent = new Intent(activity, IdentifySoundActivity.class);
+                } else {
+                    intent = new Intent(activity, PictureCountdownActivity.class);
                 }
                 intent.putExtra("taskContentfulID", nextChronologyItem.getTaskContentfulID());
             }
@@ -109,5 +115,6 @@ public class LoadTourChronology {
         intent.putExtra("chronologyNumber", Integer.toString(nextchronologyNumber));
         intent.putExtra("stationName", tourActivity.getStationName());
         activity.startActivity(intent);
+
     }
 }

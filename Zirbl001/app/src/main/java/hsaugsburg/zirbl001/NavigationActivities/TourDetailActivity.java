@@ -81,7 +81,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private String deviceToken;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 11;
+    private int amountOfDownloadTasks = 2;
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
@@ -214,8 +214,8 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
     public void downloadTour() {
         //new DownloadTourStations(this, contentfulID).downloadData();
-        new DownloadData(this, contentfulID).downloadData();
-        new DownloadNuts(contentfulID).downloadData();
+        new DownloadData(this, this, contentfulID).downloadData();
+        new DownloadNuts(this, contentfulID).downloadData();
         /*
         new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
@@ -235,6 +235,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private boolean downloadSuccessfull() {
         int counter = 0;
 
+        /*
         File dir = mContext.getFilesDir();
         ArrayList<File> files = new ArrayList<>();
         files.add(new File(dir, "infopopups" + tourID + ".txt"));
@@ -255,6 +256,19 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                 counter++;
             }
         }
+        */
+
+
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File("/data/data/hsaugsburg.zirbl001/" +  "chronology" + contentfulID + ".json"));
+        files.add(new File("/data/data/hsaugsburg.zirbl001/" + "nuts" + contentfulID + ".json"));
+
+        for (File file : files) {
+            if (file.exists()) {
+                counter++;
+            }
+        }
+
         return (counter == amountOfDownloadTasks);
     }
 
@@ -326,10 +340,13 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                     handler.postDelayed(this, 500);
                 } else {
                     if (downloadSuccessfull()) {
+
                         Intent intent = new Intent(mContext, TourstartActivity.class);
-                        intent.putExtra("tourID", Integer.toString(tourID));
+                        intent.putExtra("tourContentfulID", contentfulID);
                         intent.putExtra("classID", "-1");
                         startActivity(intent);
+
+
                     } else {
                         firstClickOnGo = true;
                         downloadStarted = false;

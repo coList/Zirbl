@@ -27,6 +27,7 @@ import hsaugsburg.zirbl001.CMS.LoadTasks.LoadQuiz;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadSlider;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTrueFalse;
+import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
 import hsaugsburg.zirbl001.Models.TourModels.IdentifySoundModel;
@@ -45,10 +46,12 @@ import rx.schedulers.Schedulers;
 public class DownloadData {
     private String selectedTour;
     private Activity activity;
+    private DownloadActivity downloadActivity;
     private int totalAmountOfLetters = 14;
 
-    public DownloadData(Activity activity, String selectedTour) {
+    public DownloadData(Activity activity, DownloadActivity downloadActivity, String selectedTour) {
         this.selectedTour = selectedTour;
+        this.downloadActivity = downloadActivity;
         this.activity = activity;
     }
 
@@ -291,6 +294,8 @@ public class DownloadData {
                         storeDataInStorage(root + "sliderTasks" + selectedTour + ".json", sliderModels);
                         storeDataInStorage(root + "trueFalseTasks" + selectedTour + ".json", trueFalseModels);
 
+
+                        downloadActivity.downloadFinished();
                     }
 
 

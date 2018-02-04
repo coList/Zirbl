@@ -25,8 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadDoUKnow;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadDoUKnow;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
@@ -38,7 +38,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     private Context mContext = DoUKnowActivity.this;
 
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
     private String teamName;
     private ChronologyModel nextChronologyItem = new ChronologyModel();
@@ -68,7 +68,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour =tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -80,8 +80,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
 
         stationName = getIntent().getStringExtra("stationName");
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
-        loadTourChronology.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this, selectedTour, chronologyNumber);
+        loadTourChronology.loadData();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.standard_toolbar);
         setSupportActionBar(toolbar);
@@ -100,8 +100,8 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
     }
 
     public void setDataView() {
-        int infoPopupID = Integer.parseInt(getIntent().getStringExtra("infopopupid"));
-        DoUKnowModel result = new LoadDoUKnow(this, selectedTour, infoPopupID).readFile();
+        String infoPopupID = getIntent().getStringExtra("infoPopupContentfulID");
+        DoUKnowModel result = new LoadDoUKnow(infoPopupID, selectedTour).loadData();
 
         TextView doUKnow = (TextView) findViewById(R.id.DoUKnow);
         String resultText = result.getContentText();

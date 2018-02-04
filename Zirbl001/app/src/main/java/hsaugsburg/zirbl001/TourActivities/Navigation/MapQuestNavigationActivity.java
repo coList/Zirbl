@@ -63,10 +63,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadNuts;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadStation;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadNutLocation;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadStationLocation;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
@@ -86,8 +86,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private Context mContext = MapQuestNavigationActivity.this;
     private MapQuestNavigationActivity activity = this;
 
-    private int selectedTour;
-    private int stationID;
+    private String selectedTour;
+    private String stationID;
     private String stationName;
 
     private ChronologyModel nextChronologyItem = new ChronologyModel();
@@ -178,11 +178,11 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
 
         int chronologyNumber = Integer.parseInt(getIntent().getStringExtra("chronologyNumber"));
-        stationID = Integer.parseInt(getIntent().getStringExtra("stationID"));
+        stationID = getIntent().getStringExtra("stationContentfulID");
 
         //get global tour values
         tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -203,8 +203,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         startGeofenceMonitoring();
 
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
-        loadTourChronology.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this, selectedTour, chronologyNumber);
+        loadTourChronology.loadData();
 
         SharedPreferences globalValues = getSharedPreferences(GLOBAL_VALUES, 0);
         serverName = globalValues.getString("serverName", null);
@@ -219,8 +219,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         progressBar.setProgress(chronologyNumber + 1);
 
         setDataView();
-        nuts = new LoadNutLocation(this, selectedTour).readFile();
-        doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
+        nuts = new LoadNuts(selectedTour).loadData();
+        doUKnowModels = new LoadLocationDoUKnow(this, 0).readFile();
 
 
         mMapView = (MapView) findViewById(R.id.mapquestMapView);
@@ -263,7 +263,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     }
 
     public void setDataView() {
-        StationModel result = new LoadStationLocation(this, selectedTour, stationID).readFile();
+        StationModel result = new LoadStation(stationID, selectedTour).loadData();
         stationName = result.getStationName();
         latTarget = result.getLatitude();
         lngTarget = result.getLongitude();
@@ -612,7 +612,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
                         Intent intent = new Intent(mContext, DoUKnowActivity.class);
-                        intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
+                        intent.putExtra("infoPopupContentfulID", doUKnowModels.get(i).getContentfulID());
                         intent.putExtra("chronologyNumber", Integer.toString(-1));
                         intent.putExtra("stationName", getStationName());
                         startActivity(intent);

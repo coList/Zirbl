@@ -23,9 +23,9 @@ public class EndTourDialog {
     private static final String MSG2 = "Dein Spielstand wird dabei nicht gespeichert.";
 
     private final Context context;
-    private int selectedTour;
+    private String selectedTour;
 
-    public EndTourDialog(Context context, int selectedTour){
+    public EndTourDialog(Context context, String selectedTour){
         this.context = context;
         this.selectedTour = selectedTour;
     }
@@ -84,6 +84,7 @@ public class EndTourDialog {
     }
 
     private void deleteFiles() {
+        /*
         File dir = context.getFilesDir();
         ArrayList<File> files = new ArrayList<>();
         files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
@@ -101,6 +102,7 @@ public class EndTourDialog {
                 file.delete();
             }
         }
+        */
     }
 
 }

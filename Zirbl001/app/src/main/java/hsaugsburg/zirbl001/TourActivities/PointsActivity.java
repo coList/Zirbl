@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.util.Locale;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
@@ -40,7 +40,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private int currentScore;
     private int scoreBefore;
     private int score;
-    private int selectedTour;
+    private String selectedTour;
     private int totalChronologyValue;
 
     private String stationName;
@@ -77,7 +77,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         //Get Global Tourvalues
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         scoreBefore = currentScore;
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
@@ -200,8 +200,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             answerText.setLayoutParams(paramsText);
         }*/
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
-        loadTourChronology.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this,selectedTour, chronologyNumber);
+        loadTourChronology.loadData();
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);
