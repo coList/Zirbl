@@ -96,7 +96,6 @@
                             android:id="@+id/imgLetter1"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="24dp"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/app_name"
@@ -109,6 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
                             android:textAlignment="textStart" />
@@ -135,7 +135,6 @@
                             android:id="@+id/imgLetter2"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="24dp"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/app_name"
@@ -148,6 +147,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
                             android:textAlignment="textStart" />
@@ -174,7 +174,6 @@
                             android:id="@+id/imgLetter3"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="24dp"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/app_name"
@@ -187,6 +186,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
                             android:textAlignment="textStart" />
@@ -213,7 +213,6 @@
                             android:id="@+id/imgLetter4"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="24dp"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/app_name"
@@ -226,6 +225,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
                             android:textAlignment="textStart" />
