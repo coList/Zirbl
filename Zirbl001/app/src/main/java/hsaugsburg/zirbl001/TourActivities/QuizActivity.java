@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -142,7 +143,7 @@ public class QuizActivity extends AppCompatActivity {
             String decodedImgUri = Uri.fromFile(imgFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
 
-            RelativeLayout area4 = (RelativeLayout) findViewById(R.id.area4);
+            LinearLayout area4 = (LinearLayout) findViewById(R.id.area4);
             ImageView line4 = (ImageView) findViewById(R.id.line4);
             area4.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
@@ -206,7 +207,7 @@ public class QuizActivity extends AppCompatActivity {
             selectedAnswer = 1;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area1);
+            LinearLayout selected = (LinearLayout) findViewById(R.id.area1);
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter1);
@@ -220,7 +221,7 @@ public class QuizActivity extends AppCompatActivity {
             selectedAnswer = 2;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area2);
+            LinearLayout selected = (LinearLayout)findViewById(R.id.area2);
             selected.setBackgroundResource(R.color.colorTurquoise);
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter2);
             invertedImg.setImageResource(R.drawable.ic_2_active);
@@ -234,7 +235,7 @@ public class QuizActivity extends AppCompatActivity {
             selectedAnswer = 3;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area3);
+            LinearLayout selected = (LinearLayout)findViewById(R.id.area3);
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter3);
@@ -248,7 +249,7 @@ public class QuizActivity extends AppCompatActivity {
             selectedAnswer = 4;
             resetAnswers();
 
-            RelativeLayout selected = (RelativeLayout)findViewById(R.id.area4);
+            LinearLayout selected = (LinearLayout)findViewById(R.id.area4);
             selected.setBackgroundResource(R.color.colorTurquoise);
 
             ImageView invertedImg = (ImageView)findViewById(R.id.imgLetter4);
@@ -276,7 +277,7 @@ public class QuizActivity extends AppCompatActivity {
         for (int i = 0; i < amountOfAnswers; i++) {
             String nameRelativeLayout = "area" + (i + 1);
             int relativeLayoutID = getResources().getIdentifier(nameRelativeLayout, "id", getPackageName());
-            RelativeLayout relativeLayout = (RelativeLayout)findViewById(relativeLayoutID);
+            LinearLayout relativeLayout = (LinearLayout) findViewById(relativeLayoutID);
             relativeLayout.setBackgroundResource(0);
 
             String nameImageView = "imgLetter" + (i + 1);
