@@ -36,9 +36,9 @@
                 <RelativeLayout
                     android:id="@+id/pointsArea"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_above="@+id/answerText"
-                    android:layout_alignParentTop="true">
+                    android:background="@color/colorTurquoise">
 
                     <LinearLayout
                         android:id="@+id/total"
@@ -73,10 +73,9 @@
 
                     <VideoView
                         android:id="@+id/pointsVideo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:minHeight="300dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
 

@@ -175,6 +175,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
         RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
         RelativeLayout.LayoutParams paramsText = (RelativeLayout.LayoutParams) answerText.getLayoutParams();
+        RelativeLayout.LayoutParams paramsImage = (RelativeLayout.LayoutParams) answerImage.getLayoutParams();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
