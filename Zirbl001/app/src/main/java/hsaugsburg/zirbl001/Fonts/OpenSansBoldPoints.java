@@ -15,7 +15,7 @@ public class OpenSansBoldPoints extends android.support.v7.widget.AppCompatTextV
         super(context, attrs);
         this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-ExtraBold.ttf"));
         this.setTextColor(ContextCompat.getColor(context, R.color.colorBrown));
-        this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         this.setAllCaps(true);
     }
 }
