@@ -11,6 +11,7 @@
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="searchViewStyle">@style/SearchViewMy</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
 
