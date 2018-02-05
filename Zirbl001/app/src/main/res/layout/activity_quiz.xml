@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:minHeight="58dp"
+                        android:minHeight="76dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -112,7 +112,6 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
-                            android:text="jndh jsnh nz gdtz ikmhdb gatrewbb fdg shhhjjjndh jsnh nz gdtz ikmhdb gatrewbb fdg shhhjj"
                             android:textAlignment="textStart" />
 
                     </LinearLayout>
@@ -130,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:minHeight="58dp"
+                        android:minHeight="76dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -169,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:minHeight="58dp"
+                        android:minHeight="76dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -208,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:minHeight="58dp"
+                        android:minHeight="76dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -246,7 +245,7 @@
                 <LinearLayout
                     android:id="@+id/continueArea"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="16dp"
                     android:gravity="bottom"
