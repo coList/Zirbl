@@ -1,7 +1,15 @@
 package hsaugsburg.zirbl001.Models.TourModels;
 
+import com.google.gson.annotations.SerializedName;
+
 public class LettersModel  extends TaskModel {
+
+
+    @SerializedName("solution")
     private String solution;
+
+
+    @SerializedName("otherLetters")
     private String otherLetters;
 
 

@@ -56,7 +56,7 @@ public class LoadStationLocation {
                             stationModel.setLongitude(mJSONObjectStation.getDouble("longitude"));
                             stationModel.setStationName(mJSONObjectStation.getString("stationname"));
                             stationModel.setMapInstruction(mJSONObjectStation.getString("mapinstruction"));
-                            stationModel.setWayPoints(mJSONObjectStation.getJSONObject("waypoints"));
+                            stationModel.setWayPoints(mJSONObjectStation.getJSONArray("waypoints"));
 
                         }
                     }

@@ -41,6 +41,8 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -57,6 +59,7 @@ import com.mapquest.mapping.maps.OnMapReadyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.IOException;
@@ -203,6 +206,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         startGeofenceMonitoring();
 
 
+        Log.d("Contentful TEst", Integer.toString(chronologyNumber));
         loadTourChronology = new LoadTourChronology(this, this, selectedTour, chronologyNumber);
         loadTourChronology.loadData();
 
@@ -219,9 +223,10 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         progressBar.setProgress(chronologyNumber + 1);
 
         setDataView();
-        nuts = new LoadNuts(selectedTour).loadData();
-        doUKnowModels = new LoadLocationDoUKnow(this, 0).readFile();
-
+        //nuts = new LoadNuts(selectedTour).loadData();
+        nuts = new ArrayList<>();
+        //doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
+        doUKnowModels = new ArrayList<>();
 
         mMapView = (MapView) findViewById(R.id.mapquestMapView);
         mMapView.onCreate(savedInstanceState);
@@ -234,20 +239,12 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 mMapboxMap.setMyLocationEnabled(true);
                 Double userLat = mapboxMap.getMyLocation().getLatitude();
                 Double userLng = mapboxMap.getMyLocation().getLongitude();
-                LatLng userLocation = new LatLng(userLat, userLng);
                 mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
 
                 //Zirbl Marker für aktuelle Postition setzen
                 mMapboxMap.getMyLocationViewSettings().setForegroundDrawable(getResources().getDrawable(R.drawable._map_zirbl),getResources().getDrawable(R.drawable._map_zirbl));
                 mMapboxMap.getMyLocationViewSettings().setBackgroundTintColor(getResources().getColor(R.color.colorTransparent100));
                 mMapboxMap.getMyLocationViewSettings().setAccuracyAlpha(0);
-
-                //setPoyline(mMapboxMap);
-                ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
-                waypoints.add(new GeoPoint(userLat, userLng));
-                waypoints.add(new GeoPoint(latTarget, lngTarget));
-
-                //new JSONUpdateRoad(MapQuestNavigationActivity.this).execute(waypoints);
 
                 polyline = mMapboxMap.addPolyline(new PolylineOptions()
                         .addAll(shapePoints)
@@ -273,15 +270,11 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         TextView mapInstruction = (TextView) findViewById(R.id.navigationInfo);
         mapInstruction.setText(result.getMapInstruction());
 
-        JSONArray waypoints = new JSONArray();
-
         try {
-            waypoints = result.getWayPoints().getJSONArray("waypoints");
-            Log.d("MapQuest", result.getWayPoints().getJSONArray("waypoints").toString());
+            JSONArray wayPointResult = result.getWayPoints();
 
-
-            for (int i = 0; i < waypoints.length(); i+=2) {
-                LatLng waypoint = new LatLng(waypoints.getDouble(i), waypoints.getDouble(i+1));
+            for (int i = 0; i < wayPointResult.length(); i += 2) {
+                LatLng waypoint = new LatLng(wayPointResult.getDouble(i), wayPointResult.getDouble(i + 1));
 
                 shapePoints.add(waypoint);
             }
@@ -289,28 +282,9 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
             e.printStackTrace();
         }
 
-       Log.d("MapQuestNavigationshape", shapePoints.toString());
+        Log.d("MapQuestNavigationshape", shapePoints.toString());
         //drawPolyline(shapePoints);
 
-
-    }
-
-    public void getAllLatLngPoints(List<LatLng> points)  {
-
-        //drawPolyline(points);
-    }
-
-    private void drawPolyline(List<LatLng> coordinates) {
-
-        if (polyline != null) {
-            mMapboxMap.removePolyline(polyline);
-        }
-
-        // Draw Points on MapView
-        polyline = mMapboxMap.addPolyline(new PolylineOptions()
-                .addAll(coordinates)
-                .color(getResources().getColor(R.color.colorTurquoise))
-                .width(5));
 
     }
 
@@ -397,7 +371,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     }
 
     public void setNuts() {
-
+  /*
         Double userLat = mMapboxMap.getMyLocation().getLatitude();
         Double userLng = mMapboxMap.getMyLocation().getLongitude();
 
@@ -458,6 +432,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 }
             }
         }
+        */
     }
 
     public int zoomFactor(){
@@ -482,7 +457,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         // C = 40.074.000 m, y = 10.897790 im falle augsburg,
         Double earthCircumferenceLength = 39351305.71; // C*cos(y)
 
-    Double distPerPx = displayWidth / distanceUserTarget; // S
+        Double distPerPx = displayWidth / distanceUserTarget; // S
         Log.d(TAG, "zoomFactor: displayWidth" + displayWidth);
         Log.d(TAG, "zoomFactor: distanceusrtarget " + distanceUserTarget);
         Integer partsOfDistOnEarth = (int)(earthCircumferenceLength / distPerPx); // C*cos(y) / S
@@ -612,7 +587,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibe.vibrate(100);
                         Intent intent = new Intent(mContext, DoUKnowActivity.class);
-                        intent.putExtra("infoPopupContentfulID", doUKnowModels.get(i).getContentfulID());
+                        intent.putExtra("infopopupid", Integer.toString(doUKnowModels.get(i).getInfoPopupID()));
                         intent.putExtra("chronologyNumber", Integer.toString(-1));
                         intent.putExtra("stationName", getStationName());
                         startActivity(intent);
@@ -704,8 +679,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                                 }
                             }
                         });
-                    }
-            } catch (SecurityException e){
+            }
+        } catch (SecurityException e){
             Log.d(TAG, "SecurityException - " + e.getMessage());
         }
     }

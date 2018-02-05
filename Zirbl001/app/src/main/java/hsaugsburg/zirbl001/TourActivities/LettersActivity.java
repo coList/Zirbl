@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.text.Html;
 import android.text.Spanned;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -121,6 +122,7 @@ public class LettersActivity extends AppCompatActivity {
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
         shuffleLetters(stringBuilder);
         final String letters = stringBuilder.toString().toUpperCase();
+        Log.d("Contentful Letters", letters);
 
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {

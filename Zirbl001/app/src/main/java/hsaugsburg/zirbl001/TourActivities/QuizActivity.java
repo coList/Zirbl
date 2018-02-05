@@ -121,9 +121,12 @@ public class QuizActivity extends AppCompatActivity {
 
         ArrayList<String> answers = new ArrayList<>();
 
-        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+        if (!(result.getAnswerPicture().equals("null") || result.getAnswerPicture().isEmpty() || result.getAnswerPicture().equals(""))) {
             answerPicture = result.getAnswerPicture();
+        } else {
+            answerPicture = "";
         }
+
         if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
@@ -137,7 +140,7 @@ public class QuizActivity extends AppCompatActivity {
             ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
-            String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+            String imgPath = selectedTour + "taskId" + taskID + "picture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
             String decodedImgUri = Uri.fromFile(imgFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);

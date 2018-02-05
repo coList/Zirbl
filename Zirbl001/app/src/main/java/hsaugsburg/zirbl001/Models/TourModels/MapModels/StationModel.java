@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class StationModel {
@@ -31,7 +32,7 @@ public class StationModel {
     private Double longitude;
 
     @SerializedName("wayPoints")
-    private JSONObject wayPoints;
+    private JSONArray wayPoints;
 
     public int getTourID() {
         return tourID;
@@ -106,11 +107,11 @@ public class StationModel {
         this.contentfulID = contentfulID;
     }
 
-    public JSONObject getWayPoints() {
+    public JSONArray getWayPoints() {
         return wayPoints;
     }
 
-    public void setWayPoints(JSONObject wayPoints) {
+    public void setWayPoints(JSONArray wayPoints) {
         this.wayPoints = wayPoints;
     }
 }

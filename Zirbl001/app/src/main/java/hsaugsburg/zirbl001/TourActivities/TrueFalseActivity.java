@@ -121,7 +121,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
         File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
         String[] parts = result.getPicturePath().split("\\.");
-        String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+        String imgPath = selectedTour + "taskId" + taskID + "picture" + "." + parts[parts.length - 1];
         File imgFile = new File(zirblImages , imgPath);
         String decodedImgUri = Uri.fromFile(imgFile).toString();
         ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);

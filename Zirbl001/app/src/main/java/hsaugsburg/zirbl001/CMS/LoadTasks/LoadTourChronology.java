@@ -51,10 +51,8 @@ public class LoadTourChronology {
 
             lastChronologyValue = data.size() - 1;
             for (ChronologyModel chronologyModel: data) {
-                Log.d("Contentful model", Integer.toString(chronologyModel.getChronologyNumber()));
                 if (chronologyModel.getChronologyNumber() == chronologyNumber + 1) {
                     nextChronologyItem = chronologyModel;
-                    Log.d("ChronologyItem", Integer.toString(nextChronologyItem.getChronologyNumber()));
                     return chronologyModel;
                 }
             }
@@ -79,9 +77,8 @@ public class LoadTourChronology {
     public void continueToNextView() {
         Intent intent = new Intent();
 
-        if (nextChronologyItem.getChronologyNumber() == null) {
-            intent = new Intent(activity, ResultActivity.class);
-        } else {
+        try {
+            Log.d("ContentfulChrono", Integer.toString(nextChronologyItem.getChronologyNumber()));
             if (nextChronologyItem.getInfoPopupContentfulID() != null) {
                 intent = new Intent(activity, DoUKnowActivity.class);
                 intent.putExtra("infoPopupContentfulID", nextChronologyItem.getInfoPopupContentfulID());
@@ -91,7 +88,7 @@ public class LoadTourChronology {
                 intent.putExtra("stationContentfulID", nextChronologyItem.getStationContentfulID());
 
             } else if (nextChronologyItem.getTaskContentfulID() != null) {
-                Log.d("Contentful", nextChronologyItem.getTaskClassName());
+                Log.d("ContentfulChrono", "ISTASK");
                 if (nextChronologyItem.getTaskClassName().equals("eSingleChoiceTask")) {
                     intent = new Intent(activity, QuizActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("eLettersTask")) {
@@ -104,11 +101,11 @@ public class LoadTourChronology {
                     intent = new Intent(activity, PictureCountdownActivity.class);
                 } else if (nextChronologyItem.getTaskClassName().equals("eIdentifySoundTask")) {
                     intent = new Intent(activity, IdentifySoundActivity.class);
-                } else {
-                    intent = new Intent(activity, PictureCountdownActivity.class);
                 }
                 intent.putExtra("taskContentfulID", nextChronologyItem.getTaskContentfulID());
             }
+        } catch (NullPointerException e) {
+            intent = new Intent(activity, ResultActivity.class);
         }
 
         int nextchronologyNumber = chronologyNumber + 1;

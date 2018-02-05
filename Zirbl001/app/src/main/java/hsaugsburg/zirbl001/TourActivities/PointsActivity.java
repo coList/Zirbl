@@ -91,12 +91,11 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String correct = "RICHTIG";
         String wrong = "FALSCH";
         String titleText;
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskID"));
+        String taskID = getIntent().getStringExtra("taskContentfulID");
         int stringLengthC = answerCorrect.length();
         int stringLengthW = answerWrong.length();
         score = Integer.parseInt(getIntent().getStringExtra("score"));
 
-        Log.d("PointsActivity", answerPicture);
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView) findViewById(R.id.answerImage);
@@ -116,7 +115,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         if (hasAnswerPicture) {
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = answerPicture.split("\\.");
-            String imgPath = selectedTour + "taskid" + taskID + "answerpicture" + "." + parts[parts.length - 1];
+            String imgPath = selectedTour + "taskId" + taskID + "answerpicture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
             String decodedImgUri = Uri.fromFile(imgFile).toString();
             answerImage.setVisibility(View.VISIBLE);

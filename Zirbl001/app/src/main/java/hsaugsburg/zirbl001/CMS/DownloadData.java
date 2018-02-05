@@ -10,6 +10,7 @@ import com.contentful.java.cda.CDAEntry;
 import com.contentful.java.cda.CDAResource;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -115,7 +116,7 @@ public class DownloadData {
 
                                 String wayPointsString = station.getField("wayPoints").toString();
                                 try {
-                                    JSONObject wayPointsJson = new JSONObject(wayPointsString);
+                                    JSONArray wayPointsJson = new JSONArray(wayPointsString);
                                     stationModel.setWayPoints(wayPointsJson);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -126,7 +127,8 @@ public class DownloadData {
 
                             } else if (entry.getField("taskId") != null) {
                                 CDAEntry task = (CDAEntry) entry.getField("taskId");
-                                chronologyModel.setTourContentfulID(task.id());
+                                chronologyModel.setTourContentfulID(selectedTour);
+                                chronologyModel.setTaskContentfulID(task.id());
                                 String contentType = task.contentType().id();
                                 chronologyModel.setTaskClassName(contentType);
                                 TaskModel taskModel = new TaskModel();
@@ -178,6 +180,8 @@ public class DownloadData {
                                         otherLetters = otherLetters + c;
                                     }
 
+                                    ((LettersModel) taskModel).setOtherLetters(otherLetters);
+
                                     taskValue = 3;
 
                                 } else if (contentType.equals("eGuessTheImageTask")) {
@@ -211,6 +215,8 @@ public class DownloadData {
                                     taskModel.setPicturePath("https:" + pictureAsset.url());
 
                                     new DownloadImage(activity).execute(pictureAsset.url(), selectedTour, "taskId", task.id(), "picture");
+                                } else {
+                                    taskModel.setPicturePath("");
                                 }
 
                                 if (task.getField("answerPicture") != null) {
@@ -218,6 +224,8 @@ public class DownloadData {
                                     taskModel.setAnswerPicture("https:" + answerPictureAsset.url());
 
                                     new DownloadImage(activity).execute(answerPictureAsset.url(), selectedTour, "taskId", task.id(), "answerPicture");
+                                } else {
+                                    taskModel.setAnswerPicture("");
                                 }
 
                                 switch (taskValue) {
@@ -244,7 +252,6 @@ public class DownloadData {
 
 
                             } else if (entry.getField("infoPopupId") != null) {
-
                                 DoUKnowModel infoPopupModel = new DoUKnowModel();
                                 CDAEntry infoPopup = (CDAEntry) entry.getField("infoPopupId");
                                 chronologyModel.setInfoPopupContentfulID(infoPopup.id());
