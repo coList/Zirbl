@@ -52,6 +52,7 @@ import com.mapbox.mapboxsdk.annotations.Polyline;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapquest.mapping.MapQuestAccountManager;
 import com.mapquest.mapping.maps.MapView;
 import com.mapquest.mapping.maps.MapboxMap;
@@ -131,6 +132,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private String GEOFENCE_ID = "myGeofenceid";
     private Integer zoomLevel;
     private  List<LatLng> shapePoints = new ArrayList<>();
+    public LatLngBounds latLngBounds;
 
     //dot menu
     private TopDarkActionbar topDarkActionbar;
@@ -238,7 +240,21 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 mMapboxMap.setMyLocationEnabled(true);
                 Double userLat = mapboxMap.getMyLocation().getLatitude();
                 Double userLng = mapboxMap.getMyLocation().getLongitude();
-                mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
+
+                LatLng userLocation = new LatLng(userLat, userLng);
+
+                //mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
+
+                ArrayList<LatLng> latLngToShow = new ArrayList<>();
+                latLngToShow.add(userLocation);
+                LatLng targetLocation = new LatLng(latTarget, lngTarget);
+                latLngToShow.add(targetLocation);
+
+                latLngBounds = new LatLngBounds.Builder().include(latLngToShow).build();
+
+                //mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds,20, 280, 20, 380));
+                mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds,20, 280, 20, 380));
+
 
                 //Zirbl Marker für aktuelle Postition setzen
                 mMapboxMap.getMyLocationViewSettings().setForegroundDrawable(getResources().getDrawable(R.drawable._map_zirbl),getResources().getDrawable(R.drawable._map_zirbl));
@@ -437,13 +453,13 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     }
 
     public int zoomFactor(){
-        Double userLat = mMapboxMap.getMyLocation().getLatitude();
-        Double userLng = mMapboxMap.getMyLocation().getLongitude();
+        Double userLat = latLngMyPos.getLatitude();
+        Double userLng = latLngMyPos.getLatitude();
         Double distanceUserTarget = distance(userLat,userLng,latTarget,lngTarget);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize(size);
+        display.getRealSize(size);
         int displayWidth = size.x;
         int displayHeight = size.y;
 
@@ -458,13 +474,15 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         // C = 40.074.000 m, y = 10.897790 im falle augsburg,
         Double earthCircumferenceLength = 39351305.71; // C*cos(y)
 
-        Double distPerPx = displayWidth / distanceUserTarget; // S
-        Log.d(TAG, "zoomFactor: displayWidth" + displayWidth);
+
+    Double distPerPx = displayWidth / distanceUserTarget; // S
+        Log.d(TAG, "zoomFactor: displayWidth " + displayWidth);
+
         Log.d(TAG, "zoomFactor: distanceusrtarget " + distanceUserTarget);
         Integer partsOfDistOnEarth = (int)(earthCircumferenceLength / distPerPx); // C*cos(y) / S
 
         //Log.d(TAG, "zoomFactor: partsofdistonearth: " + partsOfDistOnEarth);
-        zoomLevel = (int)(Math.log10(partsOfDistOnEarth) / Math.log10(2)) - 3; // zoomlevel = Log(2)[partsOfDistOnEarth]
+        zoomLevel = (int)(Math.log10(partsOfDistOnEarth) / Math.log10(2)) - 1; // zoomlevel = Log(2)[partsOfDistOnEarth]
 
         //            log[10]x
         // log[2]x = ----------
