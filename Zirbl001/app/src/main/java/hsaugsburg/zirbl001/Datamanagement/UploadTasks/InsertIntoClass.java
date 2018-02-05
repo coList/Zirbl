@@ -20,14 +20,14 @@ import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 public class InsertIntoClass extends AsyncTask<String, Void, String> {
     private String userName;
     private String deviceToken;
-    private int tourID;
+    private String tourID;
     private String className;
     private String schoolName;
     private String qrCode;
     private String serverName;
     private ClassRegistrationActivity activity;
 
-    public InsertIntoClass(String userName, String deviceToken, int tourID, String className, String schoolName, String qrCode, String serverName, ClassRegistrationActivity activity) {
+    public InsertIntoClass(String userName, String deviceToken, String tourID, String className, String schoolName, String qrCode, String serverName, ClassRegistrationActivity activity) {
         this.userName = userName;
         this.deviceToken = deviceToken;
         this.tourID = tourID;

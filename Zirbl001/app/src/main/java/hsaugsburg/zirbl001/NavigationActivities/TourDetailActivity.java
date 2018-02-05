@@ -369,7 +369,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
     public void classRegistration(View view) {
         Intent intent = new Intent(mContext, ClassRegistrationActivity.class);
-        intent.putExtra("tourID", Integer.toString(tourID));
+        intent.putExtra("tourContentfulID", contentfulID);
         intent.putExtra("tourName", tourName);
         startActivity(intent);
     }

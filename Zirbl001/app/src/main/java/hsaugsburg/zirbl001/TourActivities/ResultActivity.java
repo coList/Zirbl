@@ -121,7 +121,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new InsertIntoParticipates(this, userName, deviceToken, 0, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
             deleteFiles();
         }
     }
@@ -131,7 +131,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new InsertIntoParticipates(this, userName, deviceToken, 0, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
             deleteFiles();
         }
     }

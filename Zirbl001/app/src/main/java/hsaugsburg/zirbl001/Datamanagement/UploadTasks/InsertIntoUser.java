@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -87,6 +88,7 @@ public class InsertIntoUser extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        Log.d("Splash", result);
         boolean returnValue = result.equals("success");
         splashScreen.setHasUsername(returnValue);
     }

@@ -29,7 +29,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
     private String successMessage = "";
     String downloadMessage = "Lade dir die <b>Tour</b> jetzt herunter, um <b>Wartezeiten</b> während der Tour zu <b>vermeiden</b>.";
 
-    private int tourID;
+    private String tourID;
     private String tourName;
     private int klassenID;
     private String klasse;
@@ -57,7 +57,7 @@ public class ScanBarcodeActivity extends AppCompatActivity{
         zirblIdent = splited[0];
 
         if(zirblIdent.equals("qrcodezirbl")){
-            tourID = Integer.parseInt(splited[1]);
+            tourID = splited[1];
             tourName = splited[2];
             klasse = splited[3];
             school = splited[4];

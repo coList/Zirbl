@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import hsaugsburg.zirbl001.CMS.DownloadData;
+import hsaugsburg.zirbl001.CMS.DownloadNuts;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Interfaces.DownloadActivity;
 import hsaugsburg.zirbl001.R;
@@ -31,7 +33,7 @@ public class QrDialog implements DownloadActivity {
     private final boolean success;
     private final String textButtonMarked;
 
-    private int tourID;
+    private String tourID;
     private int classID;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -41,7 +43,7 @@ public class QrDialog implements DownloadActivity {
     private boolean downloadFinished = false;
     private Button dialogButtonAgain;
 
-    public QrDialog(Context context, boolean success, String textButtonMarked, int classID, int tourID) {
+    public QrDialog(Context context, boolean success, String textButtonMarked, int classID, String tourID) {
         this.context = context;
         this.success = success;
         this.textButtonMarked = textButtonMarked;
@@ -179,7 +181,7 @@ public class QrDialog implements DownloadActivity {
                     handler.postDelayed(this, 500);
                 } else {
                     Intent intent = new Intent(context, TourstartActivity.class);
-                    intent.putExtra("tourID", Integer.toString(tourID));
+                    intent.putExtra("tourContentfulID", tourID);
                     intent.putExtra("classID", Integer.toString(classID));
                     context.startActivity(intent);
                 }
@@ -190,6 +192,10 @@ public class QrDialog implements DownloadActivity {
     }
 
     private void downloadTour() {
+
+        new DownloadData(activity, this, tourID).downloadData();
+        new DownloadNuts(this, tourID).downloadData();
+        /*
         new DownloadJSON(activity, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
         new DownloadJSON(activity, this, serverName, tourID, "toursinglechoice", "singlechoice").execute(serverName + "/api2/selectSingleChoiceView.php");
@@ -199,10 +205,11 @@ public class QrDialog implements DownloadActivity {
         new DownloadJSON(activity, this, serverName, tourID, "tourchronology", "chronology").execute(serverName + "/api2/selectChronologyView.php");
         new DownloadJSON(activity, this, serverName, tourID, "nutlocations", "nuts").execute(serverName + "/api2/selectNutLocationsView.php");
         new DownloadJSON(activity, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
+        */
     }
 
     public void downloadFinished() {
-        int amountOfDownloadTasks = 9;
+        int amountOfDownloadTasks = 2;
         downloadTasksCounter++;
 
         if (downloadTasksCounter >= amountOfDownloadTasks) {
