@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadQuiz;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadQuiz;
 import hsaugsburg.zirbl001.Models.TourModels.QuizModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
@@ -44,12 +44,12 @@ public class QuizActivity extends AppCompatActivity {
     private int selectedAnswer = -1;
 
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
     private String rightAnswer;
     private String answerCorrect;
     private String answerWrong;
-    private  int taskID;
+    private String taskID;
     private String answerPicture = "";
     private int score;
 
@@ -77,7 +77,7 @@ public class QuizActivity extends AppCompatActivity {
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -115,16 +115,19 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        QuizModel result = new LoadQuiz(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        QuizModel result = new LoadQuiz(taskID, selectedTour).loadData();
 
         TextView question = (TextView) findViewById(R.id.questionText);
 
         ArrayList<String> answers = new ArrayList<>();
 
-        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+        if (!(result.getAnswerPicture().equals("null") || result.getAnswerPicture().isEmpty() || result.getAnswerPicture().equals(""))) {
             answerPicture = result.getAnswerPicture();
+        } else {
+            answerPicture = "";
         }
+
         if (result.getPicturePath().equals("null") || result.getPicturePath().isEmpty()) {  //is it a question with an image? if not:
             question.setText(fromHtml(result.getQuestion()));
             answers.addAll(Arrays.asList(result.getRightAnswer(), result.getOption2(), result.getOption3(), result.getOption4()));
@@ -138,7 +141,7 @@ public class QuizActivity extends AppCompatActivity {
             ImageView questionPicture = (ImageView)findViewById(R.id.behindQuestionImage);
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
-            String imgPath = selectedTour + "taskid" + taskID + "." + parts[parts.length - 1];
+            String imgPath = selectedTour + "taskId" + taskID + "picture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
             String decodedImgUri = Uri.fromFile(imgFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, questionPicture);
@@ -190,7 +193,7 @@ public class QuizActivity extends AppCompatActivity {
             intent.putExtra("chronologyNumber", Integer.toString(chronologyNumber));
             intent.putExtra("stationName", stationName);
             intent.putExtra("answerPicture", answerPicture);
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID", taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(QuizActivity.this, R.anim.shake);

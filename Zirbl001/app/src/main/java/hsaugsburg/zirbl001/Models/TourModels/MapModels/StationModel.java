@@ -1,16 +1,38 @@
 package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class StationModel {
     private int tourID;
+
+
+    @SerializedName("tourContentfulID")
+    private String tourContentfulID;
+
+    @SerializedName("chronologyNumber")
     private int chronologyNumber;
     private int stationID;
+
+    @SerializedName("contentfulID")
+    private String contentfulID;
+
+    @SerializedName("stationName")
     private String stationName;
+
+    @SerializedName("mapInstruction")
     private String mapInstruction;
+
+    @SerializedName("latitude")
     private Double latitude;
+
+    @SerializedName("longitude")
     private Double longitude;
-    private JSONObject wayPoints;
+
+    @SerializedName("wayPoints")
+    private JSONArray wayPoints;
 
     public int getTourID() {
         return tourID;
@@ -19,6 +41,15 @@ public class StationModel {
     public void setTourID(int tourID) {
         this.tourID = tourID;
     }
+
+    public String getTourContentfulID() {
+        return tourContentfulID;
+    }
+
+    public void setTourContentfulID(String contentfulID) {
+        this.tourContentfulID = contentfulID;
+    }
+
 
     public int getChronologyNumber() {
         return chronologyNumber;
@@ -68,11 +99,19 @@ public class StationModel {
         this.stationID = stationID;
     }
 
-    public JSONObject getWayPoints() {
+    public String getContentfulID() {
+        return contentfulID;
+    }
+
+    public void setContentfulID(String contentfulID) {
+        this.contentfulID = contentfulID;
+    }
+
+    public JSONArray getWayPoints() {
         return wayPoints;
     }
 
-    public void setWayPoints(JSONObject wayPoints) {
+    public void setWayPoints(JSONArray wayPoints) {
         this.wayPoints = wayPoints;
     }
 }

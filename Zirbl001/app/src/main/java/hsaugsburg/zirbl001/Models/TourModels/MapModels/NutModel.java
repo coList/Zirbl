@@ -2,7 +2,9 @@ package hsaugsburg.zirbl001.Models.TourModels.MapModels;
 
 public class NutModel {
     private int tourID;
+    private String tourContentfulID;
     private int nutID;
+    private String contentfulID;
     private Double latitude;
     private Double longitude;
     private boolean collected = false;
@@ -63,5 +65,21 @@ public class NutModel {
 
     public void setFoundText(String foundText) {
         this.foundText = foundText;
+    }
+
+    public String getTourContentfulID() {
+        return tourContentfulID;
+    }
+
+    public void setTourContentfulID(String tourContentfulID) {
+        this.tourContentfulID = tourContentfulID;
+    }
+
+    public String getContentfulID() {
+        return contentfulID;
+    }
+
+    public void setContentfulID(String contentfulID) {
+        this.contentfulID = contentfulID;
     }
 }

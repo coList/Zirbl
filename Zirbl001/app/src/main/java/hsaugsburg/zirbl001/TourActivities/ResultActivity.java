@@ -34,7 +34,7 @@ import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
 
 public class ResultActivity extends AppCompatActivity implements InternetActivity {
     private Context mContext = ResultActivity.this;
-    private int selectedTour;
+    private String selectedTour;
 
     public static final String TOUR_VALUES = "tourValuesFile";
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -65,7 +65,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         classID = Integer.parseInt(tourValues.getString("classID", null));
@@ -121,7 +121,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            new InsertIntoParticipates(this, userName, deviceToken, 0, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
             deleteFiles();
         }
     }
@@ -131,7 +131,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new InsertIntoParticipates(this, userName, deviceToken, selectedTour, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
+            new InsertIntoParticipates(this, userName, deviceToken, 0, classID, teamName, currentScore, (int)totalTime, participants, serverName).execute();
             deleteFiles();
         }
     }
@@ -153,6 +153,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
     }
 
     public void deleteFiles() {
+        /*
         File dir = getFilesDir();
         ArrayList<File> files = new ArrayList<>();
         files.add(new File(dir, "infopopups" + selectedTour + ".txt"));
@@ -174,6 +175,7 @@ public class ResultActivity extends AppCompatActivity implements InternetActivit
                 file.delete();
             }
         }
+        */
     }
 
     public void endTour(View view) {

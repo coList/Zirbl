@@ -55,7 +55,7 @@ public class JSONUpdateRoad extends AsyncTask<Object, Void, List<LatLng>> {
     @Override
     protected void onPostExecute(List<LatLng> result) {
 
-        activity.getAllLatLngPoints(result);
+        //activity.getAllLatLngPoints(result);
 
     }
 }

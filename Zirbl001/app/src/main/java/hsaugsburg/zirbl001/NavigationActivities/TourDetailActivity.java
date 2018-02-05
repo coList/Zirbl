@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.contentful.java.cda.CDAAsset;
+import com.contentful.java.cda.CDAClient;
+import com.contentful.java.cda.CDAEntry;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
@@ -38,6 +44,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import hsaugsburg.zirbl001.CMS.DownloadData;
+import hsaugsburg.zirbl001.CMS.DownloadNuts;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadIsTourFavorised;
 import hsaugsburg.zirbl001.Datamanagement.DownloadTasks.DownloadJSON;
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONTourDetail;
@@ -54,6 +62,9 @@ import hsaugsburg.zirbl001.TourActivities.ClassRegistrationActivity;
 import hsaugsburg.zirbl001.TourActivities.TourstartActivity;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
 import hsaugsburg.zirbl001.Utils.UniversalImageLoader;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class TourDetailActivity extends AppCompatActivity implements DownloadActivity, InternetActivity {
@@ -61,6 +72,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private Context mContext = TourDetailActivity.this;
 
     private int tourID;
+    private String contentfulID;
     private String tourName;
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -69,13 +81,15 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     private String deviceToken;
 
     private int downloadTasksCounter = 0;
-    private int amountOfDownloadTasks = 11;
+    private int amountOfDownloadTasks = 2;
     private boolean downloadFinished;
     private boolean downloadStarted = false;
     private boolean firstClickOnGo = true;
 
     private MenuItem favIconMenu;
     private boolean isFilled;
+
+    private DownloadData downloadData;
 
     @Override
     protected void onPause() {
@@ -116,9 +130,76 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         userName = globalValues.getString("userName", null);
         deviceToken = globalValues.getString("deviceToken", null);
 
-        new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
+        //new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
 
         initImageLoader();
+
+
+        CDAClient client = CDAClient.builder()
+                .setSpace("age874frqdcf")
+                .setToken("e31cc8f67798c6f2d7162d593da89cf31f9d525aa4ea7d1935ef1231153fab4a")
+                .build();
+
+        client.observe(CDAEntry.class)
+                .one(contentfulID)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<CDAEntry>() {
+                    CDAEntry result;
+
+                    @Override public void onCompleted() {
+                        TourDetailModel tourDetailModel = new TourDetailModel();
+                        tourDetailModel.setTourName(result.getField("tourname").toString());
+
+                        CDAEntry difficultyEntry = (CDAEntry) result.getField("difficultyId");
+                        CDAEntry categoryEntry = (CDAEntry) result.getField("categoryId");
+                        CDAEntry startLocation = (CDAEntry) result.getField("startlocation");
+                        CDAEntry endLocation = (CDAEntry) result.getField("endlocation");
+
+
+                        CDAAsset mapPictureAsset = (CDAAsset) result.getField("mapPicture");
+                        CDAAsset mainPictureAsset = (CDAAsset) result.getField("mainPicture");
+
+                        tourDetailModel.setMapPicture("https:" + mapPictureAsset.url());
+                        tourDetailModel.setMainPicture("https:" + mainPictureAsset.url());
+
+                        tourDetailModel.setCategoryName(categoryEntry.getField("categoryname").toString());
+
+                        tourDetailModel.setDifficultyName(difficultyEntry.getField("difficultyname").toString());
+
+
+                        tourDetailModel.setDuration(Double.valueOf(result.getField("duration").toString()).intValue());
+                        tourDetailModel.setDistance(Double.valueOf(result.getField("distance").toString()).intValue());
+
+                        tourDetailModel.setDescription(result.getField("description").toString());
+
+                        if (result.getField("costs") == null) {
+                            tourDetailModel.setCosts("");
+                        } else {
+                            tourDetailModel.setCosts(result.getField("costs").toString());
+                        }
+
+                        if (result.getField("warnings") == null) {
+                            tourDetailModel.setWarnings("");
+                        } else {
+                            tourDetailModel.setWarnings(result.getField("warnings").toString());
+                        }
+
+                        tourDetailModel.setShortDescription(result.getField("shortdescription").toString());
+                        tourDetailModel.setStartLocation(startLocation.getField("stationname").toString());
+                        tourDetailModel.setEndLocation(endLocation.getField("stationname").toString());
+
+                        processData(tourDetailModel);
+                    }
+
+                    @Override public void onError(Throwable error) {
+                        Log.e("Contentful", "could not request entry", error);
+                    }
+
+                    @Override public void onNext(CDAEntry cdaEntry) {
+                        result = cdaEntry;
+                    }
+                });
     }
 
     public void setIsFavorised(Boolean isFavorised) {
@@ -132,6 +213,10 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     }
 
     public void downloadTour() {
+        //new DownloadTourStations(this, contentfulID).downloadData();
+        new DownloadData(this, this, contentfulID).downloadData();
+        new DownloadNuts(this, contentfulID).downloadData();
+        /*
         new DownloadJSON(this, this, serverName, tourID, "tourlocation_infopopups", "location_infopopups").execute(serverName + "/api2/selectLocationInfoPopupView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourinfopopups", "infopopups").execute(serverName + "/api2/selectInfoPopupView.php");
         new DownloadJSON(this, this, serverName, tourID, "tourletters", "letters").execute(serverName + "/api2/selectHangmanView.php");
@@ -144,11 +229,13 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
         new DownloadJSON(this, this, serverName, tourID, "tourpicturecountdown", "picturecountdown").execute(serverName + "/api2/selectPictureCountdownView.php");
         new DownloadJSON(this, this, serverName, tourID, "touridentifysound", "identifysound").execute(serverName + "/api2/selectIdentifySoundView.php");
+       */
     }
 
     private boolean downloadSuccessfull() {
         int counter = 0;
 
+        /*
         File dir = mContext.getFilesDir();
         ArrayList<File> files = new ArrayList<>();
         files.add(new File(dir, "infopopups" + tourID + ".txt"));
@@ -169,6 +256,19 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                 counter++;
             }
         }
+        */
+
+
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File("/data/data/hsaugsburg.zirbl001/" +  "chronology" + contentfulID + ".json"));
+        files.add(new File("/data/data/hsaugsburg.zirbl001/" + "nuts" + contentfulID + ".json"));
+
+        for (File file : files) {
+            if (file.exists()) {
+                counter++;
+            }
+        }
+
         return (counter == amountOfDownloadTasks);
     }
 
@@ -183,6 +283,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
     public void setIntentExtras() {
         Intent intent = getIntent();
         tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        contentfulID = intent.getStringExtra("contentfulID");
         tourName = intent.getStringExtra("tourName");
     }
 
@@ -239,10 +340,13 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                     handler.postDelayed(this, 500);
                 } else {
                     if (downloadSuccessfull()) {
+
                         Intent intent = new Intent(mContext, TourstartActivity.class);
-                        intent.putExtra("tourID", Integer.toString(tourID));
+                        intent.putExtra("tourContentfulID", contentfulID);
                         intent.putExtra("classID", "-1");
                         startActivity(intent);
+
+
                     } else {
                         firstClickOnGo = true;
                         downloadStarted = false;
@@ -308,6 +412,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             startEnd.setText(fromHtml("<b>Tourstart:</b> " + result.getStartLocation() + "<br />" +
                     "<b>Tourende:</b> " + result.getEndLocation()));
 
+
             String costsText = result.getCosts();
             if (costsText != null && !costsText.isEmpty() && !costsText.equals("null")) {
                 TextView costsTitle = (TextView) findViewById(R.id.costsTitle);
@@ -317,7 +422,10 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
                 costs.setText(fromHtml(costsText));
             }
 
-            if (!(result.getWarnings().equals("null"))) {
+
+
+            String warningsText = result.getWarnings();
+            if (warningsText != null && !warningsText.isEmpty() && !warningsText.equals("null")) {
                 TextView warnings = (TextView) findViewById(R.id.warnings);
                 TextView warningsTitle = (TextView) findViewById(R.id.warningsTitle);
                 warnings.setText(fromHtml(result.getWarnings()));
@@ -328,19 +436,20 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             String mainPictureURL = result.getMainPicture();
             //load picture from cache or from web
             ImageView mainPicture = (ImageView) findViewById(R.id.image);
-            if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
-                mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+            if (MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+                mainPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mainPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
             } else {
-                ImageLoader.getInstance().displayImage(serverName + mainPictureURL, mainPicture);
+                ImageLoader.getInstance().displayImage(mainPictureURL, mainPicture);
             }
 
             ImageView mapPicture = (ImageView) findViewById(R.id.map);
             String mapPictureURL = (result).getMapPicture();
-            if (MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
-                mapPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(serverName + mapPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
+            if (MemoryCacheUtils.findCachedBitmapsForImageUri(mapPictureURL, ImageLoader.getInstance().getMemoryCache()).size() > 0) {
+                mapPicture.setImageBitmap(MemoryCacheUtils.findCachedBitmapsForImageUri(mapPictureURL, ImageLoader.getInstance().getMemoryCache()).get(0));
             } else {
-                ImageLoader.getInstance().displayImage(serverName + mapPictureURL, mapPicture);
+                ImageLoader.getInstance().displayImage(mapPictureURL, mapPicture);
             }
+
         }
     }
 

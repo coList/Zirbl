@@ -35,8 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadIdentifySound;
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadQuiz;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadIdentifySound;
 import hsaugsburg.zirbl001.Models.TourModels.IdentifySoundModel;
 import hsaugsburg.zirbl001.Models.TourModels.QuizModel;
 import hsaugsburg.zirbl001.R;
@@ -52,7 +51,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
     private int selectedAnswer = -1;
 
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
     private String rightAnswer;
     private String answerCorrect;
@@ -60,7 +59,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
     private String answerPicture = "";
     private int score;
-    private int taskID;
+    private String taskID;
     private String audioUrl;
 
     private MediaPlayer player;
@@ -86,7 +85,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -132,8 +131,8 @@ public class IdentifySoundActivity extends AppCompatActivity {
     }
 
     private void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        IdentifySoundModel result = new LoadIdentifySound(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        IdentifySoundModel result = new LoadIdentifySound(taskID, selectedTour).loadData();
 
         if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
             answerPicture = result.getAnswerPicture();
@@ -159,7 +158,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
         answerCorrect = result.getAnswerCorrect();
         answerWrong = result.getAnswerWrong();
         score = result.getScore();
-        taskID = result.getTaskID();
+        taskID = result.getContentfulID();
         audioUrl = result.getAudio();
 
 
@@ -214,7 +213,7 @@ public class IdentifySoundActivity extends AppCompatActivity {
             intent.putExtra("stationName", stationName);
 
             intent.putExtra("answerPicture", answerPicture);
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID", taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(IdentifySoundActivity.this, R.anim.shake);

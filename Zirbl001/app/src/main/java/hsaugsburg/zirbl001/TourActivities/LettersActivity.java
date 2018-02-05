@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.text.Html;
 import android.text.Spanned;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLetters;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadLetters;
 import hsaugsburg.zirbl001.Fonts.OpenSansBoldPrimaryButton;
 import hsaugsburg.zirbl001.Models.TourModels.LettersModel;
 import hsaugsburg.zirbl001.R;
@@ -35,14 +36,14 @@ public class LettersActivity extends AppCompatActivity {
     private Context mContext = LettersActivity.this;
     private static final String TAG = "LettersActivity";
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
 
     private String solution;
     private String answerCorrect;
     private String answerWrong;
     private int score;
-    private int taskID;
+    private String taskID;
     private String answerPicture = "";
 
     public static final String GLOBAL_VALUES = "globalValuesFile";
@@ -70,7 +71,7 @@ public class LettersActivity extends AppCompatActivity {
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -100,8 +101,8 @@ public class LettersActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        LettersModel result = new LoadLetters(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        LettersModel result = new LoadLetters(taskID, selectedTour).loadData();
 
 
         if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
@@ -121,6 +122,7 @@ public class LettersActivity extends AppCompatActivity {
         StringBuilder stringBuilder = new StringBuilder(result.getSolution() + result.getOtherLetters());
         shuffleLetters(stringBuilder);
         final String letters = stringBuilder.toString().toUpperCase();
+        Log.d("Contentful Letters", letters);
 
         //create "solution-buttons"
         for (int i = 0; i < solutionLength; i++) {
@@ -216,7 +218,7 @@ public class LettersActivity extends AppCompatActivity {
             intent.putExtra("stationName", stationName);
 
             intent.putExtra("answerPicture", answerPicture);
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID",taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(LettersActivity.this, R.anim.shake);

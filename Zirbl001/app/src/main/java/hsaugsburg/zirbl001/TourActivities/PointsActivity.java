@@ -26,9 +26,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.util.Locale;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadTourChronology;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
@@ -41,7 +40,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private int currentScore;
     private int scoreBefore;
     private int score;
-    private int selectedTour;
+    private String selectedTour;
     private int totalChronologyValue;
 
     private String stationName;
@@ -78,7 +77,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         //Get Global Tourvalues
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
         scoreBefore = currentScore;
         totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
@@ -92,12 +91,11 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         String correct = "RICHTIG";
         String wrong = "FALSCH";
         String titleText;
-        int taskID = Integer.parseInt(getIntent().getStringExtra("taskID"));
+        String taskID = getIntent().getStringExtra("taskContentfulID");
         int stringLengthC = answerCorrect.length();
         int stringLengthW = answerWrong.length();
         score = Integer.parseInt(getIntent().getStringExtra("score"));
 
-        Log.d("PointsActivity", answerPicture);
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView) findViewById(R.id.answerImage);
@@ -115,13 +113,23 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         boolean hasAnswerPicture = !answerPicture.equals("null") && !answerPicture.isEmpty() && !answerPicture.equals("");
         if (hasAnswerPicture) {
+            Log.d("ContentfulAnswerPic", "hasPic");
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = answerPicture.split("\\.");
-            String imgPath = selectedTour + "taskid" + taskID + "answerpicture" + "." + parts[parts.length - 1];
+
+            String imgPath = selectedTour + "taskId" + taskID + "answerPicture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
-            String decodedImgUri = Uri.fromFile(imgFile).toString();
-            answerImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            if (imgFile.exists()) {
+                String decodedImgUri = Uri.fromFile(imgFile).toString();
+                answerImage.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            } else {
+                String imgPathPictureCountdown =  selectedTour + "taskId" + taskID + "picture" + "." + parts[parts.length - 1];
+                File imgFilePictureCountdown = new File(zirblImages , imgPathPictureCountdown);
+                String decodedImgUri = Uri.fromFile(imgFilePictureCountdown).toString();
+                answerImage.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            }
         }
 
         //Wenn SliderActivity, dann...
@@ -202,8 +210,8 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             answerText.setLayoutParams(paramsText);
         }*/
 
-        loadTourChronology = new LoadTourChronology(this, this, nextChronologyItem, selectedTour, chronologyNumber);
-        loadTourChronology.readChronologyFile();
+        loadTourChronology = new LoadTourChronology(this, this,selectedTour, chronologyNumber);
+        loadTourChronology.loadData();
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(totalChronologyValue + 1);
         progressBar.setProgress(chronologyNumber + 1);

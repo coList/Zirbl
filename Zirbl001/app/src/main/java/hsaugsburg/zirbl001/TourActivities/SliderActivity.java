@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadSlider;
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadSlider;
 import hsaugsburg.zirbl001.Models.TourModels.SliderModel;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
@@ -41,7 +41,7 @@ public class SliderActivity extends AppCompatActivity {
     private static Double minValue;
 
     private int chronologyNumber;
-    private int selectedTour;
+    private String selectedTour;
     private String stationName;
 
     private boolean answerSelected;
@@ -52,7 +52,7 @@ public class SliderActivity extends AppCompatActivity {
     private String answerCorrect;
     private String answerWrong;
     private int score;
-    private int taskID;
+    private String taskID;
     private int toleranceRange;
     private String answerPicture = "";
 
@@ -84,7 +84,7 @@ public class SliderActivity extends AppCompatActivity {
 
         //get global tour values
         SharedPreferences tourValues = getSharedPreferences(TOUR_VALUES, 0);
-        selectedTour = Integer.parseInt(tourValues.getString("tourID", null));
+        selectedTour = tourValues.getString("tourContentfulID", null);
         int totalChronologyValue = Integer.parseInt(tourValues.getString("totalChronology", null));
         startTime = Long.parseLong(tourValues.getString("startTime", null));
         currentScore = Integer.parseInt(tourValues.getString("currentScore", null));
@@ -122,8 +122,8 @@ public class SliderActivity extends AppCompatActivity {
     }
 
     public void setDataView() {
-        taskID = Integer.parseInt(getIntent().getStringExtra("taskid"));
-        SliderModel result = new LoadSlider(this, selectedTour, taskID).readFile();
+        taskID = getIntent().getStringExtra("taskContentfulID");
+        SliderModel result = new LoadSlider(taskID, selectedTour).loadData();
 
         if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
             answerPicture = result.getAnswerPicture();
@@ -205,7 +205,7 @@ public class SliderActivity extends AppCompatActivity {
 
             intent.putExtra("answerPicture", answerPicture);
 
-            intent.putExtra("taskID", Integer.toString(taskID));
+            intent.putExtra("taskContentfulID", taskID);
             startActivity(intent);
         } else {
             Animation shake = AnimationUtils.loadAnimation(SliderActivity.this, R.anim.shake);

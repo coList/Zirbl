@@ -26,9 +26,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.contentful.java.cda.CDAArray;
+import com.contentful.java.cda.CDAAsset;
+import com.contentful.java.cda.CDAClient;
+import com.contentful.java.cda.CDAEntry;
+import com.contentful.java.cda.CDAResource;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import hsaugsburg.zirbl001.Datamanagement.JSONDownload.JSONSearch;
@@ -39,10 +45,14 @@ import hsaugsburg.zirbl001.Interfaces.InternetActivity;
 import hsaugsburg.zirbl001.Interfaces.JSONModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.SearchModel;
 import hsaugsburg.zirbl001.Models.NavigationModels.TourDetailModel;
+import hsaugsburg.zirbl001.Models.NavigationModels.TourSelectionModel;
 import hsaugsburg.zirbl001.NavigationActivities.NoConnectionDialog;
 import hsaugsburg.zirbl001.NavigationActivities.TourDetailActivity;
 import hsaugsburg.zirbl001.R;
 import hsaugsburg.zirbl001.Utils.BottomNavigationViewHelper;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class SearchActivity extends AppCompatActivity implements InternetActivity {
     private static final String TAG = "SearchActivity";
@@ -97,7 +107,61 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
             NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
             noConnectionDialog.showDialog(this);
         } else {
-            new JSONSearch(this).execute(serverName + "/api2/selectSearchDetailsView.php");
+            //new JSONSearch(this).execute(serverName + "/api2/selectSearchDetailsView.php");
+
+            CDAClient client = CDAClient.builder()
+                    .setSpace("age874frqdcf")
+                    .setToken("e31cc8f67798c6f2d7162d593da89cf31f9d525aa4ea7d1935ef1231153fab4a")
+                    .build();
+
+            final ArrayList<SearchModel> searchModelArrayList = new ArrayList<>();
+
+            client.observe(CDAEntry.class)
+                    .where("content_type", "eTour")
+                    .all()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<CDAArray>() {
+                        CDAArray result;
+
+                        @Override
+                        public void onCompleted() {
+                            for (CDAResource entry: result.items()) {
+                                CDAEntry item = (CDAEntry) entry;
+
+
+                                CDAEntry difficultyEntry = (CDAEntry) item.getField("difficultyId");
+                                CDAEntry categoryEntry = (CDAEntry) item.getField("categoryId");
+
+                                CDAAsset mainPictureAsset = (CDAAsset) item.getField("mainPicture");
+
+                                SearchModel searchModel = new SearchModel();
+                                searchModel.setContentfulID(item.id());
+                                searchModel.setTourName(item.getField("tourname").toString());
+                                searchModel.setCategoryName(categoryEntry.getField("categoryname").toString());
+                                searchModel.setDifficultyName(difficultyEntry.getField("difficultyname").toString());
+                                searchModel.setDuration(Double.valueOf(item.getField("duration").toString()).intValue());
+                                searchModel.setDistance(Double.valueOf(item.getField("distance").toString()).intValue());
+                                searchModel.setShortDescription(item.getField("shortdescription").toString());
+
+                                searchModelArrayList.add(searchModel);
+
+                            }
+                            processData(searchModelArrayList);
+                        }
+
+                        @Override
+                        public void onError(Throwable error) {
+                            Log.e("Contentful", "could not request entry", error);
+                        }
+
+                        @Override
+                        public void onNext(CDAArray cdaArray) {
+                            result = cdaArray;
+                        }
+                    });
+
+            //new GetTourSelection(this).execute();
         }
 
         mListView = (ListView) findViewById(R.id.search_list_view);
@@ -142,14 +206,6 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
 
     public void processData(List<SearchModel> result) {
         if (result != null) {
-
-            /*
-            //Entferne Fugger-Tour aus der Liste
-            result.remove(0);
-
-            */
-
-
             adapter = new SearchSelectionAdapter(this, result);
             mListView.setAdapter(adapter);
 
@@ -162,6 +218,7 @@ public class SearchActivity extends AppCompatActivity implements InternetActivit
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
                     intent1.putExtra("tourID", Integer.toString(selectedTour.getTourID()));
                     intent1.putExtra("tourName", selectedTour.getTourName());
+                    intent1.putExtra("contentfulID", ((SearchModel)selectedTour).getContentfulID());
                     startActivity(intent1);
                 }
             });
