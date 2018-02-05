@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -115,7 +116,7 @@ public class DoUKnowActivity extends AppCompatActivity implements TourActivity{
             ContextWrapper cw = new ContextWrapper(this.getApplicationContext());
             File directory = cw.getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = result.getPicturePath().split("\\.");
-            String imgPath = selectedTour + "infopopupId" + result.getInfoPopupID() + "picture" + "." + parts[parts.length - 1];
+            String imgPath = selectedTour + "infoPopupId" + result.getContentfulID() + "picture" + "." + parts[parts.length - 1];
             File imageFile = new File(directory, imgPath);
             String decodedImgUri = Uri.fromFile(imageFile).toString();
             ImageLoader.getInstance().displayImage(decodedImgUri, zirblImage);

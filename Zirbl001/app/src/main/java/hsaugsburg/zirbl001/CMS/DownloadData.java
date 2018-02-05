@@ -105,9 +105,11 @@ public class DownloadData {
 
 
                                 String location = station.getField("location").toString();
+                                Log.d("Contentful Stations", location);
                                 String parts[] = location.split(",");
-                                double latitude = Double.valueOf(parts[0].substring(5));
-                                double longitude = Double.valueOf(parts[1].substring(5, parts[1].length() - 1));
+                                double longitude = Double.valueOf(parts[0].substring(5));
+                                double latitude = Double.valueOf(parts[1].substring(5, parts[1].length() - 1));
+                                Log.d("Contentful Stations", Double.toString(latitude));
                                 stationModel.setLatitude(latitude);
                                 stationModel.setLongitude(longitude);
 

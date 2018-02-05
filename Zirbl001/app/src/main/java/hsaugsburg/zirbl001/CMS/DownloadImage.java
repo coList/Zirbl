@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
