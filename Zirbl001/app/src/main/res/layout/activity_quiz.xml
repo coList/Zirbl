@@ -105,14 +105,14 @@
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
-                            android:text="hsnh hsnj jahj hsnh hsnj jahj hsnh hsnj jahj hdnj"
+                            android:text="jndh jsnh nz gdtz ikmhdb gatrewbb fdg shhhjjjndh jsnh nz gdtz ikmhdb gatrewbb fdg shhhjj"
                             android:textAlignment="textStart" />
 
                     </LinearLayout>
@@ -145,14 +145,13 @@
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
-                            android:text="hsnh hsnj jahj hsnh hsnj jahj hsnh hsnj jahj hdnjhsnh hsnj jahj hsnh hsnj jahj hsnh hsnj jahj hdnj"
                             android:textAlignment="textStart" />
 
                     </LinearLayout>
@@ -185,14 +184,13 @@
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
-                            android:text="hsnh hsnj jahj hsnh hsnj jahj hsnh hsnj jahj hdnj"
                             android:textAlignment="textStart" />
 
                     </LinearLayout>
@@ -225,14 +223,13 @@
 
                         <hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryButton
                             android:id="@+id/answer4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:background="@android:color/transparent"
-                            android:text="hsnh hsnj jahj hsnh hsnj jahj hsnh hsnj jahj hdnj"
                             android:textAlignment="textStart" />
 
                     </LinearLayout>
@@ -249,7 +246,7 @@
                 <LinearLayout
                     android:id="@+id/continueArea"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="16dp"
                     android:gravity="bottom"
