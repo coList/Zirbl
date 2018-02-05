@@ -56,28 +56,20 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
-            Log.d("Splash2", userName);
             postDataParams.put("devicetoken", deviceToken);
-            Log.d("Splash2", deviceToken);
             postDataParams.put("tourid", tourID);
-            Log.d("Splash2", tourID);
-            Log.d("Splash2 class", Integer.toString(classID));
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //don't set without class
             } 
             postDataParams.put("groupname", teamname);
-            Log.d("Splash2", teamname);
             postDataParams.put("score", score);
-            Log.d("Splash2", Integer.toString(score));
             postDataParams.put("duration", duration);
-            Log.d("Splash", Integer.toString(duration));
 
             JSONObject JSONParticipants= new JSONObject();
             for (int i = 0; i < participants.size(); i++) {
                 JSONParticipants.put("participant" + i, participants.get(i));
             }
             postDataParams.put("participants", JSONParticipants);
-            Log.d("Splash", JSONParticipants.toString());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);

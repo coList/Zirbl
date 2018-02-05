@@ -112,7 +112,7 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public void setIntentExtras(){
         Intent intent = getIntent();
-        tourID = intent.getStringExtra("contentfulTourID");
+        tourID = intent.getStringExtra("tourContentfulID");
         tourName = intent.getStringExtra("tourName");
     }
 
@@ -132,6 +132,12 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
                 NoConnectionDialog noConnectionDialog = new NoConnectionDialog(this);
                 noConnectionDialog.showDialog(this);
             } else {
+                Log.d("Class", userName);
+                Log.d("Class", deviceToken);
+                Log.d("Class", tourID);
+                Log.d("Class", school);
+                Log.d("Class", qrString);
+                Log.d("Class", serverName);
                 new InsertIntoClass(userName, deviceToken, tourID, className, school, qrString, serverName, this).execute();
             }
         } else {
@@ -160,7 +166,6 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public void setQrCode(String result) {
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
-        intent.putExtra("tourID", tourID);
         intent.putExtra("tourName", tourName);
         intent.putExtra("className", className);
         intent.putExtra("school", school);
