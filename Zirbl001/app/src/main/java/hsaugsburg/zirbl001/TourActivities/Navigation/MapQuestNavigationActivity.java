@@ -41,8 +41,6 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -60,7 +58,6 @@ import com.mapquest.mapping.maps.OnMapReadyCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.io.IOException;
@@ -71,6 +68,7 @@ import hsaugsburg.zirbl001.CMS.LoadTasks.LoadNuts;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadStation;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
+import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadNutLocation;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.Models.TourModels.DoUKnowModel;
@@ -118,7 +116,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     private MapboxMap mMapboxMap;
     private MapView mMapView;
     private final GeoPoint ENDPOINT = new GeoPoint(48.36117, 10.90954);
-    private String TAG = "main";
+    private String TAG = "mapquestnavigationactivity";
     private GoogleApiClient googleApiClient = null;
     private LocationRequest locationRequest;
     private FusedLocationProviderApi locationProviderApi = LocationServices.FusedLocationApi;
@@ -150,6 +148,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         cheatButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         cheatButton.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         cheatButton.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/OpenSans-Bold.ttf"));
+
+        Log.d(TAG, "onCreate: " + "print works");
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -208,7 +208,6 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         startGeofenceMonitoring();
 
 
-        Log.d("Contentful TEst", Integer.toString(chronologyNumber));
         loadTourChronology = new LoadTourChronology(this, this, selectedTour, chronologyNumber);
         loadTourChronology.loadData();
 
@@ -240,11 +239,10 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 mMapboxMap.setMyLocationEnabled(true);
                 Double userLat = mapboxMap.getMyLocation().getLatitude();
                 Double userLng = mapboxMap.getMyLocation().getLongitude();
-
                 LatLng userLocation = new LatLng(userLat, userLng);
-
-                //mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
-
+/*
+                mMapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getMiddlePointUserTarget(), zoomFactor()));
+*/
                 ArrayList<LatLng> latLngToShow = new ArrayList<>();
                 latLngToShow.add(userLocation);
                 LatLng targetLocation = new LatLng(latTarget, lngTarget);
@@ -260,6 +258,13 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 mMapboxMap.getMyLocationViewSettings().setForegroundDrawable(getResources().getDrawable(R.drawable._map_zirbl),getResources().getDrawable(R.drawable._map_zirbl));
                 mMapboxMap.getMyLocationViewSettings().setBackgroundTintColor(getResources().getColor(R.color.colorTransparent100));
                 mMapboxMap.getMyLocationViewSettings().setAccuracyAlpha(0);
+
+                //setPoyline(mMapboxMap);
+                ArrayList<GeoPoint> waypoints = new ArrayList<GeoPoint>();
+                waypoints.add(new GeoPoint(userLat, userLng));
+                waypoints.add(new GeoPoint(latTarget, lngTarget));
+
+                //new JSONUpdateRoad(MapQuestNavigationActivity.this).execute(waypoints);
 
                 polyline = mMapboxMap.addPolyline(new PolylineOptions()
                         .addAll(shapePoints)
@@ -297,9 +302,29 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
             e.printStackTrace();
         }
 
+
         Log.d("MapQuestNavigationshape", shapePoints.toString());
         //drawPolyline(shapePoints);
 
+
+    }
+
+    public void getAllLatLngPoints(List<LatLng> points)  {
+
+//drawPolyline(points);
+    }
+
+    private void drawPolyline(List<LatLng> coordinates) {
+
+        if (polyline != null) {
+            mMapboxMap.removePolyline(polyline);
+        }
+
+// Draw Points on MapView
+        polyline = mMapboxMap.addPolyline(new PolylineOptions()
+                .addAll(coordinates)
+                .color(getResources().getColor(R.color.colorTurquoise))
+                .width(5));
 
     }
 
@@ -390,8 +415,6 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         Double userLat = mMapboxMap.getMyLocation().getLatitude();
         Double userLng = mMapboxMap.getMyLocation().getLongitude();
 
-        Log.d("ContentfulNuts", Integer.toString(listIsNutCollected.size()));
-
         for (int h = 0; h < nuts.size(); h++) {
             Double latNut = nuts.get(h).getLatitude();
             Double lngNut = nuts.get(h).getLongitude();
@@ -427,7 +450,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
-            } else if ( !listIsNutCollected.get(h)) {
+            } else if (distance(userLat, userLng, latNut, lngNut) <= 5 && !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker : nutMarker) {
                     if (marker.getPosition().getLatitude() == latNut && marker.getPosition().getLongitude() == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf visible
@@ -449,7 +472,6 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 }
             }
         }
-
     }
 
     public int zoomFactor(){
@@ -474,10 +496,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         // C = 40.074.000 m, y = 10.897790 im falle augsburg,
         Double earthCircumferenceLength = 39351305.71; // C*cos(y)
 
-
-    Double distPerPx = displayWidth / distanceUserTarget; // S
+        Double distPerPx = displayWidth / distanceUserTarget; // S
         Log.d(TAG, "zoomFactor: displayWidth " + displayWidth);
-
         Log.d(TAG, "zoomFactor: distanceusrtarget " + distanceUserTarget);
         Integer partsOfDistOnEarth = (int)(earthCircumferenceLength / distPerPx); // C*cos(y) / S
 
@@ -573,17 +593,14 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         waypoints.add(new GeoPoint(latMyPos, lngMyPos));
         waypoints.add(new GeoPoint(latTarget,lngTarget));
 
-        Log.d("ContentfulNuts", "onLocationChanged");
-
         try {
             List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
             String strMyPosMarker = adressList.get(0).getAddressLine(0);
-
+            Log.d(TAG, "onLocationChanged: " + "nutsset");
 
             // bisherige position
             setRoute();
             setNuts();
-            Log.d("ContentfulNuts", "setnuts");
 
             String origin = "" + latLngMyPos.getLatitude() + "," + latLngMyPos.getLongitude();
             String destination = "" + latTarget + "," + lngTarget;
@@ -592,7 +609,6 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
 
             //check for infopopup
-            /*
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 if (!listDoUKnowRead.get(i)) {
                     if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
@@ -617,7 +633,6 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                     }
                 }
             }
-            */
 
             if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), latTarget, lngTarget) <= 0.01) {
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -641,7 +656,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
     private void requestLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
+// TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -650,7 +665,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        // check if network provider is enabled
+// check if network provider is enabled
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
