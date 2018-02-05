@@ -2,6 +2,7 @@ package hsaugsburg.zirbl001.Datamanagement.UploadTasks;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +26,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private String serverName;
     private String userName;
     private String deviceToken;
-    private int tourID;
+    private String tourID;
     private int classID;
     private String teamname;
     private int score;
@@ -33,7 +34,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
     private ArrayList<String> participants;
     private ResultActivity resultActivity;
 
-    public InsertIntoParticipates(ResultActivity resultActivity, String userName, String deviceToken, int tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
+    public InsertIntoParticipates(ResultActivity resultActivity, String userName, String deviceToken, String tourID, int classID, String teamname, int score, int duration, ArrayList<String> participants, String serverName) {
         this.resultActivity = resultActivity;
         this.userName = userName;
         this.deviceToken = deviceToken;
@@ -55,20 +56,28 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("username", userName);
+            Log.d("Splash2", userName);
             postDataParams.put("devicetoken", deviceToken);
+            Log.d("Splash2", deviceToken);
             postDataParams.put("tourid", tourID);
+            Log.d("Splash2", tourID);
+            Log.d("Splash2 class", Integer.toString(classID));
             if (classID > 0) {
                 postDataParams.put("classid", classID);  //don't set without class
             } 
             postDataParams.put("groupname", teamname);
+            Log.d("Splash2", teamname);
             postDataParams.put("score", score);
+            Log.d("Splash2", Integer.toString(score));
             postDataParams.put("duration", duration);
+            Log.d("Splash", Integer.toString(duration));
 
             JSONObject JSONParticipants= new JSONObject();
             for (int i = 0; i < participants.size(); i++) {
                 JSONParticipants.put("participant" + i, participants.get(i));
             }
             postDataParams.put("participants", JSONParticipants);
+            Log.d("Splash", JSONParticipants.toString());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
@@ -114,6 +123,7 @@ public class InsertIntoParticipates extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        Log.d("Splash3", result);
         try {
             JSONObject json = new JSONObject(result);
             resultActivity.setRanking(json);
