@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import hsaugsburg.zirbl001.CMS.LoadTasks.LoadNuts;
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
 import hsaugsburg.zirbl001.Datamanagement.LoadTasks.LoadLocationDoUKnow;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
@@ -94,26 +96,30 @@ public class TourstartActivity extends AppCompatActivity implements TourActivity
         topDarkActionbar = new TopDarkActionbar(this, titleText);
 
 
-        /*
-        ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
+
+        //ArrayList<DoUKnowModel> doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
         try {
             ArrayList<Boolean> listIsNutCollected = new ArrayList<>();
-            ArrayList<Boolean> listDoUKnowRead = new ArrayList<>();
+            //ArrayList<Boolean> listDoUKnowRead = new ArrayList<>();
 
-            for (int i = 0; i < 4; i++) {
+            int totalAmountOfNuts = new LoadNuts(selectedTour).loadData().size();
+
+            for (int i = 0; i < totalAmountOfNuts; i++) {
                 listIsNutCollected.add(false);
             }
 
 
+            /*
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 listDoUKnowRead.add(false);
             }
+            */
             editor.putString("listIsNutCollected", ObjectSerializer.serialize(listIsNutCollected));
-            editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
+            //editor.putString("listDoUKnowRead", ObjectSerializer.serialize(listDoUKnowRead));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
 
         editor.commit();
     }

@@ -223,8 +223,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         progressBar.setProgress(chronologyNumber + 1);
 
         setDataView();
-        //nuts = new LoadNuts(selectedTour).loadData();
-        nuts = new ArrayList<>();
+        nuts = new LoadNuts(selectedTour).loadData();
         //doUKnowModels = new LoadLocationDoUKnow(this, selectedTour).readFile();
         doUKnowModels = new ArrayList<>();
 
@@ -371,9 +370,11 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
     }
 
     public void setNuts() {
-  /*
+
         Double userLat = mMapboxMap.getMyLocation().getLatitude();
         Double userLng = mMapboxMap.getMyLocation().getLongitude();
+
+        Log.d("ContentfulNuts", Integer.toString(listIsNutCollected.size()));
 
         for (int h = 0; h < nuts.size(); h++) {
             Double latNut = nuts.get(h).getLatitude();
@@ -410,7 +411,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 intent.putExtra("totalAmountOfNuts", Integer.toString(nuts.size()));
                 startActivity(intent);
 
-            } else if (distance(userLat, userLng, latNut, lngNut) <= 0.1 && !listIsNutCollected.get(h)) {
+            } else if ( !listIsNutCollected.get(h)) {
                 boolean alreadyExists = false;
                 for (Marker marker : nutMarker) {
                     if (marker.getPosition().getLatitude() == latNut && marker.getPosition().getLongitude() == lngNut) {  //setzte die Nuss, auf die wir eben geprüft haben, auf visible
@@ -432,7 +433,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                 }
             }
         }
-        */
+
     }
 
     public int zoomFactor(){
@@ -554,6 +555,8 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
         waypoints.add(new GeoPoint(latMyPos, lngMyPos));
         waypoints.add(new GeoPoint(latTarget,lngTarget));
 
+        Log.d("ContentfulNuts", "onLocationChanged");
+
         try {
             List<Address> adressList = geocoder.getFromLocation(latMyPos, lngMyPos, 1);
             String strMyPosMarker = adressList.get(0).getAddressLine(0);
@@ -562,6 +565,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
             // bisherige position
             setRoute();
             setNuts();
+            Log.d("ContentfulNuts", "setnuts");
 
             String origin = "" + latLngMyPos.getLatitude() + "," + latLngMyPos.getLongitude();
             String destination = "" + latTarget + "," + lngTarget;
@@ -570,6 +574,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
 
 
             //check for infopopup
+            /*
             for (int i = 0; i < doUKnowModels.size(); i++) {
                 if (!listDoUKnowRead.get(i)) {
                     if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), doUKnowModels.get(i).getLatitude(), doUKnowModels.get(i).getLongitude()) <= 0.02) {
@@ -594,6 +599,7 @@ public class MapQuestNavigationActivity extends AppCompatActivity implements Tou
                     }
                 }
             }
+            */
 
             if (distance(latLngMyPos.getLatitude(), latLngMyPos.getLongitude(), latTarget, lngTarget) <= 0.01) {
                 Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

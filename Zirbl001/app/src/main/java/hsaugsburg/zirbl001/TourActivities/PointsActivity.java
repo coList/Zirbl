@@ -113,13 +113,23 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         boolean hasAnswerPicture = !answerPicture.equals("null") && !answerPicture.isEmpty() && !answerPicture.equals("");
         if (hasAnswerPicture) {
+            Log.d("ContentfulAnswerPic", "hasPic");
             File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
             String[] parts = answerPicture.split("\\.");
-            String imgPath = selectedTour + "taskId" + taskID + "answerpicture" + "." + parts[parts.length - 1];
+
+            String imgPath = selectedTour + "taskId" + taskID + "answerPicture" + "." + parts[parts.length - 1];
             File imgFile = new File(zirblImages , imgPath);
-            String decodedImgUri = Uri.fromFile(imgFile).toString();
-            answerImage.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            if (imgFile.exists()) {
+                String decodedImgUri = Uri.fromFile(imgFile).toString();
+                answerImage.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            } else {
+                String imgPathPictureCountdown =  selectedTour + "taskId" + taskID + "picture" + "." + parts[parts.length - 1];
+                File imgFilePictureCountdown = new File(zirblImages , imgPathPictureCountdown);
+                String decodedImgUri = Uri.fromFile(imgFilePictureCountdown).toString();
+                answerImage.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(decodedImgUri, answerImage);
+            }
         }
 
         //Wenn SliderActivity, dann...

@@ -60,8 +60,9 @@ public class DownloadNuts {
 
                             String location = entry.getField("location").toString();
                             String parts[] = location.split(",");
-                            double latitude = Double.valueOf(parts[0].substring(5));
-                            double longitude = Double.valueOf(parts[1].substring(5, parts[1].length() - 1));
+                            double longitude = Double.valueOf(parts[0].substring(5));
+                            double latitude = Double.valueOf(parts[1].substring(5, parts[1].length() - 1));
+                            Log.d("ContentfulNuts", Double.toString(latitude));
                             nutModel.setLatitude(latitude);
                             nutModel.setLongitude(longitude);
 
