@@ -148,7 +148,9 @@ public class PictureCountdownActivity extends AppCompatActivity {
         ArrayList<String> answers = new ArrayList<>();
 
 
-        answerPicture = result.getPicturePath();
+        if (!result.getAnswerPicture().equals("null") && !result.getAnswerPicture().isEmpty()) {
+            answerPicture = result.getAnswerPicture();
+        }
         ImageView questionPicture = (ImageView) findViewById(R.id.imgPixel);
         File zirblImages = getDir("zirblImages", Context.MODE_PRIVATE);
         String[] parts = result.getPicturePath().split("\\.");
