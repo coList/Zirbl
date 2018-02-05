@@ -134,7 +134,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userInput >= rightAnswer - (toleranceRange/100.0) * range && userInput <= rightAnswer + (toleranceRange/100.0) * range) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightzirbl)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -143,7 +143,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrongzirbl)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
@@ -153,7 +153,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightzirbl)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -162,7 +162,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrongzirbl)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
