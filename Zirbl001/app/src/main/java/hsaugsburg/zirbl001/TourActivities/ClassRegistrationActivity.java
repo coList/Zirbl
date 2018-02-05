@@ -43,7 +43,7 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
     private Context mContext = ClassRegistrationActivity.this;
     public static final String GLOBAL_VALUES = "globalValuesFile";
 
-    private int tourID;
+    private String tourID;
     private String tourName;
     private String className;
     private String school;
@@ -112,7 +112,7 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public void setIntentExtras(){
         Intent intent = getIntent();
-        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        tourID = intent.getStringExtra("contentfulTourID");
         tourName = intent.getStringExtra("tourName");
     }
 
@@ -160,7 +160,7 @@ public class ClassRegistrationActivity extends AppCompatActivity implements Inte
 
     public void setQrCode(String result) {
         Intent intent = new Intent(mContext, GenerateQrCodeActivity.class);
-        intent.putExtra("tourID", Integer.toString(tourID));
+        intent.putExtra("tourID", tourID);
         intent.putExtra("tourName", tourName);
         intent.putExtra("className", className);
         intent.putExtra("school", school);
