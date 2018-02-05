@@ -27,7 +27,7 @@ import java.io.File;
 import java.util.Locale;
 
 import hsaugsburg.zirbl001.CMS.LoadTasks.LoadTourChronology;
-import hsaugsburg.zirbl001.Fonts.QuicksandBoldPrimaryView;
+import hsaugsburg.zirbl001.Fonts.OpenSansBoldPoints;
 import hsaugsburg.zirbl001.Interfaces.TourActivity;
 import hsaugsburg.zirbl001.Models.TourModels.ChronologyModel;
 import hsaugsburg.zirbl001.R;
@@ -51,7 +51,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
     private ChronologyModel nextChronologyItem = new ChronologyModel();
     private LoadTourChronology loadTourChronology;
     private TopDarkActionbar topDarkActionbar;
-    private QuicksandBoldPrimaryView totalPoints;
+    private OpenSansBoldPoints totalPoints;
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -99,7 +99,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
 
         TextView answerText = (TextView)findViewById(R.id.answerText);
         ImageView answerImage = (ImageView) findViewById(R.id.answerImage);
-        totalPoints = (QuicksandBoldPrimaryView) findViewById(R.id.totalPoints);
+        totalPoints = (OpenSansBoldPoints) findViewById(R.id.totalPoints);
 
         final VideoView answerVideo = (VideoView) findViewById(R.id.pointsVideo);
         //answerVideo.setZOrderOnTop(true);
@@ -142,7 +142,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userInput >= rightAnswer - (toleranceRange/100.0) * range && userInput <= rightAnswer + (toleranceRange/100.0) * range) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.right)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -151,7 +151,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrong)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
@@ -161,7 +161,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             if (userAnswer.toUpperCase().equals(solution.toUpperCase())) {
                 answerText.setText(fromHtml(answerCorrect));
                 titleText = correct;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.right)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.rightanswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
                 timerHandler.postDelayed(timerRunnable, 1200);
@@ -170,7 +170,7 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
             } else {
                 answerText.setText(fromHtml(answerWrong));
                 titleText = wrong;
-                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wrong)); //Videoquelle autauschen
+                answerVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.wronganswer)); //Videoquelle austauschen
                 answerVideo.start();
                 totalPoints.setText(String.format(Locale.GERMANY, "%d", scoreBefore));
             }
@@ -181,9 +181,10 @@ public class PointsActivity extends AppCompatActivity implements TourActivity{
         RelativeLayout pointsArea = (RelativeLayout) findViewById(R.id.pointsArea);
         LinearLayout continueArea = (LinearLayout) findViewById(R.id.continueArea);
 
-        RelativeLayout.LayoutParams paramsContinue = (RelativeLayout.LayoutParams) continueArea.getLayoutParams();
-        RelativeLayout.LayoutParams paramsPoints = (RelativeLayout.LayoutParams) pointsArea.getLayoutParams();
-        RelativeLayout.LayoutParams paramsText = (RelativeLayout.LayoutParams) answerText.getLayoutParams();
+        LinearLayout.LayoutParams paramsContinue = (LinearLayout.LayoutParams) continueArea.getLayoutParams();
+        LinearLayout.LayoutParams paramsPoints = (LinearLayout.LayoutParams) pointsArea.getLayoutParams();
+        LinearLayout.LayoutParams paramsText = (LinearLayout.LayoutParams) answerText.getLayoutParams();
+        LinearLayout.LayoutParams paramsImage = (LinearLayout.LayoutParams) answerImage.getLayoutParams();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
