@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -68,8 +67,6 @@ import hsaugsburg.zirbl001.TourActivities.EndTourDialog;
 import hsaugsburg.zirbl001.TourActivities.GoldenActivity;
 import hsaugsburg.zirbl001.Utils.ObjectSerializer;
 import hsaugsburg.zirbl001.Utils.TopDarkActionbar;
-
-import static java.security.AccessController.getContext;
 
 public class NavigationActivity extends AppCompatActivity implements TourActivity, OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private Context mContext = NavigationActivity.this;
@@ -370,7 +367,7 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             int nutID = nuts.get(h).getNutID();
             LatLng latLngNut = new LatLng(latNut, lngNut);
 
-            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 0.02 && !(listIsNutCollected.get(h))) {
+            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latNut, lngNut) <= 5.02 && !(listIsNutCollected.get(h))) {
                 nutsCollected++;
                 for (int i = 0; i < nutMarker.size(); i++) {
                     if (nutMarker.get(i).getPosition().latitude == latNut && nutMarker.get(i).getPosition().longitude == lngNut) {
@@ -479,14 +476,16 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
             } else {
                 myPosition.setPosition(latLngMyPos);
             }
-
+            // bisherige position
             setRoute();
             setNuts();
+
             String origin = "" + latLngMyPos.latitude + "," + latLngMyPos.longitude;
             String destination = "" + latTarget + "," + lngTarget;
 
             String url = createURL(origin, destination);
             new JSONDirectionsAPI(this).execute(url);
+
 
             //check for infopopup
             for (int i = 0; i < doUKnowModels.size(); i++) {
@@ -514,11 +513,11 @@ public class NavigationActivity extends AppCompatActivity implements TourActivit
                 }
             }
 
-            if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.01) {
-                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                vibe.vibrate(100);
-                loadTourChronology.continueToNextView();
-            }
+        if (distance(latLngMyPos.latitude, latLngMyPos.longitude, latLngMyTarget.latitude, latLngMyTarget.longitude) <= 0.01) {
+            Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
+            loadTourChronology.continueToNextView();
+        }
 
         } catch (IOException e) {
             e.printStackTrace();
