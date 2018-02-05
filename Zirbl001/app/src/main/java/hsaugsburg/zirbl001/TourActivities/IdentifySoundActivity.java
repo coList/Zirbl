@@ -164,9 +164,9 @@ public class IdentifySoundActivity extends AppCompatActivity {
 
         player = new MediaPlayer();
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        Log.d("IdentifySoundActivity", serverName + audioUrl);
+        Log.d("IdentifySoundActivity",  audioUrl);
         try {
-            player.setDataSource(serverName + audioUrl);
+            player.setDataSource(audioUrl);
             player.prepare();
             soundBar.setProgress(0);
             soundBar.setMax(player.getDuration());
