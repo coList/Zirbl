@@ -33,19 +33,11 @@ public class SplashScreen extends AppCompatActivity implements InternetActivity 
 
         SharedPreferences settings = getSharedPreferences(GLOBAL_VALUES, 0);
 
-        SharedPreferences.Editor editor1 = settings.edit();
-        editor1.putBoolean("firstTime", true);
-        editor1.commit();
 
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("serverName", serverName);
-        Log.d("Splash", "test");
-
-
-        Log.d("Splash", Boolean.toString(settings.getBoolean("firstTime", true)));
 
         if (settings.getBoolean("firstTime", true)) {
-            Log.d("Splash", "if");
             //the app is being launched for first time, do something
             final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
             userName = createRandomString(50);
