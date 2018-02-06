@@ -21,10 +21,10 @@ import javax.net.ssl.HttpsURLConnection;
 public class InsertIntoFavors extends AsyncTask<String, Void, String> {
     private String userName;
     private String deviceToken;
-    private int tourID;
+    private String tourID;
     private String serverName;
 
-    public InsertIntoFavors(String userName, String deviceToken, int tourID, String serverName) {
+    public InsertIntoFavors(String userName, String deviceToken, String tourID, String serverName) {
         this.userName = userName;
         this.deviceToken = deviceToken;
         this.tourID = tourID;
