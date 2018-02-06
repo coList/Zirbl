@@ -126,7 +126,7 @@ public class FavoriteActivity extends AppCompatActivity implements Callback, Int
                     JSONModel selectedTour = (JSONModel) adapter.getItem(position);
 
                     Intent intent1 = new Intent(mContext, TourDetailActivity.class);
-                    intent1.putExtra("tourID", Integer.toString(((TourFavorModel) selectedTour).getTourID()));
+                    intent1.putExtra("contentfulID", ((TourFavorModel) selectedTour).getTourContentfulID());
                     intent1.putExtra("tourName", ((TourFavorModel) selectedTour).getTourName());
                     startActivity(intent1);
                 }

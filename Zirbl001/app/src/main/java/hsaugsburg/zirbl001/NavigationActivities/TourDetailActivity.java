@@ -282,7 +282,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
 
     public void setIntentExtras() {
         Intent intent = getIntent();
-        tourID = Integer.parseInt(intent.getStringExtra("tourID"));
+        //tourID = Integer.parseInt(intent.getStringExtra("tourID"));
         contentfulID = intent.getStringExtra("contentfulID");
         tourName = intent.getStringExtra("tourName");
     }
@@ -492,7 +492,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
             case R.id.action_favorite:
 
                 //Funktion, die aufgerufen werden muss, um die Tour als Favorit abzuspeichern
-                new InsertIntoFavors(userName, deviceToken, tourID, serverName).execute();
+                new InsertIntoFavors(userName, deviceToken, contentfulID, serverName).execute();
                 if (isFilled) {
                     isFilled = false;
                     favIconMenu.setIcon(R.drawable.ic_bottom_star);

@@ -8,6 +8,7 @@ import hsaugsburg.zirbl001.Interfaces.JSONModel;
 public class TourFavorModel implements JSONModel {
     private int userID;
     private int tourID;
+    private String tourContentfulID;
     private String tourName;
     private int duration;
     private int distance;
@@ -29,6 +30,14 @@ public class TourFavorModel implements JSONModel {
 
     public void setTourID(int tourID) {
         this.tourID = tourID;
+    }
+
+    public String getTourContentfulID() {
+        return tourContentfulID;
+    }
+
+    public void setTourContentfulID(String tourContentfulID) {
+        this.tourContentfulID = tourContentfulID;
     }
 
     public String getTourName() {
