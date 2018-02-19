@@ -1,6 +1,7 @@
 package hsaugsburg.zirbl001.Datamanagement.DownloadTasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +17,13 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
     private TourDetailActivity tourDetailActivity;
     private String username;
     private String deviceToken;
-    private int tourID;
+    private String tourContentfulID;
 
-    public DownloadIsTourFavorised (TourDetailActivity tourDetailActivity, String username, String deviceToken, int tourID) {
+    public DownloadIsTourFavorised (TourDetailActivity tourDetailActivity, String username, String deviceToken, String tourContentfulID) {
         this.tourDetailActivity = tourDetailActivity;
         this.username = username;
         this.deviceToken = deviceToken;
-        this.tourID = tourID;
+        this.tourContentfulID = tourContentfulID;
     }
 
     protected Boolean doInBackground(String... params) {
@@ -31,7 +32,7 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
 
         try {
             URL url;
-            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken + "&tourid=" + tourID);
+            url = new URL(params[0] + "?username=" + username + "&devicetoken=" + deviceToken + "&tourid=" + tourContentfulID);
             connection = (HttpURLConnection) url.openConnection();
 
             connection.connect();
@@ -73,6 +74,7 @@ public class DownloadIsTourFavorised extends AsyncTask<String, String, Boolean> 
 
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
+        Log.d("TourFavorised", Boolean.toString(result));
         if (result != null) {
             tourDetailActivity.setIsFavorised(result);
         } else {
