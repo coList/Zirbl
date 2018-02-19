@@ -87,7 +87,7 @@ public class JSONTourFavor extends AsyncTask<String, String, List<JSONModel>> {
 
                                     CDAAsset mainPictureAsset = (CDAAsset) result.getField("mainPicture");
 
-                                    tourFavorModel.setMainpicture("https:" + mainPictureAsset.url());
+                                    tourFavorModel.setMainPicture("https:" + mainPictureAsset.url());
 
 
                                     tourFavorModel.setDifficultyName(difficultyEntry.getField("difficultyname").toString());

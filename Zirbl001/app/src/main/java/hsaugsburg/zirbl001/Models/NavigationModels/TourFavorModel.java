@@ -13,7 +13,7 @@ public class TourFavorModel implements JSONModel {
     private int duration;
     private int distance;
     private String difficultyName;
-    private String mainpicture;
+    private String mainPicture;
     private Bitmap mainPictureBitmap;
 
     public int getUserID() {
@@ -72,12 +72,12 @@ public class TourFavorModel implements JSONModel {
         this.distance = distance;
     }
 
-    public String getMainpicture() {
-        return mainpicture;
+    public String getMainPicture() {
+        return mainPicture;
     }
 
-    public void setMainpicture(String mainpicture) {
-        this.mainpicture = mainpicture;
+    public void setMainPicture(String mainpicture) {
+        this.mainPicture = mainpicture;
     }
 
     public Bitmap getMainPictureBitmap() {

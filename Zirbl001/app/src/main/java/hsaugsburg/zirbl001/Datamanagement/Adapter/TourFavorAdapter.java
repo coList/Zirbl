@@ -74,8 +74,9 @@ public class TourFavorAdapter extends BaseAdapter {
         distance.setText(dist + " km");
         difficultyName.setText(tourSelection.getDifficultyName());
 
-        ImageView mainPicture = (ImageView)rowView.findViewById(R.id.imageView);
-        ImageLoader.getInstance().displayImage(serverName + tourSelection.getMainpicture(), mainPicture);
+
+        ImageView mainPicture = (ImageView) rowView.findViewById(R.id.imageView);
+        ImageLoader.getInstance().displayImage(tourSelection.getMainPicture(), mainPicture);
         return rowView;
     }
 }
