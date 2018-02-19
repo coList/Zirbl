@@ -462,7 +462,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollview);
         scrollView.setVisibility(View.VISIBLE);
         new JSONTourDetail(this, tourID).execute(serverName + "/api2/selectTourDetailsView.php");
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, contentfulID).execute(serverName + "/api2/selectRFavors.php");
     }
 
     public static Spanned fromHtml(String html) {
@@ -481,7 +481,7 @@ public class TourDetailActivity extends AppCompatActivity implements DownloadAct
         inflater.inflate(R.menu.actionbar_favorite_icon_menu, menu);
         favIconMenu = menu.findItem(R.id.action_favorite);
 
-        new DownloadIsTourFavorised(this, userName, deviceToken, tourID).execute(serverName + "/api2/selectRFavors.php");
+        new DownloadIsTourFavorised(this, userName, deviceToken, contentfulID).execute(serverName + "/api2/selectRFavors.php");
         return true;
     }
 
